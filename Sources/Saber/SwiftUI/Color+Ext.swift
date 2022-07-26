@@ -1,9 +1,7 @@
-
-
 #if canImport(SwiftUI)
 import SwiftUI
 
-@available(macOS 10.15, *)
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 public extension Color {
     /// 0-255颜色值
     /// - Parameters:
@@ -56,5 +54,4 @@ public extension Color {
         self.init(r: Double(r), g: Double(g), b: Double(b), a: opacity)
     }
 }
-
 #endif
