@@ -1,6 +1,16 @@
+#if canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(AppKit)
+import AppKit
+#endif
+
 #if canImport(SwiftUI)
 import SwiftUI
+#endif
 
+#if canImport(SwiftUI)
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 public extension Color {
     /// 0-255颜色值
