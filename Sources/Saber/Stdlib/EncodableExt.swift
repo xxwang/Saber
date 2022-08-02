@@ -2,15 +2,14 @@ import Foundation
 
 // MARK: - Encodable
 public extension Encodable {
-    
-        /// 编码(遵守Encodable的对象)
-        /// - Parameter encoder: 编码器
-        /// - Returns: Data
+    /// 编码(遵守Encodable的对象)
+    /// - Parameter encoder: 编码器
+    /// - Returns: Data
     func encode(encoder: JSONEncoder = .init()) -> Data? {
         let result = try? encoder.encode(self)
         return result
     }
-    
+
     /// 转Data?
     /// - Returns: Data?
     func data() -> Data? {

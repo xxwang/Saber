@@ -6,12 +6,12 @@ public extension Int {
     var since: Date {
         return Date(timeIntervalSince1970: TimeInterval(double / 1000))
     }
-    
+
     /// 根据时间戳(秒)获得日期
     var unixSince: Date {
         return Date(timeIntervalSince1970: TimeInterval(self))
     }
-    
+
     /// `byte(字节)`转换存储单位
     /// - Returns: 转换后的文件大小
     var storeUnit: String {
@@ -41,32 +41,32 @@ public extension Int {
         }
         // 时间差
         let reduceTime: TimeInterval = currentTimeStamp - serverTimeStamp
-        
+
         if reduceTime < 60 {
             return "刚刚"
         }
-        
+
         let mins = Int(reduceTime / 60)
         if mins < 60 {
             return "\(mins)分钟前"
         }
-        
+
         let hours = Int(reduceTime / 3600)
         if hours < 24 {
             return "\(hours)小时前"
         }
-        
+
         let days = Int(reduceTime / 3600 / 24)
         if days < 30 {
             return "\(days)天前"
         }
-        
+
         let date = Date(timeIntervalSince1970: serverTimeStamp)
         let dfmatter = DateFormatter()
         dfmatter.dateFormat = "yyyy年MM月dd日 HH:mm:ss"
         return dfmatter.string(from: date)
     }
-    
+
     /// 时间戳转日期字符串
     /// - Parameters:
     ///   - dateFormat: 日期格式化样式
@@ -79,10 +79,10 @@ public extension Int {
             serverTimeStamp /= 1000.0
         }
         let date = Date(timeIntervalSince1970: serverTimeStamp)
-        
+
         let dfmatter = DateFormatter()
         dfmatter.dateFormat = dateFormat
-        
+
         return dfmatter.string(from: date)
     }
 }

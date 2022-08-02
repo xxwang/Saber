@@ -12,25 +12,25 @@ public extension Saber {
 
     /// 系统类型
     static var os: Saber.OS {
-#if os(macOS)
-        return .macOS
-#elseif os(iOS)
-        return .iOS
-#elseif os(tvOS)
-        return .tvOS
-#elseif os(watchOS)
-        return .watchOS
-#elseif os(Linux)
-        return .Linux
-#endif
+        #if os(macOS)
+            return .macOS
+        #elseif os(iOS)
+            return .iOS
+        #elseif os(tvOS)
+            return .tvOS
+        #elseif os(watchOS)
+            return .watchOS
+        #elseif os(Linux)
+            return .Linux
+        #endif
     }
 
     /// 是否是模拟器
     static var isSimulator: Bool {
-#if targetEnvironment(simulator)
-        return true
-#else
-        return false
-#endif
+        #if targetEnvironment(simulator)
+            return true
+        #else
+            return false
+        #endif
     }
 }

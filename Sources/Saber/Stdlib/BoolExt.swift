@@ -1,13 +1,13 @@
 import Foundation
 
-    // MARK: - 属性
+// MARK: - 属性
 public extension Bool {
-        /// Int
+    /// Int
     var int: Int {
         return self ? 1 : 0
     }
-    
-        /// String
+
+    /// String
     var string: String {
         return self ? "true" : "false"
     }

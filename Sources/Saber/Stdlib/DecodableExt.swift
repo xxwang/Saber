@@ -24,7 +24,7 @@ public extension Decodable {
         guard let data = string?.data else {
             return nil
         }
-        return self.model(data)
+        return model(data)
     }
 
     /// JSON Data?转模型
@@ -34,7 +34,7 @@ public extension Decodable {
         guard let data = data else {
             return nil
         }
-        return self.decode(from: data)
+        return decode(from: data)
     }
 
     /// [String: Any]? 转模型
@@ -44,7 +44,7 @@ public extension Decodable {
         guard let data = dict?.data() else {
             return nil
         }
-        return self.decode(from: data)
+        return decode(from: data)
     }
 
     /// [Any]? 转模型
