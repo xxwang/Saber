@@ -2047,7 +2047,7 @@ public extension ExpressibleByStringLiteral {
         let binary = self as! String
         var sum = 0
         for c in binary {
-            let number = "\(c)".int ?? 0
+            let number = "\(c)".int
             sum = sum * 2 + number
         }
         return "\(sum)"
@@ -2078,7 +2078,7 @@ public extension ExpressibleByStringLiteral {
         let binary = self as! String
         var sum = 0
         for c in binary {
-            let number = "\(c)".int ?? 0
+            let number = "\(c)".int
             sum = sum * 8 + number
         }
         return "\(sum)"
@@ -2113,7 +2113,7 @@ public extension ExpressibleByStringLiteral {
 
     /// 十进制转十六进制
     var decimalAsHexadecimal: String {
-        let decimal = (self as! String).int ?? 0
+        let decimal = (self as! String).int
         return String(format: "%0X", decimal)
     }
 

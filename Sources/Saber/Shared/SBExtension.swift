@@ -1,7 +1,7 @@
 import Foundation
 
-// MARK: - SBExtension
-open class SBExtension<Base> {
+// MARK: - Extension
+open class Extension<Base> {
     public let base: Base?
 
     public init(_ base: Base) {
@@ -13,14 +13,14 @@ open class SBExtension<Base> {
     }
 }
 
-// MARK: - SBExtensionable
-public protocol SBExtensionable {}
-public extension SBExtensionable {
-    static var sb: SBExtension<Self>.Type {
-        return SBExtension<Self>.self
+// MARK: - Extensionable
+public protocol Extensionable {}
+public extension Extensionable {
+    static var ex: Extension<Self>.Type {
+        return Extension<Self>.self
     }
 
-    var sb: SBExtension<Self> {
-        return SBExtension(self)
+    var ex: Extension<Self> {
+        return Extension(self)
     }
 }
