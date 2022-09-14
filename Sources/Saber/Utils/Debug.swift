@@ -6,9 +6,9 @@ public enum Debug {
 
     /// 信息输出
     public static func Info(_ message: Any...,
-                     file: String = #file,
-                     line: Int = #line,
-                     function: String = #function)
+                            file: String = #file,
+                            line: Int = #line,
+                            function: String = #function)
     {
         #if DEBUG
             // 输出内容
@@ -29,9 +29,9 @@ public enum Debug {
 
     /// 警告输出
     public static func Warning(_ message: Any...,
-                        file: String = #file,
-                        line: Int = #line,
-                        function: String = #function)
+                               file: String = #file,
+                               line: Int = #line,
+                               function: String = #function)
     {
         #if DEBUG
             // 输出内容
@@ -52,9 +52,9 @@ public enum Debug {
 
     /// 错误输出
     public static func Error(_ message: Any...,
-                      file: String = #file,
-                      line: Int = #line,
-                      function: String = #function)
+                             file: String = #file,
+                             line: Int = #line,
+                             function: String = #function)
     {
         #if DEBUG
             // 输出内容
