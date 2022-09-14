@@ -64,7 +64,7 @@ public extension NSObject {
         guard let oriMethod = (isClassMethod ? class_getClassMethod(clz, origSel) : class_getClassMethod(clz, origSel)) as Method?,
               let repMethod = (isClassMethod ? class_getClassMethod(clz, replSel) : class_getClassMethod(clz, replSel)) as Method?
         else {
-            console.log("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Debug.Info("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
@@ -92,12 +92,12 @@ public extension NSObject {
     class func hookInstanceMethod(of origSel: Selector, with replSel: Selector) -> Bool {
         let clz: AnyClass = classForCoder()
         guard let oriMethod = class_getInstanceMethod(clz, origSel) as Method? else {
-            console.log("原 实例方法：Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Debug.Info("原 实例方法：Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
         guard let repMethod = class_getInstanceMethod(clz, replSel) as Method? else {
-            console.log("新 实例方法：Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Debug.Info("新 实例方法：Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
@@ -126,12 +126,12 @@ public extension NSObject {
         let clz: AnyClass = classForCoder()
 
         guard let oriMethod = class_getClassMethod(clz, origSel) as Method? else {
-            console.log("原 类方法：Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Debug.Info("原 类方法：Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
         guard let repMethod = class_getClassMethod(clz, replSel) as Method? else {
-            console.log("新 类方法 replSel：Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Debug.Info("新 类方法 replSel：Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
@@ -180,23 +180,23 @@ public extension NSObject {
 
     /// 如果键不存在会调用这个方法
     private func hook_setValue(_ value: Any?, forUndefinedKey key: String) {
-        console.info("setValue: forUndefinedKey:, 未知键Key: \(key) 值:\(value ?? "")")
+        Debug.Warning("setValue: forUndefinedKey:, 未知键Key: \(key) 值:\(value ?? "")")
     }
 
     /// 如果键不存在会调用这个方法
     private func hook_value(forUndefinedKey key: String) -> Any? {
-        console.info("valueForUndefinedKey:, 未知键: \(key)")
+        Debug.Warning("valueForUndefinedKey:, 未知键: \(key)")
         return nil
     }
 
     /// 给一个非指针对象(如`NSInteger`)赋值 nil, 直接忽略
     private func hook_setNilValueForKey(_ key: String) {
-        console.log("Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil 键: \(key)")
+        Debug.Info("Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil 键: \(key)")
     }
 
     private func hook_setValuesForKeys(_ keyedValues: [String: Any]) {
         for (key, value) in keyedValues {
-            console.info(key, value)
+            Debug.Info(key, value)
             if value is Int || value is CGFloat || value is Double {
                 setValue("\(value)", forKey: key)
             } else {

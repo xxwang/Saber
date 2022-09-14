@@ -9,12 +9,6 @@ import Foundation
 
 // MARK: - 属性
 public extension String {
-    var data: Data? {
-        return self.data(using: .utf8)
-    }
-}
-
-public extension String {
     /// 字典
     var object: [String: Any]? {
         guard let data = data else {
@@ -129,21 +123,20 @@ public extension String {
         return NSMutableAttributedString(string: self)
     }
 
-    // FIXME: - 待完善
-//        /// `utf8`格式`Data`
-//    var data: Data? {
-//        return asData()
-//    }
-//
-//        /// 图片资源名称转图片对象
-//    var image: UIImage? {
-//        return UIImage(named: self)
-//    }
-//
-//        /// 16进制颜色值字符串转UIColor对象
-//    var hexColor: UIColor {
-//        return UIColor(hex: self)
-//    }
+    /// `utf8`格式`Data`
+    var data: Data? {
+        return asData()
+    }
+
+    /// 图片资源名称转图片对象
+    var image: UIImage? {
+        return UIImage(named: self)
+    }
+
+    /// 16进制颜色值字符串转UIColor对象
+    var hexColor: UIColor {
+        return UIColor(hex: self)
+    }
 
     /// 将16进制字符串转为Int
     var hexAsInt: Int {
@@ -1238,46 +1231,45 @@ public extension String {
         return result
     }
 
-    // FIXME: - 待完善
-//        /// 获取文字的每一行字符串 空字符串为空数组(⚠️不适用于属性文本)
-//        /// - Parameters:
-//        ///   - maxWidth: 最大宽度
-//        ///   - font: 字体
-//        /// - Returns: 行字符串数组
-//    func lines(_ maxWidth: CGFloat, font: UIFont) -> [String] {
-//            // 段落样式
-//        let style = NSMutableParagraphStyle()
-//        style.lineBreakMode = .byCharWrapping
-//
-//            // UIFont字体转CFFont
-//        let cfFont = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
-//
-//            // 属性字符串
-//        let attStr = NSMutableAttributedString(string: self)
-//        attStr.addAttributes([
-//            .paragraphStyle: style,
-//            NSAttributedString.Key(kCTFontAttributeName as String): cfFont,
-//        ], range: NSRange(location: 0, length: attStr.length))
-//
-//        let frameSetter = CTFramesetterCreateWithAttributedString(attStr)
-//
-//        let path = CGMutablePath()
-//        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100000), transform: .identity)
-//
-//        let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CFIndex(0), CFIndex(0)), path, nil)
-//        let lines = CTFrameGetLines(frame) as? [AnyHashable]
-//        var linesArray: [String] = []
-//
-//        for line in lines ?? [] {
-//            let lineRange = CTLineGetStringRange(line as! CTLine)
-//            let range = NSRange(location: lineRange.location, length: lineRange.length)
-//
-//            let lineString = (self as NSString).substring(with: range)
-//            CFAttributedStringSetAttribute(attStr, lineRange, kCTKernAttributeName, NSNumber(value: 0.0))
-//            linesArray.append(lineString)
-//        }
-//        return linesArray
-//    }
+    /// 获取文字的每一行字符串 空字符串为空数组(⚠️不适用于属性文本)
+    /// - Parameters:
+    ///   - maxWidth: 最大宽度
+    ///   - font: 字体
+    /// - Returns: 行字符串数组
+    func lines(_ maxWidth: CGFloat, font: UIFont) -> [String] {
+        // 段落样式
+        let style = NSMutableParagraphStyle()
+        style.lineBreakMode = .byCharWrapping
+
+        // UIFont字体转CFFont
+        let cfFont = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
+
+        // 属性字符串
+        let attStr = NSMutableAttributedString(string: self)
+        attStr.addAttributes([
+            .paragraphStyle: style,
+            NSAttributedString.Key(kCTFontAttributeName as String): cfFont,
+        ], range: NSRange(location: 0, length: attStr.length))
+
+        let frameSetter = CTFramesetterCreateWithAttributedString(attStr)
+
+        let path = CGMutablePath()
+        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100_000), transform: .identity)
+
+        let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CFIndex(0), CFIndex(0)), path, nil)
+        let lines = CTFrameGetLines(frame) as? [AnyHashable]
+        var linesArray: [String] = []
+
+        for line in lines ?? [] {
+            let lineRange = CTLineGetStringRange(line as! CTLine)
+            let range = NSRange(location: lineRange.location, length: lineRange.length)
+
+            let lineString = (self as NSString).substring(with: range)
+            CFAttributedStringSetAttribute(attStr, lineRange, kCTKernAttributeName, NSNumber(value: 0.0))
+            linesArray.append(lineString)
+        }
+        return linesArray
+    }
 
     /// 字符串中的字数(word)
     ///
@@ -1859,153 +1851,151 @@ public extension String {
     }
 }
 
-// FIXME: - 待完善
 // MARK: - 属性字符串相关
-// public extension String {
-//        /// HTML源码转属性字符串
-//        /// - Parameters:
-//        ///   - font: 字体
-//        ///   - lineSpacing: 行间距
-//        /// - Returns: 属性字符串
-//    func htmlCodeAsAttributedString(
-//        font: UIFont? = UIFont.systemFont(ofSize: 16),
-//        lineSpacing: CGFloat? = 10
-//    ) -> NSMutableAttributedString {
-//        var htmlString: NSMutableAttributedString?
-//        do {
-//            if let data = replacingOccurrences(of: "\n", with: "<br/>").data(using: .utf8) {
-//                htmlString = try NSMutableAttributedString(data: data, options: [
-//                    NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
-//                    NSAttributedString.DocumentReadingOptionKey.characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue),
-//                ], documentAttributes: nil)
-//                let wrapHtmlString = NSMutableAttributedString(string: "\n")
-//                    // 判断尾部是否是换行符
-//                if let weakHtmlString = htmlString, weakHtmlString.string.hasSuffix("\n") {
-//                    htmlString?.deleteCharacters(in: NSRange(location: weakHtmlString.length - wrapHtmlString.length, length: wrapHtmlString.length))
-//                }
-//            }
-//        } catch {}
-//            // 设置属性字符串字体的大小
-//        if let font = font {
-//            htmlString?.addAttributes([
-//                NSAttributedString.Key.font: font,
-//            ], range: NSRange(location: 0, length: htmlString?.length ?? 0))
-//        }
-//
-//            // 设置行间距
-//        if let weakLineSpacing = lineSpacing {
-//            let paragraphStyle = NSMutableParagraphStyle()
-//            paragraphStyle.lineSpacing = weakLineSpacing
-//            htmlString?.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: htmlString?.length ?? 0))
-//        }
-//        return htmlString ?? NSMutableAttributedString(string: self)
-//    }
-//
-//        /// 高亮显示关键字(返回属性字符串)
-//        /// - Parameters:
-//        ///   - keyword: 要高亮的关键词
-//        ///   - keywordCololor: 关键高亮字颜色
-//        ///   - otherColor: 非高亮文字颜色
-//        ///   - options: 匹配选项
-//        /// - Returns: 返回匹配后的属性字符串
-//    func highlightSubString(
-//        keyword: String,
-//        keywordCololor: UIColor,
-//        otherColor: UIColor,
-//        options: NSRegularExpression.Options = []
-//    ) -> NSMutableAttributedString {
-//            // 整体字符串
-//        let fullString = self
-//            // 整体属性字符串
-//        let attributedString = NSMutableAttributedString(string: fullString)
-//            // 整体颜色
-//        attributedString.addAttributes([NSAttributedString.Key.foregroundColor: otherColor], range: fullString.fullNSRange)
-//
-//            // 与关键词匹配的range数组
-//        let ranges = fullString.matchRange(keyword)
-//
-//            // 设置高亮颜色
-//        for range in ranges {
-//            attributedString.addAttributes([.foregroundColor: keywordCololor], range: range)
-//        }
-//        return attributedString
-//    }
-// }
+public extension String {
+    /// HTML源码转属性字符串
+    /// - Parameters:
+    ///   - font: 字体
+    ///   - lineSpacing: 行间距
+    /// - Returns: 属性字符串
+    func htmlCodeAsAttributedString(
+        font: UIFont? = UIFont.systemFont(ofSize: 16),
+        lineSpacing: CGFloat? = 10
+    ) -> NSMutableAttributedString {
+        var htmlString: NSMutableAttributedString?
+        do {
+            if let data = replacingOccurrences(of: "\n", with: "<br/>").data(using: .utf8) {
+                htmlString = try NSMutableAttributedString(data: data, options: [
+                    NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+                    NSAttributedString.DocumentReadingOptionKey.characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue),
+                ], documentAttributes: nil)
+                let wrapHtmlString = NSMutableAttributedString(string: "\n")
+                // 判断尾部是否是换行符
+                if let weakHtmlString = htmlString, weakHtmlString.string.hasSuffix("\n") {
+                    htmlString?.deleteCharacters(in: NSRange(location: weakHtmlString.length - wrapHtmlString.length, length: wrapHtmlString.length))
+                }
+            }
+        } catch {}
+        // 设置属性字符串字体的大小
+        if let font = font {
+            htmlString?.addAttributes([
+                NSAttributedString.Key.font: font,
+            ], range: NSRange(location: 0, length: htmlString?.length ?? 0))
+        }
 
-// FIXME: - 待完善
+        // 设置行间距
+        if let weakLineSpacing = lineSpacing {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = weakLineSpacing
+            htmlString?.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: htmlString?.length ?? 0))
+        }
+        return htmlString ?? NSMutableAttributedString(string: self)
+    }
+
+    /// 高亮显示关键字(返回属性字符串)
+    /// - Parameters:
+    ///   - keyword: 要高亮的关键词
+    ///   - keywordCololor: 关键高亮字颜色
+    ///   - otherColor: 非高亮文字颜色
+    ///   - options: 匹配选项
+    /// - Returns: 返回匹配后的属性字符串
+    func highlightSubString(
+        keyword: String,
+        keywordCololor: UIColor,
+        otherColor: UIColor,
+        options: NSRegularExpression.Options = []
+    ) -> NSMutableAttributedString {
+        // 整体字符串
+        let fullString = self
+        // 整体属性字符串
+        let attributedString = NSMutableAttributedString(string: fullString)
+        // 整体颜色
+        attributedString.addAttributes([NSAttributedString.Key.foregroundColor: otherColor], range: fullString.fullNSRange)
+
+        // 与关键词匹配的range数组
+        let ranges = fullString.matchRange(keyword)
+
+        // 设置高亮颜色
+        for range in ranges {
+            attributedString.addAttributes([.foregroundColor: keywordCololor], range: range)
+        }
+        return attributedString
+    }
+}
+
 // MARK: - 字符串尺寸计算
-// public extension String {
-//        /// 计算字符串大小
-//        /// - Parameters:
-//        ///   - maxWidth: 最大宽度
-//        ///   - font: 文字字体
-//        /// - Returns: 返回计算好的size
-//    func textSize(
-//        _ maxWidth: CGFloat = UIScreen.main.bounds.width,
-//        font: UIFont
-//    ) -> CGSize {
-//        let constraint = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
-//        let rect = (self as NSString).boundingRect(with: constraint,
-//                                                   options: [
-//                                                    .usesLineFragmentOrigin,
-//                                                    .usesFontLeading,
-//                                                    .truncatesLastVisibleLine,
-//                                                   ],
-//                                                   attributes: [
-//                                                    .font: font,
-//                                                   ],
-//                                                   context: nil)
-//
-//        return CGSize(width: Foundation.ceil(rect.width), height: Foundation.ceil(rect.height))
-//    }
-//
-//        /// 以属性字符串的方式计算字符串大小
-//        /// - Parameters:
-//        ///   - maxWidth: 最大宽度
-//        ///   - font: 字体
-//        ///   - lineSpaceing: 行间距
-//        ///   - wordSpacing: 字间距
-//        /// - Returns: size
-//    func attributedSize(
-//        _ maxWidth: CGFloat = UIScreen.main.bounds.width,
-//        font: UIFont,
-//        lineSpacing: CGFloat = 0,
-//        wordSpacing: CGFloat = 0
-//    ) -> CGSize {
-//            // 段落样式
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineBreakMode = .byCharWrapping
-//        paragraphStyle.alignment = .left
-//        paragraphStyle.lineSpacing = lineSpacing
-//
-//            // 设置行间距
-//        paragraphStyle.hyphenationFactor = 1.0
-//        paragraphStyle.firstLineHeadIndent = 0.0
-//        paragraphStyle.paragraphSpacingBefore = 0.0
-//        paragraphStyle.headIndent = 0
-//        paragraphStyle.tailIndent = 0
-//
-//            // 属性字符串
-//        let attString = NSMutableAttributedString(string: self)
-//        attString.addAttributes([
-//            .font: font,
-//            .kern: wordSpacing,
-//            .paragraphStyle: paragraphStyle,
-//        ], range: NSRange(location: 0, length: count))
-//
-//        let constraint = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
-//        let textSize = attString.boundingRect(with: constraint,
-//                                              options: [
-//                                                .usesLineFragmentOrigin,
-//                                                .usesFontLeading,
-//                                                .truncatesLastVisibleLine,
-//                                              ],
-//                                              context: nil).size
-//
-//            // 向上取整(由于计算结果小数问题, 导致界面字符串显示不完整)
-//        return CGSize(width: Foundation.ceil(textSize.width), height: Foundation.ceil(textSize.height))
-//    }
-// }
+public extension String {
+    /// 计算字符串大小
+    /// - Parameters:
+    ///   - maxWidth: 最大宽度
+    ///   - font: 文字字体
+    /// - Returns: 返回计算好的size
+    func textSize(
+        _ maxWidth: CGFloat = UIScreen.main.bounds.width,
+        font: UIFont
+    ) -> CGSize {
+        let constraint = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+        let rect = (self as NSString).boundingRect(with: constraint,
+                                                   options: [
+                                                       .usesLineFragmentOrigin,
+                                                       .usesFontLeading,
+                                                       .truncatesLastVisibleLine,
+                                                   ],
+                                                   attributes: [
+                                                       .font: font,
+                                                   ],
+                                                   context: nil)
+
+        return CGSize(width: Foundation.ceil(rect.width), height: Foundation.ceil(rect.height))
+    }
+
+    /// 以属性字符串的方式计算字符串大小
+    /// - Parameters:
+    ///   - maxWidth: 最大宽度
+    ///   - font: 字体
+    ///   - lineSpaceing: 行间距
+    ///   - wordSpacing: 字间距
+    /// - Returns: size
+    func attributedSize(
+        _ maxWidth: CGFloat = UIScreen.main.bounds.width,
+        font: UIFont,
+        lineSpacing: CGFloat = 0,
+        wordSpacing: CGFloat = 0
+    ) -> CGSize {
+        // 段落样式
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byCharWrapping
+        paragraphStyle.alignment = .left
+        paragraphStyle.lineSpacing = lineSpacing
+
+        // 设置行间距
+        paragraphStyle.hyphenationFactor = 1.0
+        paragraphStyle.firstLineHeadIndent = 0.0
+        paragraphStyle.paragraphSpacingBefore = 0.0
+        paragraphStyle.headIndent = 0
+        paragraphStyle.tailIndent = 0
+
+        // 属性字符串
+        let attString = NSMutableAttributedString(string: self)
+        attString.addAttributes([
+            .font: font,
+            .kern: wordSpacing,
+            .paragraphStyle: paragraphStyle,
+        ], range: NSRange(location: 0, length: count))
+
+        let constraint = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+        let textSize = attString.boundingRect(with: constraint,
+                                              options: [
+                                                  .usesLineFragmentOrigin,
+                                                  .usesFontLeading,
+                                                  .truncatesLastVisibleLine,
+                                              ],
+                                              context: nil).size
+
+        // 向上取整(由于计算结果小数问题, 导致界面字符串显示不完整)
+        return CGSize(width: Foundation.ceil(textSize.width), height: Foundation.ceil(textSize.height))
+    }
+}
 
 // MARK: - 其它
 public extension String {

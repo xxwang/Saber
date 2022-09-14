@@ -64,7 +64,7 @@ public extension VideoManager {
                     image = UIImage(cgImage: cgimage)
                 }
             } catch {
-                console.log("出现错误!\(error.localizedDescription)")
+                Debug.Info("出现错误!\(error.localizedDescription)")
             }
 
             DispatchQueue.main.async {
@@ -87,7 +87,7 @@ public extension VideoManager {
                     PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
                 }) { success, error in
                     if let error = error {
-                        console.log(error.localizedDescription)
+                        Debug.Info(error.localizedDescription)
                     }
                     completed?(success)
                 }
@@ -113,7 +113,7 @@ public extension VideoManager {
             case .failed:
                 let exportError = exportSession.error
                 if let exportError = exportError {
-                    console.log("AVAssetExportSessionStatusFailed: \(exportError.localizedDescription)")
+                    Debug.Info("AVAssetExportSessionStatusFailed: \(exportError.localizedDescription)")
                 }
             case .completed:
                 completed?(output)
@@ -152,10 +152,10 @@ public extension VideoManager {
             }
             PHAssetResourceManager.default().writeData(for: resource, toFile: URL(fileURLWithPath: savePath), options: nil, completionHandler: { error in
                 if let error = error {
-                    console.log("convert mp4 failed. \(error)")
+                    Debug.Info("convert mp4 failed. \(error)")
                     completed?(nil)
                 } else {
-                    console.log("convert mp4 success")
+                    Debug.Info("convert mp4 success")
                     completed?(savePath)
                 }
             })
