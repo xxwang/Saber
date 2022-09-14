@@ -8,7 +8,6 @@ public enum Debug {
     public static func Info(_ message: Any...,
                      file: String = #file,
                      line: Int = #line,
-                     column: Int = #column,
                      function: String = #function)
     {
         #if DEBUG
@@ -21,10 +20,9 @@ public enum Debug {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "✅[\(dateStr)][\(fileName)::\(function)][R:\(line)C:\(column)]=> \(content)"
+            content = "✅[\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
-    
         // 写入文件
         write2File(content: content)
     }
@@ -33,7 +31,6 @@ public enum Debug {
     public static func Warning(_ message: Any...,
                         file: String = #file,
                         line: Int = #line,
-                        column: Int = #column,
                         function: String = #function)
     {
         #if DEBUG
@@ -46,7 +43,7 @@ public enum Debug {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "❗️[\(dateStr)][\(fileName)::\(function)][R:\(line)C:\(column)]=> \(content)"
+            content = "❗️[\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
@@ -57,7 +54,6 @@ public enum Debug {
     public static func Error(_ message: Any...,
                       file: String = #file,
                       line: Int = #line,
-                      column: Int = #column,
                       function: String = #function)
     {
         #if DEBUG
@@ -70,7 +66,7 @@ public enum Debug {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "❌[\(dateStr)][\(fileName)::\(function)][R:\(line)C:\(column)]=> \(content)"
+            content = "❌[\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
