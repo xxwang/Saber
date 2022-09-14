@@ -21,10 +21,10 @@ public enum Debug {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "✅[\(dateStr)][\(fileName) => \(function)]:\(line):\(column): \(content)"
+            content = "✅[\(dateStr)][\(fileName)::\(function)][R:\(line)C:\(column)]=> \(content)"
             print(content)
         #endif
-
+    
         // 写入文件
         write2File(content: content)
     }
@@ -46,7 +46,7 @@ public enum Debug {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "❗️[\(dateStr)][\(fileName) => \(function)]:\(line):\(column): \(content)"
+            content = "❗️[\(dateStr)][\(fileName)::\(function)][R:\(line)C:\(column)]=> \(content)"
             print(content)
         #endif
         // 写入文件
@@ -70,7 +70,7 @@ public enum Debug {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "❌[\(dateStr)][\(fileName) => \(function)]:\(line):\(column): \(content)"
+            content = "❌[\(dateStr)][\(fileName)::\(function)][R:\(line)C:\(column)]=> \(content)"
             print(content)
         #endif
         // 写入文件
