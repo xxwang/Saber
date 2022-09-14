@@ -2,10 +2,10 @@ import Foundation
 
 public enum Debug {
     /// 是否输出到文件
-    static var isOut2File: Bool = false
+    public static var isOut2File: Bool = false
 
     /// 信息输出
-    static func Info(_ message: Any...,
+    public static func Info(_ message: Any...,
                      file: String = #file,
                      line: Int = #line,
                      column: Int = #column,
@@ -14,7 +14,7 @@ public enum Debug {
         #if DEBUG
             // 输出内容
             var content = ""
-            for (index, item) in message.enumerated() {
+            for item in message {
                 content += "\(item)"
             }
             // 格式化日期(当时时间)
@@ -30,7 +30,7 @@ public enum Debug {
     }
 
     /// 警告输出
-    static func Warning(_ message: Any...,
+    public static func Warning(_ message: Any...,
                         file: String = #file,
                         line: Int = #line,
                         column: Int = #column,
@@ -39,7 +39,7 @@ public enum Debug {
         #if DEBUG
             // 输出内容
             var content = ""
-            for (index, item) in message.enumerated() {
+            for item in message {
                 content += "\(item)"
             }
             // 格式化日期(当时时间)
@@ -54,7 +54,7 @@ public enum Debug {
     }
 
     /// 错误输出
-    static func Error(_ message: Any...,
+    public static func Error(_ message: Any...,
                       file: String = #file,
                       line: Int = #line,
                       column: Int = #column,
@@ -63,7 +63,7 @@ public enum Debug {
         #if DEBUG
             // 输出内容
             var content = ""
-            for (index, item) in message.enumerated() {
+            for item in message {
                 content += "\(item)"
             }
             // 格式化日期(当时时间)
