@@ -1,5 +1,5 @@
 import SpriteKit
 
 public extension SKLabelNode {
-        // TODO: - 待完善
+    // TODO: - 待完善
 }
