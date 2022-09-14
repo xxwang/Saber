@@ -1,11 +1,11 @@
 import Foundation
 
-public enum Debug {
+public enum Log {
     /// 是否输出到文件
     public static var isOut2File: Bool = false
 
     /// 信息输出
-    public static func Info(_ message: Any...,
+    public static func info(_ message: Any...,
                             file: String = #file,
                             line: Int = #line,
                             function: String = #function)
@@ -28,7 +28,7 @@ public enum Debug {
     }
 
     /// 警告输出
-    public static func Warning(_ message: Any...,
+    public static func warning(_ message: Any...,
                                file: String = #file,
                                line: Int = #line,
                                function: String = #function)
@@ -51,7 +51,7 @@ public enum Debug {
     }
 
     /// 错误输出
-    public static func Error(_ message: Any...,
+    public static func error(_ message: Any...,
                              file: String = #file,
                              line: Int = #line,
                              function: String = #function)
@@ -74,7 +74,7 @@ public enum Debug {
     }
 }
 
-extension Debug {
+extension Log {
     /// 写入文件
     private static func write2File(content: String) {
         guard isOut2File else {

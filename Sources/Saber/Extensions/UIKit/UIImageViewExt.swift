@@ -137,10 +137,10 @@ public extension UIImageView {
             switch result {
             //                case let .success:(value):
             case .success:
-                //                Debug.Info("图片加载成功!\(value)")
+                //                Log.info("图片加载成功!\(value)")
                 break
             case let .failure(error):
-                Debug.Error("图片加载失败!\n地址: \(imageURL.absoluteString)\n错误: \(error.localizedDescription)")
+                Log.error("图片加载失败!\n地址: \(imageURL.absoluteString)\n错误: \(error.localizedDescription)")
             }
         }
     }

@@ -134,7 +134,7 @@ public extension UIDevice {
     /// 闪光灯是否打开
     static var flashIsOn: Bool {
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
-            Debug.Info("camera invalid, please check")
+            Log.info("camera invalid, please check")
             return false
         }
         return device.torchMode == .on ? true : false
@@ -145,7 +145,7 @@ public extension UIDevice {
     static func flash(on: Bool) {
         // 获取摄像设备
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
-            Debug.Info("camera invalid, please check")
+            Log.info("camera invalid, please check")
             return
         }
 
@@ -160,7 +160,7 @@ public extension UIDevice {
                 }
                 device.unlockForConfiguration()
             } catch {
-                Debug.Info(error.localizedDescription)
+                Log.info(error.localizedDescription)
             }
         }
     }
