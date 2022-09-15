@@ -68,7 +68,7 @@ extension Log {
         // 文件名称
         let fileName = (file as NSString).lastPathComponent
 
-        content = "\(level.levelIcon)\(level.levelName)[\(dateStr)][\(fileName){\(line)} => \(function)] " + content
+        content = "\(level.levelIcon)\(level.levelName)[\(dateStr)][\(fileName) => \(function)]\(line): " + content
         print(content)
         #endif
     }
