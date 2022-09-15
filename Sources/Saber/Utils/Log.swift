@@ -19,7 +19,7 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            let fileName = (file as NSString).lastPathComponent
             content = "👻[\(dateStr)][\(fileName) => \(function)]\(line)🟡: \(content)"
             print(content)
         #endif
@@ -42,7 +42,7 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            let fileName = (file as NSString).lastPathComponent
             content = "🌟[\(dateStr)][\(fileName) => \(function)]\(line)🔵: \(content)"
             print(content)
         #endif
@@ -65,7 +65,7 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            let fileName = (file as NSString).lastPathComponent
             content = "⚠️[\(dateStr)][\(fileName) => \(function)]\(line)🟠: \(content)"
             print(content)
         #endif
@@ -88,7 +88,7 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            let fileName = (file as NSString).lastPathComponent
             content = "❌[\(dateStr)][\(fileName) => \(function)]\(line)🔴: \(content)"
             print(content)
         #endif
@@ -111,7 +111,7 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            let fileName = (file as NSString).lastPathComponent
             content = "✅[\(dateStr)][\(fileName) => \(function)]\(line)🟢: \(content)"
             print(content)
         #endif
