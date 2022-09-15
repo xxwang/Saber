@@ -19,7 +19,7 @@ public extension Log {
                      line: Int = #line,
                      function: String = #function)
     {
-        self.log(level: .debug, message: message, file: file, line: line, function: function)
+        self.log(level: .info, message: message, file: file, line: line, function: function)
     }
 
     /// 警告
@@ -28,7 +28,7 @@ public extension Log {
                         line: Int = #line,
                         function: String = #function)
     {
-        self.log(level: .debug, message: message, file: file, line: line, function: function)
+        self.log(level: .warning, message: message, file: file, line: line, function: function)
     }
 
     /// 错误
@@ -37,7 +37,7 @@ public extension Log {
                       line: Int = #line,
                       function: String = #function)
     {
-        self.log(level: .debug, message: message, file: file, line: line, function: function)
+        self.log(level: .error, message: message, file: file, line: line, function: function)
     }
 }
 
