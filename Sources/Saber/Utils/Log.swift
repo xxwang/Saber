@@ -20,7 +20,7 @@ public enum Log {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "👻[调试][\(dateStr)][\(fileName) => \(function)]\(line)🟡: \(content)"
+            content = "👻[调试][\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
@@ -43,7 +43,7 @@ public enum Log {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "🌟[信息][\(dateStr)][\(fileName) => \(function)]\(line)🔵: \(content)"
+            content = "🌟[信息][\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
@@ -66,7 +66,7 @@ public enum Log {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "⚠️[警告][\(dateStr)][\(fileName) => \(function)]\(line)🟠: \(content)"
+            content = "⚠️[警告][\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
@@ -89,7 +89,7 @@ public enum Log {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "❌[错误][\(dateStr)][\(fileName) => \(function)]\(line)🔴: \(content)"
+            content = "❌[错误][\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
@@ -112,7 +112,7 @@ public enum Log {
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
             let fileName = (file as NSString).lastPathComponent
-            content = "✅[成功][\(dateStr)][\(fileName) => \(function)]\(line)🟢: \(content)"
+            content = "✅[成功][\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
