@@ -196,7 +196,7 @@ public extension NSObject {
 
     private func hook_setValuesForKeys(_ keyedValues: [String: Any]) {
         for (key, value) in keyedValues {
-            Log.info(key, value)
+            Log.debug("\(key) -- \(value)")
             if value is Int || value is CGFloat || value is Double {
                 setValue("\(value)", forKey: key)
             } else {
