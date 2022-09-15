@@ -19,8 +19,8 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent
-            content = "✅[\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
+            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            content = "ℹ️[\(dateStr)][\(fileName)::\(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
@@ -42,8 +42,8 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent
-            content = "❗️[\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
+            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            content = "❗️[\(dateStr)][\(fileName)::\(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
@@ -65,8 +65,31 @@ public enum Log {
             // 格式化日期(当时时间)
             let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
             // 获取文件名称
-            let fileName = (file as NSString).lastPathComponent
-            content = "❌[\(dateStr)][\(fileName) => \(function)]\(line): \(content)"
+            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            content = "❌[\(dateStr)][\(fileName)::\(function)]\(line): \(content)"
+            print(content)
+        #endif
+        // 写入文件
+        write2File(content: content)
+    }
+
+    /// 成功输出
+    public static func success(_ message: Any...,
+                               file: String = #file,
+                               line: Int = #line,
+                               function: String = #function)
+    {
+        #if DEBUG
+            // 输出内容
+            var content = ""
+            for item in message {
+                content += "\(item)"
+            }
+            // 格式化日期(当时时间)
+            let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
+            // 获取文件名称
+            let fileName = (file as NSString).lastPathComponent.split(with: ".").first ?? ""
+            content = "✅[\(dateStr)][\(fileName)::\(function)]\(line): \(content)"
             print(content)
         #endif
         // 写入文件
