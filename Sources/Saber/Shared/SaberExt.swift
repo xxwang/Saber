@@ -1,8 +1,7 @@
 // MARK: - 调用对象实体包装类型
-public struct SaberExt<Base> {
-    let base: Base
-    init(_ base: Base) { self.base = base }
-    func unpack() -> Base {return self.base}
+public class SaberExt<Base> {
+    public let base: Base
+    fileprivate init(_ base: Base) { self.base = base }
 }
 
 // MARK: - 需要使用的类型遵守此协议
