@@ -1,13 +1,13 @@
 // MARK: - 调用对象实体包装类型
 public struct SaberExt<Base> {
     /// 被包装的原始对象
-    let base: Base?
+    public let base: Base?
     
     fileprivate init(_ base: Base) { self.base = base }
     fileprivate init(_ base: Base?) { self.base = base }
     
     /// 被包装的原始对象
-    func unpack() -> Base? {
+    public func unpack() -> Base? {
         return self.base
     }
 }
