@@ -1,27 +1,26 @@
-// MARK: - 调用对象实体包装类型
-
 import UIKit
-public struct SaberExt<Base> {
-    fileprivate let base: Base?
-    fileprivate init(_ base: Base) {self.base = base; self.isop = false}
-    fileprivate init(_ base: Base?) {self.base = base; self.isop = true}
-    var isop: Bool = false
-    #if isop
-    func instance() -> Base {
-        return self.base
-    }
-    #else
-    func instance() -> Base? {
-        return self.base
-    }
-    #endif
-}
 
+// MARK: - 调用对象实体包装类型
+public struct SaberExt<Base> {
+    /// 被包装的原始对象
+    fileprivate let base: Base?
+    /// 非可选构造方法
+    fileprivate init(_ base: Base) {self.base = base}
+    /// 可选构造方法
+    fileprivate init(_ base: Base?) {self.base = base}
+    
+    /// 被包装的原始对象
+    public func unpack() -> Base? {
+        return self.base
+    }
+}
 
 // MARK: - 需要使用的类型遵守此协议
 public protocol Saberable {}
 public extension Saberable {
+    /// 非可选类型
     var sb: SaberExt<Self> { return SaberExt(self) }
+    /// 可选类型
     static var sb: SaberExt<Self>.Type { return SaberExt<Self>.self }
 }
 
