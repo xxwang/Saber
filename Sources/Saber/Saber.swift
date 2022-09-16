@@ -1,11 +1,9 @@
-public class Saber {
+public struct Saber {
     let text = "Hello, Saber!"
-    public init() {}
 }
-
 public extension Saber {
     /// Hello, Saber!
-    func sayHello() {
-        Log.info(text)
+    static func sayHello() {
+        Log.info(Saber().text)
     }
 }
