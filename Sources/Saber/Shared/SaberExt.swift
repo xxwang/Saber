@@ -2,7 +2,7 @@
 
 import UIKit
 public struct SaberExt<Base> {
-    let base: Base?
+    fileprivate let base: Base?
     fileprivate init(_ base: Base) {self.base = base; self.isop = false}
     fileprivate init(_ base: Base?) {self.base = base; self.isop = true}
     var isop: Bool = false
@@ -27,10 +27,6 @@ public extension Saberable {
 
 // MARK: - 可使用sb扩展的类型(具体扩展在单独文件中实现)
 extension String: Saberable {}
-extension Int: Saberable {}
-extension Float: Saberable {}
-extension Double: Saberable {}
-
 
 public extension SaberExt where Base == String {
     
