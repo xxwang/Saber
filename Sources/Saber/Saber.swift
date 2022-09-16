@@ -1,5 +1,5 @@
-public class Saber {
-    var text = "Hello, Saber!"
+open class Saber {
+    let text = "Hello, Saber!"
     init() {}
 }
 
