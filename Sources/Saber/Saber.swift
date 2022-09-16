@@ -1,6 +1,6 @@
-open class Saber {
+public class Saber {
     let text = "Hello, Saber!"
-    init() {}
+    public init() {}
 }
 
 public extension Saber {
