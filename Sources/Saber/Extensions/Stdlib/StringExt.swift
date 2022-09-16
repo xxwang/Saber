@@ -7,6 +7,9 @@ import Foundation
     import AppKit
 #endif
 
+
+extension String: Saberable {}
+
 // MARK: - 属性
 public extension String {
     /// 字典
