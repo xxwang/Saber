@@ -57,7 +57,6 @@ extension Log {
         line: Int,
         function: String)
     {
-        #if DEBUG
         // 输出内容
         var content = ""
         for item in message {
@@ -70,7 +69,6 @@ extension Log {
 
         content = "\(level.levelIcon)\(level.levelName)[\(dateStr)][\(fileName) => \(function)]\(line): " + content
         print(content)
-        #endif
     }
 }
 
