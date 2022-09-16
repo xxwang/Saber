@@ -2,13 +2,19 @@
 
 import UIKit
 public struct SaberExt<Base> {
-    let base: Base
-    fileprivate init(_ base: Base) {self.base = base}
-//    fileprivate init(_ base: Base?) {self.base = base}
-    
+    let base: Base?
+    fileprivate init(_ base: Base) {self.base = base; self.isop = false}
+    fileprivate init(_ base: Base?) {self.base = base; self.isop = true}
+    var isop: Bool = false
+    #if isop
     func instance() -> Base {
         return self.base
     }
+    #else
+    func instance() -> Base? {
+        return self.base
+    }
+    #endif
 }
 
 
@@ -35,14 +41,3 @@ public extension SaberExt where Base == String {
         Log.error("error...")
     }
 }
-
-public extension SaberExt where Base == String? {
-    
-    func test1111() {
-        Log.info("info...111")
-        Log.debug("debug...111")
-        Log.warning("warning...111")
-        Log.error("error...111")
-    }
-}
-
