@@ -2,7 +2,7 @@ import Foundation
 
 public enum Log {}
 
-// MARK: - 方法
+// MARK: - 公开方法
 public extension Log {
     /// 调试
     static func debug(_ message: Any...,
@@ -93,7 +93,7 @@ private extension Log {
                 case .debug:
                     return "👻"
                 case .info:
-                    return "🌟"
+                    return "🌸"
                 case .warning:
                     return "⚠️"
                 case .error:
