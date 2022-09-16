@@ -18,7 +18,7 @@ public extension SaberExt where Base == String {
     }
     
     func test2() -> Self {
-        Log.info("1111")
+        Log.info("2222")
         return self
     }
     
