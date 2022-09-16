@@ -26,7 +26,7 @@ extension Float: Saberable {}
 extension Double: Saberable {}
 
 
-public extension SaberExt where Base == String? {
+public extension SaberExt where Base == String {
     
     func test1111() {
         Log.info("info...")
@@ -35,3 +35,14 @@ public extension SaberExt where Base == String? {
         Log.error("error...")
     }
 }
+
+public extension SaberExt where Base == String? {
+    
+    func test1111() {
+        Log.info("info...111")
+        Log.debug("debug...111")
+        Log.warning("warning...111")
+        Log.error("error...111")
+    }
+}
+
