@@ -41,6 +41,16 @@ public extension SaberExt where Base == String {
     }
 }
 
+public extension SaberExt where Base == String? {
+    
+    func test2222() {
+        Log.info("info...")
+        Log.debug("debug...")
+        Log.warning("warning...")
+        Log.error("error...")
+    }
+}
+
 public extension SaberExt where Base == Int {
     
     func test1111() {
