@@ -10,7 +10,7 @@ public struct SaberExt<Base> {
 
 // MARK: - 需要使用的类型遵守此协议
 public protocol Saberable {}
-extension Saberable {
+public extension Saberable {
     /// 静态类型
     static var sb: SaberExt<Self>.Type { return SaberExt<Self>.self }
     /// 实例类型
