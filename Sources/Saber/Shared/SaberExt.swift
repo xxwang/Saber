@@ -9,8 +9,8 @@ public extension SaberExt {
 }
 
 // MARK: - 需要使用的类型遵守此协议
-protocol Saberable {}
-extension Saberable {
+public protocol Saberable {}
+public extension Saberable {
     var sb: SaberExt<Self> { return SaberExt(self) }
     static var sb: SaberExt<Self>.Type { return SaberExt<Self>.self }
 }
