@@ -34,4 +34,13 @@ public extension Saber {
             return false
         #endif
     }
+
+    /// 是否是调试模式
+    static var isDebug: Bool {
+        #if DEBUG
+            return true
+        #else
+            return false
+        #endif
+    }
 }
