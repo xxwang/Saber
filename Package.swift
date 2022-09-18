@@ -13,11 +13,7 @@ let package = Package(
         .library(
             name: "Saber",
             targets: ["Saber"]
-        ),
-//        .executable(
-//            name: "Saber",
-//            targets: ["Saber"]
-//        )
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/CoderMJLee/MJRefresh", from: "3.7.5"),
