@@ -8,7 +8,7 @@ public class SaberExt<Base> {
 
 public extension SaberExt {
     /// 获取原始数据
-    func unpack() -> Base { return self.base }
+    func unpack() -> Base { self.base }
 }
 
 // MARK: - 需要使用的类型遵守此协议
@@ -20,3 +20,4 @@ public extension Saberable {
 
 // MARK: - 已扩展.sb.属性的类
 extension NSObject: Saberable {}
+extension Bool: Saberable{}
