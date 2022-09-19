@@ -8,11 +8,11 @@ public class SaberExt<Base> {
 
 public extension SaberExt {
     /// 获取原始数据
-    func baseValue() -> Base { self.base }
+    func rawValue() -> Base { self.base }
     /// 获取原始数据的类型
-    func BaseValue() -> Base.Type { return Base.self }
+    func rawValue() -> Base.Type { Base.self }
     /// 获取原始数据的类型
-    static func BaseValue() -> Base.Type { return Base.self }
+    static func rawValue() -> Base.Type { Base.self }
 }
 
 // MARK: - 需要使用的类型遵守此协议
@@ -24,5 +24,5 @@ public extension Saberable {
 
 // MARK: - 已扩展.sb.属性的类
 extension NSObject: Saberable {}
-extension Bool: Saberable{}
+extension Bool: Saberable {}
 extension Character: Saberable {}
