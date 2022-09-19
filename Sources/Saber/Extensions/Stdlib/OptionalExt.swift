@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - 属性
-public extension SaberExt where Base == Optional<Any> {
+public extension SaberExt where Base == Any? {
     /// 可选值为空的时候返回 true
     var isNone: Bool {
         switch self.base {
