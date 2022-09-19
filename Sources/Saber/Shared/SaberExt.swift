@@ -9,6 +9,7 @@ public class SaberExt<Base> {
 public extension SaberExt {
     /// 获取原始数据
     func unpack() -> Base { self.base }
+    func untype() -> Base.Type { return type(of: self.base) }
 }
 
 // MARK: - 需要使用的类型遵守此协议
