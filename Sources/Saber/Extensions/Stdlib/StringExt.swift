@@ -7,7 +7,6 @@ import Foundation
     import AppKit
 #endif
 
-
 extension String: Saberable {}
 
 // MARK: - 属性
@@ -32,6 +31,39 @@ public extension String {
             return nil
         }
         return object
+    }
+}
+
+// MARK: - emoji
+public extension SaberExt where Base == String {
+    /// 是否为单个emoji表情
+    var isSingleEmoji: Bool {
+        return self.base.count == 1 && containsEmoji
+    }
+
+    /// 包含emoji表情
+    var containsEmoji: Bool {
+        return self.base.contains { $0.sb.isEmoji }
+    }
+
+    /// 只包含emoji表情
+    var containsOnlyEmoji: Bool {
+        return !self.base.isEmpty && !self.base.contains { !$0.sb.isEmoji }
+    }
+
+    /// 提取emoji表情字符串
+    var emojiString: String {
+        return emojis.map { String($0) }.reduce("",+)
+    }
+
+    /// 提取emoji表情数组
+    var emojis: [Character] {
+        return self.base.filter { $0.sb.isEmoji }
+    }
+
+    /// 提取单元编码标量
+    var emojiScalars: [UnicodeScalar] {
+        return self.base.filter { $0.sb.isEmoji }.flatMap { $0.unicodeScalars }
     }
 }
 
@@ -197,7 +229,7 @@ public extension String {
                  0xE0020 ... 0xE007F, // Tags
                  0xFE00 ... 0xFE0F, // Variation Selectors
                  0x1F900 ... 0x1F9FF, // Supplemental Symbols and Pictographs
-                 127_000 ... 127_600, // Various asian characters
+                 127000 ... 127600, // Various asian characters
                  65024 ... 65039, // Variation selector
                  9100 ... 9300, // Misc items
                  8400 ... 8447: // Combining Diacritical Marks for Symbols
@@ -1257,7 +1289,7 @@ public extension String {
         let frameSetter = CTFramesetterCreateWithAttributedString(attStr)
 
         let path = CGMutablePath()
-        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100_000), transform: .identity)
+        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100000), transform: .identity)
 
         let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CFIndex(0), CFIndex(0)), path, nil)
         let lines = CTFrameGetLines(frame) as? [AnyHashable]

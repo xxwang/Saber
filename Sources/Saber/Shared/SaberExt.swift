@@ -21,3 +21,4 @@ public extension Saberable {
 // MARK: - 已扩展.sb.属性的类
 extension NSObject: Saberable {}
 extension Bool: Saberable{}
+extension Character: Saberable {}
