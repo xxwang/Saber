@@ -285,7 +285,7 @@ public extension FileManager {
         } catch {
             fileSize += self.fileSize(path)
         }
-        return fileSize.int.storeUnit
+        return fileSize.sb.int.sb.storeUnit
     }
 
     /// 判断两个文件/文件夹是否一样

@@ -1,11 +1,11 @@
 import Foundation
 
 // MARK: - 属性
-public extension SaberExt where Base: SignedInteger {
+public extension SaberExt where Base == Int {
     /// `byte(字节)`转换存储单位
     /// - Returns: 转换后的文件大小
     var storeUnit: String {
-        var value = self.base.sb.doubleValue
+        var value = self.base.sb.double
         var index = 0
         let units = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
         while value > 1024 {
@@ -17,12 +17,12 @@ public extension SaberExt where Base: SignedInteger {
 }
 
 // MARK: - 日期/时间
-public extension SaberExt where Base: SignedInteger {
+public extension SaberExt where Base == Int {
     /// Int时间戳转日期对象
     /// - Parameter isUnix: 是否是Unix时间戳格式(默认true)
     /// - Returns: Date
     func date(isUnix: Bool = true) -> Date {
-        return Date(timeIntervalSince1970: TimeInterval(self.base.sb.doubleValue / (isUnix ? 1.0 : 1000.0)))
+        return Date(timeIntervalSince1970: TimeInterval(self.base.sb.double / (isUnix ? 1.0 : 1000.0)))
     }
 
     /// Int时间戳转日期字符串
@@ -41,6 +41,27 @@ public extension SaberExt where Base: SignedInteger {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat
 
+        return formatter.string(from: date)
+    }
+
+    /// 时间戳与当前时间的时间差
+    /// - Parameter format: 格式化样式`yyyy-MM-dd HH:mm:ss`
+    /// - Returns: 日期字符串
+    func delta(_ format: String = "yyyy-MM-dd HH:mm:ss") -> String {
+        let date = Date(timeInterval: double, since: Date())
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
+    }
+
+    /// 时间戳格式化为指定日期字符串
+    /// - Parameters format: 格式化 yyyy-MM-dd HH:mm:ss
+    /// - Returns: 日期字符串
+    func format(_ format: String = "yyyy-MM-dd HH:mm:ss") -> String {
+        let time = self.double - 3600 * 8
+        let date = Date(timeIntervalSince1970: time)
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
         return formatter.string(from: date)
     }
 
@@ -82,20 +103,4 @@ public extension SaberExt where Base: SignedInteger {
         formatter.dateFormat = "yyyy年MM月dd日 HH:mm:ss"
         return formatter.string(from: date)
     }
-}
-
-// MARK: - 运算符
-precedencegroup PowerPrecedence {
-    higherThan: MultiplicationPrecedence
-}
-
-infix operator **: PowerPrecedence
-/// 指数
-///
-/// - Parameters:
-///   - lhs: 底数
-///   - rhs: 指数
-/// - Returns: Double (示例: 2 ** 3 = 8)
-public func ** (lhs: Int, rhs: Int) -> Double {
-    return pow(Double(lhs), Double(rhs))
 }

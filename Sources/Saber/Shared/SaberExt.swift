@@ -29,8 +29,22 @@ extension Int16: Saberable {}
 extension Int32: Saberable {}
 extension Int64: Saberable {}
 
+extension UInt: Saberable {}
+extension UInt8: Saberable {}
+extension UInt16: Saberable {}
+extension UInt32: Saberable {}
+extension UInt64: Saberable {}
+
+extension Float: Saberable {}
+extension Float16: Saberable {}
+extension Double: Saberable {}
+
 extension Bool: Saberable {}
 extension Character: Saberable {}
+extension String: Saberable {}
+extension Range: Saberable {}
 
 extension NSObject: Saberable {}
+extension Array: Saberable {}
+extension Dictionary: Saberable {}
 

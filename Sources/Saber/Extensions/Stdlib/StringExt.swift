@@ -7,7 +7,7 @@ import Foundation
     import AppKit
 #endif
 
-extension String: Saberable {}
+
 
 // MARK: - 属性
 public extension String {
@@ -23,7 +23,7 @@ public extension String {
     }
 
     /// 字典数组
-    var objectArray: [[String: Any]]? {
+    var dicts: [[String: Any]]? {
         guard let data = data else {
             return nil
         }
