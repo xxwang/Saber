@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - 属性
-public extension SaberExt where Base == Optional {
+public extension SaberExt where Base == (any Collection)? {
     /// 可选值为空的时候返回 true
     var isNone: Bool {
         switch self.base {
@@ -14,16 +14,16 @@ public extension SaberExt where Base == Optional {
 }
 
 // MARK: - Collection属性
-public extension Optional where Wrapped: Collection {
+public extension SaberExt where Base == any Collection? {
     /// 判断可选集合类型是否为空或者nil
     var isNilOrEmpty: Bool {
-        guard let collection = self else { return true }
+        guard let collection = self.base else { return true }
         return collection.isEmpty
     }
 
     /// 当集合不为nil或者为空的时候返回集合,否则返回nil
-    var nonEmpty: Wrapped? {
-        guard let collection = self else { return nil }
+    var nonEmpty: Base {
+        guard let collection = self.base else { return nil }
         guard !collection.isEmpty else { return nil }
         return collection
     }
@@ -112,7 +112,7 @@ public extension Optional {
     }
 }
 
-// MARK: - 运算符(Wrapped: RawRepresentable, Wrapped.RawValue: Equatable)
+// MARK: - 运算符重载(Wrapped: RawRepresentable, Wrapped.RawValue: Equatable)
 public extension Optional where Wrapped: RawRepresentable, Wrapped.RawValue: Equatable {
     /// 判断两个值是否相等
     /// - Returns: 是否相等
@@ -142,7 +142,7 @@ public extension Optional where Wrapped: RawRepresentable, Wrapped.RawValue: Equ
 infix operator ??=: AssignmentPrecedence
 infix operator ?=: AssignmentPrecedence
 
-// MARK: - 运算符
+// MARK: - 运算符重载
 public extension Optional {
     /// 当右值不为nil的时候,把右值赋值给左值
     static func ??= (lhs: inout Optional, rhs: Optional) {
