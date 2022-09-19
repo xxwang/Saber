@@ -1,20 +1,15 @@
 import Foundation
 
 // MARK: - 属性
-public extension Optional {
+public extension SaberExt where Base == Optional<Any> {
     /// 可选值为空的时候返回 true
     var isNone: Bool {
-        switch self {
-        case .none:
-            return true
-        case .some:
-            return false
+        switch self.base {
+            case .none:
+                return true
+            case .some:
+                return false
         }
-    }
-
-    /// 可选值非空返回 true
-    var isSome: Bool {
-        return !isNone
     }
 }
 

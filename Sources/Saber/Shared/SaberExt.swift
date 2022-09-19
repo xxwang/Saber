@@ -40,6 +40,7 @@ extension Float16: Saberable {}
 extension Double: Saberable {}
 
 extension Bool: Saberable {}
+extension Optional: Saberable {}
 extension Character: Saberable {}
 extension String: Saberable {}
 extension Range: Saberable {}
