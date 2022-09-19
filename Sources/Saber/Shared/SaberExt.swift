@@ -10,7 +10,7 @@ public extension SaberExt {
     /// 获取原始数据
     func rawValue() -> Base { self.base }
     /// 获取原始数据的类型
-    func rawValue() -> Base.Type { Base.self }
+    func rawType() -> Base.Type { Base.self }
     /// 获取原始数据的类型
     static func rawValue() -> Base.Type { Base.self }
 }
