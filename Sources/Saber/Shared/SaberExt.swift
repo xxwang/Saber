@@ -7,10 +7,10 @@ public class SaberExt<Base> {
 }
 
 public extension SaberExt {
-    /// 获取原始数据
-    func rawValue() -> Base { self.base }
     /// 获取原始数据的类型
     func rawType() -> Base.Type { Base.self }
+    /// 获取原始数据
+    func rawValue() -> Base { self.base }
     /// 获取原始数据
     static func rawValue() -> Base.Type { Base.self }
 }
@@ -23,7 +23,14 @@ public extension Saberable {
 }
 
 // MARK: - 已扩展.sb.属性的类
-extension NSObject: Saberable {}
-extension Bool: Saberable {}
 extension Int: Saberable {}
+extension Int8: Saberable {}
+extension Int16: Saberable {}
+extension Int32: Saberable {}
+extension Int64: Saberable {}
+
+extension Bool: Saberable {}
 extension Character: Saberable {}
+
+extension NSObject: Saberable {}
+

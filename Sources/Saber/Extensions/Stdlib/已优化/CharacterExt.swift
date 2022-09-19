@@ -3,7 +3,7 @@ import Foundation
 // MARK: - 属性
 public extension SaberExt where Base == Character {
     /// Character转Int
-    var intValue: Int {
+    var int: Int {
         var intValue = 0
         for scalar in String(self.base).unicodeScalars {
             intValue = Int(scalar.value)
@@ -12,7 +12,7 @@ public extension SaberExt where Base == Character {
     }
 
     /// Character转String
-    var stringValue: String {
+    var string: String {
         return String(self.base)
     }
 
