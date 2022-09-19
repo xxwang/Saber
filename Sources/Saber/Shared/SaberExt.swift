@@ -49,3 +49,11 @@ extension NSObject: Saberable {}
 extension Array: Saberable {}
 extension Dictionary: Saberable {}
 
+
+func test() {
+    
+    let a: Int? = nil
+    a?.sb.isNone
+    
+    
+}
