@@ -11,7 +11,7 @@ import Foundation
 public extension String {
     /// 字符串转字典
     var dict: [String: Any]? {
-        guard let data = data else {return nil}
+        guard let data = data else { return nil }
         guard let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
             return nil
         }
@@ -20,7 +20,7 @@ public extension String {
 
     /// 字符串转字典数组
     var dicts: [[String: Any]]? {
-        guard let data = data else {return nil}
+        guard let data = data else { return nil }
         guard let dicts = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
             return nil
         }
@@ -78,6 +78,11 @@ public extension String {
         return Character(scalar)
     }
 
+    /// 字符串的字符数组表示
+    var characters: [Character] {
+        return Array(self)
+    }
+
     /// 字符串转布尔值(其它为false)
     ///
     ///        "1".bool -> true
@@ -114,7 +119,7 @@ public extension String {
         return NSMutableAttributedString(string: self)
     }
 
-    /// `utf8`格式`Data`
+    /// 转`utf8`格式`Data`
     var data: Data? {
         return asData()
     }
@@ -130,13 +135,13 @@ public extension String {
     }
 
     /// 将16进制字符串转为Int
-    var hexAsInt: Int {
+    var hexInt: Int {
         return Int(self, radix: 16) ?? 0
     }
 
-    /// 字符串的字符数组表示
-    var characters: [Character] {
-        return Array(self)
+    /// 字符串的长度
+    var length: Int {
+        return count
     }
 
     /// 字符串转换成驼峰命名法(并移除空字符串)
@@ -156,20 +161,7 @@ public extension String {
         return first + rest
     }
 
-    /// 拉丁语字符串转当前地区字符串
-    ///
-    ///        "Hèllö Wórld!".latinized -> "Hello World!"
-    ///
-    var latinizedAsLocal: String {
-        return folding(options: .diacriticInsensitive, locale: Locale.current)
-    }
-
-    /// 字符串的长度
-    var length: Int {
-        return count
-    }
-
-    /// 字符串的第一个字符(返回可选结果)
+    /// 字符串的第一个字符(返回可选字符串,因为字符串为空返回nil)
     ///
     ///        "Hello".firstCharacterAsString -> Optional("H")
     ///        "".firstCharacterAsString -> nil
@@ -179,7 +171,7 @@ public extension String {
         return String(first)
     }
 
-    /// 字符串的最后一个字符(返回可选类型结果)
+    /// 字符串的最后一个字符(返回可选字符串,因为字符串为空返回nil)
     ///
     ///        "Hello".lastCharacterAsString -> Optional("o")
     ///        "".lastCharacterAsString -> nil
@@ -231,7 +223,6 @@ public extension String {
         return comps.joined(separator: "").count == 0 && hasLetters && hasNumbers
     }
 
-    // FIXME: - 待完善
     /// 检查字符串是否为有效的Swift数字
     ///
     ///     "123".isNumeric -> true
@@ -239,25 +230,25 @@ public extension String {
     ///     "1,3".isNumeric -> true (fr_FR)
     ///     "abc".isNumeric -> false
     ///
-//    var isNumeric: Bool {
-//        let scanner = Scanner(string: self)
-//        scanner.locale = NSLocale.current
-//        if #available(iOS 13.0, *) {
-//            return scanner.scanDecimal() != nil && scanner.isAtEnd
-//        } else {
-//            return scanner.scanDecimal(nil) && scanner.isAtEnd
-//        }
-//    }
-//
-//        /// 判断是否是整数
-//    var isPureInt: Bool {
-//        let scan = Scanner(string: self)
-//        if #available(iOS 13.0, *) {
-//            return (scan.scanInt() != nil) && scan.isAtEnd
-//        } else {
-//            return scan.scanInt(nil) && scan.isAtEnd
-//        }
-//    }
+    var isNumeric: Bool {
+        let scanner = Scanner(string: self)
+        scanner.locale = NSLocale.current
+        if #available(iOS 13.0, *) {
+            return scanner.scanDecimal() != nil && scanner.isAtEnd
+        } else {
+            return scanner.scanDecimal(nil) && scanner.isAtEnd
+        }
+    }
+
+    /// 判断是否是整数
+    var isPureInt: Bool {
+        let scan = Scanner(string: self)
+        if #available(iOS 13.0, *) {
+            return (scan.scanInt() != nil) && scan.isAtEnd
+        } else {
+            return scan.scanInt(nil) && scan.isAtEnd
+        }
+    }
 
     /// 检查字符串是否只包含数字
     ///
@@ -274,21 +265,21 @@ public extension String {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    // FIXME: - 待完善
-//        /// 检查给定的字符串是否拼写正确
-//    var isSpelledCorrectly: Bool {
-//        let checker = UITextChecker()
-//        let range = NSRange(startIndex ..< endIndex, in: self)
-//
-//        let misspelledRange = checker.rangeOfMisspelledWord(
-//            in: self,
-//            range: range,
-//            startingAt: 0,
-//            wrap: false,
-//            language: Locale.preferredLanguages.first ?? "en"
-//        )
-//        return misspelledRange.location == NSNotFound
-//    }
+
+        /// 检查给定的字符串是否拼写正确
+    var isSpelledCorrectly: Bool {
+        let checker = UITextChecker()
+        let range = NSRange(startIndex ..< endIndex, in: self)
+
+        let misspelledRange = checker.rangeOfMisspelledWord(
+            in: self,
+            range: range,
+            startingAt: 0,
+            wrap: false,
+            language: Locale.preferredLanguages.first ?? "en"
+        )
+        return misspelledRange.location == NSNotFound
+    }
 
     /// 检查字符串是否为回文
     ///
