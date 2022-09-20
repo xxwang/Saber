@@ -1,11 +1,11 @@
 import Foundation
 
 // MARK: - 属性
-public extension SaberExt where Base == Character {
+public extension Character {
     /// Character转Int
     var int: Int {
         var intValue = 0
-        for scalar in String(self.base).unicodeScalars {
+        for scalar in String(self).unicodeScalars {
             intValue = Int(scalar.value)
         }
         return intValue
@@ -13,34 +13,34 @@ public extension SaberExt where Base == Character {
 
     /// Character转String
     var string: String {
-        return String(self.base)
+        return String(self)
     }
 
     /// 转换成小写字符
     var lowercase: Character {
-        return String(self.base).lowercased().first!
+        return String(self).lowercased().first!
     }
 
     /// 转换成大写字符
     var uppercase: Character {
-        return String(self.base).uppercased().first!
+        return String(self).uppercased().first!
     }
 }
 
 // MARK: - emoji
-public extension SaberExt where Base == Character {
+public extension Character {
     /// 简单的emoji是一个标量，以emoji的形式呈现给用户
     private var isSimpleEmoji: Bool {
-        guard let firstProperties = self.base.unicodeScalars.first?.properties else {
+        guard let firstProperties = unicodeScalars.first?.properties else {
             return false
         }
-        return self.base.unicodeScalars.count > 1 && (firstProperties.isEmojiPresentation || firstProperties.generalCategory == .otherSymbol)
+        return unicodeScalars.count > 1 && (firstProperties.isEmojiPresentation || firstProperties.generalCategory == .otherSymbol)
     }
 
     /// 检查标量是否将合并到emoji中
     private var isCombinedIntoEmoji: Bool {
-        return self.base.unicodeScalars.count > 1 &&
-            self.base.unicodeScalars.contains { $0.properties.isJoinControl || $0.properties.isVariationSelector }
+        return unicodeScalars.count > 1 &&
+            unicodeScalars.contains { $0.properties.isJoinControl || $0.properties.isVariationSelector }
     }
 
     /// 是否为emoji表情
@@ -51,7 +51,7 @@ public extension SaberExt where Base == Character {
 }
 
 // MARK: - 静态属性
-public extension SaberExt where Base == Character {
+public extension Character {
     /// 产生随机一个字符(a-z A-Z 0-9)
     static var random: Character {
         return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()!
@@ -59,12 +59,12 @@ public extension SaberExt where Base == Character {
 }
 
 // MARK: - 方法
-public extension SaberExt where Base == Character {
+public extension Character {
     /// 生成指定数量重复字符的字符串
     /// - Parameter count: 字符个数
     /// - Returns: 字符串
     func `repeat`(_ count: Int) -> String {
-        return self.base * count
+        return self * count
     }
 }
 

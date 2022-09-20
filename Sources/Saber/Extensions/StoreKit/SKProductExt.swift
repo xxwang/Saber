@@ -1,12 +1,12 @@
 import StoreKit
 
 // MARK: - 属性
-public extension SaberExt where Base == SKProduct {
+public extension SKProduct {
     /// 本地化价格
     var localizedPrice: String? {
-        let formatter = SKProduct.sb.priceFormatter
-        formatter.locale = self.base.priceLocale
-        return formatter.string(from: self.base.price)
+        let formatter = SKProduct.priceFormatter
+        formatter.locale = priceLocale
+        return formatter.string(from: price)
     }
 
     /// 数字格式化
@@ -16,6 +16,3 @@ public extension SaberExt where Base == SKProduct {
         return priceFormatter
     }()
 }
-
-// MARK: - 方法
-public extension SaberExt where Base == SKProduct {}

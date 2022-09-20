@@ -2,98 +2,98 @@ import CoreGraphics
 import Foundation
 
 // MARK: - 属性
-public extension SaberExt where Base: BinaryInteger {
+public extension BinaryInteger {
     /// 转Int
     var int: Int {
-        return Int(self.base)
+        return Int(self)
     }
-    
+
     /// 转UInt
     var uInt: UInt {
-        return UInt(self.base)
+        return UInt(self)
     }
-    
+
     /// 转Int64
     var int64: Int64 {
-        return Int64(self.base)
+        return Int64(self)
     }
-    
+
     /// 转Int64
     var uInt64: UInt64 {
-        return UInt64(self.base)
+        return UInt64(self)
     }
-    
+
     /// 转Float
     var float: Float {
-        return Float(self.base)
+        return Float(self)
     }
-    
+
     /// 转Double
     var double: Double {
-        return Double(self.base)
+        return Double(self)
     }
-    
+
     /// 转CGFloat
     var cGFloat: CGFloat {
-        return CGFloat(self.base)
+        return CGFloat(self)
     }
-    
+
     /// 转NSNumber
     var nsNumber: NSNumber {
-        guard let n = self.base as? Int else {
+        guard let n = self as? Int else {
             return NSNumber(value: 0)
         }
         return NSNumber(value: n)
     }
-    
+
     /// 转NSDecimalNumber
     var decimalNumber: NSDecimalNumber {
-        return NSDecimalNumber(value: self.double)
+        return NSDecimalNumber(value: double)
     }
-    
+
     /// 转Decimal
     var decimal: Decimal {
-        return self.decimalNumber.decimalValue
+        return decimalNumber.decimalValue
     }
-    
+
     /// 转Character
     var character: Character? {
-        guard let n = self.base as? Int,
+        guard let n = self as? Int,
               let scalar = UnicodeScalar(n)
         else {
             return nil
         }
         return Character(scalar)
     }
-    
+
     /// 转String
     var string: String {
-        return String(self.base)
+        return String(self)
     }
-    
+
     /// 生成宽高相同的CGSize
     var size: CGSize {
-        guard let n = self.base as? Int else {
+        guard let n = self as? Int else {
             return .zero
         }
         return CGSize(width: n, height: n)
     }
-    
+
     /// 生成(x,y)相同的CGPoint
     var point: CGPoint {
-        guard let n = self.base as? Int else {
+        guard let n = self as? Int else {
             return .zero
         }
         return CGPoint(x: n, y: n)
     }
-    
+
     /// 生成0-self之间的`CountableRange<Int>`
     var range: CountableRange
     <Int> {
-        let n = self.base as! Int
+        let n = self as! Int
         return 0 ..< n
     }
-    
+
     /// 转字节数组(UInt8数组)
     ///
     ///     var number = Int16(-128)
@@ -102,26 +102,26 @@ public extension SaberExt where Base: BinaryInteger {
     ///
     var bytes: [UInt8] {
         var result = [UInt8]()
-        result.reserveCapacity(MemoryLayout<Base>.size)
-        var value = self.base
-        for _ in 0 ..< MemoryLayout<Base>.size {
+        result.reserveCapacity(MemoryLayout<Self>.size)
+        var value = self
+        for _ in 0 ..< MemoryLayout<Self>.size {
             result.append(UInt8(truncatingIfNeeded: value))
             value >>= 8
         }
         return result.reversed()
     }
-    
+
     /// 数字转罗马数字
     var romanNumeral: String? {
-        guard self.base > 0 else {
+        guard self > 0 else {
             return nil
         }
         let romanValues = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
         let arabicValues = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
-        
+
         var romanValue = ""
         var startingValue = int
-        
+
         for (index, romanChar) in romanValues.enumerated() {
             let arabicValue = arabicValues[index]
             let div = startingValue / arabicValue
@@ -132,33 +132,46 @@ public extension SaberExt where Base: BinaryInteger {
         }
         return romanValue
     }
-    
+
+    /// `byte(字节)`转换存储单位
+    /// - Returns: 转换后的文件大小
+    var storeUnit: String {
+        var value = double
+        var index = 0
+        let units = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+        while value > 1024 {
+            value /= 1024
+            index += 1
+        }
+        return String(format: "%4.2f %@", value, units[index])
+    }
+
     /// 是否是奇数
     var isOdd: Bool {
-        return self.base % 2 != 0
+        return self % 2 != 0
     }
-    
+
     /// 是否是偶数
     var isEven: Bool {
-        return self.base % 2 == 0
+        return self % 2 == 0
     }
-    
+
     /// 是否是正数
     var isPositive: Bool {
-        return self.base > 0
+        return self > 0
     }
-    
+
     /// 是否是负数
     var isNegative: Bool {
-        return self.base < 0
+        return self < 0
     }
 
     /// 当前数值是否是素数
     var isPrime: Bool {
-        if self.base == 2 { return true }
-        guard self.base > 1, self.base % 2 != 0 else { return false }
-        let basic = Int(sqrt(Double(self.base)))
-        for int in Swift.stride(from: 3, through: basic, by: 2) where Int(self.base) % int == 0 {
+        if self == 2 { return true }
+        guard self > 1, self % 2 != 0 else { return false }
+        let basic = Int(sqrt(Double(self)))
+        for int in Swift.stride(from: 3, through: basic, by: 2) where Int(self) % int == 0 {
             return false
         }
         return true
@@ -166,14 +179,103 @@ public extension SaberExt where Base: BinaryInteger {
 }
 
 // MARK: - 方法
-public extension SaberExt where Base: BinaryInteger {
+public extension BinaryInteger {
     /// 角度转弧度
     func angle2radian() -> Double {
-        return self.double * .pi / 180.0
+        return double * .pi / 180.0
     }
-    
+
     /// 弧度转角度
     func radian2angle() -> Double {
-        return self.double * 180.0 / .pi
+        return double * 180.0 / .pi
+    }
+}
+
+// MARK: - 日期/时间
+public extension BinaryInteger {
+    /// Int时间戳转日期对象
+    /// - Parameter isUnix: 是否是Unix时间戳格式(默认true)
+    /// - Returns: Date
+    func date(isUnix: Bool = true) -> Date {
+        return Date(timeIntervalSince1970: TimeInterval(double / (isUnix ? 1.0 : 1000.0)))
+    }
+
+    /// Int时间戳转日期字符串
+    /// - Parameters:
+    ///   - dateFormat: 日期格式化样式
+    ///   - isUnix: 是否是Unix时间戳格式(默认true)
+    /// - Returns: 表示日期的字符串
+    func dateString(_ dateFormat: String = "yyyy-MM-dd HH:mm:ss", isUnix: Bool = true) -> String {
+        // 如果时间戳为毫秒需要除以
+        var serverTimeStamp = TimeInterval(self)
+        if !isUnix {
+            serverTimeStamp /= 1000.0
+        }
+        let date = Date(timeIntervalSince1970: serverTimeStamp)
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = dateFormat
+
+        return formatter.string(from: date)
+    }
+
+    /// 时间戳与当前时间的时间差
+    /// - Parameter format: 格式化样式`yyyy-MM-dd HH:mm:ss`
+    /// - Returns: 日期字符串
+    func delta(_ format: String = "yyyy-MM-dd HH:mm:ss") -> String {
+        let date = Date(timeInterval: double, since: Date())
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
+    }
+
+    /// 时间戳格式化为指定日期字符串
+    /// - Parameters format: 格式化 yyyy-MM-dd HH:mm:ss
+    /// - Returns: 日期字符串
+    func format(_ format: String = "yyyy-MM-dd HH:mm:ss") -> String {
+        let time = double - 3600 * 8
+        let date = Date(timeIntervalSince1970: time)
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: date)
+    }
+
+    /// Int时间戳转表示日期的字符串(刚刚/x分钟前)
+    /// - Parameter isUnix: 是否是Unix时间戳格式(默认true)
+    /// - Returns: 表示日期的字符串
+    func timeline(isUnix: Bool = true) -> String {
+        // 获取当前的时间戳
+        let currentTimeStamp = Date().timeIntervalSince1970
+        // 服务器时间戳(如果是毫秒 要除以1000)
+        var serverTimeStamp = TimeInterval(self)
+        if !isUnix {
+            serverTimeStamp /= 1000.0
+        }
+        // 时间差
+        let reduceTime: TimeInterval = currentTimeStamp - serverTimeStamp
+
+        if reduceTime < 60 {
+            return "刚刚"
+        }
+
+        let mins = Int(reduceTime / 60)
+        if mins < 60 {
+            return "\(mins)分钟前"
+        }
+
+        let hours = Int(reduceTime / 3600)
+        if hours < 24 {
+            return "\(hours)小时前"
+        }
+
+        let days = Int(reduceTime / 3600 / 24)
+        if days < 30 {
+            return "\(days)天前"
+        }
+
+        let date = Date(timeIntervalSince1970: serverTimeStamp)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日 HH:mm:ss"
+        return formatter.string(from: date)
     }
 }

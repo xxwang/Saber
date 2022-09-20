@@ -1,14 +1,14 @@
 import Foundation
 
 // MARK: - 属性
-public extension SaberExt where Base == Bool {
+public extension Bool {
     /// Bool转Int
-    var int:Int {
-        return self.base ? 1 : 0
+    var int: Int {
+        return self ? 1 : 0
     }
-    
+
     /// Bool转字符串
     var string: String {
-        return self.base ? "true" : "false"
+        return self ? "true" : "false"
     }
 }

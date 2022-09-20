@@ -1,29 +1,34 @@
 import Foundation
 
 // MARK: - 属性
-public extension SaberExt where Base == (any Collection)? {
+public extension Optional {
     /// 可选值为空的时候返回 true
     var isNone: Bool {
-        switch self.base {
-            case .none:
-                return true
-            case .some:
-                return false
+        switch self {
+        case .none:
+            return true
+        case .some:
+            return false
         }
+    }
+
+    /// 可选值有值的时候返回 true
+    var isSome: Bool {
+        return !isNone
     }
 }
 
 // MARK: - Collection属性
-public extension SaberExt where Base == any Collection? {
+public extension Optional where Wrapped: Collection {
     /// 判断可选集合类型是否为空或者nil
     var isNilOrEmpty: Bool {
-        guard let collection = self.base else { return true }
+        guard let collection = self else { return true }
         return collection.isEmpty
     }
 
     /// 当集合不为nil或者为空的时候返回集合,否则返回nil
-    var nonEmpty: Base {
-        guard let collection = self.base else { return nil }
+    var nonEmpty: Wrapped? {
+        guard let collection = self else { return nil }
         guard !collection.isEmpty else { return nil }
         return collection
     }

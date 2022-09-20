@@ -10,7 +10,7 @@ public extension Log {
                       line: Int = #line,
                       function: String = #function)
     {
-        self.log(level: .debug, message: message, file: file, line: line, function: function)
+        log(level: .debug, message: message, file: file, line: line, function: function)
     }
 
     /// 信息
@@ -19,7 +19,7 @@ public extension Log {
                      line: Int = #line,
                      function: String = #function)
     {
-        self.log(level: .info, message: message, file: file, line: line, function: function)
+        log(level: .info, message: message, file: file, line: line, function: function)
     }
 
     /// 警告
@@ -28,7 +28,7 @@ public extension Log {
                         line: Int = #line,
                         function: String = #function)
     {
-        self.log(level: .warning, message: message, file: file, line: line, function: function)
+        log(level: .warning, message: message, file: file, line: line, function: function)
     }
 
     /// 错误
@@ -37,7 +37,7 @@ public extension Log {
                       line: Int = #line,
                       function: String = #function)
     {
-        self.log(level: .error, message: message, file: file, line: line, function: function)
+        log(level: .error, message: message, file: file, line: line, function: function)
     }
 }
 
@@ -55,8 +55,8 @@ extension Log {
         message: Any...,
         file: String,
         line: Int,
-        function: String)
-    {
+        function: String
+    ) {
         // 输出内容
         var content = ""
         for item in message {
@@ -88,28 +88,28 @@ private extension Log {
         /// 图标
         var levelIcon: String {
             switch self {
-                case .debug:
-                    return "👻"
-                case .info:
-                    return "🌸"
-                case .warning:
-                    return "⚠️"
-                case .error:
-                    return "❌"
+            case .debug:
+                return "👻"
+            case .info:
+                return "🌸"
+            case .warning:
+                return "⚠️"
+            case .error:
+                return "❌"
             }
         }
 
         /// 级别名称
         var levelName: String {
             switch self {
-                case .debug:
-                    return "[调试]"
-                case .info:
-                    return "[信息]"
-                case .warning:
-                    return "[警告]"
-                case .error:
-                    return "[错误]"
+            case .debug:
+                return "[调试]"
+            case .info:
+                return "[信息]"
+            case .warning:
+                return "[警告]"
+            case .error:
+                return "[错误]"
             }
         }
     }

@@ -168,6 +168,8 @@ public extension Array {
 }
 
 // MARK: - 方法(Element: Equatable)
+public extension SaberExt where Base == [any Equatable] {}
+
 public extension Array where Element: Equatable {
     // 获取数组中的指定元素的索引值
     // Parameter item: 元素
