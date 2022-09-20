@@ -251,7 +251,7 @@ public extension Sequence {
     }
 }
 
-// MARK: - 方法(Element: Equatable)
+// MARK: - Element: Equatable
 public extension Sequence where Element: Equatable {
     /// 检查数组是否包含元素数组
     ///
@@ -265,7 +265,7 @@ public extension Sequence where Element: Equatable {
     }
 }
 
-// MARK: - 方法(Element: Hashable)
+// MARK: - Element: Hashable
 public extension Sequence where Element: Hashable {
     /// 检查数组是否包含元素数组
     ///
@@ -310,7 +310,7 @@ public extension Sequence where Element: Hashable {
     }
 }
 
-// MARK: - 方法(Element: AdditiveArithmetic)
+// MARK: - Element: AdditiveArithmetic
 public extension Sequence where Element: AdditiveArithmetic {
     /// 数组中所有元素的总和
     ///
