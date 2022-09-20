@@ -27,7 +27,6 @@ public extension Dictionary {
 
 // MARK: - 构造方法
 public extension Dictionary {
-    
     /// 根据给定的KeyPath分组的给定序列创建字典
     /// - Parameters:
     ///   - sequence: 正在分组的序列
@@ -186,68 +185,68 @@ public extension Dictionary where Key: StringProtocol {
     }
 }
 
-    // MARK: - 运算符重载
+// MARK: - 运算符重载
 public extension Dictionary {
-        /// 合并两个字典的键/值
-        ///
-        ///        let dict: [String: String] = ["key1": "value1"]
-        ///        let dict2: [String: String] = ["key2": "value2"]
-        ///        let result = dict + dict2
-        ///        result["key1"] -> "value1"
-        ///        result["key2"] -> "value2"
-        /// - Parameters:
-        ///   - lhs: 字典
-        ///   - rhs: 字典
-        /// - Returns: 包含两个字典的键和值的字典
+    /// 合并两个字典的键/值
+    ///
+    ///        let dict: [String: String] = ["key1": "value1"]
+    ///        let dict2: [String: String] = ["key2": "value2"]
+    ///        let result = dict + dict2
+    ///        result["key1"] -> "value1"
+    ///        result["key2"] -> "value2"
+    /// - Parameters:
+    ///   - lhs: 字典
+    ///   - rhs: 字典
+    /// - Returns: 包含两个字典的键和值的字典
     static func + (lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
         var result = lhs
         rhs.forEach { result[$0] = $1 }
         return result
     }
-    
-        // MARK: - Operators
-    
-        /// 将第二个字典中的键和值附加到第一个字典中
-        ///
-        ///        var dict: [String: String] = ["key1": "value1"]
-        ///        let dict2: [String: String] = ["key2": "value2"]
-        ///        dict += dict2
-        ///        dict["key1"] -> "value1"
-        ///        dict["key2"] -> "value2"
-        /// - Parameters:
-        ///   - lhs: 字典
-        ///   - rhs: 字典
+
+    // MARK: - Operators
+
+    /// 将第二个字典中的键和值附加到第一个字典中
+    ///
+    ///        var dict: [String: String] = ["key1": "value1"]
+    ///        let dict2: [String: String] = ["key2": "value2"]
+    ///        dict += dict2
+    ///        dict["key1"] -> "value1"
+    ///        dict["key2"] -> "value2"
+    /// - Parameters:
+    ///   - lhs: 字典
+    ///   - rhs: 字典
     static func += (lhs: inout [Key: Value], rhs: [Key: Value]) {
         rhs.forEach { lhs[$0] = $1 }
     }
-    
-        /// 从字典中删除序列中包含的键(返回新字典)
-        ///
-        ///        let dict: [String: String] = ["key1": "value1", "key2": "value2", "key3": "value3"]
-        ///        let result = dict-["key1", "key2"]
-        ///        result.keys.contains("key3") -> true
-        ///        result.keys.contains("key1") -> false
-        ///        result.keys.contains("key2") -> false
-        /// - Parameters:
-        ///   - lhs: 字典
-        ///   - keys: 包含要删除的key的数组
-        /// - Returns: 删除键的新词典
+
+    /// 从字典中删除序列中包含的键(返回新字典)
+    ///
+    ///        let dict: [String: String] = ["key1": "value1", "key2": "value2", "key3": "value3"]
+    ///        let result = dict-["key1", "key2"]
+    ///        result.keys.contains("key3") -> true
+    ///        result.keys.contains("key1") -> false
+    ///        result.keys.contains("key2") -> false
+    /// - Parameters:
+    ///   - lhs: 字典
+    ///   - keys: 包含要删除的key的数组
+    /// - Returns: 删除键的新词典
     static func - <S: Sequence>(lhs: [Key: Value], keys: S) -> [Key: Value] where S.Element == Key {
         var result = lhs
         result.removeAll(keys: keys)
         return result
     }
-    
-        /// 从字典中删除序列中包含的键
-        ///
-        ///        var dict: [String: String] = ["key1": "value1", "key2": "value2", "key3": "value3"]
-        ///        dict-=["key1", "key2"]
-        ///        dict.keys.contains("key3") -> true
-        ///        dict.keys.contains("key1") -> false
-        ///        dict.keys.contains("key2") -> false
-        /// - Parameters:
-        ///   - lhs: 字典
-        ///   - keys: 包含要删除的key的数组
+
+    /// 从字典中删除序列中包含的键
+    ///
+    ///        var dict: [String: String] = ["key1": "value1", "key2": "value2", "key3": "value3"]
+    ///        dict-=["key1", "key2"]
+    ///        dict.keys.contains("key3") -> true
+    ///        dict.keys.contains("key1") -> false
+    ///        dict.keys.contains("key2") -> false
+    /// - Parameters:
+    ///   - lhs: 字典
+    ///   - keys: 包含要删除的key的数组
     static func -= <S: Sequence>(lhs: inout [Key: Value], keys: S) where S.Element == Key {
         lhs.removeAll(keys: keys)
     }

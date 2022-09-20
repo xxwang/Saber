@@ -15,16 +15,16 @@ public extension Array {
     /// - Parameter prettify: 是否美化格式
     /// - Returns: JSON字符串(可选类型)
     func string(prettify: Bool = false) -> String? {
-        guard let data = self.data(prettify: prettify) else {return nil}
+        guard let data = data(prettify: prettify) else { return nil }
         return String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\\/", with: "/", options: .caseInsensitive, range: nil)
     }
 }
 
 // MARK: - Element == String
 public extension Array where Self.Element == String {
-        /// 数组转字符转(数组的元素是 字符串),如：["1", "2", "3"] 连接器为 - ,那么转化后为 "1-2-3"
-        /// - Parameter separator: 连接器
-        /// - Returns: 转化后的字符串
+    /// 数组转字符转(数组的元素是 字符串),如：["1", "2", "3"] 连接器为 - ,那么转化后为 "1-2-3"
+    /// - Parameter separator: 连接器
+    /// - Returns: 转化后的字符串
     func strinig(separator: String = "") -> String {
         return joined(separator: separator)
     }
@@ -88,7 +88,6 @@ public extension Array {
 
 // MARK: - 排序
 public extension Array {
-
     /// 根据指定的otherArray数组与keyPath对数组进行排序
     ///
     ///        [MyStruct(x: 3), MyStruct(x: 1), MyStruct(x: 2)].sorted(like: [1, 2, 3], keyPath: \.x)
@@ -109,9 +108,9 @@ public extension Array {
 
 // MARK: - Element: Equatable
 public extension Array where Element: Equatable {
-        /// 获取数组中的指定元素的索引值
-        /// - Parameter item: 元素
-        /// - Returns: 索引值数组
+    /// 获取数组中的指定元素的索引值
+    /// - Parameter item: 元素
+    /// - Returns: 索引值数组
     func indexes(_ item: Element) -> [Int] {
         var indexes = [Int]()
         for index in 0 ..< count where self[index] == item {
@@ -119,32 +118,32 @@ public extension Array where Element: Equatable {
         }
         return indexes
     }
-    
-        /// 获取元素首次出现的位置
-        /// - Parameter item: 元素
-        /// - Returns: 索引值
+
+    /// 获取元素首次出现的位置
+    /// - Parameter item: 元素
+    /// - Returns: 索引值
     func firstIndex(_ item: Element) -> Int? {
         for (index, value) in enumerated() where value == item {
             return index
         }
         return nil
     }
-    
-        /// 获取元素最后出现的位置
-        /// - Parameter item: 元素
-        /// - Returns: 索引值
+
+    /// 获取元素最后出现的位置
+    /// - Parameter item: 元素
+    /// - Returns: 索引值
     func lastIndex(_ item: Element) -> Int? {
         return indexes(item).last
     }
-    
-        /// 删除数组中的指定元素
-        /// - Parameter object: 元素
+
+    /// 删除数组中的指定元素
+    /// - Parameter object: 元素
     mutating func remove(_ object: Element) {
         for idx in indexes(object).reversed() {
             remove(at: idx)
         }
     }
-    
+
     /// 删除数组的中的元素(可删除第一个出现的或者删除全部出现的)
     /// - Parameters:
     ///   - element: 要删除的元素
@@ -292,5 +291,3 @@ public extension Array where Element: NSObjectProtocol {
         return self
     }
 }
-
-

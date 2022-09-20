@@ -21,13 +21,12 @@ public extension RangeReplaceableCollection {
 
 // MARK: - 方法
 public extension RangeReplaceableCollection {
-
-        /// 按给定位置返回新的旋转集合(返回一个新的集合)
-        /// [1, 2, 3, 4].rotated(by: 1) -> [4,1,2,3]
-        /// [1, 2, 3, 4].rotated(by: 3) -> [2,3,4,1]
-        /// [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
-        /// - Parameter places: 阵列旋转的位置数.如果值为正,则结束为开始,如果值为负,则开始为结束
-        /// - Returns: 新的旋转集合
+    /// 按给定位置返回新的旋转集合(返回一个新的集合)
+    /// [1, 2, 3, 4].rotated(by: 1) -> [4,1,2,3]
+    /// [1, 2, 3, 4].rotated(by: 3) -> [2,3,4,1]
+    /// [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
+    /// - Parameter places: 阵列旋转的位置数.如果值为正,则结束为开始,如果值为负,则开始为结束
+    /// - Returns: 新的旋转集合
     func rotated(by places: Int) -> Self {
         var copy = self
         return copy.rotate(by: places)

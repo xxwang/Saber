@@ -265,8 +265,7 @@ public extension String {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-
-        /// 检查给定的字符串是否拼写正确
+    /// 检查给定的字符串是否拼写正确
     var isSpelledCorrectly: Bool {
         let checker = UITextChecker()
         let range = NSRange(startIndex ..< endIndex, in: self)
@@ -428,17 +427,17 @@ public extension String {
 public extension String {
     /// 是否为单个emoji表情
     var isSingleEmoji: Bool {
-        return self.count == 1 && containsEmoji
+        return count == 1 && containsEmoji
     }
 
     /// 包含emoji表情
     var containsEmoji: Bool {
-        return self.contains { $0.isEmoji }
+        return contains { $0.isEmoji }
     }
 
     /// 只包含emoji表情
     var containsOnlyEmoji: Bool {
-        return !self.isEmpty && !self.contains { !$0.isEmoji }
+        return !isEmpty && !contains { !$0.isEmoji }
     }
 
     /// 提取emoji表情字符串
@@ -448,18 +447,18 @@ public extension String {
 
     /// 提取emoji表情数组
     var emojis: [Character] {
-        return self.filter { $0.isEmoji }
+        return filter { $0.isEmoji }
     }
 
     /// 提取单元编码标量
     var emojiScalars: [UnicodeScalar] {
-        return self.filter { $0.isEmoji }.flatMap { $0.unicodeScalars }
+        return filter { $0.isEmoji }.flatMap { $0.unicodeScalars }
     }
 
     /// 移除字符串中的Emoji表情
     var noneEmoji: String {
         var chars: [Character] = []
-        self.forEach { char in
+        forEach { char in
             if !char.isEmoji {
                 chars.append(char)
             }
@@ -1238,7 +1237,7 @@ public extension String {
         let frameSetter = CTFramesetterCreateWithAttributedString(attStr)
 
         let path = CGMutablePath()
-        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100000), transform: .identity)
+        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100_000), transform: .identity)
 
         let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CFIndex(0), CFIndex(0)), path, nil)
         let lines = CTFrameGetLines(frame) as? [AnyHashable]

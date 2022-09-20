@@ -5,6 +5,7 @@ public class SaberExt<Base> {
     let base: Base
     init(_ base: Base) { self.base = base }
 }
+
 // MARK: - SaberExt方法
 public extension SaberExt {
     func rawBase() -> Base.Type { Base.self }
