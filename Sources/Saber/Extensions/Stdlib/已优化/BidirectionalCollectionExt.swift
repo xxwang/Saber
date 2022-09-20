@@ -16,7 +16,7 @@ public extension BidirectionalCollection {
 
 // MARK: - 方法
 public extension BidirectionalCollection {
-    /// 返回序列中在指定路径中等于`value`的最后一个元素
+    /// 返回序列中在指定路径中==`value`的最后一个元素
     /// - Parameters:
     ///   - keyPath: 要比较的`value`所在的路径
     ///   - value: 要比较的`value`

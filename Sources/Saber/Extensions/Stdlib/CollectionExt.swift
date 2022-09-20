@@ -81,7 +81,7 @@ public extension Collection {
     }
 }
 
-// MARK: - 方法(Element: Equatable)
+// MARK: - Element: Equatable
 public extension Collection where Element: Equatable {
     /// 获取指定元素的索引数组
     ///
@@ -95,7 +95,7 @@ public extension Collection where Element: Equatable {
     }
 }
 
-// MARK: - 方法 (Element: BinaryInteger)
+// MARK: - Element: BinaryInteger
 public extension Collection where Element: BinaryInteger {
     /// 计算集合中元素的平均值
     ///
@@ -106,7 +106,7 @@ public extension Collection where Element: BinaryInteger {
     }
 }
 
-// MARK: - 方法 (Element: FloatingPoint)
+// MARK: - Element: FloatingPoint
 public extension Collection where Element: FloatingPoint {
     /// 计算集合中元素的平均值
     ///

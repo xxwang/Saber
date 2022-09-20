@@ -6,9 +6,7 @@ public extension Array {
     /// - Parameter prettify: 是否美化格式
     /// - Returns: JSON格式的Data(可选类型)
     func data(prettify: Bool = false) -> Data? {
-        guard JSONSerialization.isValidJSONObject(self) else {
-            return nil
-        }
+        guard JSONSerialization.isValidJSONObject(self) else { return nil }
         let options: JSONSerialization.WritingOptions = (prettify == true) ? .prettyPrinted : .init()
         return try? JSONSerialization.data(withJSONObject: self, options: options)
     }
@@ -17,11 +15,18 @@ public extension Array {
     /// - Parameter prettify: 是否美化格式
     /// - Returns: JSON字符串(可选类型)
     func string(prettify: Bool = false) -> String? {
-        guard JSONSerialization.isValidJSONObject(self) else { return nil }
-        let options: JSONSerialization.WritingOptions = (prettify == true) ? .prettyPrinted : .init()
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: self, options: options) else { return nil }
+        guard let data = self.data(prettify: prettify) else {return nil}
+        return String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\\/", with: "/", options: .caseInsensitive, range: nil)
+    }
+}
 
-        return String(data: jsonData, encoding: .utf8)?.replacingOccurrences(of: "\\/", with: "/", options: .caseInsensitive, range: nil)
+// MARK: - Element == String
+public extension Array where Self.Element == String {
+        /// 数组转字符转(数组的元素是 字符串),如：["1", "2", "3"] 连接器为 - ,那么转化后为 "1-2-3"
+        /// - Parameter separator: 连接器
+        /// - Returns: 转化后的字符串
+    func strinig(separator: String = "") -> String {
+        return joined(separator: separator)
     }
 }
 
@@ -29,7 +34,7 @@ public extension Array {
 public extension Array {
     /// 安全的取某个索引的值
     /// - Parameter index: 索引
-    /// - Returns: 对应 inde 的 value
+    /// - Returns: 对应 index 的 value
     func indexValue(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
@@ -83,71 +88,6 @@ public extension Array {
 
 // MARK: - 排序
 public extension Array {
-    private func optionalCompareAscending<T: Comparable>(path1: T?, path2: T?) -> Bool {
-        guard let path1 = path1, let path2 = path2 else { return false }
-        return path1 < path2
-    }
-
-    private func optionalCompareDescending<T: Comparable>(path1: T?, path2: T?) -> Bool {
-        guard let path1 = path1, let path2 = path2 else { return false }
-        return path1 > path2
-    }
-
-    /// 返回基于可选KeyPath的排序数组
-    /// - Parameters path: 排序的KeyPath, KeyPath类型必须遵守Comparable
-    /// - Parameter ascending: 是否升序排列
-    /// - Returns: 结果数组
-    @available(*, deprecated, message: "Use sorted(by:with:) instead.")
-    func sorted<T: Comparable>(by path: KeyPath<Element, T?>, ascending: Bool) -> [Element] {
-        if ascending {
-            return sorted(by: path, with: optionalCompareAscending)
-        }
-        return sorted(by: path, with: optionalCompareDescending)
-    }
-
-    /// 返回基于KeyPath的排序数组
-    /// - Parameters path: 排序的KeyPath KeyPath类型必须遵守Comparable
-    /// - Parameter ascending: 是否升序排列
-    /// - Returns: 结果数组
-    @available(*, deprecated, message: "Use sorted(by:with:) instead.")
-    func sorted<T: Comparable>(by path: KeyPath<Element, T>, ascending: Bool) -> [Element] {
-        if ascending {
-            return sorted(by: path, with: <)
-        }
-        return sorted(by: path, with: >)
-    }
-
-    /// 根据可选的KeyPath对数组进行排序
-    /// - Parameters:
-    ///   - path: 排序的KeyPath KeyPath类型必须遵守Comparable
-    ///   - ascending: 是否升序排列
-    /// - Returns: 排完序的当前数组
-    @available(*, deprecated, message: "Use sort(by:with:) instead.")
-    @discardableResult
-    mutating func sort<T: Comparable>(by path: KeyPath<Element, T?>, ascending: Bool) -> [Element] {
-        if ascending {
-            sort(by: path, with: optionalCompareAscending)
-        } else {
-            sort(by: path, with: optionalCompareDescending)
-        }
-        return self
-    }
-
-    /// 根据可选的KeyPath对数组进行排序
-    /// - Parameters:
-    ///   - path: 排序的KeyPath KeyPath类型必须遵守Comparable
-    ///   - ascending: 是否升序排列
-    /// - Returns: 排完序的当前数组
-    @available(*, deprecated, message: "Use sort(by:with:) instead.")
-    @discardableResult
-    mutating func sort<T: Comparable>(by path: KeyPath<Element, T>, ascending: Bool) -> [Element] {
-        if ascending {
-            sort(by: path, with: <)
-        } else {
-            sort(by: path, with: >)
-        }
-        return self
-    }
 
     /// 根据指定的otherArray数组与keyPath对数组进行排序
     ///
@@ -167,13 +107,11 @@ public extension Array {
     }
 }
 
-// MARK: - 方法(Element: Equatable)
-public extension SaberExt where Base == [any Equatable] {}
-
+// MARK: - Element: Equatable
 public extension Array where Element: Equatable {
-    // 获取数组中的指定元素的索引值
-    // Parameter item: 元素
-    // Returns: 索引值数组
+        /// 获取数组中的指定元素的索引值
+        /// - Parameter item: 元素
+        /// - Returns: 索引值数组
     func indexes(_ item: Element) -> [Int] {
         var indexes = [Int]()
         for index in 0 ..< count where self[index] == item {
@@ -181,35 +119,32 @@ public extension Array where Element: Equatable {
         }
         return indexes
     }
-
-    // 获取元素首次出现的位置
-    // Parameter item: 元素
-    // Returns: 索引值
+    
+        /// 获取元素首次出现的位置
+        /// - Parameter item: 元素
+        /// - Returns: 索引值
     func firstIndex(_ item: Element) -> Int? {
         for (index, value) in enumerated() where value == item {
             return index
         }
         return nil
     }
-
-    // 获取元素最后出现的位置
-    // Parameter item: 元素
-    // Returns: 索引值
+    
+        /// 获取元素最后出现的位置
+        /// - Parameter item: 元素
+        /// - Returns: 索引值
     func lastIndex(_ item: Element) -> Int? {
         return indexes(item).last
     }
-
-    // 删除数组中的指定元素
-    // Parameter object: 元素
+    
+        /// 删除数组中的指定元素
+        /// - Parameter object: 元素
     mutating func remove(_ object: Element) {
         for idx in indexes(object).reversed() {
             remove(at: idx)
         }
     }
-}
-
-// MARK: - 方法(Element: Equatable)
-public extension Array where Element: Equatable {
+    
     /// 删除数组的中的元素(可删除第一个出现的或者删除全部出现的)
     /// - Parameters:
     ///   - element: 要删除的元素
@@ -231,7 +166,7 @@ public extension Array where Element: Equatable {
         return self
     }
 
-    /// 从删除数组中删除一个数组中出现的元素,支持是否重复删除, 否则只删除第一次出现的元素
+    /// 从数组中删除在`elements`数组中出现的元素
     /// - Parameters:
     ///   - elements: 被删除的数组元素
     ///   - isRepeat: 是否删除重复的元素
@@ -320,9 +255,9 @@ public extension Array where Element: Equatable {
     }
 }
 
-// MARK: - 方法(Element: NSObjectProtocol)
+// MARK: - Element: NSObjectProtocol
 public extension Array where Element: NSObjectProtocol {
-    /// 删除数组中遵守NSObjectProtocol协议的元素
+    /// 删除数组中遵守`NSObjectProtocol`协议的元素
     /// - Parameters:
     ///   - object: 元素
     ///   - isRepeat: 是否删除重复的元素
@@ -343,9 +278,9 @@ public extension Array where Element: NSObjectProtocol {
         return self
     }
 
-    /// 删除一个遵守NSObjectProtocol的数组中的元素,支持重复删除
+    /// 删除一个遵守`NSObjectProtocol`的数组中的元素,支持重复删除
     /// - Parameters:
-    ///   - objects: 遵守NSObjectProtocol的数组
+    ///   - objects: 遵守`NSObjectProtocol`的数组
     ///   - isRepeat: 是否删除重复的元素
     @discardableResult
     mutating func removeArray(objects: [NSObjectProtocol], isRepeat: Bool = true) -> Array {
@@ -358,12 +293,4 @@ public extension Array where Element: NSObjectProtocol {
     }
 }
 
-// MARK: - 针对数组元素是 String 的扩展
-public extension Array where Self.Element == String {
-    /// 数组转字符转(数组的元素是 字符串),如：["1", "2", "3"] 连接器为 - ,那么转化后为 "1-2-3"
-    /// - Parameter separator: 连接器
-    /// - Returns: 转化后的字符串
-    func strinig(separator: String = "") -> String {
-        return joined(separator: separator)
-    }
-}
+
