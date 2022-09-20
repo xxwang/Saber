@@ -34,7 +34,7 @@ public extension BinaryInteger {
     }
 
     /// 转CGFloat
-    var cGFloat: CGFloat {
+    var cgFloat: CGFloat {
         return CGFloat(self)
     }
 

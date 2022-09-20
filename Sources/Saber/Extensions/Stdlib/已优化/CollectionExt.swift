@@ -3,8 +3,8 @@ import Foundation
 
 // MARK: - 属性
 public extension Collection {
-    /// 集合的Range(开始到结束, 不包含结束索引)
-    var fullRange: Range<Index> {
+    /// 集合的索引`Range`
+    var range: Range<Index> {
         return startIndex ..< endIndex
     }
 }
@@ -35,7 +35,7 @@ public extension Collection {
         }
     }
 
-    /// 把集合分割成指定大小的切片(如果最后一个切片小于指定大小则返回剩余的元素)
+    /// 把集合分割成指定大小的切片(如果剩余元素个数小于指定大小则返回剩余的元素)
     ///
     ///     [0, 2, 4, 7].group(by: 2) -> [[0, 2], [4, 7]]
     ///     [0, 2, 4, 7, 6].group(by: 2) -> [[0, 2], [4, 7], [6]]

@@ -9,105 +9,68 @@ import Foundation
 
 // MARK: - 属性
 public extension String {
-    /// 字典
-    var object: [String: Any]? {
-        guard let data = data else {
+    /// 字符串转字典
+    var dict: [String: Any]? {
+        guard let data = data else {return nil}
+        guard let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
             return nil
         }
-        guard let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            return nil
-        }
-        return object
+        return dict
     }
 
-    /// 字典数组
+    /// 字符串转字典数组
     var dicts: [[String: Any]]? {
-        guard let data = data else {
+        guard let data = data else {return nil}
+        guard let dicts = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
             return nil
         }
-        guard let object = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
-            return nil
-        }
-        return object
-    }
-}
-
-// MARK: - emoji
-public extension SaberExt where Base == String {
-    /// 是否为单个emoji表情
-    var isSingleEmoji: Bool {
-        return base.count == 1 && containsEmoji
-    }
-
-    /// 包含emoji表情
-    var containsEmoji: Bool {
-        return base.contains { $0.isEmoji }
-    }
-
-    /// 只包含emoji表情
-    var containsOnlyEmoji: Bool {
-        return !base.isEmpty && !base.contains { !$0.isEmoji }
-    }
-
-    /// 提取emoji表情字符串
-    var emojiString: String {
-        return emojis.map { String($0) }.reduce("",+)
-    }
-
-    /// 提取emoji表情数组
-    var emojis: [Character] {
-        return base.filter { $0.isEmoji }
-    }
-
-    /// 提取单元编码标量
-    var emojiScalars: [UnicodeScalar] {
-        return base.filter { $0.isEmoji }.flatMap { $0.unicodeScalars }
+        return dicts
     }
 }
 
 // MARK: - 属性
 public extension String {
-    /// Int
+    /// 字符串转Int
     var int: Int {
         return Int(self) ?? 0
     }
 
-    /// UInt
+    /// 字符串转UInt
     var uInt: UInt {
         return UInt(self) ?? 0
     }
 
-    /// Int64
+    /// 字符串转Int64
     var int64: Int64 {
         return Int64(self) ?? 0
     }
 
-    /// Int64
+    /// 字符串转UInt64
     var uInt64: UInt64 {
         return UInt64(self) ?? 0
     }
 
-    /// Float
+    /// 字符串转Float
     var float: Float {
         return Float(self) ?? 0
     }
 
-    /// Double
+    /// 字符串转Double
     var double: Double {
         return Double(self) ?? 0
     }
 
-    /// CGFloat
+    /// 字符串转CGFloat
     var cgFloat: CGFloat {
         return CGFloat(double)
     }
 
-    /// NSNumber
+    /// 字符串转NSNumber
     var nsNumber: NSNumber {
         return NSNumber(value: double)
     }
 
-    /// Character
+    /// 字符串转Character
     var character: Character? {
         guard let n = Int(self),
               let scalar = UnicodeScalar(n)
@@ -115,18 +78,13 @@ public extension String {
         return Character(scalar)
     }
 
-    /// String
-    var string: String {
-        return String(self)
-    }
-
-    /// 字符串转布尔值(失败返回nil)
+    /// 字符串转布尔值(其它为false)
     ///
     ///        "1".bool -> true
     ///        "False".bool -> false
     ///        "Hello".bool = nil
     ///
-    var bool: Bool? {
+    var bool: Bool {
         let trimmed = self.trimmed.lowercased()
         switch trimmed {
         case "1",
@@ -142,7 +100,7 @@ public extension String {
              "no":
             return false
         default:
-            return nil
+            return false
         }
     }
 
@@ -209,48 +167,6 @@ public extension String {
     /// 字符串的长度
     var length: Int {
         return count
-    }
-
-    /// 检查字符串是否包含一个或多个emoji(表情符号)
-    ///
-    ///        "Hello 😀".containEmoji -> true
-    ///
-    var containEmoji: Bool {
-        for scalar in unicodeScalars {
-            switch scalar.value {
-            case 0x1F600 ... 0x1F64F, // Emoticons
-                 0x1F300 ... 0x1F5FF, // Misc Symbols and Pictographs
-                 0x1F680 ... 0x1F6FF, // Transport and Map
-                 0x1F1E6 ... 0x1F1FF, // Regional country flags
-                 0x2600 ... 0x26FF, // Misc symbols
-                 0x2700 ... 0x27BF, // Dingbats
-                 0xE0020 ... 0xE007F, // Tags
-                 0xFE00 ... 0xFE0F, // Variation Selectors
-                 0x1F900 ... 0x1F9FF, // Supplemental Symbols and Pictographs
-                 127_000 ... 127_600, // Various asian characters
-                 65024 ... 65039, // Variation selector
-                 9100 ... 9300, // Misc items
-                 8400 ... 8447: // Combining Diacritical Marks for Symbols
-                return true
-            default:
-                continue
-            }
-        }
-        return false
-    }
-
-    /// 移除字符串中的Emoji表情
-    var noneEmoji: String {
-        do {
-            let regex = try NSRegularExpression(pattern: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", options: NSRegularExpression.Options.caseInsensitive)
-
-            let modifiedString = regex.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSRange(location: 0, length: count), withTemplate: "")
-
-            return modifiedString
-        } catch {
-            print(error.localizedDescription)
-        }
-        return ""
     }
 
     /// 字符串的第一个字符(返回可选结果)
@@ -514,6 +430,50 @@ public extension String {
     ///
     var regexEscaped: String {
         return NSRegularExpression.escapedPattern(for: self)
+    }
+}
+
+// MARK: - emoji
+public extension String {
+    /// 是否为单个emoji表情
+    var isSingleEmoji: Bool {
+        return self.count == 1 && containsEmoji
+    }
+
+    /// 包含emoji表情
+    var containsEmoji: Bool {
+        return self.contains { $0.isEmoji }
+    }
+
+    /// 只包含emoji表情
+    var containsOnlyEmoji: Bool {
+        return !self.isEmpty && !self.contains { !$0.isEmoji }
+    }
+
+    /// 提取emoji表情字符串
+    var emojiString: String {
+        return emojis.map { String($0) }.reduce("",+)
+    }
+
+    /// 提取emoji表情数组
+    var emojis: [Character] {
+        return self.filter { $0.isEmoji }
+    }
+
+    /// 提取单元编码标量
+    var emojiScalars: [UnicodeScalar] {
+        return self.filter { $0.isEmoji }.flatMap { $0.unicodeScalars }
+    }
+
+    /// 移除字符串中的Emoji表情
+    var noneEmoji: String {
+        var chars: [Character] = []
+        self.forEach { char in
+            if !char.isEmoji {
+                chars.append(char)
+            }
+        }
+        return String(chars)
     }
 }
 
@@ -1287,7 +1247,7 @@ public extension String {
         let frameSetter = CTFramesetterCreateWithAttributedString(attStr)
 
         let path = CGMutablePath()
-        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100_000), transform: .identity)
+        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100000), transform: .identity)
 
         let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CFIndex(0), CFIndex(0)), path, nil)
         let lines = CTFrameGetLines(frame) as? [AnyHashable]

@@ -34,7 +34,7 @@ public extension BinaryFloatingPoint {
     }
 
     /// 转CGFloat
-    var cGFloat: CGFloat {
+    var cgFloat: CGFloat {
         return CGFloat(self)
     }
 
@@ -65,12 +65,12 @@ public extension BinaryFloatingPoint {
 
     /// 生成宽高相同的CGSize
     var size: CGSize {
-        return CGSize(width: cGFloat, height: cGFloat)
+        return CGSize(width: cgFloat, height: cgFloat)
     }
 
     /// 生成(x,y)相同的CGPoint
     var point: CGPoint {
-        return CGPoint(x: cGFloat, y: cGFloat)
+        return CGPoint(x: cgFloat, y: cgFloat)
     }
 
     /// 是否为正数

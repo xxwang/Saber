@@ -174,13 +174,13 @@ private extension UIScrollView {
         setContentOffset(
             CGPoint(
                 x: 0,
-                y: index.cGFloat * frame.size.height
+                y: index.cgFloat * frame.size.height
             ),
             animated: false
         )
         let splitFrame = CGRect(
             x: 0,
-            y: index.cGFloat * frame.size.height,
+            y: index.cgFloat * frame.size.height,
             width: bounds.width,
             height: bounds.height
         )

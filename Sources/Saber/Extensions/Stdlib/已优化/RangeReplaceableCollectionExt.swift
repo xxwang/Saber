@@ -2,11 +2,9 @@ import Foundation
 
 // MARK: - 构造方法
 public extension RangeReplaceableCollection {
-    /// 创建一个给定大小的新集合,其中集合的每个位置的值都是调用给定表达式的结果
-    ///
-    ///     let values = Array(expression: "Value", count: 3)
-    ///     print(values)
-    ///     // Prints "["Value", "Value", "Value"]"
+    /// 使用`expression`结果创建一个指定大小的集合
+    /// let values = Array(expression: "Value", count: 3)
+    /// print(values) -> "["Value", "Value", "Value"]"
     /// - Parameters:
     ///   - expression: 为集合的每个位置执行的表达式
     ///   - count: 集合元素个数
@@ -23,25 +21,24 @@ public extension RangeReplaceableCollection {
 
 // MARK: - 方法
 public extension RangeReplaceableCollection {
-    ///  按给定位置返回新的旋转集合
-    ///
-    ///     [1, 2, 3, 4].rotated(by: 1) -> [4,1,2,3]
-    ///     [1, 2, 3, 4].rotated(by: 3) -> [2,3,4,1]
-    ///     [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
-    /// - Parameters places: 阵列旋转的位置数.如果值为正,则结束为开始,如果值为负,则开始为结束
-    /// - Returns: 新的旋转集合
+
+        /// 按给定位置返回新的旋转集合(返回一个新的集合)
+        /// [1, 2, 3, 4].rotated(by: 1) -> [4,1,2,3]
+        /// [1, 2, 3, 4].rotated(by: 3) -> [2,3,4,1]
+        /// [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
+        /// - Parameter places: 阵列旋转的位置数.如果值为正,则结束为开始,如果值为负,则开始为结束
+        /// - Returns: 新的旋转集合
     func rotated(by places: Int) -> Self {
         var copy = self
         return copy.rotate(by: places)
     }
 
-    ///  按给定的位置旋转集合
-    ///
-    ///     [1, 2, 3, 4].rotate(by: 1) -> [4,1,2,3]
-    ///     [1, 2, 3, 4].rotate(by: 3) -> [2,3,4,1]
-    ///     [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
+    ///  按给定的位置旋转集合(返回旋转完的集合)
+    /// [1, 2, 3, 4].rotate(by: 1) -> [4,1,2,3]
+    /// [1, 2, 3, 4].rotate(by: 3) -> [2,3,4,1]
+    /// [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
     /// - Parameters places: 阵列应旋转的位置数.如果值为正,则结束为开始,如果值为负,则开始为结束
-    /// - Returns: 旋转后自动返回
+    /// - Returns: 旋转后的集合
     @discardableResult
     mutating func rotate(by places: Int) -> Self {
         guard places != 0 else { return self }
@@ -60,7 +57,7 @@ public extension RangeReplaceableCollection {
         return self
     }
 
-    /// 删除集合中满足给定谓词的第一个元素
+    /// 删除集合中满足条件的第一个元素
     ///
     ///        [1, 2, 2, 3, 4, 2, 5].removeFirst { $0 % 2 == 0 } -> [1, 2, 3, 4, 2, 5]
     ///        ["h", "e", "l", "l", "o"].removeFirst { $0 == "e" } -> ["h", "l", "l", "o"]
