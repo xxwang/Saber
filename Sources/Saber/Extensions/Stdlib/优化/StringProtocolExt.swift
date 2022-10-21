@@ -2,7 +2,6 @@ import Foundation
 
 // MARK: - 方法
 public extension StringProtocol {
-
     /// 获取最长相同后缀
     /// - Parameters:
     ///   - aString: 用于与self比较的对象

@@ -9,5 +9,3 @@ public extension Range<String.Index> {
         return NSRange(self, in: string)
     }
 }
-
-
