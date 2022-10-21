@@ -88,8 +88,7 @@ public extension BinaryInteger {
     }
 
     /// 生成0-self之间的`CountableRange<Int>`
-    var range: CountableRange
-    <Int> {
+    var range: CountableRange<Int> {
         let n = self as! Int
         return 0 ..< n
     }

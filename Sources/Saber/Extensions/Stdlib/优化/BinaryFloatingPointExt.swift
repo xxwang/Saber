@@ -128,13 +128,6 @@ public extension BinaryFloatingPoint {
     }
 
     /// 返回具有指定小数位数和舍入规则的舍入值.如果`places`为负数,小数部分则将使用'0'
-    ///
-    ///     let num = 3.1415927
-    ///     num.rounded(numberOfDecimalPlaces: 3, rule: .up) -> 3.142
-    ///     num.rounded(numberOfDecimalPlaces: 3, rule: .down) -> 3.141
-    ///     num.rounded(numberOfDecimalPlaces: 2, rule: .awayFromZero) -> 3.15
-    ///     num.rounded(numberOfDecimalPlaces: 4, rule: .towardZero) -> 3.1415
-    ///     num.rounded(numberOfDecimalPlaces: -1, rule: .toNearestOrEven) -> 3
     /// - Parameters:
     ///   - places: 预期的小数位数
     ///   - rule: 要使用的舍入规则

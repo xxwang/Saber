@@ -1,6 +1,6 @@
 import Foundation
 
-// MARK: - 方法
+// MARK: - Range<String.Index>
 public extension Range<String.Index> {
     /// NSRange
     /// - Parameter string: 字符串
@@ -9,3 +9,5 @@ public extension Range<String.Index> {
         return NSRange(self, in: string)
     }
 }
+
+

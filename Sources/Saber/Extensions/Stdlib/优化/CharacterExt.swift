@@ -60,9 +60,9 @@ public extension Character {
 
 // MARK: - 方法
 public extension Character {
-    /// 生成指定数量重复字符的字符串
-    /// - Parameter count: 字符个数
-    /// - Returns: 字符串
+        /// 生成重复字符字符串
+        /// - Parameter count: 字符个数
+        /// - Returns: 字符串
     func `repeat`(_ count: Int) -> String {
         return self * count
     }
@@ -70,23 +70,21 @@ public extension Character {
 
 // MARK: - 运算符重载
 public extension Character {
-    /// 生成重复字符字符串
-    /// `Character("-") * 10 -> "----------"`
-    /// - Parameters:
-    ///   - lhs: 要重复的字符
-    ///   - rhs: 字符重复数量
-    /// - Returns: 字符串
+        /// 生成重复字符字符串
+        /// - Parameters:
+        ///   - lhs: 要重复的字符
+        ///   - rhs: 字符重复数量
+        /// - Returns: 字符串
     static func * (lhs: Character, rhs: Int) -> String {
         guard rhs > 0 else { return "" }
         return String(repeating: String(lhs), count: rhs)
     }
 
-    /// 生成重复字符字符串
-    /// `10 * Character("-") -> "----------"`
-    /// - Parameters:
-    ///   - lhs: 字符重复数量
-    ///   - rhs: 要重复的字符
-    /// - Returns: 字符串
+        /// 生成重复字符字符串
+        /// - Parameters:
+        ///   - lhs: 字符重复数量
+        ///   - rhs: 要重复的字符
+        /// - Returns: 字符串
     static func * (lhs: Int, rhs: Character) -> String {
         guard lhs > 0 else { return "" }
         return String(repeating: String(rhs), count: lhs)
