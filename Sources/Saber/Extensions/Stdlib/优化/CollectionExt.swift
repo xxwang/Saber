@@ -11,10 +11,10 @@ public extension Collection {
 
 // MARK: - 下标
 public extension Collection {
-    /// 从集合中安全的读取数据(下标不存在返回nil)
-    ///        let arr = [1, 2, 3, 4, 5]
-    ///        arr[safe: 1] -> 2
-    ///        arr[safe: 10] -> nil
+    /// 从集合中安全的读取数据(下标不存在返回`nil`)
+    ///     let arr = [1, 2, 3, 4, 5]
+    ///     arr[safe: 1] -> 2
+    ///     arr[safe: 10] -> nil
     /// - Parameters index: 要读取数据的下标
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
@@ -23,11 +23,11 @@ public extension Collection {
 
 // MARK: - 方法
 public extension Collection {
-    /// 对集合每个元素并行执行each闭包
+    /// 对集合每个元素并行执行`each`闭包
     ///
-    ///        array.forEachInParallel { item in
-    ///            print(item)
-    ///        }
+    ///     array.forEachInParallel { item in
+    ///         print(item)
+    ///     }
     /// - Parameters each: 要执行的闭包
     func forEachInParallel(_ each: (Self.Element) -> Void) {
         DispatchQueue.concurrentPerform(iterations: count) {
@@ -63,7 +63,7 @@ public extension Collection {
         return indices.isEmpty ? nil : indices
     }
 
-    /// 把集合分割成指定大小的切片并执行body闭包
+    /// 把集合分割成指定大小的切片并执行`body`闭包
     ///
     ///     [0, 2, 4, 7].forEach(slice: 2) { print($0) } -> // print: [0, 2], [4, 7]
     ///     [0, 2, 4, 7, 6].forEach(slice: 2) { print($0) } -> // print: [0, 2], [4, 7], [6]
@@ -85,9 +85,9 @@ public extension Collection {
 public extension Collection where Element: Equatable {
     /// 获取指定元素的索引数组
     ///
-    ///        [1, 2, 2, 3, 4, 2, 5].indices(of 2) -> [1, 2, 5]
-    ///        [1.2, 2.3, 4.5, 3.4, 4.5].indices(of 2.3) -> [1]
-    ///        ["h", "e", "l", "l", "o"].indices(of "l") -> [2, 3]
+    ///     [1, 2, 2, 3, 4, 2, 5].indices(of 2) -> [1, 2, 5]
+    ///     [1.2, 2.3, 4.5, 3.4, 4.5].indices(of 2.3) -> [1]
+    ///     ["h", "e", "l", "l", "o"].indices(of "l") -> [2, 3]
     /// - Parameters item: 要查找的元素
     /// - Returns: 索引数组
     func indices(of item: Element) -> [Index] {
@@ -110,7 +110,7 @@ public extension Collection where Element: BinaryInteger {
 public extension Collection where Element: FloatingPoint {
     /// 计算集合中元素的平均值
     ///
-    ///        [1.2, 2.3, 4.5, 3.4, 4.5].average() = 3.18
+    ///     [1.2, 2.3, 4.5, 3.4, 4.5].average() = 3.18
     ///
     /// - Returns: 平均值
     func average() -> Element {

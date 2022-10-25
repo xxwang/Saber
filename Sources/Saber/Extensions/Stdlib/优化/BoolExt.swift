@@ -2,12 +2,12 @@ import Foundation
 
 // MARK: - 属性
 public extension Bool {
-    /// Bool转Int
+    /// `Bool`转`Int`
     var int: Int {
         return self ? 1 : 0
     }
 
-    /// Bool转字符串
+    /// `Bool`转`String`
     var string: String {
         return self ? "true" : "false"
     }

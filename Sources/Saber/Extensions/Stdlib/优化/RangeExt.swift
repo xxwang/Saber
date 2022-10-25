@@ -2,9 +2,9 @@ import Foundation
 
 // MARK: - Range<String.Index>
 public extension Range<String.Index> {
-    /// NSRange
+    /// `Range<String.Index>`转`NSRange`
     /// - Parameter string: 字符串
-    /// - Returns: NSRange
+    /// - Returns: `NSRange`
     func nsRange(in string: String) -> NSRange {
         return NSRange(self, in: string)
     }

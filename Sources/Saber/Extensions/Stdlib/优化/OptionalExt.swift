@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - 属性
 public extension Optional {
-    /// 可选值为空的时候返回 true
+    /// 可选值为空的时候返回 `true`
     var isNone: Bool {
         switch self {
         case .none:
@@ -12,7 +12,7 @@ public extension Optional {
         }
     }
 
-    /// 可选值有值的时候返回 true
+    /// 可选值有值的时候返回 `true`
     var isSome: Bool {
         return !isNone
     }
@@ -20,13 +20,13 @@ public extension Optional {
 
 // MARK: - Collection属性
 public extension Optional where Wrapped: Collection {
-    /// 判断可选集合类型是否为空或者nil
+    /// 判断可选集合类型是否为空或者`nil`
     var isNilOrEmpty: Bool {
         guard let collection = self else { return true }
         return collection.isEmpty
     }
 
-    /// 当集合不为nil或者为空的时候返回集合,否则返回nil
+    /// 当集合不为`nil`或者为空的时候返回集合,否则返回`nil`
     var nonEmpty: Wrapped? {
         guard let collection = self else { return nil }
         guard !collection.isEmpty else { return nil }
@@ -36,14 +36,14 @@ public extension Optional where Wrapped: Collection {
 
 // MARK: - 方法
 public extension Optional {
-    /// 如果不为空,则执行block代码
+    /// 如果不为空,则执行`block`代码
     /// - Parameter block: 要执行的代码
     func run(_ block: (Wrapped) -> Void) {
         _ = map(block)
     }
 
     /// 猜测数据有值(无值引起致命错误)
-    /// 如果valueLabel是可选类型(valueLabel.expect("期望存在值").text = state.title)
+    /// 如果`valueLabel`是可选类型`(valueLabel.expect("期望存在值").text = state.title)`
     func expect(_ fatalErrorDescription: String) -> Wrapped {
         guard let value = self else {
             fatalError(fatalErrorDescription)
@@ -62,8 +62,8 @@ public extension Optional {
     }
 
     /// 返回可选值或 `else` 表达式返回的值
-    /// - Parameter else: self为nil时返回执行
-    /// - Returns: 有值返回值,无值返回else闭包结果
+    /// - Parameter else: `self`为`nil`时返回执行
+    /// - Returns: 有值返回值,无值返回`else`闭包结果
     func or(else: @autoclosure () -> Wrapped) -> Wrapped {
         return self ?? `else`()
     }
@@ -88,8 +88,8 @@ public extension Optional {
 
 // MARK: - or (Wrapped: Error)方法
 public extension Optional where Wrapped: Error {
-    /// 当前类型为可选类型`Error`,如果有值就执行闭包,error作为闭包参数
-    /// - Parameter else: 闭包,error作为闭包参数
+    /// 当前类型为可选类型`Error`,如果有值就执行闭包,`error`作为闭包参数
+    /// - Parameter else: 闭包,`error`作为闭包参数
     func or(_ else: (Error) -> Void) {
         guard let error = self else {
             return
@@ -149,7 +149,7 @@ infix operator ?=: AssignmentPrecedence
 
 // MARK: - 运算符重载
 public extension Optional {
-    /// 当右值不为nil的时候,把右值赋值给左值
+    /// 当右值不为`nil`的时候,把右值赋值给左值
     static func ??= (lhs: inout Optional, rhs: Optional) {
         guard let rhs = rhs else { return }
         lhs = rhs

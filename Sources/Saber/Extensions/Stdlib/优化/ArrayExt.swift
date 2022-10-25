@@ -64,8 +64,8 @@ public extension Array {
 
     /// 插入元素到数组的头部
     ///
-    ///        [2, 3, 4, 5].prepend(1) -> [1, 2, 3, 4, 5]
-    ///        ["e", "l", "l", "o"].prepend("h") -> ["h", "e", "l", "l", "o"]
+    ///     [2, 3, 4, 5].prepend(1) -> [1, 2, 3, 4, 5]
+    ///     ["e", "l", "l", "o"].prepend("h") -> ["h", "e", "l", "l", "o"]
     /// - Parameters newElement: 要插入的元素
     mutating func prepend(_ newElement: Element) {
         insert(newElement, at: 0)
@@ -73,8 +73,8 @@ public extension Array {
 
     /// 交换指定位置的两个元素
     ///
-    ///        [1, 2, 3, 4, 5].safeSwap(from: 3, to: 0) -> [4, 2, 3, 1, 5]
-    ///        ["h", "e", "l", "l", "o"].safeSwap(from: 1, to: 0) -> ["e", "h", "l", "l", "o"]
+    ///     [1, 2, 3, 4, 5].safeSwap(from: 3, to: 0) -> [4, 2, 3, 1, 5]
+    ///     ["h", "e", "l", "l", "o"].safeSwap(from: 1, to: 0) -> ["e", "h", "l", "l", "o"]
     /// - Parameters:
     ///   - index: 第一个元素位置
     ///   - otherIndex: 第二个元素位置
@@ -90,8 +90,8 @@ public extension Array {
 public extension Array {
     /// 根据指定的otherArray数组与keyPath对数组进行排序
     ///
-    ///        [MyStruct(x: 3), MyStruct(x: 1), MyStruct(x: 2)].sorted(like: [1, 2, 3], keyPath: \.x)
-    ///            -> [MyStruct(x: 1), MyStruct(x: 2), MyStruct(x: 3)]
+    ///     [MyStruct(x: 3), MyStruct(x: 1), MyStruct(x: 2)].sorted(like: [1, 2, 3], keyPath: \.x)
+    ///     -> [MyStruct(x: 1), MyStruct(x: 2), MyStruct(x: 3)]
     /// - Parameters:
     ///   - otherArray: 按所需顺序包含元素的数组
     ///   - keyPath: 指示数组应按其排序的属性
@@ -181,8 +181,8 @@ public extension Array where Element: Equatable {
 
     /// 移除数组中指定的元素
     ///
-    ///        [1, 2, 2, 3, 4, 5].removeAll(2) -> [1, 3, 4, 5]
-    ///        ["h", "e", "l", "l", "o"].removeAll("l") -> ["h", "e", "o"]
+    ///     [1, 2, 2, 3, 4, 5].removeAll(2) -> [1, 3, 4, 5]
+    ///     ["h", "e", "l", "l", "o"].removeAll("l") -> ["h", "e", "o"]
     /// - Parameters item: 要移除的对象
     /// - Returns: 移除完成后的数组
     @discardableResult
@@ -193,8 +193,8 @@ public extension Array where Element: Equatable {
 
     /// 移除指定数组中的所有元素
     ///
-    ///        [1, 2, 2, 3, 4, 5].removeAll([2,5]) -> [1, 3, 4]
-    ///        ["h", "e", "l", "l", "o"].removeAll(["l", "h"]) -> ["e", "o"]
+    ///     [1, 2, 2, 3, 4, 5].removeAll([2,5]) -> [1, 3, 4]
+    ///     ["h", "e", "l", "l", "o"].removeAll(["l", "h"]) -> ["e", "o"]
     /// - Parameters items: 要移除的对象数组
     /// - Returns: 移除完成后的数组
     @discardableResult
@@ -206,8 +206,8 @@ public extension Array where Element: Equatable {
 
     /// 移除数组中的重复元素
     ///
-    ///        [1, 2, 2, 3, 4, 5].removeDuplicates() -> [1, 2, 3, 4, 5]
-    ///        ["h", "e", "l", "l", "o"]. removeDuplicates() -> ["h", "e", "l", "o"]
+    ///     [1, 2, 2, 3, 4, 5].removeDuplicates() -> [1, 2, 3, 4, 5]
+    ///     ["h", "e", "l", "l", "o"]. removeDuplicates() -> ["h", "e", "l", "o"]
     ///
     /// - Returns: 移除完成后的数组
     @discardableResult

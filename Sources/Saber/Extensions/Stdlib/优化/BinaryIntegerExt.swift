@@ -3,42 +3,42 @@ import Foundation
 
 // MARK: - 属性
 public extension BinaryInteger {
-    /// 转Int
+    /// 转`Int`
     var int: Int {
         return Int(self)
     }
 
-    /// 转UInt
+    /// 转`UInt`
     var uInt: UInt {
         return UInt(self)
     }
 
-    /// 转Int64
+    /// 转`Int64`
     var int64: Int64 {
         return Int64(self)
     }
 
-    /// 转Int64
+    /// 转`Int64`
     var uInt64: UInt64 {
         return UInt64(self)
     }
 
-    /// 转Float
+    /// 转`Float`
     var float: Float {
         return Float(self)
     }
 
-    /// 转Double
+    /// 转`Double`
     var double: Double {
         return Double(self)
     }
 
-    /// 转CGFloat
+    /// 转`CGFloat`
     var cgFloat: CGFloat {
         return CGFloat(self)
     }
 
-    /// 转NSNumber
+    /// 转`NSNumber`
     var nsNumber: NSNumber {
         guard let n = self as? Int else {
             return NSNumber(value: 0)
@@ -46,17 +46,17 @@ public extension BinaryInteger {
         return NSNumber(value: n)
     }
 
-    /// 转NSDecimalNumber
+    /// 转`NSDecimalNumber`
     var decimalNumber: NSDecimalNumber {
         return NSDecimalNumber(value: double)
     }
 
-    /// 转Decimal
+    /// 转`Decimal`
     var decimal: Decimal {
         return decimalNumber.decimalValue
     }
 
-    /// 转Character
+    /// 转`Character`
     var character: Character? {
         guard let n = self as? Int,
               let scalar = UnicodeScalar(n)
@@ -71,7 +71,7 @@ public extension BinaryInteger {
         return String(self)
     }
 
-    /// 生成宽高相同的CGSize
+    /// 生成`(width, height)`相同的`CGSize`
     var size: CGSize {
         guard let n = self as? Int else {
             return .zero
@@ -79,7 +79,7 @@ public extension BinaryInteger {
         return CGSize(width: n, height: n)
     }
 
-    /// 生成(x,y)相同的CGPoint
+    /// 生成`(x,y)`相同的`CGPoint`
     var point: CGPoint {
         guard let n = self as? Int else {
             return .zero
@@ -192,17 +192,17 @@ public extension BinaryInteger {
 
 // MARK: - 日期/时间
 public extension BinaryInteger {
-    /// Int时间戳转日期对象
-    /// - Parameter isUnix: 是否是Unix时间戳格式(默认true)
+    /// `Int`时间戳转日期对象
+    /// - Parameter isUnix: 是否是`Unix`时间戳格式(默认`true`)
     /// - Returns: Date
     func date(isUnix: Bool = true) -> Date {
         return Date(timeIntervalSince1970: TimeInterval(double / (isUnix ? 1.0 : 1000.0)))
     }
 
-    /// Int时间戳转日期字符串
+    /// `Int`时间戳转日期字符串
     /// - Parameters:
     ///   - dateFormat: 日期格式化样式
-    ///   - isUnix: 是否是Unix时间戳格式(默认true)
+    ///   - isUnix: 是否是`Unix`时间戳格式(默认`true`)
     /// - Returns: 表示日期的字符串
     func dateString(_ dateFormat: String = "yyyy-MM-dd HH:mm:ss", isUnix: Bool = true) -> String {
         // 如果时间戳为毫秒需要除以
@@ -229,7 +229,7 @@ public extension BinaryInteger {
     }
 
     /// 时间戳格式化为指定日期字符串
-    /// - Parameters format: 格式化 yyyy-MM-dd HH:mm:ss
+    /// - Parameters format: 格式化 `yyyy-MM-dd HH:mm:ss`
     /// - Returns: 日期字符串
     func format(_ format: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let time = double - 3600 * 8
@@ -239,8 +239,8 @@ public extension BinaryInteger {
         return formatter.string(from: date)
     }
 
-    /// Int时间戳转表示日期的字符串(刚刚/x分钟前)
-    /// - Parameter isUnix: 是否是Unix时间戳格式(默认true)
+    /// `Int`时间戳转表示日期的字符串(`刚刚/x分钟前`)
+    /// - Parameter isUnix: 是否是`Unix`时间戳格式(默认`true`)
     /// - Returns: 表示日期的字符串
     func timeline(isUnix: Bool = true) -> String {
         // 获取当前的时间戳

@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - 属性
 public extension Character {
-    /// Character转Int
+    /// `Character`转`Int`
     var int: Int {
         var intValue = 0
         for scalar in String(self).unicodeScalars {
@@ -11,7 +11,7 @@ public extension Character {
         return intValue
     }
 
-    /// Character转String
+    /// `Character`转`String`
     var string: String {
         return String(self)
     }
@@ -29,7 +29,7 @@ public extension Character {
 
 // MARK: - emoji
 public extension Character {
-    /// 简单的emoji是一个标量，以emoji的形式呈现给用户
+    /// 简单的`emoji`是一个`标量`，以`emoji`的形式呈现给用户
     private var isSimpleEmoji: Bool {
         guard let firstProperties = unicodeScalars.first?.properties else {
             return false
@@ -37,13 +37,13 @@ public extension Character {
         return unicodeScalars.count > 1 && (firstProperties.isEmojiPresentation || firstProperties.generalCategory == .otherSymbol)
     }
 
-    /// 检查标量是否将合并到emoji中
+    /// 检查标量是否将合并到`emoji`中
     private var isCombinedIntoEmoji: Bool {
         return unicodeScalars.count > 1 &&
             unicodeScalars.contains { $0.properties.isJoinControl || $0.properties.isVariationSelector }
     }
 
-    /// 是否为emoji表情
+    /// 是否为`emoji`表情
     /// - Note: http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
     var isEmoji: Bool {
         isSimpleEmoji || isCombinedIntoEmoji
@@ -52,7 +52,7 @@ public extension Character {
 
 // MARK: - 静态属性
 public extension Character {
-    /// 产生随机一个字符(a-z A-Z 0-9)
+    /// 产生随机一个字符`(a-z A-Z 0-9)`
     static var random: Character {
         return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()!
     }
