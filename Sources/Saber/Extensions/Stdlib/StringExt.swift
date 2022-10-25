@@ -503,7 +503,7 @@ public extension String {
         return NSRange(range, in: self)
     }
 
-    /// 获取某个子串在父串中的范围->Range
+    /// 获取某个`子串`在`父串`中的范围->`Range`
     /// - Parameter str: 子串
     /// - Returns: 某个子串在父串中的范围
     func range(_ subString: String) -> Range<String.Index>? {
@@ -511,53 +511,13 @@ public extension String {
     }
 }
 
-// MARK: - NSAttributedString
-public extension String {
-    // FIXME: - 待完善
-//     /// 加粗字符串
-//    var bold: NSAttributedString {
-//     return NSMutableAttributedString(
-//         string: self,
-//         attributes: [.font: UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)]
-//     )
-//    }
-
-    /// 下划线字符串
-    var underline: NSAttributedString {
-        return NSAttributedString(string: self, attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
-    }
-
-    /// 删除线字符串
-    var strikethrough: NSAttributedString {
-        return NSAttributedString(
-            string: self,
-            attributes: [.strikethroughStyle: NSNumber(value: NSUnderlineStyle.single.rawValue as Int)]
-        )
-    }
-    // FIXME: - 待完善
-//     /// 斜体字符串
-//    var italic: NSAttributedString {
-//     return NSMutableAttributedString(
-//         string: self,
-//         attributes: [.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)]
-//     )
-//    }
-//
-//     /// 为字符串添加颜色
-//     /// - Parameters color: 文本颜色
-//     /// - Returns: 使用给定颜色着色的字符串的 NSAttributedString 版本
-//    func colored(with color: UIColor) -> NSAttributedString {
-//     return NSMutableAttributedString(string: self, attributes: [.foregroundColor: color])
-//    }
-}
-
 // MARK: - 构造方法
 public extension String {
-    /// 从 base64 字符串创建一个新字符串(base64解码)
+    /// 从`base64`字符串创建一个新字符串(`base64`解码)
     ///
     ///     String(base64: "SGVsbG8gV29ybGQh") = "Hello World!"
     ///     String(base64: "hello") = nil
-    /// - Parameters base64: base64字符串
+    /// - Parameters base64: `base64`字符串
     init?(base64: String) {
         guard let decodedData = Data(base64Encoded: base64) else { return nil }
         guard let str = String(data: decodedData, encoding: .utf8) else { return nil }
@@ -573,13 +533,7 @@ public extension String {
             self.init()
             return
         }
-
-        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        var randomString = ""
-        for _ in 1 ... length {
-            randomString.append(base.randomElement()!)
-        }
-        self = randomString
+        self = Self.random(ofLength: length)
     }
 }
 
@@ -595,7 +549,7 @@ public extension String {
         return self[self.index(startIndex, offsetBy: index)]
     }
 
-    /// 获取某个字符,如果不在范围内,返回nil
+    /// 获取某个字符,如果不在范围内,返回`nil`
     subscript(index: Int) -> String? {
         get {
             if index > count - 1 || index < 0 {
@@ -643,7 +597,7 @@ public extension String {
         }
     }
 
-    /// 获取字符串指定NSRange的子字符串
+    /// 获取字符串指定`NSRange`的子字符串
     /// - Parameter bounds: 子字符串的范围,范围的边界必须是集合的有效索引
     /// - Returns: 字符串的一部分
     subscript(bounds: NSRange) -> Substring {
@@ -654,7 +608,7 @@ public extension String {
 
 // MARK: - URL
 public extension String {
-    /// 把字符串转为URL(失败返回nil)
+    /// 把字符串转为`URL`(失败返回`nil`)
     ///
     ///     "https://google.com".url -> URL(string: "https://google.com")
     ///     "not url".url -> nil
@@ -666,7 +620,7 @@ public extension String {
         return URL(fileURLWithPath: self)
     }
 
-    /// 字符串转URLRequest
+    /// 字符串转`URLRequest`
     var urlRequest: URLRequest? {
         guard let url = url else {
             return nil
@@ -674,7 +628,7 @@ public extension String {
         return URLRequest(url: url)
     }
 
-    /// 提取出字符串中所有的URL链接
+    /// 提取出字符串中所有的`URL`链接
     var URLs: [String]? {
         var urls = [String]()
         // 创建一个正则表达式对象

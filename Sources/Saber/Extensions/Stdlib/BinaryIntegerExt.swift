@@ -66,7 +66,7 @@ public extension BinaryInteger {
         return Character(scalar)
     }
 
-    /// 转String
+    /// 转`String`
     var string: String {
         return String(self)
     }
@@ -87,13 +87,13 @@ public extension BinaryInteger {
         return CGPoint(x: n, y: n)
     }
 
-    /// 生成0-self之间的`CountableRange<Int>`
+    /// 生成`0-self`之间的`CountableRange<Int>`
     var range: CountableRange<Int> {
         let n = self as! Int
         return 0 ..< n
     }
 
-    /// 转字节数组(UInt8数组)
+    /// 转字节数组(`UInt8`数组)
     ///
     ///     var number = Int16(-128)
     ///     print(number.bytes)
