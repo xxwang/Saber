@@ -48,7 +48,7 @@ public extension Date {
 
     /// 时代(年代)
     ///
-    ///        Date().era -> 1
+    ///          Date().era -> 1
     ///
     var era: Int {
         return calendar.component(.era, from: self)
@@ -57,7 +57,7 @@ public extension Date {
     #if !os(Linux)
         /// 季度
         ///
-        ///        Date().quarter -> 3
+        ///          Date().quarter -> 3
         ///
         var quarter: Int {
             let month = Double(calendar.component(.month, from: self))
@@ -69,7 +69,7 @@ public extension Date {
 
     /// 一年中的第几周
     ///
-    ///        Date().weekOfYear -> 2
+    ///          Date().weekOfYear -> 2
     ///
     var weekOfYear: Int {
         return calendar.component(.weekOfYear, from: self)
@@ -77,7 +77,7 @@ public extension Date {
 
     /// 一个月的第几周
     ///
-    ///        Date().weekOfMonth -> 3
+    ///          Date().weekOfMonth -> 3
     ///
     var weekOfMonth: Int {
         return calendar.component(.weekOfMonth, from: self)
@@ -85,10 +85,10 @@ public extension Date {
 
     /// 年份
     ///
-    ///        Date().year -> 2017
+    ///          Date().year -> 2017
     ///
-    ///        var someDate = Date()
-    ///        someDate.year = 2000
+    ///          var someDate = Date()
+    ///          someDate.year = 2000
     ///
     var year: Int {
         get {
@@ -290,7 +290,7 @@ public extension Date {
 
     /// Unix时间戳 / s
     ///
-    ///        Date().unixTimestamp -> 1484233862.826291
+    ///          Date().unixTimestamp -> 1484233862.826291
     ///
     var unixTimestamp: Double {
         return timeIntervalSince1970

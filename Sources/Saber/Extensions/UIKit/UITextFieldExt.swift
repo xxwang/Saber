@@ -14,11 +14,11 @@ public extension UITextField {
 
     /// 检查内容是否为邮箱格式
     ///
-    ///        textField.text = "john@doe.com"
-    ///        textField.hasValidEmail -> true
+    ///          textField.text = "john@doe.com"
+    ///          textField.hasValidEmail -> true
     ///
-    ///        textField.text = "swifterswift"
-    ///        textField.hasValidEmail -> false
+    ///          textField.text = "swifterswift"
+    ///          textField.hasValidEmail -> false
     ///
     var hasValidEmail: Bool {
         return text!.range(of: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",

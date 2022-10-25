@@ -9,9 +9,9 @@ public extension NSRegularExpression {
     ///   - range: 要搜索的字符串的范围
     ///   - block: 要执行的代码块
     ///   /*
-    ///        - result: `NSTextCheckingResult`
-    ///        - flags: `NSRegularExpression.MatchingFlags`
-    ///        - stop: `stop = true`的时候,结束枚举遍历
+    ///          - result: `NSTextCheckingResult`
+    ///          - flags: `NSRegularExpression.MatchingFlags`
+    ///          - stop: `stop = true`的时候,结束枚举遍历
     ///   */
     func enumerateMatches(in string: String,
                           options: MatchingOptions = [],

@@ -26,7 +26,7 @@ public extension Collection {
     /// 对集合每个元素并行执行`each`闭包
     ///
     ///     array.forEachInParallel { item in
-    ///         print(item)
+    ///           print(item)
     ///     }
     /// - Parameters each: 要执行的闭包
     func forEachInParallel(_ each: (Self.Element) -> Void) {

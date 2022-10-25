@@ -28,12 +28,12 @@ public extension CGRect {
     ///     '(0, 0)' 左上角,'(1, 1)'右下角
     ///     默认为 '(0.5, 0.5)' 中心点:
     ///
-    ///          anchor = CGPoint(x: 0.0, y: 1.0):
+    ///            anchor = CGPoint(x: 0.0, y: 1.0):
     ///
-    ///                       A2------B2
-    ///          A----B       |        |
-    ///          |    |  -->  |        |
-    ///          C----D       C-------D2
+    ///                         A2------B2
+    ///            A----B       |          |
+    ///            |    |  -->  |          |
+    ///            C----D       C-------D2
     ///
     func resizing(to size: CGSize, anchor: CGPoint = CGPoint(x: 0.5, y: 0.5)) -> CGRect {
         let sizeDelta = CGSize(width: size.width - width, height: size.height - height)

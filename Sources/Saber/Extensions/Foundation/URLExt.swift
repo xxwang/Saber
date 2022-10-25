@@ -47,9 +47,9 @@ public extension URL {
 public extension URL {
     /// 返回附加查询参数的URL
     ///
-    ///        let url = URL(string: "https://google.com")!
-    ///        let param = ["q": "Swifter Swift"]
-    ///        url.appendingQueryParameters(params) -> "https://google.com?q=Swifter%20Swift"
+    ///          let url = URL(string: "https://google.com")!
+    ///          let param = ["q": "Swifter Swift"]
+    ///          url.appendingQueryParameters(params) -> "https://google.com?q=Swifter%20Swift"
     ///
     /// - Parameter parameters: 参数字典
     /// - Returns: 附加给定查询参数的URL
@@ -62,10 +62,10 @@ public extension URL {
 
     /// 将查询参数附加到URL
     ///
-    ///        var url = URL(string: "https://google.com")!
-    ///        let param = ["q": "Swifter Swift"]
-    ///        url.appendQueryParameters(params)
-    ///        print(url) // prints "https://google.com?q=Swifter%20Swift"
+    ///          var url = URL(string: "https://google.com")!
+    ///          let param = ["q": "Swifter Swift"]
+    ///          url.appendQueryParameters(params)
+    ///          print(url) // prints "https://google.com?q=Swifter%20Swift"
     ///
     /// - Parameter parameters: 参数字典
     mutating func appendQueryParameters(_ parameters: [String: String]) {
@@ -101,9 +101,9 @@ public extension URL {
 
     /// 从URL中删除所有路径组件
     ///
-    ///        var url = URL(string: "https://domain.com/path/other")!
-    ///        url.deleteAllPathComponents()
-    ///        print(url) // prints "https://domain.com/"
+    ///          var url = URL(string: "https://domain.com/path/other")!
+    ///          url.deleteAllPathComponents()
+    ///          print(url) // prints "https://domain.com/"
     mutating func deleteAllPathComponents() {
         for _ in 0 ..< pathComponents.count - 1 {
             deleteLastPathComponent()
@@ -112,8 +112,8 @@ public extension URL {
 
     /// 生成没有协议的新URL
     ///
-    ///        let url = URL(string: "https://domain.com")!
-    ///        print(url.droppedScheme()) // prints "domain.com"
+    ///          let url = URL(string: "https://domain.com")!
+    ///          print(url.droppedScheme()) // prints "domain.com"
     func droppedScheme() -> URL? {
         if let scheme = scheme {
             let droppedScheme = String(absoluteString.dropFirst(scheme.count + 3))
@@ -133,7 +133,7 @@ public extension URL {
     ///     thumbnail = url.thumbnail(fromTime: 5)
     ///
     ///     DisptachQueue.main.async {
-    ///         someImageView.image = url.thumbnail()
+    ///           someImageView.image = url.thumbnail()
     ///     }
     ///
     /// - Parameter time: 应生成图像的视频的秒数

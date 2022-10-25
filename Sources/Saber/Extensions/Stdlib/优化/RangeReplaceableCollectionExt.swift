@@ -3,8 +3,9 @@ import Foundation
 // MARK: - 构造方法
 public extension RangeReplaceableCollection {
     /// 使用`expression`结果创建一个指定大小的集合
-    /// let values = Array(expression: "Value", count: 3)
-    /// print(values) -> "["Value", "Value", "Value"]"
+    ///
+    ///     let values = Array(expression: "Value", count: 3)
+    ///     print(values) -> "["Value", "Value", "Value"]"
     /// - Parameters:
     ///   - expression: 为集合的每个位置执行的表达式
     ///   - count: 集合元素个数
@@ -22,9 +23,10 @@ public extension RangeReplaceableCollection {
 // MARK: - 方法
 public extension RangeReplaceableCollection {
     /// 按给定位置返回新的旋转集合(返回一个新的集合)
-    /// [1, 2, 3, 4].rotated(by: 1) -> [4,1,2,3]
-    /// [1, 2, 3, 4].rotated(by: 3) -> [2,3,4,1]
-    /// [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
+    ///
+    ///     [1, 2, 3, 4].rotated(by: 1) -> [4,1,2,3]
+    ///     [1, 2, 3, 4].rotated(by: 3) -> [2,3,4,1]
+    ///     [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
     /// - Parameter places: 阵列旋转的位置数.如果值为正,则结束为开始,如果值为负,则开始为结束
     /// - Returns: 新的旋转集合
     func rotated(by places: Int) -> Self {
@@ -33,9 +35,10 @@ public extension RangeReplaceableCollection {
     }
 
     ///  按给定的位置旋转集合(返回旋转完的集合)
-    /// [1, 2, 3, 4].rotate(by: 1) -> [4,1,2,3]
-    /// [1, 2, 3, 4].rotate(by: 3) -> [2,3,4,1]
-    /// [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
+    ///
+    ///      [1, 2, 3, 4].rotate(by: 1) -> [4,1,2,3]
+    ///      [1, 2, 3, 4].rotate(by: 3) -> [2,3,4,1]
+    ///      [1, 2, 3, 4].rotated(by: -1) -> [2,3,4,1]
     /// - Parameters places: 阵列应旋转的位置数.如果值为正,则结束为开始,如果值为负,则开始为结束
     /// - Returns: 旋转后的集合
     @discardableResult
@@ -58,8 +61,8 @@ public extension RangeReplaceableCollection {
 
     /// 删除集合中满足条件的第一个元素
     ///
-    ///        [1, 2, 2, 3, 4, 2, 5].removeFirst { $0 % 2 == 0 } -> [1, 2, 3, 4, 2, 5]
-    ///        ["h", "e", "l", "l", "o"].removeFirst { $0 == "e" } -> ["h", "l", "l", "o"]
+    ///     [1, 2, 2, 3, 4, 2, 5].removeFirst { $0 % 2 == 0 } -> [1, 2, 3, 4, 2, 5]
+    ///     ["h", "e", "l", "l", "o"].removeFirst { $0 == "e" } -> ["h", "l", "l", "o"]
     /// - Parameters predicate: 以元素为参数并返回布尔值的闭包,该布尔值指示传递的元素是否表示匹配
     /// - Returns: 删除谓词后,谓词返回true的第一个元素.如果集合中没有满足给定谓词的元素,则返回“nil”
     @discardableResult
@@ -77,7 +80,7 @@ public extension RangeReplaceableCollection {
 
     /// 保留条件为真的数组元素
     ///
-    ///        [0, 2, 4, 7].keep(while: { $0 % 2 == 0 }) -> [0, 2, 4]
+    ///     [0, 2, 4, 7].keep(while: { $0 % 2 == 0 }) -> [0, 2, 4]
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 应用提供的条件后自行返回
     /// - Throws: 异常
@@ -89,18 +92,18 @@ public extension RangeReplaceableCollection {
         return self
     }
 
-    /// 获取条件为true的连续数组元素(条件false之前)
+    /// 获取条件为`true`的连续数组元素(条件`false`之前)
     ///
-    ///        [0, 2, 4, 7, 6, 8].take( where: {$0 % 2 == 0}) -> [0, 2, 4]
+    ///     [0, 2, 4, 7, 6, 8].take( where: {$0 % 2 == 0}) -> [0, 2, 4]
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 条件为false之前的所有元素
     func take(while condition: (Element) throws -> Bool) rethrows -> Self {
         return Self(try prefix(while: condition))
     }
 
-    /// 获取条件为false之后的所有元素
+    /// 获取条件为`false`之后的所有元素
     ///
-    ///        [0, 2, 4, 7, 6, 8].skip( where: {$0 % 2 == 0}) -> [6, 8]
+    ///     [0, 2, 4, 7, 6, 8].skip( where: {$0 % 2 == 0}) -> [6, 8]
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 条件为false后的所有元素
     func skip(while condition: (Element) throws -> Bool) rethrows -> Self {
@@ -108,7 +111,7 @@ public extension RangeReplaceableCollection {
         return Self(self[idx...])
     }
 
-    /// 使用KeyPath删除所有重复的元素
+    /// 使用`KeyPath`删除所有重复的元素
     /// - Parameters path: 要比较的路径,值必须可以比较
     mutating func removeDuplicates<E: Equatable>(keyPath path: KeyPath<Element, E>) {
         var items = [Element]()
@@ -121,8 +124,8 @@ public extension RangeReplaceableCollection {
         }
     }
 
-    /// 使用KeyPath删除所有重复的元素
-    /// - Parameters path: 要比较的keyPath,该值必须是可hash的
+    /// 使用`KeyPath`删除所有重复的元素
+    /// - Parameters path: 要比较的`keyPath`,该值必须是`可hash`的
     mutating func removeDuplicates<E: Hashable>(keyPath path: KeyPath<Element, E>) {
         var set = Set<E>()
         removeAll { !set.insert($0[keyPath: path]).inserted }
@@ -157,14 +160,14 @@ public extension RangeReplaceableCollection {
         }
     }
 
-    /// 在数组末尾添加新元素(newElement为空,不插入)
+    /// 在数组末尾添加新元素(`newElement`为空,不插入)
     /// - Parameter newElement: 附加到数组的可选元素
     mutating func appendIfNonNil(_ newElement: Element?) {
         guard let newElement = newElement else { return }
         append(newElement)
     }
 
-    /// 将序列的元素添加到数组的末尾(newElement为空,不插入)
+    /// 将序列的元素添加到数组的末尾(`newElement`为空,不插入)
     /// - Parameter newElement: 附加到数组的可选序列
     mutating func appendIfNonNil<S>(contentsOf newElements: S?) where Element == S.Element, S: Sequence {
         guard let newElements = newElements else { return }

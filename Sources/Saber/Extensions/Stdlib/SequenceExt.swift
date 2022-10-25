@@ -4,8 +4,8 @@ import Foundation
 public extension Sequence {
     /// 检查集合中的所有元素是否符合条件
     ///
-    ///        [2, 2, 4].all(matching: {$0 % 2 == 0}) -> true
-    ///        [1,2, 2, 4].all(matching: {$0 % 2 == 0}) -> false
+    ///     [2, 2, 4].all(matching: {$0 % 2 == 0}) -> true
+    ///     [1,2, 2, 4].all(matching: {$0 % 2 == 0}) -> false
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 当数组中的所有元素都匹配指定条件时为true
     func all(matching condition: (Element) throws -> Bool) rethrows -> Bool {
@@ -14,8 +14,8 @@ public extension Sequence {
 
     /// 检查集合中是否所有元素都不符合条件
     ///
-    ///        [2, 2, 4].none(matching: {$0 % 2 == 0}) -> false
-    ///        [1, 3, 5, 7].none(matching: {$0 % 2 == 0}) -> true
+    ///     [2, 2, 4].none(matching: {$0 % 2 == 0}) -> false
+    ///     [1, 3, 5, 7].none(matching: {$0 % 2 == 0}) -> true
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 当数组中没有元素符合指定条件时为true
     func none(matching condition: (Element) throws -> Bool) rethrows -> Bool {
@@ -24,8 +24,8 @@ public extension Sequence {
 
     /// 检查集合中是否有任意元素匹配条件(全部不匹配,返回false)
     ///
-    ///        [1, 3, 2, 2, 4].any(matching: {$0 % 2 == 0}) -> true
-    ///        [1, 3, 5, 7].any(matching: {$0 % 2 == 0}) -> false
+    ///     [1, 3, 2, 2, 4].any(matching: {$0 % 2 == 0}) -> true
+    ///     [1, 3, 5, 7].any(matching: {$0 % 2 == 0}) -> false
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 当数组中只要有一个或多个元素匹配时返回true
     func any(matching condition: (Element) throws -> Bool) rethrows -> Bool {
@@ -34,7 +34,7 @@ public extension Sequence {
 
     /// 根据拒绝条件过滤元素(满足条件的元素不返回)
     ///
-    ///        [2, 2, 4, 7].reject(where: {$0 % 2 == 0}) -> [7]
+    ///     [2, 2, 4, 7].reject(where: {$0 % 2 == 0}) -> [7]
     /// - Parameters condition: 过滤元素的条件
     /// - Returns: 返回不满足条件的元素
     func reject(where condition: (Element) throws -> Bool) rethrows -> [Element] {
@@ -43,7 +43,7 @@ public extension Sequence {
 
     /// 返回满足条件的元素个数
     ///
-    ///        [2, 2, 4, 7].count(where: {$0 % 2 == 0}) -> 3
+    ///     [2, 2, 4, 7].count(where: {$0 % 2 == 0}) -> 3
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 条件为true的元素个数
     func count(where condition: (Element) throws -> Bool) rethrows -> Int {
@@ -56,7 +56,7 @@ public extension Sequence {
 
     /// 反向迭代集合(从右到左)
     ///
-    ///        [0, 2, 4, 7].forEachReversed({ print($0)}) -> // Order of print: 7,4,2,0
+    ///     [0, 2, 4, 7].forEachReversed({ print($0)}) -> // Order of print: 7,4,2,0
     /// - Parameters body: 将数组元素作为参数的闭包
     func forEachReversed(_ body: (Element) throws -> Void) rethrows {
         try reversed().forEach(body)
@@ -64,7 +64,7 @@ public extension Sequence {
 
     /// 使用条件为真的每个元素调用给定的闭包
     ///
-    ///        [0, 2, 4, 7].forEach(where: {$0 % 2 == 0}, body: { print($0)}) -> // print: 0, 2, 4
+    ///     [0, 2, 4, 7].forEach(where: {$0 % 2 == 0}, body: { print($0)}) -> // print: 0, 2, 4
     /// - Parameters:
     ///   - condition: 评估每个元素的条件
     ///   - body: 将数组遍历条件为true的一个元素作为闭包参数
@@ -120,8 +120,8 @@ public extension Sequence {
 
     /// 根据条件删除重复元素
     ///
-    ///        [1, 2, 1, 3, 2].withoutDuplicates { $0 } -> [1, 2, 3]
-    ///        [(1, 4), (2, 2), (1, 3), (3, 2), (2, 1)].withoutDuplicates { $0.0 } -> [(1, 4), (2, 2), (3, 2)]
+    ///     [1, 2, 1, 3, 2].withoutDuplicates { $0 } -> [1, 2, 3]
+    ///     [(1, 4), (2, 2), (1, 3), (3, 2), (2, 1)].withoutDuplicates { $0.0 } -> [(1, 4), (2, 2), (3, 2)]
     /// - Parameters transform: 返回要为重复元素评估的值的闭包
     /// - Returns: 没有重复元素的序列
     func withoutDuplicates<T: Hashable>(transform: (Element) throws -> T) rethrows -> [Element] {
@@ -239,7 +239,7 @@ public extension Sequence {
 
     /// 获取满足条件的最后一个元素
     ///
-    ///        [2, 2, 4, 7].last(where: {$0 % 2 == 0}) -> 4
+    ///     [2, 2, 4, 7].last(where: {$0 % 2 == 0}) -> 4
     /// - Parameters condition: 评估每个元素的条件
     /// - Returns: 数组中与指定条件匹配的最后一个元素(没有返回nil)
     @available(*, deprecated, message: "For an unordered sequence using `last` instead of `first` is equal.")
@@ -255,9 +255,9 @@ public extension Sequence {
 public extension Sequence where Element: Equatable {
     /// 检查数组是否包含元素数组
     ///
-    ///        [1, 2, 3, 4, 5].contains([1, 2]) -> true
-    ///        [1.2, 2.3, 4.5, 3.4, 4.5].contains([2, 6]) -> false
-    ///        ["h", "e", "l", "l", "o"].contains(["l", "o"]) -> true
+    ///     [1, 2, 3, 4, 5].contains([1, 2]) -> true
+    ///     [1.2, 2.3, 4.5, 3.4, 4.5].contains([2, 6]) -> false
+    ///     ["h", "e", "l", "l", "o"].contains(["l", "o"]) -> true
     /// - Parameters elements: 要检查的元素数组
     /// - Returns: 如果数组包含所有给定项,则返回true
     func contains(_ elements: [Element]) -> Bool {
@@ -269,9 +269,9 @@ public extension Sequence where Element: Equatable {
 public extension Sequence where Element: Hashable {
     /// 检查数组是否包含元素数组
     ///
-    ///        [1, 2, 3, 4, 5].contains([1, 2]) -> true
-    ///        [1.2, 2.3, 4.5, 3.4, 4.5].contains([2, 6]) -> false
-    ///        ["h", "e", "l", "l", "o"].contains(["l", "o"]) -> true
+    ///     [1, 2, 3, 4, 5].contains([1, 2]) -> true
+    ///     [1.2, 2.3, 4.5, 3.4, 4.5].contains([2, 6]) -> false
+    ///     ["h", "e", "l", "l", "o"].contains(["l", "o"]) -> true
     /// - Parameters elements: 要检查的元素数组
     /// - Returns: 如果数组包含所有给定项,则返回true
     func contains(_ elements: [Element]) -> Bool {
@@ -314,7 +314,7 @@ public extension Sequence where Element: Hashable {
 public extension Sequence where Element: AdditiveArithmetic {
     /// 数组中所有元素的总和
     ///
-    ///        [1, 2, 3, 4, 5].sum() -> 15
+    ///     [1, 2, 3, 4, 5].sum() -> 15
     ///
     /// - Returns: 数组元素的总和
     func sum() -> Element {
