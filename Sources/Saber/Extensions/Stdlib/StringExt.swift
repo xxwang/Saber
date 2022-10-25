@@ -30,47 +30,47 @@ public extension String {
 
 // MARK: - 属性
 public extension String {
-    /// 字符串转Int
+    /// 字符串转`Int`
     var int: Int {
         return Int(self) ?? 0
     }
 
-    /// 字符串转UInt
+    /// 字符串转`UInt`
     var uInt: UInt {
         return UInt(self) ?? 0
     }
 
-    /// 字符串转Int64
+    /// 字符串转`Int64`
     var int64: Int64 {
         return Int64(self) ?? 0
     }
 
-    /// 字符串转UInt64
+    /// 字符串转`UInt64`
     var uInt64: UInt64 {
         return UInt64(self) ?? 0
     }
 
-    /// 字符串转Float
+    /// 字符串转`Float`
     var float: Float {
         return Float(self) ?? 0
     }
 
-    /// 字符串转Double
+    /// 字符串转`Double`
     var double: Double {
         return Double(self) ?? 0
     }
 
-    /// 字符串转CGFloat
+    /// 字符串转`CGFloat`
     var cgFloat: CGFloat {
         return CGFloat(double)
     }
 
-    /// 字符串转NSNumber
+    /// 字符串转`NSNumber`
     var nsNumber: NSNumber {
         return NSNumber(value: double)
     }
 
-    /// 字符串转Character
+    /// 字符串转`Character`
     var character: Character? {
         guard let n = Int(self),
               let scalar = UnicodeScalar(n)
@@ -83,11 +83,11 @@ public extension String {
         return Array(self)
     }
 
-    /// 字符串转布尔值(其它为false)
+    /// 字符串转布尔值(其它为`false`)
     ///
-    ///          "1".bool -> true
-    ///          "False".bool -> false
-    ///          "Hello".bool = nil
+    ///     "1".bool -> true
+    ///     "False".bool -> false
+    ///     "Hello".bool = nil
     ///
     var bool: Bool {
         let trimmed = self.trimmed.lowercased()
@@ -129,12 +129,12 @@ public extension String {
         return UIImage(named: self)
     }
 
-    /// 16进制颜色值字符串转UIColor对象
+    /// `16进制颜色值`字符串转`UIColor`对象
     var hexColor: UIColor {
         return UIColor(hex: self)
     }
 
-    /// 将16进制字符串转为Int
+    /// 将`16进制字符串`转为`Int`
     var hexInt: Int {
         return Int(self, radix: 16) ?? 0
     }
@@ -146,7 +146,7 @@ public extension String {
 
     /// 字符串转换成驼峰命名法(并移除空字符串)
     ///
-    ///          "sOme vAriable naMe".camelCased -> "someVariableName"
+    ///     "sOme vAriable naMe".camelCased -> "someVariableName"
     ///
     var camelCased: String {
         let source = lowercased()
@@ -161,20 +161,20 @@ public extension String {
         return first + rest
     }
 
-    /// 字符串的第一个字符(返回可选字符串,因为字符串为空返回nil)
+    /// 字符串的第一个字符(返回可选字符串,因为字符串为空返回`nil`)
     ///
-    ///          "Hello".firstCharacterAsString -> Optional("H")
-    ///          "".firstCharacterAsString -> nil
+    ///     "Hello".firstCharacterAsString -> Optional("H")
+    ///     "".firstCharacterAsString -> nil
     ///
     var firstCharacterAsString: String? {
         guard let first = first else { return nil }
         return String(first)
     }
 
-    /// 字符串的最后一个字符(返回可选字符串,因为字符串为空返回nil)
+    /// 字符串的最后一个字符(返回可选字符串,因为字符串为空返回`nil`)
     ///
-    ///          "Hello".lastCharacterAsString -> Optional("o")
-    ///          "".lastCharacterAsString -> nil
+    ///     "Hello".lastCharacterAsString -> Optional("o")
+    ///     "".lastCharacterAsString -> nil
     ///
     var lastCharacterAsString: String? {
         guard let last = last else { return nil }
@@ -183,8 +183,8 @@ public extension String {
 
     /// 检查字符串是否包含一个或多个字母
     ///
-    ///          "123abc".hasLetters -> true
-    ///          "123".hasLetters -> false
+    ///     "123abc".hasLetters -> true
+    ///     "123".hasLetters -> false
     ///
     var hasLetters: Bool {
         return rangeOfCharacter(from: .letters, options: .numeric, range: nil) != nil
@@ -192,8 +192,8 @@ public extension String {
 
     /// 检查字符串是否只包含字母
     ///
-    ///          "abc".isAlphabetic -> true
-    ///          "123abc".isAlphabetic -> false
+    ///     "abc".isAlphabetic -> true
+    ///     "123abc".isAlphabetic -> false
     ///
     var isAlphabetic: Bool {
         let hasLetters = rangeOfCharacter(from: .letters, options: .numeric, range: nil) != nil
@@ -203,8 +203,8 @@ public extension String {
 
     /// 检查字符串是否包含一个或多个数字
     ///
-    ///          "abcd".hasNumbers -> false
-    ///          "123abc".hasNumbers -> true
+    ///     "abcd".hasNumbers -> false
+    ///     "123abc".hasNumbers -> true
     ///
     var hasNumbers: Bool {
         return rangeOfCharacter(from: .decimalDigits, options: .literal, range: nil) != nil
@@ -212,9 +212,8 @@ public extension String {
 
     /// 检查字符串是否至少包含一个字母和一个数字
     ///
-    ///          // useful for passwords
-    ///          "123abc".isAlphaNumeric -> true
-    ///          "abc".isAlphaNumeric -> false
+    ///     "123abc".isAlphaNumeric -> true
+    ///     "abc".isAlphaNumeric -> false
     ///
     var isAlphaNumeric: Bool {
         let hasLetters = rangeOfCharacter(from: .letters, options: .numeric, range: nil) != nil
@@ -223,14 +222,14 @@ public extension String {
         return comps.joined(separator: "").count == 0 && hasLetters && hasNumbers
     }
 
-    /// 检查字符串是否为有效的Swift数字
+    /// 检查字符串是否为有效的`Swift`数字
     ///
     ///     "123".isNumeric -> true
     ///     "1.3".isNumeric -> true (en_US)
     ///     "1,3".isNumeric -> true (fr_FR)
     ///     "abc".isNumeric -> false
     ///
-    var isNumeric: Bool {
+    var isSwiftNumeric: Bool {
         let scanner = Scanner(string: self)
         scanner.locale = NSLocale.current
         if #available(iOS 13.0, *) {
@@ -296,7 +295,7 @@ public extension String {
         return !zip(firstHalf, secondHalf).contains(where: { $0.lowercased() != $1.lowercased() })
     }
 
-    /// 检查字符串是否只包含唯一字符
+    /// 检查字符串是否只包含唯一字符(没有重复字符)
     var hasUniqueCharacters: Bool {
         guard count > 0 else { return false }
         var uniqueChars = Set<String>()
@@ -323,7 +322,7 @@ public extension String {
     ///
     /// - Note: 请注意,此属性不会针对电子邮件服务器验证电子邮件地址.它只是试图确定其格式是否适合电子邮件地址
     ///
-    ///          "john@doe.com".isValidEmail -> true
+    ///     "john@doe.com".isValidEmail -> true
     ///
     var isValidEmail: Bool {
         // http://emailregex.com/
@@ -334,7 +333,7 @@ public extension String {
 
     /// 检查字符串是否是有效的URL
     ///
-    ///          "https://google.com".isValidURL -> true
+    ///     "https://google.com".isValidURL -> true
     ///
     var isValidURL: Bool {
         return URL(string: self) != nil
@@ -342,8 +341,8 @@ public extension String {
 
     /// 检查字符串是否是有效带协议头的URL
     ///
-    ///          "https://google.com".isValidSchemedURL -> true
-    ///          "google.com".isValidSchemedURL -> false
+    ///     "https://google.com".isValidSchemedURL -> true
+    ///     "google.com".isValidSchemedURL -> false
     ///
     var isValidSchemedURL: Bool {
         guard let url = URL(string: self) else { return false }
@@ -352,7 +351,7 @@ public extension String {
 
     /// 检查字符串是否是有效的https URL
     ///
-    ///          "https://google.com".isValidHttpsURL -> true
+    ///     "https://google.com".isValidHttpsURL -> true
     ///
     var isValidHttpsURL: Bool {
         guard let url = URL(string: self) else { return false }
@@ -361,7 +360,7 @@ public extension String {
 
     /// 检查字符串是否是有效的http URL
     ///
-    ///          "http://google.com".isValidHttpURL -> true
+    ///     "http://google.com".isValidHttpURL -> true
     ///
     var isValidHttpURL: Bool {
         guard let url = URL(string: self) else { return false }
@@ -370,7 +369,7 @@ public extension String {
 
     /// 检查字符串是否是有效的文件URL
     ///
-    ///          "file://Documents/file.txt".isValidFileURL -> true
+    ///     "file://Documents/file.txt".isValidFileURL -> true
     ///
     var isValidFileURL: Bool {
         return URL(string: self)?.isFileURL ?? false
@@ -390,7 +389,7 @@ public extension String {
 
     /// 移除字符串开头和结尾处的空格及换行符
     ///
-    ///          "   hello  \n".trimmed -> "hello"
+    ///     "   hello  \n".trimmed -> "hello"
     ///
     var trimmed: String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
@@ -408,15 +407,15 @@ public extension String {
 
     /// 移除字符串中的空格及换行符
     ///
-    ///          "   \n Swifter   \n  Swift  ".withoutSpacesAndNewLines -> "SwifterSwift"
+    ///     "   \n Swifter   \n  Swift  ".withoutSpacesAndNewLines -> "SwifterSwift"
     ///
     var withoutSpacesAndNewLines: String {
         return replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
     }
 
-    /// 将正则表达式加上"\"进行保护,将元字符转化成字面值
+    /// 将正则表达式加上`"\"`进行保护,将元字符转化成字面值
     ///
-    /// "hello ^$ there" -> "hello \\^\\$ there"
+    ///     "hello ^$ there" -> "hello \\^\\$ there"
     ///
     var regexEscaped: String {
         return NSRegularExpression.escapedPattern(for: self)
@@ -425,27 +424,27 @@ public extension String {
 
 // MARK: - emoji
 public extension String {
-    /// 是否为单个emoji表情
+    /// 是否为单个`emoji`表情
     var isSingleEmoji: Bool {
         return count == 1 && containsEmoji
     }
 
-    /// 包含emoji表情
+    /// 包含`emoji`表情
     var containsEmoji: Bool {
         return contains { $0.isEmoji }
     }
 
-    /// 只包含emoji表情
+    /// 只包含`emoji`表情
     var containsOnlyEmoji: Bool {
         return !isEmpty && !contains { !$0.isEmoji }
     }
 
-    /// 提取emoji表情字符串
+    /// 提取`emoji`表情字符串
     var emojiString: String {
         return emojis.map { String($0) }.reduce("",+)
     }
 
-    /// 提取emoji表情数组
+    /// 提取`emoji`表情数组
     var emojis: [Character] {
         return filter { $0.isEmoji }
     }
@@ -455,7 +454,7 @@ public extension String {
         return filter { $0.isEmoji }.flatMap { $0.unicodeScalars }
     }
 
-    /// 移除字符串中的Emoji表情
+    /// 移除字符串中的`emoji`表情
     var noneEmoji: String {
         var chars: [Character] = []
         forEach { char in
@@ -515,12 +514,12 @@ public extension String {
 // MARK: - NSAttributedString
 public extension String {
     // FIXME: - 待完善
-//          /// 加粗字符串
+//     /// 加粗字符串
 //    var bold: NSAttributedString {
-//          return NSMutableAttributedString(
-//              string: self,
-//              attributes: [.font: UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)]
-//          )
+//     return NSMutableAttributedString(
+//         string: self,
+//         attributes: [.font: UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)]
+//     )
 //    }
 
     /// 下划线字符串
@@ -536,19 +535,19 @@ public extension String {
         )
     }
     // FIXME: - 待完善
-//          /// 斜体字符串
+//     /// 斜体字符串
 //    var italic: NSAttributedString {
-//          return NSMutableAttributedString(
-//              string: self,
-//              attributes: [.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)]
-//          )
+//     return NSMutableAttributedString(
+//         string: self,
+//         attributes: [.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)]
+//     )
 //    }
 //
-//          /// 为字符串添加颜色
-//          /// - Parameters color: 文本颜色
-//          /// - Returns: 使用给定颜色着色的字符串的 NSAttributedString 版本
+//     /// 为字符串添加颜色
+//     /// - Parameters color: 文本颜色
+//     /// - Returns: 使用给定颜色着色的字符串的 NSAttributedString 版本
 //    func colored(with color: UIColor) -> NSAttributedString {
-//          return NSMutableAttributedString(string: self, attributes: [.foregroundColor: color])
+//     return NSMutableAttributedString(string: self, attributes: [.foregroundColor: color])
 //    }
 }
 
@@ -556,8 +555,8 @@ public extension String {
 public extension String {
     /// 从 base64 字符串创建一个新字符串(base64解码)
     ///
-    ///          String(base64: "SGVsbG8gV29ybGQh") = "Hello World!"
-    ///          String(base64: "hello") = nil
+    ///     String(base64: "SGVsbG8gV29ybGQh") = "Hello World!"
+    ///     String(base64: "hello") = nil
     /// - Parameters base64: base64字符串
     init?(base64: String) {
         guard let decodedData = Data(base64Encoded: base64) else { return nil }
@@ -567,7 +566,7 @@ public extension String {
 
     /// 创建一个给定长度的新随机字符串
     ///
-    ///          String(randomOfLength: 10) -> "gY8r3MHvlQ"
+    ///     String(randomOfLength: 10) -> "gY8r3MHvlQ"
     /// - Parameters length: 字符串中的字符数
     init(randomOfLength length: Int) {
         guard length > 0 else {
@@ -588,8 +587,8 @@ public extension String {
 public extension String {
     /// 使用索引下标安全地获取字符串中对应的字符
     ///
-    ///          "Hello World!"[safe: 3] -> "l"
-    ///          "Hello World!"[safe: 20] -> nil
+    ///     "Hello World!"[safe: 3] -> "l"
+    ///     "Hello World!"[safe: 20] -> nil
     /// - Parameters index: 索引下标
     subscript(safe index: Int) -> Character? {
         guard index >= 0, index < count else { return nil }
@@ -613,11 +612,11 @@ public extension String {
 
     /// 在给定范围内安全地获取子字符串
     ///
-    ///          "Hello World!"[safe: 6..<11] -> "World"
-    ///          "Hello World!"[safe: 21..<110] -> nil
+    ///     "Hello World!"[safe: 6..<11] -> "World"
+    ///     "Hello World!"[safe: 21..<110] -> nil
     ///
-    ///          "Hello World!"[safe: 6...11] -> "World!"
-    ///          "Hello World!"[safe: 21...110] -> nil
+    ///     "Hello World!"[safe: 6...11] -> "World!"
+    ///     "Hello World!"[safe: 21...110] -> nil
     /// - Parameters range: 范围表达式
     subscript<R>(safe range: R) -> String? where R: RangeExpression, R.Bound == Int {
         let range = range.relative(to: Int.min ..< Int.max)
@@ -657,8 +656,8 @@ public extension String {
 public extension String {
     /// 把字符串转为URL(失败返回nil)
     ///
-    ///          "https://google.com".url -> URL(string: "https://google.com")
-    ///          "not url".url -> nil
+    ///     "https://google.com".url -> URL(string: "https://google.com")
+    ///     "not url".url -> nil
     ///
     var url: URL? {
         if hasPrefix("http://") || hasPrefix("https://") {
@@ -847,8 +846,8 @@ public extension String {
 public extension String {
     /// 格式化日期字符串成日期对象
     ///
-    ///          "2017-01-15".date(withFormat: "yyyy-MM-dd") -> Date set to Jan 15, 2017
-    ///          "not date string".date(withFormat: "yyyy-MM-dd") -> nil
+    ///     "2017-01-15".date(withFormat: "yyyy-MM-dd") -> Date set to Jan 15, 2017
+    ///     "not date string".date(withFormat: "yyyy-MM-dd") -> nil
     /// - Parameters format: 日期格式
     /// - Returns: 来自字符串的日期对象
     func date(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
@@ -888,7 +887,7 @@ public extension String {
 
     /// 给定长度的随机字符串
     ///
-    ///          String.random(ofLength: 18) -> "u7MMZYvGo9obcOcPj8"
+    ///     String.random(ofLength: 18) -> "u7MMZYvGo9obcOcPj8"
     /// - Parameters length: 字符串中的字符数
     /// - Returns: 给定长度的随机字符串
     static func random(ofLength length: Int) -> String {
@@ -978,12 +977,12 @@ public extension String {
     }
 
     // FIXME: - 待完善
-//          /// 字符串转 UIViewController
+//     /// 字符串转 UIViewController
 //    func asViewController() -> UIViewController? {
-//          guard let controller = asObject() as? UIViewController else {
-//              return nil
-//          }
-//          return controller
+//     guard let controller = asObject() as? UIViewController else {
+//         return nil
+//     }
+//     return controller
 //    }
 
     /// 类名字符串转类实例(类需要是继承自NSObject)
@@ -1016,9 +1015,9 @@ public extension String {
 public extension String {
     /// 拉丁语字符串本地化
     ///
-    ///          var str = "Hèllö Wórld!"
-    ///          str.latinize()
-    ///          print(str) // prints "Hello World!"
+    ///     var str = "Hèllö Wórld!"
+    ///     str.latinize()
+    ///     print(str) // prints "Hello World!"
     ///
     @discardableResult
     mutating func latinize() -> String {
@@ -1028,9 +1027,9 @@ public extension String {
 
     /// 将字符串格式转换为驼峰命名法(`CamelCase`)
     ///
-    ///          var str = "sOme vaRiabLe Name"
-    ///          str.camelize()
-    ///          print(str) // prints "someVariableName"
+    ///     var str = "sOme vaRiabLe Name"
+    ///     str.camelize()
+    ///     print(str) // prints "someVariableName"
     ///
     @discardableResult
     mutating func camelize() -> String {
@@ -1051,8 +1050,8 @@ public extension String {
 
     /// 字符串的首字符大写,其它字符保持原样
     ///
-    ///          "hello world".firstCharacterUppercased() -> "Hello world"
-    ///          "".firstCharacterUppercased() -> ""
+    ///     "hello world".firstCharacterUppercased() -> "Hello world"
+    ///     "".firstCharacterUppercased() -> ""
     ///
     mutating func firstCharacterUppercased() {
         guard let first = first else { return }
@@ -1069,9 +1068,9 @@ public extension String {
 
     /// 使用指定开始索引和长度切片字符串并赋值给`self`
     ///
-    ///          var str = "Hello World"
-    ///          str.slice(from: 6, length: 5)
-    ///          print(str) // prints "World"
+    ///     var str = "Hello World"
+    ///     str.slice(from: 6, length: 5)
+    ///     print(str) // prints "World"
     /// - Parameters:
     ///   - index: 给定索引后要切片的字符数
     ///   - length: 给定索引后要切片的字符数
@@ -1085,9 +1084,9 @@ public extension String {
 
     /// 将给定的字符串从开始索引切片到结束索引(如果适用)
     ///
-    ///          var str = "Hello World"
-    ///          str.slice(from: 6, to: 11)
-    ///          print(str) // prints "World"
+    ///     var str = "Hello World"
+    ///     str.slice(from: 6, to: 11)
+    ///     print(str) // prints "World"
     /// - Parameters:
     ///   - start: 切片应该从的字符串索引
     ///   - end: 切片应该结束的字符串索引
@@ -1102,9 +1101,9 @@ public extension String {
 
     /// 从指定起始索引切片到字符串结束
     ///
-    ///          var str = "Hello World"
-    ///          str.slice(at: 6)
-    ///          print(str) // prints "World"
+    ///     var str = "Hello World"
+    ///     str.slice(at: 6)
+    ///     print(str) // prints "World"
     /// - Parameters index: 切片应该开始的字符串索引
     @discardableResult
     mutating func slice(at index: Int) -> String {
@@ -1117,9 +1116,9 @@ public extension String {
 
     /// 删除字符串开头和结尾的空格和换行符
     ///
-    ///          var str = "  \n Hello World \n\n\n"
-    ///          str.trim()
-    ///          print(str) // prints "Hello World"
+    ///     var str = "  \n Hello World \n\n\n"
+    ///     str.trim()
+    ///     print(str) // prints "Hello World"
     ///
     @discardableResult
     mutating func trim() -> String {
@@ -1129,9 +1128,9 @@ public extension String {
 
     /// 截断字符串(将其剪切为给定数量的字符)
     ///
-    ///          var str = "This is a very long sentence"
-    ///          str.truncate(toLength: 14)
-    ///          print(str) // prints "This is a very..."
+    ///     var str = "This is a very long sentence"
+    ///     str.truncate(toLength: 14)
+    ///     print(str) // prints "This is a very..."
     /// - Parameters:
     ///   - toLength: 切割前的最大字符数(从字符开头要保留的字符数量)
     ///   - trailing: 要添加到截断字符串末尾的字符串(默认为“...”)
@@ -1146,9 +1145,9 @@ public extension String {
 
     /// 转义字符串(URL编码)
     ///
-    ///          var str = "it's easy to encode strings"
-    ///          str.urlEncode()
-    ///          print(str) // prints "it's%20easy%20to%20encode%20strings"
+    ///     var str = "it's easy to encode strings"
+    ///     str.urlEncode()
+    ///     print(str) // prints "it's%20easy%20to%20encode%20strings"
     ///
     @discardableResult
     mutating func urlEncode() -> String {
@@ -1160,9 +1159,9 @@ public extension String {
 
     /// URL字符串转换为可读字符串(URL转义字符串解码)
     ///
-    ///          var str = "it's%20easy%20to%20decode%20strings"
-    ///          str.urlDecode()
-    ///          print(str) // prints "it's easy to decode strings"
+    ///     var str = "it's%20easy%20to%20decode%20strings"
+    ///     str.urlDecode()
+    ///     print(str) // prints "it's easy to decode strings"
     ///
     @discardableResult
     mutating func urlDecode() -> String {
@@ -1203,7 +1202,7 @@ public extension String {
 public extension String {
     /// 由换行符分隔的字符串数组(获取字符串行数, `\n`分割)
     ///
-    ///          "Hello\ntest".lines() -> ["Hello", "test"]
+    ///     "Hello\ntest".lines() -> ["Hello", "test"]
     ///
     /// - Returns: 分割后的字符串数组
     func lines() -> [String] {
@@ -1256,7 +1255,7 @@ public extension String {
 
     /// 字符串中的字数(word)
     ///
-    ///          "Swift is amazing".wordsCount() -> 3
+    ///     "Swift is amazing".wordsCount() -> 3
     ///
     /// - Returns: 字符串中包含的单词数
     func wordCount() -> Int {
@@ -1294,7 +1293,7 @@ public extension String {
 
     /// 字符串中所有字符的`unicode`数组
     ///
-    ///          "SwifterSwift".unicodeArray() -> [83, 119, 105, 102, 116, 101, 114, 83, 119, 105, 102, 116]
+    ///     "SwifterSwift".unicodeArray() -> [83, 119, 105, 102, 116, 101, 114, 83, 119, 105, 102, 116]
     ///
     /// - Returns: 字符串中所有字符的 unicode
     func unicodeArray() -> [Int] {
@@ -1303,7 +1302,7 @@ public extension String {
 
     /// 字符串中所有单词的数组
     ///
-    ///          "Swift is amazing".words() -> ["Swift", "is", "amazing"]
+    ///     "Swift is amazing".words() -> ["Swift", "is", "amazing"]
     ///
     /// - Returns: 字符串中包含的单词
     func words() -> [String] {
@@ -1314,7 +1313,7 @@ public extension String {
 
     /// 返回一个本地化的字符串,带有可选的翻译注释
     ///
-    ///          "Hello world".localized -> Hallo Welt
+    ///     "Hello world".localized -> Hallo Welt
     ///
     func localized(comment: String = "") -> String {
         return NSLocalizedString(self, comment: comment)
@@ -1322,7 +1321,7 @@ public extension String {
 
     /// 查找字符串中出现最频繁的字符
     ///
-    ///          "This is a test, since e is appearing everywhere e should be the common character".mostCommonCharacter() -> "e"
+    ///     "This is a test, since e is appearing everywhere e should be the common character".mostCommonCharacter() -> "e"
     ///
     /// - Returns: 出现最频繁的字符
     func mostCommonCharacter() -> Character? {
@@ -1336,7 +1335,7 @@ public extension String {
 
     /// 将字符串转换为 slug 字符串
     ///
-    ///          "Swift is amazing".toSlug() -> "swift-is-amazing"
+    ///     "Swift is amazing".toSlug() -> "swift-is-amazing"
     ///
     /// - Returns: slug格式的字符串
     func toSlug() -> String {
@@ -1364,8 +1363,8 @@ public extension String {
 
     /// 检查字符串是否包含子字符串的一个或多个实例
     ///
-    ///          "Hello World!".contain("O") -> false
-    ///          "Hello World!".contain("o", caseSensitive: false) -> true
+    ///     "Hello World!".contain("O") -> false
+    ///     "Hello World!".contain("o", caseSensitive: false) -> true
     /// - Parameters:
     ///   - string: 要搜索的子字符串
     ///   - caseSensitive: 为区分大小写的搜索设置true(默认值为true)
@@ -1393,8 +1392,8 @@ public extension String {
 
     /// 符串中的子字符串计数
     ///
-    ///          "Hello World!".count(of: "o") -> 2
-    ///          "Hello World!".count(of: "L", caseSensitive: false) -> 3
+    ///     "Hello World!".count(of: "o") -> 2
+    ///     "Hello World!".count(of: "L", caseSensitive: false) -> 3
     /// - Parameters:
     ///   - string: 要搜索的子字符串
     ///   - caseSensitive: 为区分大小写的搜索设置true(默认为true)
@@ -1408,8 +1407,8 @@ public extension String {
 
     /// 检查字符串是否以子字符串结尾
     ///
-    ///          "Hello World!".ends(with: "!") -> true
-    ///          "Hello World!".ends(with: "WoRld!", caseSensitive: false) -> true
+    ///     "Hello World!".ends(with: "!") -> true
+    ///     "Hello World!".ends(with: "WoRld!", caseSensitive: false) -> true
     /// - Parameters:
     ///   - suffix: 用于搜索字符串是否以结尾的子字符串
     ///   - caseSensitive: 为区分大小写的搜索设置true(默认为true)
@@ -1423,7 +1422,7 @@ public extension String {
 
     /// 从字符串中获取指定开始位置到指定长度的子字符串
     ///
-    ///          "Hello World".slicing(from: 6, length: 5) -> "World"
+    ///     "Hello World".slicing(from: 6, length: 5) -> "World"
     /// - Parameters:
     ///   - index: 字符串索引开始
     ///   - length: 给定索引后要切片的字符数
@@ -1439,8 +1438,8 @@ public extension String {
 
     /// 检查字符串是否以子字符串开头
     ///
-    ///          "hello World".starts(with: "h") -> true
-    ///          "hello World".starts(with: "H", caseSensitive: false) -> true
+    ///     "hello World".starts(with: "h") -> true
+    ///     "hello World".starts(with: "H", caseSensitive: false) -> true
     /// - Parameters:
     ///   - suffix: 搜索字符串是否以开头的子字符串
     ///   - caseSensitive: 为区分大小写的搜索设置为真(默认为真)
@@ -1454,8 +1453,8 @@ public extension String {
 
     /// 截断的字符串(限于给定数量的字符)
     ///
-    ///          "This is a very long sentence".truncated(toLength: 14) -> "This is a very..."
-    ///          "Short sentence".truncated(toLength: 14) -> "Short sentence"
+    ///     "This is a very long sentence".truncated(toLength: 14) -> "This is a very..."
+    ///     "Short sentence".truncated(toLength: 14) -> "Short sentence"
     /// - Parameters:
     ///   - toLength: 切割前的最大字符数(从字符开头要保留的字符数量)
     ///   - trailing: 要添加到截断字符串末尾的字符串(默认为“...”)
@@ -1984,7 +1983,7 @@ public extension String {
 public extension String {
     /// 将字符串复制到全局粘贴板
     ///
-    ///          "SomeText".copyToPasteboard() // copies "SomeText" to pasteboard
+    ///     "SomeText".copyToPasteboard() // copies "SomeText" to pasteboard
     ///
     func copyToPasteboard() {
         #if os(iOS)
@@ -2219,7 +2218,7 @@ public extension String {
 
     /// 生成重复字符串
     ///
-    ///          'bar' * 3 -> "barbarbar"
+    ///     'bar' * 3 -> "barbarbar"
     /// - Parameters:
     ///   - lhs: 要重复的字符串
     ///   - rhs: 重复字符串的次数
@@ -2231,7 +2230,7 @@ public extension String {
 
     /// 多次重复字符串
     ///
-    ///          3 * 'bar' -> "barbarbar"
+    ///     3 * 'bar' -> "barbarbar"
     /// - Parameters:
     ///   - lhs: 重复字符的次数
     ///   - rhs: 要重复的字符串
@@ -2426,7 +2425,7 @@ public extension String {
     }
 
     var isEmail: Bool {
-        //          let pattern = "^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
+        //     let pattern = "^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
         let pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?"
         return regexp(pattern)
     }
@@ -2615,7 +2614,7 @@ public extension String {
 public extension String {
     /// 编码URL字符串(URL转义字符串)
     ///
-    ///          "it's easy to encode strings".urlEncoded -> "it's%20easy%20to%20encode%20strings"
+    ///     "it's easy to encode strings".urlEncoded -> "it's%20easy%20to%20encode%20strings"
     ///
     var urlEncoded: String {
         return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
@@ -2623,7 +2622,7 @@ public extension String {
 
     /// 把编码过的URL字符串解码成可读格式(URL字符串解码)
     ///
-    ///          "it's%20easy%20to%20decode%20strings".urlDecoded -> "it's easy to decode strings"
+    ///     "it's%20easy%20to%20decode%20strings".urlDecoded -> "it's easy to decode strings"
     ///
     var urlDecoded: String {
         return removingPercentEncoding ?? self
@@ -2645,7 +2644,7 @@ public extension String {
 
     /// base64加密
     ///
-    ///          "Hello World!".base64Encoded -> Optional("SGVsbG8gV29ybGQh")
+    ///     "Hello World!".base64Encoded -> Optional("SGVsbG8gV29ybGQh")
     ///
     var base64Encoded: String? {
         let plainData = data(using: .utf8)
@@ -2654,7 +2653,7 @@ public extension String {
 
     /// base64解密
     ///
-    ///          "SGVsbG8gV29ybGQh".base64Decoded = Optional("Hello World!")
+    ///     "SGVsbG8gV29ybGQh".base64Decoded = Optional("Hello World!")
     ///
     var base64Decoded: String? {
         if let data = Data(base64Encoded: self,
