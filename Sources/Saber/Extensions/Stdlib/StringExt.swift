@@ -52,12 +52,18 @@ public extension String {
 
     /// 字符串转`Float`
     var float: Float {
-        return Float(self) ?? 0
+        let formatter = NumberFormatter()
+        formatter.locale = .current
+        formatter.allowsFloats = true
+        return formatter.number(from: self)?.floatValue ?? 0
     }
-
+    
     /// 字符串转`Double`
     var double: Double {
-        return Double(self) ?? 0
+        let formatter = NumberFormatter()
+        formatter.locale = .current
+        formatter.allowsFloats = true
+        return formatter.number(from: self)?.doubleValue ?? 0
     }
 
     /// 字符串转`CGFloat`
@@ -121,7 +127,7 @@ public extension String {
 
     /// 转`utf8`格式`Data`
     var data: Data? {
-        return asData()
+        return self.data(using: .utf8)
     }
 
     /// 图片资源名称转图片对象
@@ -798,7 +804,7 @@ public extension String {
 
 // MARK: - Date
 public extension String {
-    /// 格式化日期字符串成日期对象
+    /// `格式日期字符串`成`日期对象`
     ///
     ///     "2017-01-15".date(withFormat: "yyyy-MM-dd") -> Date set to Jan 15, 2017
     ///     "not date string".date(withFormat: "yyyy-MM-dd") -> nil
@@ -812,7 +818,7 @@ public extension String {
         return dateFormatter.date(from: self)
     }
 
-    /// 日期格式字符串转时间戳(秒)
+    /// `日期格式字符串`转`时间戳(秒)`
     /// - Parameter format: 日期格式
     /// - Returns: 时间戳(秒)
     func timeStamp(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Double {
@@ -824,7 +830,7 @@ public extension String {
 // MARK: - 静态方法
 public extension String {
     /// 给定长度的`乱数假文`字符串
-    /// - Parameters length: 限制`乱数假文`字符数(默认为 445 - 完整的`乱数假文`)
+    /// - Parameters length: 限制`乱数假文`字符数(默认为` 445 - 完整`的`乱数假文`)
     /// - Returns: 指定长度的`乱数假文`字符串
     static func loremIpsum(ofLength length: Int = 445) -> String {
         guard length > 0 else { return "" }
@@ -857,51 +863,7 @@ public extension String {
 
 // MARK: - 方法(类型转换)
 public extension String {
-    /// 将字符串转为浮点值(失败返回nil)
-    /// - Parameters locale: 语言环境(默认为 Locale.current)
-    /// - Returns: 给定字符串的可选浮点值
-    func float(locale: Locale = .current) -> Float? {
-        let formatter = NumberFormatter()
-        formatter.locale = locale
-        formatter.allowsFloats = true
-        return formatter.number(from: self)?.floatValue
-    }
-
-    /// 将字符串转为双精度值(失败返回nil)
-    /// - Parameters locale: 语言环境(默认为 Locale.current)
-    /// - Returns: 给定字符串的可选双精度值
-    func double(locale: Locale = .current) -> Double? {
-        let formatter = NumberFormatter()
-        formatter.locale = locale
-        formatter.allowsFloats = true
-        return formatter.number(from: self)?.doubleValue
-    }
-
-    /// 将字符串转为CGFloat(失败返回nil)
-    /// - Parameters locale: 语言环境(默认为 Locale.current)
-    /// - Returns: 给定字符串的可选CGFloat
-    func cgFloat(locale: Locale = .current) -> CGFloat? {
-        let formatter = NumberFormatter()
-        formatter.locale = locale
-        formatter.allowsFloats = true
-        return formatter.number(from: self) as? CGFloat
-    }
-
-    /// 字符串转Data?
-    /// - Parameter encoding: 编码格式
-    /// - Returns: Data?
-    func asData(using encoding: String.Encoding = .utf8) -> Data? {
-        return data(using: encoding)
-    }
-
-    /// 字符串转换成Double(存在精度损失)
-    func stringAsDouble() -> Double? {
-        guard let decimal = Decimal(string: self) else {
-            return nil
-        }
-        return NSDecimalNumber(decimal: decimal).doubleValue
-    }
-
+    
     /// 汉字字符串转成拼音
     /// - Parameter isLatin: true：带声调,false：不带声调,默认 false
     /// - Returns: 拼音
