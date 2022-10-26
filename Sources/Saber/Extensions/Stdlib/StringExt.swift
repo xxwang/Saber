@@ -904,7 +904,8 @@ class Person {
         
     }
 }
-// MARK: - 类型转换
+
+// MARK: - 方法(类型转换)
 public extension String {
     /// `字符串`转`AnyClass`
     func anyClass() -> AnyClass? {
@@ -1093,8 +1094,8 @@ public extension String {
 
     /// 在开始时用另一个字符串填充字符串以适应长度参数大小
     ///
-    ///   "hue".padStart(10) -> "       hue"
-    ///   "hue".padStart(10, with:"br") -> "brbrbrbhue"
+    ///     "hue".padStart(10) -> "       hue"
+    ///     "hue".padStart(10, with:"br") -> "brbrbrbhue"
     /// - Parameters:
     ///   - length:要填充的目标长度
     ///   - string:填充字符串. 默认为`“ ”`
@@ -1106,8 +1107,8 @@ public extension String {
 
     /// 在开始时用另一个字符串填充字符串以适应长度参数大小
     ///
-    ///   "hue".padEnd(10) -> "hue       "
-    ///   "hue".padEnd(10, with:"br") -> "huebrbrbrb"
+    ///     "hue".padEnd(10) -> "hue       "
+    ///     "hue".padEnd(10, with:"br") -> "huebrbrbrb"
     /// - Parameters:
     ///   - length:要填充的目标长度
     ///   - string:填充字符串. 默认为`“ ”`
