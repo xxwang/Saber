@@ -906,29 +906,29 @@ class Person {
 }
 // MARK: - 类型转换
 public extension String {
-    /// `类名字符串`转`类实例`(类需要是继承自`NSObject`)
-    func nsObject() -> NSObject? {
-        guard let Class: AnyClass = anyClass() else {
-            return nil
-        }
-
-        let ClassType = Class as! NSObject.Type
-        let instance = ClassType.init()
-        return instance
-    }
-
     /// `字符串`转`AnyClass`
     func anyClass() -> AnyClass? {
         guard let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String else {
             return nil
         }
-
-        let ClassNameString = "\(namespace.removeSomeStringUseSomeString(removeString: " ", replacingString: "_")).\(self)"
-        guard let anyClass: AnyClass = NSClassFromString(ClassNameString) else {
+        
+        let classNameString = "\(namespace.removeSomeStringUseSomeString(removeString: " ", replacingString: "_")).\(self)"
+        guard let anyClass: AnyClass = NSClassFromString(classNameString) else {
             return nil
         }
         return anyClass
     }
+    
+    /// `类名字符串`转`类实例`(类需要是继承自`NSObject`)
+    func nsObject() -> NSObject? {
+        guard let anyClass: AnyClass = anyClass() else {
+            return nil
+        }
+        let classType = anyClass as! NSObject.Type
+        let instance = classType.init()
+        return instance
+    }
+
 }
 
 // MARK: - 方法(mutating)
@@ -940,7 +940,7 @@ public extension String {
     ///     print(str) // prints "Hello World!"
     ///
     @discardableResult
-    mutating func latinize() -> String {
+    mutating func latinize() -> Self {
         self = folding(options: .diacriticInsensitive, locale: Locale.current)
         return self
     }
@@ -952,7 +952,7 @@ public extension String {
     ///     print(str) // prints "someVariableName"
     ///
     @discardableResult
-    mutating func camelize() -> String {
+    mutating func camelize() -> Self {
         let source = lowercased()
         let first = source[..<source.index(after: source.startIndex)]
         if source.contains(" ") {
