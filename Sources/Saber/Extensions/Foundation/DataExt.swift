@@ -2,6 +2,11 @@ import UIKit
 
 // MARK: - 属性
 public extension Data {
+    /// `Data`转`字符串`
+    var data: String? {
+        string(encoding: .utf8)
+    }
+
     /// `UIImage`
     var image: UIImage? {
         return UIImage(data: self)

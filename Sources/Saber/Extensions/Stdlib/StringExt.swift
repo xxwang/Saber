@@ -1202,34 +1202,6 @@ public extension String {
         return components != [""] ? components : []
     }
 
-    /// 转义字符串(URL编码)
-    ///
-    ///     var str = "it's easy to encode strings"
-    ///     str.urlEncode()
-    ///     print(str) // prints "it's%20easy%20to%20encode%20strings"
-    ///
-    @discardableResult
-    mutating func urlEncode() -> String {
-        if let encoded = addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
-            self = encoded
-        }
-        return self
-    }
-
-    /// URL字符串转换为可读字符串(URL转义字符串解码)
-    ///
-    ///     var str = "it's%20easy%20to%20decode%20strings"
-    ///     str.urlDecode()
-    ///     print(str) // prints "it's easy to decode strings"
-    ///
-    @discardableResult
-    mutating func urlDecode() -> String {
-        if let decoded = removingPercentEncoding {
-            self = decoded
-        }
-        return self
-    }
-
     /// 在开始时用另一个字符串填充字符串以适应长度参数大小
     ///
     ///     "hue".padStart(10) -> "       hue"
@@ -1500,23 +1472,6 @@ public extension String {
         return hasSuffix(suffix)
     }
 
-    /// 验证字符串是否匹配正则表达式模式
-    /// - Parameters pattern: 要验证的模式
-    /// - Returns: 如果字符串与模式匹配,则返回: `true`
-    func matches(pattern: String) -> Bool {
-        return range(of: pattern, options: .regularExpression, range: nil, locale: nil) != nil
-    }
-
-    /// 验证字符串是否与正则表达式匹配
-    /// - Parameters:
-    ///   - regex: 进行验证的正则表达式
-    ///   - options: 要使用的匹配选项
-    /// - Returns: 如果字符串与正则表达式匹配,则返回: `true`
-    func matches(regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions = []) -> Bool {
-        let range = NSRange(startIndex ..< endIndex, in: self)
-        return regex.firstMatch(in: self, options: options, range: range) != nil
-    }
-
     /// 在指定`searchRange`中使用`template`替换与`regex`匹配的内容
     /// - Parameters:
     ///   - regex: 进行替换的正则表达式
@@ -1689,7 +1644,7 @@ public extension String {
 
 // MARK: - HTML字符引用
 public extension String {
-    /// 字符串转为HTML字符引用
+    /// `字符串`转为`HTML字符引用`
     /// - Returns: 字符引用
     func stringAsHtmlCharacterEntityReferences() -> String {
         var result = ""
@@ -1701,7 +1656,7 @@ public extension String {
         return result
     }
 
-    /// HTML字符引用转字符串
+    /// `HTML字符引用`转`字符串`
     /// - Returns: 普通字符串
     func htmlCharacterEntityReferencesAsString() -> String? {
         let attributedOptions: [NSAttributedString.DocumentReadingOptionKey: Any] = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
@@ -1715,13 +1670,13 @@ public extension String {
 
 // MARK: - 属性字符串相关
 public extension String {
-    /// HTML源码转属性字符串
+    /// `HTML源码`转`属性字符串`
     /// - Parameters:
     ///   - font: 字体
     ///   - lineSpacing: 行间距
     /// - Returns: 属性字符串
-    func htmlCodeAsAttributedString(
-        font: UIFont? = UIFont.systemFont(ofSize: 16),
+    func htmlCodeToAttributedString(
+        font: UIFont? = UIFont.systemFont(ofSize: 12),
         lineSpacing: CGFloat? = 10
     ) -> NSMutableAttributedString {
         var htmlString: NSMutableAttributedString?
@@ -1875,13 +1830,6 @@ public extension String {
     }
 }
 
-// --------------------------------------
-// Binary:     二进制
-// Octal:      八进制
-// Decimal:    十进制
-// Hexadecimal: 十六进制
-// --------------------------------------
-
 // MARK: - 进制转换
 public extension ExpressibleByStringLiteral {
     /// 二进制转八进制
@@ -2007,9 +1955,9 @@ public extension ExpressibleByStringLiteral {
 
 // MARK: - `NSDecimalNumber`苹果针对浮点类型计算精度问题提供出来的计算类
 public extension String {
-    /// ＋ 加法运算
-    /// - Parameter strNumber: strNumber description
-    /// - Returns: description
+    /// `＋` 加法运算
+    /// - Parameter strNumber: 加数字符串
+    /// - Returns: 结果数字串
     func adding(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2023,9 +1971,9 @@ public extension String {
         return final.stringValue
     }
 
-    /// － 减法运算
-    /// - Parameter strNumber: strNumber description
-    /// - Returns: description
+    /// `－` 减法运算
+    /// - Parameter strNumber: 减数字符串
+    /// - Returns: 结果
     func subtracting(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2039,9 +1987,9 @@ public extension String {
         return final.stringValue
     }
 
-    /// x 乘法运算
-    /// - Parameter strNumber: strNumber description
-    /// - Returns: description
+    /// `*` 乘法运算
+    /// - Parameter strNumber: 乘数字符串
+    /// - Returns: 结果
     func multiplying(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2055,9 +2003,9 @@ public extension String {
         return final.stringValue
     }
 
-    /// / 除法运算
-    /// - Parameter strNumber: strNumber description
-    /// - Returns: description
+    /// `/`除法运算
+    /// - Parameter strNumber: 除数
+    /// - Returns: 结果
     func dividing(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2077,7 +2025,7 @@ public extension String {
 
 // MARK: - 运算符
 public extension String {
-    /// 重载 Swift 的“包含”运算符以匹配正则表达式模式
+    /// 重载 `Swift` 的`包含运算符`以匹配正则表达式模式
     /// - Parameters:
     ///   - lhs: 检查正则表达式模式的字符串
     ///   - rhs: 要匹配的正则表达式模式
@@ -2086,7 +2034,7 @@ public extension String {
         return lhs.range(of: rhs, options: .regularExpression) != nil
     }
 
-    /// 重载 Swift 的“包含”运算符以匹配正则表达式
+    /// 重载 `Swift` 的`包含运算符`以匹配正则表达式
     /// - Parameters:
     ///   - lhs: 检查正则表达式的字符串
     ///   - rhs: 要匹配的正则表达式
@@ -2108,7 +2056,7 @@ public extension String {
         return String(repeating: lhs, count: rhs)
     }
 
-    /// 多次重复字符串
+    /// 生成重复字符串
     ///
     ///     3 * 'bar' -> "barbarbar"
     /// - Parameters:
@@ -2228,7 +2176,26 @@ public func =~ (lhs: String, rhs: String) -> Bool {
 
 // MARK: - 正则
 public extension String {
+    /// 验证`字符串`是否匹配`正则表达式`匹配
+    /// - Parameters pattern: 正则表达式
+    /// - Returns: 如果字符串与模式匹配,则返回: `true`
+    func matches(pattern: String) -> Bool {
+        return range(of: pattern, options: .regularExpression, range: nil, locale: nil) != nil
+    }
+
+    /// 验证`字符串`是否与`正则表达式`匹配
+    /// - Parameters:
+    ///   - regex: 进行验证的正则表达式
+    ///   - options: 要使用的匹配选项
+    /// - Returns: 如果字符串与正则表达式匹配,则返回: `true`
+    func matches(regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions = []) -> Bool {
+        let range = NSRange(startIndex ..< endIndex, in: self)
+        return regex.firstMatch(in: self, options: options, range: range) != nil
+    }
+
     /// 正则校验
+    /// - Parameter pattern: 要校验的正则表达式
+    /// - Returns: 是否通过
     func regexp(_ pattern: String) -> Bool {
         let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
         return pred.evaluate(with: self)
@@ -2263,7 +2230,7 @@ public extension String {
         return (!result.isEmpty)
     }
 
-    /// 获取匹配的Range
+    /// 获取匹配的`NSRange`
     /// - Parameters:
     ///   - pattern: 匹配规则
     /// - Returns: 返回匹配的[NSRange]结果
@@ -2304,13 +2271,14 @@ public extension String {
         return regexp(pattern)
     }
 
+    /// 是否是邮箱格式
     var isEmail: Bool {
         //     let pattern = "^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
         let pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?: \\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?: [\\w](?: [\\w-]*[\\w])?\\.)+[\\w](?: [\\w-]*[\\w])?"
         return regexp(pattern)
     }
 
-    /// 是否是有效昵称,即允许“中文”、“英文”、“数字”
+    /// 是否是有效昵称,即允许`中文`、`英文`、`数字`
     var isValidNickName: Bool {
         let rgex = "(^[\u{4e00}-\u{9faf}_a-zA-Z0-9]+$)"
         return regexp(rgex)
@@ -2322,7 +2290,7 @@ public extension String {
         return regexp(rgex)
     }
 
-    /// 设置密码必须符合由数字,大写字母,小写字母,特殊符
+    /// 设置密码必须符合由`数字`、`大写字母`、`小写字母`、`特殊符`
     /// - Parameter complex: 是否复杂密码 至少其中(两种/三种)组成密码
     func password(_ complex: Bool = false) -> Bool {
         var pattern = "^(?![A-Z]+$)(?![a-z]+$)(?!\\d+$)(?![\\W_]+$)\\S{8,20}$"
@@ -2332,7 +2300,7 @@ public extension String {
         return regexp(pattern)
     }
 
-    /// 是否为0-9之间的数字(字符串的组成是: 0-9之间的数字)
+    /// 是否为`0-9`之间的数字(字符串的组成是: `0-9`之间的`数字`)
     /// - Returns: 返回结果
     func isValidNumberValue() -> Bool {
         guard !isEmpty else {
@@ -2342,7 +2310,7 @@ public extension String {
         return regexp(rgex)
     }
 
-    /// 是否为数字或者小数点(字符串的组成是: 0-9之间的数字或者小数点即可)
+    /// 是否为`数字`或者`小数点`(字符串的组成是: `0-9之间`的`数字`或者`小数点`即可)
     /// - Returns: 返回结果
     func isValidNumberAndDecimalPoint() -> Bool {
         guard !isEmpty else {
@@ -2452,7 +2420,7 @@ public extension String {
         return (link, text)
     }
 
-    /// 返回当前字符窜中的 link range数组
+    /// 返回当前字符窜中的 `link range`数组
     var linkRanges: [NSRange]? {
         // url, ##, 中文字母数字
         let patterns = ["[a-zA-Z]*: //[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
@@ -2492,7 +2460,7 @@ public extension String {
 
 // MARK: - URL编解码(属性)
 public extension String {
-    /// 编码URL字符串(URL转义字符串)
+    /// 编码`URL`字符串(`URL`转义字符串)
     ///
     ///     "it's easy to encode strings".urlEncoded -> "it's%20easy%20to%20encode%20strings"
     ///
@@ -2500,19 +2468,47 @@ public extension String {
         return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
     }
 
-    /// 把编码过的URL字符串解码成可读格式(URL字符串解码)
+    /// 把编码过的`URL`字符串解码成可读格式(`URL`字符串解码)
     ///
     ///     "it's%20easy%20to%20decode%20strings".urlDecoded -> "it's easy to decode strings"
     ///
     var urlDecoded: String {
         return removingPercentEncoding ?? self
     }
+
+    /// 转义字符串(`URL`编码)
+    ///
+    ///     var str = "it's easy to encode strings"
+    ///     str.urlEncode()
+    ///     print(str) // prints "it's%20easy%20to%20encode%20strings"
+    ///
+    @discardableResult
+    mutating func urlEncode() -> String {
+        if let encoded = addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
+            self = encoded
+        }
+        return self
+    }
+
+    /// `URL`字符串转换为可读字符串(`URL`转义字符串解码)
+    ///
+    ///     var str = "it's%20easy%20to%20decode%20strings"
+    ///     str.urlDecode()
+    ///     print(str) // prints "it's easy to decode strings"
+    ///
+    @discardableResult
+    mutating func urlDecode() -> String {
+        if let decoded = removingPercentEncoding {
+            self = decoded
+        }
+        return self
+    }
 }
 
 // MARK: - base64(属性)
 public extension String {
-    /// Base64 编解码
-    /// - Parameter encode: true: 编码 false: 解码
+    /// `Base64` 编解码
+    /// - Parameter encode: `true`: 编码 `false`: 解码
     /// - Returns: 编解码结果
     func base64String(encode: Bool) -> String? {
         if encode {
@@ -2522,7 +2518,7 @@ public extension String {
         }
     }
 
-    /// base64加密
+    /// `base64`加密
     ///
     ///     "Hello World!".base64Encoded -> Optional("SGVsbG8gV29ybGQh")
     ///
@@ -2531,7 +2527,7 @@ public extension String {
         return plainData?.base64EncodedString()
     }
 
-    /// base64解密
+    /// `base64`解密
     ///
     ///     "SGVsbG8gV29ybGQh".base64Decoded = Optional("Hello World!")
     ///
@@ -2558,8 +2554,8 @@ public extension String {
 
 // MARK: - unicode编码和解码
 public extension String {
-    /// Unicode编码
-    /// - Returns: unicode编码后的字符串
+    /// `Unicode`编码
+    /// - Returns: `unicode`编码后的字符串
     func unicodeEncode() -> String {
         var tempStr = String()
         for v in utf16 {
@@ -2574,8 +2570,8 @@ public extension String {
         return tempStr
     }
 
-    /// Unicode解码
-    /// - Returns: unicode解码后的字符串
+    /// `Unicode`解码
+    /// - Returns: `unicode`解码后的字符串
     func unicodeDecode() -> String {
         let tempStr1 = replacingOccurrences(of: "\\u", with: "\\U")
         let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")
