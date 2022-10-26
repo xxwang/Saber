@@ -40,15 +40,15 @@ public extension Data {
 // MARK: - 方法
 public extension Data {
     /// 将`Data`转为指定编码的字符串
-    /// - Parameters encoding: 编码
-    /// - Returns: 对应字符串
+    /// - Parameters encoding:编码
+    /// - Returns:对应字符串
     func string(encoding: String.Encoding = .utf8) -> String? {
         return String(data: self, encoding: encoding)
     }
 
     /// `Data`转`Foundation`对象(数组, 字典...)
-    /// - Parameter options: 读取JSON数据和创建`Foundation`对象的选项
-    /// - Returns: 失败返回nil
+    /// - Parameter options:读取JSON数据和创建`Foundation`对象的选项
+    /// - Returns:失败返回nil
     func jsonObject(options: JSONSerialization.ReadingOptions = []) -> Any? {
         guard let obj = try? JSONSerialization.jsonObject(with: self, options: options) else {
             return nil
@@ -58,9 +58,9 @@ public extension Data {
 
     /// 截取指定长度`Data`
     /// - Parameters:
-    ///   - from: 开始位置
-    ///   - len: 截取长度
-    /// - Returns: 截取的Data
+    ///   - from:开始位置
+    ///   - len:截取长度
+    /// - Returns:截取的Data
     func subData(from: Int, len: Int) -> Data? {
         guard from >= 0, len >= 0 else {
             return nil

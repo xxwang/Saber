@@ -4,9 +4,9 @@ import Foundation
 public extension NotificationCenter {
     /// 发送通知
     /// - Parameters:
-    ///   - name: 通知名称
-    ///   - object: 对象
-    ///   - userInfo: 携带信息
+    ///   - name:通知名称
+    ///   - object:对象
+    ///   - userInfo:携带信息
     static func post(
         _ name: Notification.Name,
         object: Any? = nil,
@@ -19,10 +19,10 @@ public extension NotificationCenter {
 
     /// 添加通知监听(方法)
     /// - Parameters:
-    ///   - observer: 监听者
-    ///   - selector: 响应方法
-    ///   - name: 通知名称
-    ///   - object: 对象
+    ///   - observer:监听者
+    ///   - selector:响应方法
+    ///   - name:通知名称
+    ///   - object:对象
     static func addObserver(
         _ observer: Any,
         selector: Selector,
@@ -34,11 +34,11 @@ public extension NotificationCenter {
 
     /// 添加通知监听(闭包)
     /// - Parameters:
-    ///   - name: 通知名称
-    ///   - object: 对象
-    ///   - queue: 队列
-    ///   - using: 响应通知的闭包
-    /// - Returns: 监听对象
+    ///   - name:通知名称
+    ///   - object:对象
+    ///   - queue:队列
+    ///   - using:响应通知的闭包
+    /// - Returns:监听对象
     static func addObserver(
         name: Notification.Name,
         object: Any? = nil,
@@ -50,10 +50,10 @@ public extension NotificationCenter {
 
     /// 只监听一次指定名称的通知,当通知响应后,会移除当前的监听
     /// - Parameters:
-    ///   - name: 通知名称
-    ///   - obj: 对象
-    ///   - queue: 队列
-    ///   - block: 接收到通知后要执行的代码块
+    ///   - name:通知名称
+    ///   - obj:对象
+    ///   - queue:队列
+    ///   - block:接收到通知后要执行的代码块
     func observeOnce(
         forName name: Notification.Name?,
         object obj: Any? = nil,
@@ -69,9 +69,9 @@ public extension NotificationCenter {
 
     /// 移除监听者
     /// - Parameters:
-    ///   - observer: 要移除的监听者
-    ///   - name: 通知名称
-    ///   - object: 对象
+    ///   - observer:要移除的监听者
+    ///   - name:通知名称
+    ///   - object:对象
     static func removeObserver(
         _ observer: Any,
         name: Notification.Name? = nil,

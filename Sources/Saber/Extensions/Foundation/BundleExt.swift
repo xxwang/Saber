@@ -88,9 +88,9 @@ public extension Bundle {
 public extension Bundle {
     /// 获取项目中文件的路径
     /// - Parameters:
-    ///   - fileName: 文件名称
-    ///   - offType: 后缀名称
-    /// - Returns: 对应路径
+    ///   - fileName:文件名称
+    ///   - offType:后缀名称
+    /// - Returns:对应路径
     static func path(for fileName: String?, _ offType: String? = nil) -> String? {
         guard let path = Bundle.main.path(forResource: fileName, ofType: offType) else {
             return nil

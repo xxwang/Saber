@@ -37,13 +37,13 @@ public extension UIScrollView {
     }
 
     /// 滚动至最顶部
-    /// - Parameter animated: `true`以恒定速度过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度过渡到新偏移的动画,`false`立即进行过渡
     func scrollToTop(_ animated: Bool = true) {
         setContentOffset(CGPoint(x: contentOffset.x, y: -contentInset.top), animated: animated)
     }
 
     /// 滚动至最底部
-    /// - Parameter animated: `true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollToBottom(_ animated: Bool = true) {
         setContentOffset(
             CGPoint(x: contentOffset.x, y: max(0, contentSize.height - bounds.height) + contentInset.bottom),
@@ -52,13 +52,13 @@ public extension UIScrollView {
     }
 
     /// 滚动至最左侧
-    /// - Parameter animated: `true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollToLeft(_ animated: Bool = true) {
         setContentOffset(CGPoint(x: -contentInset.left, y: contentOffset.y), animated: animated)
     }
 
     /// 滚动至最右侧
-    /// - Parameter animated: `true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollToRight(_ animated: Bool = true) {
         setContentOffset(
             CGPoint(x: max(0, contentSize.width - bounds.width) + contentInset.right, y: contentOffset.y),
@@ -68,7 +68,7 @@ public extension UIScrollView {
 
     /// 在滚动视图中向上滚动一页
     /// 如果`isPaginEnabled`为`true`,则使用上一页位置
-    /// - Parameter animated: `true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollUp(_ animated: Bool = true) {
         let minY = -contentInset.top
         var y = max(minY, contentOffset.y - bounds.height)
@@ -85,7 +85,7 @@ public extension UIScrollView {
 
     /// 在滚动视图中向左滚动一页
     /// 如果`isPaginEnabled`为`true`,则使用上一页位置
-    /// - Parameter animated: `true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollLeft(_ animated: Bool = true) {
         let minX = -contentInset.left
         var x = max(minX, contentOffset.x - bounds.width)
@@ -102,7 +102,7 @@ public extension UIScrollView {
 
     /// 在滚动视图中向下滚动一页
     /// 如果`isPaginEnabled`为`true`,则使用下一页位置
-    /// - Parameter animated: `true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollDown(_ animated: Bool = true) {
         let maxY = max(0, contentSize.height - bounds.height) + contentInset.bottom
         var y = min(maxY, contentOffset.y + bounds.height)
@@ -119,7 +119,7 @@ public extension UIScrollView {
 
     /// 在滚动视图中向右滚动一页
     /// 如果`isPaginEnabled`为`true`,则使用下一页位置
-    /// - Parameter animated: `true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollRight(_ animated: Bool = true) {
         let maxX = max(0, contentSize.width - bounds.width) + contentInset.right
         var x = min(maxX, contentOffset.x + bounds.width)
@@ -135,7 +135,7 @@ public extension UIScrollView {
     }
 
     /// 获取`ScrollView`快照`截图`
-    /// - Parameter completion: 完成回调
+    /// - Parameter completion:完成回调
     @objc func makeScreenshot(_ completion: @escaping (_ image: UIImage?) -> Void) {
         // 放一个假的封面
         let snapshotView = self.snapshotView(afterScreenUpdates: true)
@@ -167,9 +167,9 @@ public extension UIScrollView {
 private extension UIScrollView {
     /// 根据偏移量和页数绘制
     /// - Parameters:
-    ///   - index: 当前要绘制的页码索引
-    ///   - maxIndex: 最大页码索引
-    ///   - callback: 完成回调
+    ///   - index:当前要绘制的页码索引
+    ///   - maxIndex:最大页码索引
+    ///   - callback:完成回调
     func makeScreenshot(index: Int, maxIndex: Int, callback: @escaping () -> Void) {
         setContentOffset(
             CGPoint(
@@ -207,19 +207,19 @@ public extension UIScrollView {
     }
 
     /// 设置偏移量
-    /// - Parameter offset: 偏移量
-    /// - Returns: `Self`
+    /// - Parameter offset:偏移量
+    /// - Returns:`Self`
     @discardableResult
     func contentOffset(_ offset: CGPoint) -> Self {
         contentOffset = offset
         return self
     }
 
-    /// 设置偏移量 `x: CGFloat, y: CGFloat`
+    /// 设置偏移量 `x:CGFloat, y:CGFloat`
     /// - Parameters:
-    ///   - x: x 偏移量
-    ///   - y: y 偏移量
-    /// - Returns: `Self`
+    ///   - x:x 偏移量
+    ///   - y:y 偏移量
+    /// - Returns:`Self`
     @discardableResult
     func contentOffset(x: CGFloat, y: CGFloat) -> Self {
         contentOffset = CGPoint(x: x, y: y)
@@ -227,19 +227,19 @@ public extension UIScrollView {
     }
 
     /// 设置滑动区域大小`CGSize`
-    /// - Parameter size: 滑动区域大小
-    /// - Returns: `Self`
+    /// - Parameter size:滑动区域大小
+    /// - Returns:`Self`
     @discardableResult
     func contentSize(_ size: CGSize) -> Self {
         contentSize = size
         return self
     }
 
-    /// 设置滑动区域大小`(width: CGFloat, height: CGFloat),默认是CGSize.Zero`
+    /// 设置滑动区域大小`(width:CGFloat, height:CGFloat),默认是CGSize.Zero`
     /// - Parameters:
-    ///   - width: `width`代表`X`方向滑动区域大小
-    ///   - height: `height`代表`Y`向滑动区域大小
-    /// - Returns: `Self`
+    ///   - width:`width`代表`X`方向滑动区域大小
+    ///   - height:`height`代表`Y`向滑动区域大小
+    /// - Returns:`Self`
     @discardableResult
     func contentSize(width: CGFloat, height: CGFloat) -> Self {
         contentSize = CGSize(width: width, height: height)
@@ -248,10 +248,10 @@ public extension UIScrollView {
 
     /// 设置偏移量
     /// - Parameters:
-    ///   - horizontal: 水平方向的偏移量
-    ///   - vertical: 垂直方向的偏移量
-    ///   - animated: 是否有动画
-    /// - Returns: `Self`
+    ///   - horizontal:水平方向的偏移量
+    ///   - vertical:垂直方向的偏移量
+    ///   - animated:是否有动画
+    /// - Returns:`Self`
     @discardableResult
     func setContentOffset(_ horizontal: CGFloat, _ vertical: CGFloat, animated: Bool = true) -> Self {
         setContentOffset(CGPoint(x: horizontal, y: vertical), animated: animated)
@@ -260,9 +260,9 @@ public extension UIScrollView {
 
     /// 设置 水平方向(x) 偏移量
     /// - Parameters:
-    ///   - horizontal: 水平方向(x) 偏移量
-    ///   - animated: 是否有动画
-    /// - Returns: `Self`
+    ///   - horizontal:水平方向(x) 偏移量
+    ///   - animated:是否有动画
+    /// - Returns:`Self`
     @discardableResult
     func setContentOffsetX(_ horizontal: CGFloat, animated: Bool = true) -> Self {
         setContentOffset(CGPoint(x: horizontal, y: contentOffset.y), animated: animated)
@@ -271,31 +271,31 @@ public extension UIScrollView {
 
     /// 设置 垂直方向(y) 偏移量
     /// - Parameters:
-    ///   - vertical: 垂直方向(y) 偏移量
-    ///   - animated: 是否有动画
-    /// - Returns: `Self`
+    ///   - vertical:垂直方向(y) 偏移量
+    ///   - animated:是否有动画
+    /// - Returns:`Self`
     @discardableResult
     func setContentOffsetY(_ vertical: CGFloat, animated: Bool = true) -> Self {
         setContentOffset(CGPoint(x: contentOffset.x, y: vertical), animated: animated)
         return self
     }
 
-    /// 边缘插入内容以外的可滑动区域,默认是`UIEdgeInsetsZero`(提示：必须设置`contentSize`后才有效)
+    /// 边缘插入内容以外的可滑动区域,默认是`UIEdgeInsetsZero`(提示:必须设置`contentSize`后才有效)
     /// - Parameters:
-    ///   - top:     代表 顶部 可滑动区域
-    ///   - left:    代表 左边 可滑动区域
-    ///   - bottom:  代表 底部 可滑动区域
-    ///   - right:   代表 右边 可滑动区域
-    /// - Returns: `Self`
+    ///   - top:    代表 顶部 可滑动区域
+    ///   - left:   代表 左边 可滑动区域
+    ///   - bottom: 代表 底部 可滑动区域
+    ///   - right:  代表 右边 可滑动区域
+    /// - Returns:`Self`
     @discardableResult
     func contentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self {
         contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
         return self
     }
 
-    /// 设置边缘插入内容以外的可滑动区域(`UIEdgeInsets`),默认是`UIEdgeInsetsZero`(提示：必须设置`contentSize`后才有效)
-    /// - Parameter inset: `UIEdgeInsets`
-    /// - Returns: `Self`
+    /// 设置边缘插入内容以外的可滑动区域(`UIEdgeInsets`),默认是`UIEdgeInsetsZero`(提示:必须设置`contentSize`后才有效)
+    /// - Parameter inset:`UIEdgeInsets`
+    /// - Returns:`Self`
     @discardableResult
     func contentInset(_ inset: UIEdgeInsets) -> Self {
         contentInset = inset
@@ -303,8 +303,8 @@ public extension UIScrollView {
     }
 
     /// 设置代理
-    /// - Parameter delegate: 代理
-    /// - Returns: `Self`
+    /// - Parameter delegate:代理
+    /// - Returns:`Self`
     @discardableResult
     func delegate(_ delegate: UIScrollViewDelegate) -> Self {
         self.delegate = delegate
@@ -312,8 +312,8 @@ public extension UIScrollView {
     }
 
     ///  设置弹性效果,默认是`true`, 如果设置成`false`,则当你滑动到边缘时将不具有弹性效果
-    /// - Parameter bounces: 是否有弹性
-    /// - Returns: `Self`
+    /// - Parameter bounces:是否有弹性
+    /// - Returns:`Self`
     @discardableResult
     func bounces(_ bounces: Bool) -> Self {
         self.bounces = bounces
@@ -321,8 +321,8 @@ public extension UIScrollView {
     }
 
     /// 竖直方向总是可以弹性滑动,默认是 `false`
-    /// - Parameter bounces: 是否有弹性
-    /// - Returns: `Self`
+    /// - Parameter bounces:是否有弹性
+    /// - Returns:`Self`
     @discardableResult
     func alwaysBounceVertical(_ bounces: Bool) -> Self {
         alwaysBounceVertical = bounces
@@ -330,8 +330,8 @@ public extension UIScrollView {
     }
 
     /// 水平方向 总是可以弹性滑动,默认是 `false`
-    /// - Parameter bounces: 是否有弹性
-    /// - Returns: `Self`
+    /// - Parameter bounces:是否有弹性
+    /// - Returns:`Self`
     @discardableResult
     func alwaysBounceHorizontal(_ bounces: Bool) -> Self {
         alwaysBounceHorizontal = bounces
@@ -339,8 +339,8 @@ public extension UIScrollView {
     }
 
     /// 设置是否可分页,默认是`false`, 如果设置成`true`, 则可分页
-    /// - Parameter enabled: 是否可分页
-    /// - Returns: `Self`
+    /// - Parameter enabled:是否可分页
+    /// - Returns:`Self`
     @discardableResult
     func isPagingEnabled(_ enabled: Bool) -> Self {
         isPagingEnabled = enabled
@@ -348,8 +348,8 @@ public extension UIScrollView {
     }
 
     /// 是否显示 水平 方向滑动条,默认是`true`, 如果设置为`false`,当滑动的时候则不会显示水平滑动条
-    /// - Parameter enabled: 是否显示水平方向滑动条
-    /// - Returns: `Self`
+    /// - Parameter enabled:是否显示水平方向滑动条
+    /// - Returns:`Self`
     @discardableResult
     func showsHorizontalScrollIndicator(_ enabled: Bool) -> Self {
         showsHorizontalScrollIndicator = enabled
@@ -357,17 +357,17 @@ public extension UIScrollView {
     }
 
     /// 是否显示 垂直 方向滑动条,默认是`true`, 如果设置为`false`,当滑动的时候则不会显示水平滑动条
-    /// - Parameter enabled: 是否显示垂直方向滑动条
-    /// - Returns: `Self`
+    /// - Parameter enabled:是否显示垂直方向滑动条
+    /// - Returns:`Self`
     @discardableResult
     func showsVerticalScrollIndicator(_ enabled: Bool) -> Self {
         showsVerticalScrollIndicator = enabled
         return self
     }
 
-    /// 设置滑动条的边缘插入,即是距离上、左、下、右的距离,比如：top(20) 当向下滑动时,滑动条距离顶部的距离总是 20
-    /// - Parameter inset: `UIEdgeInset`
-    /// - Returns: `Self`
+    /// 设置滑动条的边缘插入,即是距离上、左、下、右的距离,比如:top(20) 当向下滑动时,滑动条距离顶部的距离总是 20
+    /// - Parameter inset:`UIEdgeInset`
+    /// - Returns:`Self`
     @discardableResult
     func scrollIndicatorInsets(_ inset: UIEdgeInsets) -> Self {
         scrollIndicatorInsets = inset
@@ -375,8 +375,8 @@ public extension UIScrollView {
     }
 
     /// 是否可滑动,默认是true, 如果默认为`false`, 则无法滑动
-    /// - Parameter enabled: 是否可滑动
-    /// - Returns: `Self`
+    /// - Parameter enabled:是否可滑动
+    /// - Returns:`Self`
     @discardableResult
     func isScrollEnabled(_ enabled: Bool) -> Self {
         isScrollEnabled = enabled
@@ -384,17 +384,17 @@ public extension UIScrollView {
     }
 
     /// 设置滑动条颜色,默认是灰白色
-    /// - Parameter indicatorStyle: 滑动条颜色
-    /// - Returns: `Self`
+    /// - Parameter indicatorStyle:滑动条颜色
+    /// - Returns:`Self`
     @discardableResult
     func indicatorStyle(_ style: UIScrollView.IndicatorStyle) -> Self {
         indicatorStyle = style
         return self
     }
 
-    /// 设置减速率,`CGFloat`类型,当你滑动松开手指后的减速速率, 但是尽管`decelerationRate`是一个`CGFloat`类型,但是目前系统只支持以下两种速率设置选择：`fast` 和 `normal`
-    /// - Parameter rate: 减速率
-    /// - Returns: `Self`
+    /// 设置减速率,`CGFloat`类型,当你滑动松开手指后的减速速率, 但是尽管`decelerationRate`是一个`CGFloat`类型,但是目前系统只支持以下两种速率设置选择:`fast` 和 `normal`
+    /// - Parameter rate:减速率
+    /// - Returns:`Self`
     @discardableResult
     func decelerationRate(_ rate: UIScrollView.DecelerationRate) -> Self {
         decelerationRate = rate
@@ -402,8 +402,8 @@ public extension UIScrollView {
     }
 
     /// 锁住水平或竖直方向的滑动, 默认为`false`,如果设置为TRUE,那么在推拖拽`UIScrollView`的时候,会锁住水平或竖直方向的滑动
-    /// - Parameter enabled: 是否锁住
-    /// - Returns: `Self`
+    /// - Parameter enabled:是否锁住
+    /// - Returns:`Self`
     @discardableResult
     func isDirectionalLockEnabled(_ enabled: Bool) -> Self {
         isDirectionalLockEnabled = enabled

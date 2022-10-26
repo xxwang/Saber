@@ -39,7 +39,7 @@ public class SkinManager: SkinProvider {
     }
 
     /// 注册监听
-    /// - Parameter observer: 监听对象
+    /// - Parameter observer:监听对象
     public func register<Observer: Skinable>(observer: Observer) {
         if #available(iOS 13.0, *) {
             return
@@ -48,7 +48,7 @@ public class SkinManager: SkinProvider {
     }
 
     /// 移除监听
-    /// - Parameter observer: 监听对象
+    /// - Parameter observer:监听对象
     public func remove<Observer: Skinable>(observer: Observer) {
         if !observers.contains(observer) {
             return

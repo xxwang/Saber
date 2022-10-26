@@ -38,11 +38,11 @@ public extension CMGradientDirection {
 public extension CAGradientLayer {
     /// 创建渐变图层(`CAGradientLayer`)
     /// - Parameters:
-    ///   - frame: 图层尺寸及位置信息
-    ///   - direction: 渐变方向
-    ///   - colors: 颜色位置数组
-    ///   - locations: 颜色数组中颜色对应的位置
-    ///   - type: 渐变类型
+    ///   - frame:图层尺寸及位置信息
+    ///   - direction:渐变方向
+    ///   - colors:颜色位置数组
+    ///   - locations:颜色数组中颜色对应的位置
+    ///   - type:渐变类型
     convenience init(
         _ frame: CGRect = .zero,
         direction: CMGradientDirection,
@@ -64,11 +64,11 @@ public extension CAGradientLayer {
 public extension CAGradientLayer {
     /// 创建线性渐变色图层
     /// - Parameters:
-    ///   - frame: 图层尺寸及位置信息
-    ///   - direction: 渐变方向(起止位置)
-    ///   - colors: 渐变的颜色数组
-    ///   - locations: 颜色数组中颜色对应位置
-    /// - Returns: 渐变色图层
+    ///   - frame:图层尺寸及位置信息
+    ///   - direction:渐变方向(起止位置)
+    ///   - colors:渐变的颜色数组
+    ///   - locations:颜色数组中颜色对应位置
+    /// - Returns:渐变色图层
     static func linearGradient(
         _ frame: CGRect = .zero,
         direction: CMGradientDirection = .horizontal,
@@ -88,11 +88,11 @@ public extension CAGradientLayer {
 public extension CAGradientLayer {
     /// 设置线性渐变色图层
     /// - Parameters:
-    ///   - frame: 图层尺寸及位置信息
-    ///   - direction: 渐变方向(起止位置)
-    ///   - colors: 渐变的颜色数组
-    ///   - locations: 颜色数组中颜色对应位置
-    /// - Returns: 渐变色图层
+    ///   - frame:图层尺寸及位置信息
+    ///   - direction:渐变方向(起止位置)
+    ///   - colors:渐变的颜色数组
+    ///   - locations:颜色数组中颜色对应位置
+    /// - Returns:渐变色图层
     @discardableResult
     func setupLinearGradient(
         _ frame: CGRect = .zero,
@@ -118,8 +118,8 @@ public extension CAGradientLayer {
     }
 
     /// 设置渐变颜色数组
-    /// - Parameter colors: 要设置的渐变颜色数组
-    /// - Returns: `Self`
+    /// - Parameter colors:要设置的渐变颜色数组
+    /// - Returns:`Self`
     @discardableResult
     func colors(_ colors: [UIColor]) -> Self {
         let cgColors = colors.map {
@@ -130,8 +130,8 @@ public extension CAGradientLayer {
     }
 
     /// 设置渐变位置数组
-    /// - Parameter locations: 要设置的渐变位置数组
-    /// - Returns: `Self`
+    /// - Parameter locations:要设置的渐变位置数组
+    /// - Returns:`Self`
     @discardableResult
     func locations(_ locations: [CGFloat] = [0, 1]) -> Self {
         let locationNumbers = locations.map { flt in
@@ -142,8 +142,8 @@ public extension CAGradientLayer {
     }
 
     /// 设置渐变开始位置
-    /// - Parameter startPoint: 渐变开始位置
-    /// - Returns: `Self`
+    /// - Parameter startPoint:渐变开始位置
+    /// - Returns:`Self`
     @discardableResult
     func startPoint(_ startPoint: CGPoint = .zero) -> Self {
         self.startPoint = startPoint
@@ -151,8 +151,8 @@ public extension CAGradientLayer {
     }
 
     /// 设置渐变结束位置
-    /// - Parameter endPoint: 渐变结束位置
-    /// - Returns: `Self`
+    /// - Parameter endPoint:渐变结束位置
+    /// - Returns:`Self`
     @discardableResult
     func endPoint(_ endPoint: CGPoint = .zero) -> Self {
         self.endPoint = endPoint
@@ -160,8 +160,8 @@ public extension CAGradientLayer {
     }
 
     /// 设置渐变方向(线性渐变)
-    /// - Parameter direction: 渐变方向
-    /// - Returns: `Self`
+    /// - Parameter direction:渐变方向
+    /// - Returns:`Self`
     @discardableResult
     func direction(_ direction: CMGradientDirection = .horizontal) -> Self {
         startPoint = direction.point.0

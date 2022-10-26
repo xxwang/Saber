@@ -36,9 +36,9 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 10, 10) + SCNVector3(10, 20, -30) -> SCNVector3(20, 30, -20)
     ///
     /// - Parameters:
-    ///   - lhs: 左值
-    ///   - rhs: 右值
-    /// - Returns: 结果
+    ///   - lhs:左值
+    ///   - rhs:右值
+    /// - Returns:结果
     static func + (lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
         return SCNVector3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z)
     }
@@ -48,8 +48,8 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 10, 10) += SCNVector3(10, 20, -30) -> SCNVector3(20, 30, -20)
     ///
     /// - Parameters:
-    ///   - lhs: 左值self
-    ///   - rhs: 右值
+    ///   - lhs:左值self
+    ///   - rhs:右值
     static func += (lhs: inout SCNVector3, rhs: SCNVector3) {
         lhs.x += rhs.x
         lhs.y += rhs.y
@@ -61,9 +61,9 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 10, 10) - SCNVector3(10, 20, -30) -> SCNVector3(0, -10, 40)
     ///
     /// - Parameters:
-    ///   - lhs: 左值
-    ///   - rhs: 右值
-    /// - Returns: 结果
+    ///   - lhs:左值
+    ///   - rhs:右值
+    /// - Returns:结果
     static func - (lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
         return SCNVector3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z)
     }
@@ -73,8 +73,8 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 10, 10) -= SCNVector3(10, 20, -30) -> SCNVector3(0, -10, 40)
     ///
     /// - Parameters:
-    ///   - lhs: 左值self
-    ///   - rhs: 右值
+    ///   - lhs:左值self
+    ///   - rhs:右值
     static func -= (lhs: inout SCNVector3, rhs: SCNVector3) {
         lhs.x -= rhs.x
         lhs.y -= rhs.y
@@ -86,9 +86,9 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 20, -30) * 3 -> SCNVector3(30, 60, -90)
     ///
     /// - Parameters:
-    ///   - vector: SCNVector3
-    ///   - scalar: 标量
-    /// - Returns: 结果
+    ///   - vector:SCNVector3
+    ///   - scalar:标量
+    /// - Returns:结果
     static func * (vector: SCNVector3, scalar: Float) -> SCNVector3 {
         return SCNVector3(vector.x * scalar, vector.y * scalar, vector.z * scalar)
     }
@@ -98,9 +98,9 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 20, -30) *= 3 -> SCNVector3(30, 60, -90)
     ///
     /// - Parameters:
-    ///   - vector: SCNVector3
-    ///   - scalar: 标量
-    /// - Returns: 结果
+    ///   - vector:SCNVector3
+    ///   - scalar:标量
+    /// - Returns:结果
     static func *= (vector: inout SCNVector3, scalar: Float) {
         vector.x *= scalar
         vector.y *= scalar
@@ -112,9 +112,9 @@ public extension SCNVector3 {
     ///     3 * SCNVector3(10, 20, -30) -> SCNVector3(30, 60, -90)
     ///
     /// - Parameters:
-    ///   - scalar: 标量
-    ///   - vector: SCNVector3
-    /// - Returns: 结果
+    ///   - scalar:标量
+    ///   - vector:SCNVector3
+    /// - Returns:结果
     static func * (scalar: Float, vector: SCNVector3) -> SCNVector3 {
         return SCNVector3(vector.x * scalar, vector.y * scalar, vector.z * scalar)
     }
@@ -124,9 +124,9 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 20, -30) / 3 -> SCNVector3(3/10, 0.15, -30)
     ///
     /// - Parameters:
-    ///   - vector: SCNVector3
-    ///   - scalar: 标量
-    /// - Returns: 结果
+    ///   - vector:SCNVector3
+    ///   - scalar:标量
+    /// - Returns:结果
     static func / (vector: SCNVector3, scalar: Float) -> SCNVector3 {
         return SCNVector3(vector.x / scalar, vector.y / scalar, vector.z / scalar)
     }
@@ -136,9 +136,9 @@ public extension SCNVector3 {
     ///     SCNVector3(10, 20, -30) /= 3 -> SCNVector3(3/10, 0.15, -30)
     ///
     /// - Parameters:
-    ///   - vector: SCNVector3
-    ///   - scalar: 标量
-    /// - Returns: 结果
+    ///   - vector:SCNVector3
+    ///   - scalar:标量
+    /// - Returns:结果
     static func /= (vector: inout SCNVector3, scalar: Float) {
         vector = SCNVector3(vector.x / scalar, vector.y / scalar, vector.z / scalar)
     }

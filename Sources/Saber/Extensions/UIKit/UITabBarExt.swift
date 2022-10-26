@@ -3,8 +3,8 @@ import UIKit
 // MARK: - 链式语法
 public extension UITabBar {
     /// 是否半透明
-    /// - Parameter isTranslucent: 是否半透明
-    /// - Returns: `Self`
+    /// - Parameter isTranslucent:是否半透明
+    /// - Returns:`Self`
     @discardableResult
     func isTranslucent(_ isTranslucent: Bool) -> Self {
         self.isTranslucent = isTranslucent
@@ -13,9 +13,9 @@ public extension UITabBar {
 
     /// 设置标题字体
     /// - Parameters:
-    ///   - font: 字体
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - font:字体
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func titleFont(_ font: UIFont, state: UIControl.State) -> Self {
         if #available(iOS 13.0, *) {
@@ -43,9 +43,9 @@ public extension UITabBar {
 
     /// 设置标题颜色
     /// - Parameters:
-    ///   - color: 颜色
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - color:颜色
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func titleColor(_ color: UIColor, state: UIControl.State) -> Self {
         if #available(iOS 13.0, *) {
@@ -84,17 +84,17 @@ public extension UITabBar {
 
     /// 设置标题颜色
     /// - Parameters:
-    ///   - hex: 十六进制颜色值
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - hex:十六进制颜色值
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func titleColor(_ hex: String, state: UIControl.State) -> Self {
         return titleColor(UIColor(hex: hex), state: state)
     }
 
     /// 设置背景颜色
-    /// - Parameter color: 颜色
-    /// - Returns: `Self`
+    /// - Parameter color:颜色
+    /// - Returns:`Self`
     @discardableResult
     func backgroundColor(with color: UIColor) -> Self {
         if #available(iOS 13.0, *) {
@@ -113,16 +113,16 @@ public extension UITabBar {
     }
 
     /// 设置背景颜色
-    /// - Parameter hex: 十六进制颜色
-    /// - Returns: `Self`
+    /// - Parameter hex:十六进制颜色
+    /// - Returns:`Self`
     @discardableResult
     func backgroundColor(with hex: String) -> Self {
         return backgroundColor(UIColor(hex: hex))
     }
 
     /// 设置背景图片
-    /// - Parameter image: 图片
-    /// - Returns: `Self`
+    /// - Parameter image:图片
+    /// - Returns:`Self`
     @discardableResult
     func backgroundImage(_ image: UIImage) -> Self {
         if #available(iOS 13.0, *) {
@@ -140,8 +140,8 @@ public extension UITabBar {
     }
 
     /// 设置背景图片
-    /// - Parameter imageName: 图片名称
-    /// - Returns: `Self`
+    /// - Parameter imageName:图片名称
+    /// - Returns:`Self`
     @discardableResult
     func backgroundImage(_ imageName: String) -> Self {
         if let image = imageName.image {
@@ -151,8 +151,8 @@ public extension UITabBar {
     }
 
     /// 设置标题文字偏移
-    /// - Parameter offset: 偏移
-    /// - Returns: `Self`
+    /// - Parameter offset:偏移
+    /// - Returns:`Self`
     @discardableResult
     func titlePositionAdjustment(_ offset: UIOffset) -> Self {
         if #available(iOS 13.0, *) {
@@ -170,8 +170,8 @@ public extension UITabBar {
     }
 
     /// 设置阴影图片
-    /// - Parameter imageName: 图片
-    /// - Returns: `Self`
+    /// - Parameter imageName:图片
+    /// - Returns:`Self`
     @discardableResult
     func shadowImage(_ image: UIImage) -> Self {
         if #available(iOS 13.0, *) {
@@ -188,8 +188,8 @@ public extension UITabBar {
     }
 
     /// 设置阴影图片
-    /// - Parameter imageName: 图片名称
-    /// - Returns: `Self`
+    /// - Parameter imageName:图片名称
+    /// - Returns:`Self`
     @discardableResult
     func shadowImage(_ imageName: String) -> Self {
         if let image = imageName.image {
@@ -199,7 +199,7 @@ public extension UITabBar {
     }
 
     /// 设置当页面中有滚动时`UITabBar`的外观与`standardAppearance`一致
-    /// - Returns: `Self`
+    /// - Returns:`Self`
     @discardableResult
     func scrollEdgeAppearance() -> Self {
         if #available(iOS 13.0, *) {
@@ -212,8 +212,8 @@ public extension UITabBar {
     }
 
     /// 设置选中指示器图片
-    /// - Parameter image: 图片
-    /// - Returns: `Self`
+    /// - Parameter image:图片
+    /// - Returns:`Self`
     @discardableResult
     func selectionIndicatorImage(_ image: UIImage) -> Self {
         selectionIndicatorImage = image
@@ -222,9 +222,9 @@ public extension UITabBar {
 
     /// 设置圆角
     /// - Parameters:
-    ///   - corners: 需要设置圆角的角
-    ///   - radius: 圆角大小
-    /// - Returns: `Self`
+    ///   - corners:需要设置圆角的角
+    ///   - radius:圆角大小
+    /// - Returns:`Self`
     @discardableResult
     func corner(corners: UIRectCorner, radius: CGFloat) -> Self {
         roundCorners(corners, radius: radius)
@@ -233,9 +233,9 @@ public extension UITabBar {
 
     /// 设置渐变背景
     /// - Parameters:
-    ///   - colors: 颜色数组
-    ///   - direction: 渐变方向
-    /// - Returns: `Self`
+    ///   - colors:颜色数组
+    ///   - direction:渐变方向
+    /// - Returns:`Self`
     @discardableResult
     func gradient(_ colors: [UIColor], direction: CMGradientDirection) -> Self {
         guard let backgroundColor = colors.linearGradientColor(size, direction: direction) else {

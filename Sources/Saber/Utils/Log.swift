@@ -45,11 +45,11 @@ public extension Log {
 extension Log {
     /// 输出方法
     /// - Parameters:
-    ///   - level: 等级
-    ///   - message: 内容
-    ///   - file: 文件
-    ///   - line: 行
-    ///   - function: 方法
+    ///   - level:等级
+    ///   - message:内容
+    ///   - file:文件
+    ///   - line:行
+    ///   - function:方法
     private static func log(
         level: Log.Level,
         message: Any...,
@@ -67,7 +67,7 @@ extension Log {
         // 文件名称
         let fileName = (file as NSString).lastPathComponent
 
-        content = "\(level.levelIcon)\(level.levelName)[\(dateStr)][\(fileName) => \(function)]\(line): " + content
+        content = "\(level.levelIcon)\(level.levelName)[\(dateStr)][\(fileName) => \(function)]\(line):" + content
         print(content)
     }
 }

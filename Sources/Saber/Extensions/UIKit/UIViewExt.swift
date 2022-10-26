@@ -5,8 +5,8 @@ import WebKit
 public extension UIView {
     /// 抖动方向
     ///
-    /// - horizontal: 左右抖动
-    /// - vertical: 上下抖动
+    /// - horizontal:左右抖动
+    /// - vertical:上下抖动
     enum ShakeDirection {
         /// 左右抖动
         case horizontal
@@ -16,8 +16,8 @@ public extension UIView {
 
     /// 角度单位
     ///
-    /// - degrees: 度
-    /// - radians: 弧度
+    /// - degrees:度
+    /// - radians:弧度
     enum AngleUnit {
         /// 度
         case degrees
@@ -27,10 +27,10 @@ public extension UIView {
 
     /// 抖动动画类型
     ///
-    /// - linear: 线性动画
-    /// - easeIn: easeIn动画
-    /// - easeOut: easeOut动画
-    /// - easeInOut: easeInOut动画
+    /// - linear:线性动画
+    /// - easeIn:easeIn动画
+    /// - easeOut:easeOut动画
+    /// - easeInOut:easeInOut动画
     enum ShakeAnimationType {
         /// 线性动画
         case linear
@@ -332,14 +332,14 @@ public extension UIView {
     }
 
     /// 位置是否是视图内部
-    /// - Parameter point: 位置点
-    /// - Returns: 是否是视图内点击
+    /// - Parameter point:位置点
+    /// - Returns:是否是视图内点击
     func containView(_ point: CGPoint) -> Bool {
         return point.x > frame.minX && point.x < frame.maxX && point.y > frame.minY && point.y < frame.maxY
     }
 
     /// 是否包含WKWebView
-    /// - Returns: 结果
+    /// - Returns:结果
     func containsWKWebView() -> Bool {
         if isKind(of: WKWebView.self) {
             return true
@@ -368,13 +368,13 @@ public extension UIView {
     }
 
     /// 搜索所有父视图,直到找到具有此类的视图
-    /// - Parameter name: 要搜索的视图的类
+    /// - Parameter name:要搜索的视图的类
     func ancestorView<T: UIView>(withClass name: T.Type) -> T? {
         return ancestorView(where: { $0 is T }) as? T
     }
 
     /// 搜索所有父视图,直到找到具有该条件的视图
-    /// - Parameter predicate: 对SuperView求值的谓词
+    /// - Parameter predicate:对SuperView求值的谓词
     func ancestorView(where predicate: (UIView?) -> Bool) -> UIView? {
         if predicate(superview) {
             return superview
@@ -383,7 +383,7 @@ public extension UIView {
     }
 
     /// 搜索子级视图查找指定类型
-    /// - Returns: 结果
+    /// - Returns:结果
     func descendantsView<T: UIView>(_ type: T.Type) -> T? {
         if let sub = self as? T {
             return sub
@@ -399,9 +399,9 @@ public extension UIView {
 
     /// 寻找某个类型子视图
     /// - Parameters:
-    ///   - type: 子视图类型
-    ///   - resursion: 是否递归查找
-    /// - Returns: 返回找到的子视图
+    ///   - type:子视图类型
+    ///   - resursion:是否递归查找
+    /// - Returns:返回找到的子视图
     func descendantsView(type: UIResponder.Type, resursion: Bool) -> UIView? {
         for e in subviews.enumerated() {
             if e.element.isKind(of: type) {
@@ -423,8 +423,8 @@ public extension UIView {
 
     /// 以递归方式返回给定类型的所有子视图
     /// 视图层次结构基于它所调用的视图
-    /// - Parameter type: 要搜索的视图的类
-    /// - Returns: 具有指定类型的所有子视图
+    /// - Parameter type:要搜索的视图的类
+    /// - Returns:具有指定类型的所有子视图
     func descendantsViews<T>(of type: T.Type) -> [T] {
         var views = [T]()
         for subview in subviews {
@@ -438,7 +438,7 @@ public extension UIView {
     }
 
     /// 添加子视图数组到self
-    /// - Parameter subviews: 子视图数组
+    /// - Parameter subviews:子视图数组
     func addSubviews(_ subviews: [UIView]) {
         subviews.forEach { addSubview($0) }
     }
@@ -472,9 +472,9 @@ public extension UIView {
 public extension UIView {
     /// 图层调试>标记子视图边框(兼容OC)
     /// - Parameters:
-    ///   - borderWidth: 视图的边框宽度
-    ///   - borderColor: 视图的边框颜色
-    ///   - backgroundColor: 视图的背景色
+    ///   - borderWidth:视图的边框宽度
+    ///   - borderColor:视图的边框颜色
+    ///   - backgroundColor:视图的背景色
     func stressView(
         _ borderWidth: CGFloat = 0.5,
         borderColor: UIColor = .random,
@@ -503,18 +503,18 @@ public extension UIView {
 public extension UIView {
     /// 从nib加载view
     /// - Parameters:
-    ///   - name: nib名称
-    ///   - bundle: nib的bundle(默认为nil)
-    /// - Returns: 从nib加载的view
+    ///   - name:nib名称
+    ///   - bundle:nib的bundle(默认为nil)
+    /// - Returns:从nib加载的view
     class func loadFromNib(named name: String, bundle: Bundle? = nil) -> UIView? {
         return UINib(nibName: name, bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as? UIView
     }
 
     /// 从nib加载特定类型的视图
     /// - Parameters:
-    ///   - withClass: UIView类型
-    ///   - bundle: nib所在bundle
-    /// - Returns: UIView
+    ///   - withClass:UIView类型
+    ///   - bundle:nib所在bundle
+    /// - Returns:UIView
     class func loadFromNib<T: UIView>(withClass name: T.Type, bundle: Bundle? = nil) -> T {
         let named = String(describing: name)
         guard let view = UINib(nibName: named, bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as? T else {
@@ -540,17 +540,17 @@ public extension UIView {
 
     /// 将当前view任意一侧的定位添加到指定的定位中,并返回新添加的约束
     /// - Parameters:
-    ///   - top: 当前视图的顶部锚定将被锚定到指定的锚定中
-    ///   - left: 当前视图的左锚定将被锚定到指定的锚定中
-    ///   - bottom: 当前视图的底部锚定将被锚定到指定的锚定中
-    ///   - right: 当前视图的右锚定将被锚定到指定的锚定中
-    ///   - topConstant: 当前视图的顶部锚定边距
-    ///   - leftConstant: 当前视图的左锚定边距
-    ///   - bottomConstant: 当前视图的底部锚定边距
-    ///   - rightConstant: 当前视图的右定位边距
-    ///   - widthConstant: 当前视图的宽度
-    ///   - heightConstant: 当前视图的高度
-    /// - Returns: 新添加的约束数组(如果适用)
+    ///   - top:当前视图的顶部锚定将被锚定到指定的锚定中
+    ///   - left:当前视图的左锚定将被锚定到指定的锚定中
+    ///   - bottom:当前视图的底部锚定将被锚定到指定的锚定中
+    ///   - right:当前视图的右锚定将被锚定到指定的锚定中
+    ///   - topConstant:当前视图的顶部锚定边距
+    ///   - leftConstant:当前视图的左锚定边距
+    ///   - bottomConstant:当前视图的底部锚定边距
+    ///   - rightConstant:当前视图的右定位边距
+    ///   - widthConstant:当前视图的宽度
+    ///   - heightConstant:当前视图的高度
+    /// - Returns:新添加的约束数组(如果适用)
     @discardableResult
     func anchor(
         top: NSLayoutYAxisAnchor? = nil,
@@ -598,7 +598,7 @@ public extension UIView {
     }
 
     /// 将中心X固定到当前视图的superview中,并具有恒定的边距值
-    /// - Parameter constant: 锚定约束的常量(默认值为0)
+    /// - Parameter constant:锚定约束的常量(默认值为0)
     func anchorCenterXToSuperview(constant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         if let anchor = superview?.centerXAnchor {
@@ -607,7 +607,7 @@ public extension UIView {
     }
 
     /// 将中心Y固定到当前视图的superview中,并使用恒定的边距值
-    /// - Parameter withConstant: 锚定约束的常数(默认值为0)
+    /// - Parameter withConstant:锚定约束的常数(默认值为0)
     func anchorCenterYToSuperview(constant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         if let anchor = superview?.centerYAnchor {
@@ -617,8 +617,8 @@ public extension UIView {
 
     /// 添加VFL格式约束
     /// - Parameters:
-    ///   - withFormat: 视觉格式语言
-    ///   - views: 从索引0开始访问的视图数组(例如：[v0],[v1],[v2]…)
+    ///   - withFormat:视觉格式语言
+    ///   - views:从索引0开始访问的视图数组(例如:[v0],[v1],[v2]…)
     func addConstraints(withFormat: String, views: UIView...) {
         var viewsDictionary: [String: UIView] = [:]
         for (index, view) in views.enumerated() {
@@ -642,9 +642,9 @@ public extension UIView {
 
     /// 搜索约束,直到找到给定视图的约束
     /// - Parameters:
-    ///   - attribute: 要查找的属性
-    ///   - view: 要查找的视图
-    /// - Returns: 匹配约束
+    ///   - attribute:要查找的属性
+    ///   - view:要查找的视图
+    /// - Returns:匹配约束
     func findConstraint(attribute: NSLayoutConstraint.Attribute, for view: UIView) -> NSLayoutConstraint? {
         let constraint = constraints.first {
             ($0.firstAttribute == attribute && $0.firstItem as? UIView == view) ||
@@ -689,8 +689,8 @@ public extension UIView {
     /// 设置视图的部分或全部角半径
     /// ⚠️ frame 大小必须已确定
     /// - Parameters:
-    ///   - corners: 要更改的角数组(例如：[.bottomLeft、.topRight])
-    ///   - radius: 选定角的半径
+    ///   - corners:要更改的角数组(例如:[.bottomLeft、.topRight])
+    ///   - radius:选定角的半径
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
         let maskPath = UIBezierPath(
             roundedRect: bounds,
@@ -705,13 +705,13 @@ public extension UIView {
 
     /// 将阴影添加到view中
     ///
-    /// - Note: 此方法仅适用于不透明的背景色,或者如果视图设置了`shadowPath`
+    /// - Note:此方法仅适用于不透明的背景色,或者如果视图设置了`shadowPath`
     ///   请参见参数`opacity`
     /// - Parameters:
-    ///   - color: 阴影颜色(默认值为#137992)
-    ///   - radius: 阴影半径(默认值为3)
-    ///   - offset: 阴影偏移(默认为.zero)
-    ///   - opacity: 阴影不透明度(默认值为0.5), 它还将受到`alpha` 和`backgroundColor`的影响
+    ///   - color:阴影颜色(默认值为#137992)
+    ///   - radius:阴影半径(默认值为3)
+    ///   - offset:阴影偏移(默认为.zero)
+    ///   - opacity:阴影不透明度(默认值为0.5), 它还将受到`alpha` 和`backgroundColor`的影响
     func addShadow(
         ofColor color: UIColor = UIColor(red: 0.07, green: 0.47, blue: 0.57, alpha: 1.0),
         radius: CGFloat = 3,
@@ -728,15 +728,15 @@ public extension UIView {
     /// 添加阴影和圆角并存
     ///
     ///  ⚠️ frame 大小必须已确定
-    /// - Parameter superview: 父视图
-    /// - Parameter conrners: 具体哪个圆角
-    /// - Parameter radius: 圆角大小
-    /// - Parameter shadowColor: 阴影的颜色
-    /// - Parameter shadowOffset: 阴影的偏移度：CGSizeMake(X[正的右偏移,负的左偏移], Y[正的下偏移,负的上偏移])
-    /// - Parameter shadowOpacity: 阴影的透明度
-    /// - Parameter shadowRadius: 阴影半径,默认 3
+    /// - Parameter superview:父视图
+    /// - Parameter conrners:具体哪个圆角
+    /// - Parameter radius:圆角大小
+    /// - Parameter shadowColor:阴影的颜色
+    /// - Parameter shadowOffset:阴影的偏移度:CGSizeMake(X[正的右偏移,负的左偏移], Y[正的下偏移,负的上偏移])
+    /// - Parameter shadowOpacity:阴影的透明度
+    /// - Parameter shadowRadius:阴影半径,默认 3
     ///
-    /// - Note: 提示：如果在异步布局(如：SnapKit布局)中使用,要在布局后先调用 layoutIfNeeded,再使用该方法
+    /// - Note:提示:如果在异步布局(如:SnapKit布局)中使用,要在布局后先调用 layoutIfNeeded,再使用该方法
     func addCornerAndShadow(
         superview: UIView,
         conrners: UIRectCorner,
@@ -769,8 +769,8 @@ public extension UIView {
 
     /// 添加边框
     /// - Parameters:
-    ///   - width: 边框宽度
-    ///   - color: 边框颜色
+    ///   - width:边框宽度
+    ///   - color:边框颜色
     func addBorder(
         borderWidth: CGFloat,
         borderColor: UIColor
@@ -781,8 +781,8 @@ public extension UIView {
 
     /// 添加顶部的 边框
     /// - Parameters:
-    ///   - borderWidth: 边框宽度
-    ///   - borderColor: 边框颜色
+    ///   - borderWidth:边框宽度
+    ///   - borderColor:边框颜色
     func addBorderTop(
         borderWidth: CGFloat,
         borderColor: UIColor
@@ -792,8 +792,8 @@ public extension UIView {
 
     /// 添加底部的 边框
     /// - Parameters:
-    ///   - borderWidth: 边框宽度
-    ///   - borderColor: 边框颜色
+    ///   - borderWidth:边框宽度
+    ///   - borderColor:边框颜色
     func addBorderBottom(
         borderWidth: CGFloat,
         borderColor: UIColor
@@ -803,8 +803,8 @@ public extension UIView {
 
     /// 添加左边的 边框
     /// - Parameters:
-    ///   - borderWidth: 边框宽度
-    ///   - borderColor: 边框颜色
+    ///   - borderWidth:边框宽度
+    ///   - borderColor:边框颜色
     func addBorderLeft(
         borderWidth: CGFloat,
         borderColor: UIColor
@@ -814,8 +814,8 @@ public extension UIView {
 
     /// 添加右边的 边框
     /// - Parameters:
-    ///   - borderWidth: 边框宽度
-    ///   - borderColor: 边框颜色
+    ///   - borderWidth:边框宽度
+    ///   - borderColor:边框颜色
     func addBorderRight(
         borderWidth: CGFloat,
         borderColor: UIColor
@@ -825,9 +825,9 @@ public extension UIView {
 
     /// 绘制圆环
     /// - Parameters:
-    ///   - fillColor: 内环的颜色
-    ///   - strokeColor: 外环的颜色
-    ///   - strokeWidth: 外环的宽度
+    ///   - fillColor:内环的颜色
+    ///   - strokeColor:外环的颜色
+    ///   - strokeWidth:外环的宽度
     func drawCircle(
         fillColor: UIColor,
         strokeColor: UIColor,
@@ -847,10 +847,10 @@ public extension UIView {
 
     /// 绘制虚线
     /// - Parameters:
-    ///   - strokeColor: 虚线颜色
-    ///   - lineLength: 每段虚线的长度
-    ///   - lineSpacing: 每段虚线的间隔
-    ///   - isHorizontal: 是否水平方向
+    ///   - strokeColor:虚线颜色
+    ///   - lineLength:每段虚线的长度
+    ///   - lineSpacing:每段虚线的间隔
+    ///   - isHorizontal:是否水平方向
     func drawDashLine(
         strokeColor: UIColor,
         lineLength: Int = 4,
@@ -890,11 +890,11 @@ public extension UIView {
 
     /// 添加内阴影
     /// - Parameters:
-    ///   - shadowColor: 阴影的颜色
-    ///   - shadowOffset: 阴影的偏移度：CGSizeMake(X[正的右偏移,负的左偏移], Y[正的下偏移,负的上偏移])
-    ///   - shadowOpacity: 阴影的透明度
-    ///   - shadowRadius: 阴影半径,默认 3
-    ///   - insetBySize: 内阴影偏移大小
+    ///   - shadowColor:阴影的颜色
+    ///   - shadowOffset:阴影的偏移度:CGSizeMake(X[正的右偏移,负的左偏移], Y[正的下偏移,负的上偏移])
+    ///   - shadowOpacity:阴影的透明度
+    ///   - shadowRadius:阴影半径,默认 3
+    ///   - insetBySize:内阴影偏移大小
     func addInnerShadowLayer(shadowColor: UIColor, shadowOffset: CGSize = CGSize(width: 0, height: 0), shadowOpacity: Float = 0.5, shadowRadius: CGFloat = 3, insetBySize: CGSize = CGSize(width: -42, height: -42)) {
         let shadowLayer = CAShapeLayer()
         shadowLayer.frame = bounds
@@ -906,7 +906,7 @@ public extension UIView {
         let path = CGMutablePath()
         path.addRect(bounds.insetBy(dx: insetBySize.width, dy: insetBySize.height))
 
-        // let someInnerPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: innerPathRadius).cgPath
+        // let someInnerPath = UIBezierPath(roundedRect:self.bounds, cornerRadius:innerPathRadius).cgPath
         let someInnerPath = UIBezierPath(roundedRect: bounds, cornerRadius: shadowRadius).cgPath
         path.addPath(someInnerPath)
         path.closeSubpath()
@@ -919,9 +919,9 @@ public extension UIView {
 
     /// 添加水印
     /// - Parameters:
-    ///   - markText: 水印文字
-    ///   - textColor: 水印文字颜色
-    ///   - font: 水印文字大小
+    ///   - markText:水印文字
+    ///   - textColor:水印文字颜色
+    ///   - font:水印文字大小
     func addWater(
         markText: String,
         textColor: UIColor = UIColor.black,
@@ -931,7 +931,7 @@ public extension UIView {
         let textSize: CGSize = waterMark.size(withAttributes: [NSAttributedString.Key.font: font])
         // 多少行
         let rowNum = NSInteger(bounds.height * 3.5 / 80)
-        // 多少列：自己的宽度 / (每个水印的宽度+间隔)
+        // 多少列:自己的宽度 / (每个水印的宽度+间隔)
         let colNum = NSInteger(bounds.width / markText.textSize(bounds.width, font: font).width)
 
         for i in 0 ..< rowNum {
@@ -954,10 +954,10 @@ public extension UIView {
 
     /// 抖动view
     /// - Parameters:
-    ///   - direction: 抖动方向(水平或垂直)(默认为水平)
-    ///   - duration: 以秒为单位的动画持续时间(默认值为1秒)
-    ///   - animationType: shake动画类型(默认为.easeOut)
-    ///   - completion: 完成回调,用于在动画完成时运行(默认为nil)
+    ///   - direction:抖动方向(水平或垂直)(默认为水平)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - animationType:shake动画类型(默认为.easeOut)
+    ///   - completion:完成回调,用于在动画完成时运行(默认为nil)
     func shake(
         direction: ShakeDirection = .horizontal,
         duration: TimeInterval = 1,
@@ -994,11 +994,11 @@ public extension UIView {
 private extension UIView {
     /// 添加边框
     /// - Parameters:
-    ///   - x: x坐标
-    ///   - y: y坐标
-    ///   - width: 宽度
-    ///   - height: 高度
-    ///   - color: 颜色
+    ///   - x:x坐标
+    ///   - y:y坐标
+    ///   - width:宽度
+    ///   - height:高度
+    ///   - color:颜色
     func addBorderUtility(
         x: CGFloat,
         y: CGFloat,
@@ -1014,9 +1014,9 @@ private extension UIView {
 }
 
 /*
- 从m11到m44定义的含义如下：
- m11：x轴方向进行缩放
- m12：和m21一起决定z轴的旋转
+ 从m11到m44定义的含义如下:
+ m11:x轴方向进行缩放
+ m12:和m21一起决定z轴的旋转
  m13:和m31一起决定y轴的旋转
  m14:
  m21:和m12一起决定z轴的旋转
@@ -1036,14 +1036,14 @@ private extension UIView {
 public extension UIView {
     /// 平面旋转
     /// - Parameters:
-    ///   - angle: 旋转多少度
-    ///   - isInverted: 顺时针还是逆时针,默认是顺时针
+    ///   - angle:旋转多少度
+    ///   - isInverted:顺时针还是逆时针,默认是顺时针
     func setRotation(_ angle: CGFloat, isInverted: Bool = false) {
         transform = isInverted ? CGAffineTransform(rotationAngle: angle).inverted() : CGAffineTransform(rotationAngle: angle)
     }
 
     /// 沿X轴方向旋转多少度(3D旋转)
-    /// - Parameter angle: 旋转角度,angle参数是旋转的角度,为弧度制 0-2π
+    /// - Parameter angle:旋转角度,angle参数是旋转的角度,为弧度制 0-2π
     func set3DRotationX(_ angle: CGFloat) {
         // 初始化3D变换,获取默认值
         // var transform = CATransform3DIdentity
@@ -1057,7 +1057,7 @@ public extension UIView {
     }
 
     /// 沿 Y 轴方向旋转多少度
-    /// - Parameter angle: 旋转角度,angle参数是旋转的角度,为弧度制 0-2π
+    /// - Parameter angle:旋转角度,angle参数是旋转的角度,为弧度制 0-2π
     func set3DRotationY(_ angle: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
@@ -1066,7 +1066,7 @@ public extension UIView {
     }
 
     /// 沿 Z 轴方向旋转多少度
-    /// - Parameter angle: 旋转角度,angle参数是旋转的角度,为弧度制 0-2π
+    /// - Parameter angle:旋转角度,angle参数是旋转的角度,为弧度制 0-2π
     func set3DRotationZ(_ angle: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
@@ -1076,9 +1076,9 @@ public extension UIView {
 
     /// 沿 X、Y、Z 轴方向同时旋转多少度(3D旋转)
     /// - Parameters:
-    ///   - xAngle: x 轴的角度,旋转的角度,为弧度制 0-2π
-    ///   - yAngle: y 轴的角度,旋转的角度,为弧度制 0-2π
-    ///   - zAngle: z 轴的角度,旋转的角度,为弧度制 0-2π
+    ///   - xAngle:x 轴的角度,旋转的角度,为弧度制 0-2π
+    ///   - yAngle:y 轴的角度,旋转的角度,为弧度制 0-2π
+    ///   - zAngle:z 轴的角度,旋转的角度,为弧度制 0-2π
     func setRotation(xAngle: CGFloat, yAngle: CGFloat, zAngle: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
@@ -1090,8 +1090,8 @@ public extension UIView {
 
     /// 设置 x,y 缩放
     /// - Parameters:
-    ///   - x: x 放大的倍数
-    ///   - y: y 放大的倍数
+    ///   - x:x 放大的倍数
+    ///   - y:y 放大的倍数
     func setScale(x: CGFloat, y: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
@@ -1104,8 +1104,8 @@ public extension UIView {
 public extension UIView {
     /// view淡入效果(从透明到不透明)
     /// - Parameters:
-    ///   - duration: 以秒为单位的动画持续时间(默认值为1秒)
-    ///   - completion: 完成回调,用于在动画完成时运行(默认为nil)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - completion:完成回调,用于在动画完成时运行(默认为nil)
     func fadeIn(duration: TimeInterval = 1, completion: ((Bool) -> Void)? = nil) {
         if isHidden {
             isHidden = false
@@ -1117,8 +1117,8 @@ public extension UIView {
 
     /// view淡出效果(从不透明到透明)
     /// - Parameters:
-    ///   - duration: 以秒为单位的动画持续时间(默认值为1秒)
-    ///   - completion: 完成回调,用于在动画完成时运行(默认为nil)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - completion:完成回调,用于在动画完成时运行(默认为nil)
     func fadeOut(duration: TimeInterval = 1, completion: ((Bool) -> Void)? = nil) {
         if isHidden {
             isHidden = false
@@ -1133,11 +1133,11 @@ public extension UIView {
 public extension UIView {
     /// 按相对轴上的角度旋转视图
     /// - Parameters:
-    ///   - angle: 旋转视图的角度
-    ///   - type: 旋转角度的类型
-    ///   - animated: 设置为true以设置旋转动画(默认值为true)
-    ///   - duration: 以秒为单位的动画持续时间(默认值为1秒)
-    ///   - completion: 完成回调,用于在动画完成时运行(默认为nil)
+    ///   - angle:旋转视图的角度
+    ///   - type:旋转角度的类型
+    ///   - animated:设置为true以设置旋转动画(默认值为true)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - completion:完成回调,用于在动画完成时运行(默认为nil)
     func rotate(
         byAngle angle: CGFloat,
         ofType type: AngleUnit,
@@ -1154,11 +1154,11 @@ public extension UIView {
 
     /// 将视图旋转到固定轴上的角度
     /// - Parameters:
-    ///   - angle: 旋转视图的角度
-    ///   - type: 旋转角度的类型
-    ///   - animated: 设置为true以设置旋转动画(默认值为false)
-    ///   - duration: 以秒为单位的动画持续时间(默认值为1秒)
-    ///   - completion: 完成回调,用于在动画完成时运行(默认为nil)
+    ///   - angle:旋转视图的角度
+    ///   - type:旋转角度的类型
+    ///   - animated:设置为true以设置旋转动画(默认值为false)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - completion:完成回调,用于在动画完成时运行(默认为nil)
     func rotate(
         toAngle angle: CGFloat,
         ofType type: AngleUnit,
@@ -1175,10 +1175,10 @@ public extension UIView {
 
     /// 按偏移缩放视图
     /// - Parameters:
-    ///   - offset: 缩放偏移
-    ///   - animated: 设置为true以设置缩放动画(默认值为false)
-    ///   - duration: 以秒为单位的动画持续时间(默认值为1秒)
-    ///   - completion: 完成回调,用于在动画完成时运行(默认为nil)
+    ///   - offset:缩放偏移
+    ///   - animated:设置为true以设置缩放动画(默认值为false)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - completion:完成回调,用于在动画完成时运行(默认为nil)
     func scale(
         by offset: CGPoint,
         animated: Bool = false,
@@ -1199,7 +1199,7 @@ public extension UIView {
 // MARK: 手势
 public extension UIView {
     /// 将手势识别器附加到视图.将手势识别器附加到视图定义所表示手势的范围,使其接收到该视图及其所有子视图的触碰(建立手势识别器与视图的强引用)
-    /// - Parameter gestureRecognizers: 要添加到视图中的手势识别器数组
+    /// - Parameter gestureRecognizers:要添加到视图中的手势识别器数组
     func addGestureRecognizers(_ gestureRecognizers: [UIGestureRecognizer]) {
         for recognizer in gestureRecognizers {
             addGestureRecognizer(recognizer)
@@ -1207,7 +1207,7 @@ public extension UIView {
     }
 
     /// 将手势识别器与接收视图分离.此方法除了将手势识别器从视图中分离外,还将释放它们
-    /// - Parameter gestureRecognizers: 要从视图中移除的手势识别器数组
+    /// - Parameter gestureRecognizers:要从视图中移除的手势识别器数组
     func removeGestureRecognizers(_ gestureRecognizers: [UIGestureRecognizer]) {
         for recognizer in gestureRecognizers {
             removeGestureRecognizer(recognizer)
@@ -1220,7 +1220,7 @@ public extension UIView {
     }
 
     /// 通用事件处理回调
-    /// - Parameter action: 事件回调
+    /// - Parameter action:事件回调
     func addActionHandler(_ action: @escaping Callbacks.TapViewCallback) {
         if let sender = self as? UIButton {
             sender.addActionHandler({ button in
@@ -1240,8 +1240,8 @@ public extension UIView {
     }
 
     /// 添加`UITapGestureRecognizer`(点击)
-    /// - Parameter action: 事件处理
-    /// - Returns: `UITapGestureRecognizer`
+    /// - Parameter action:事件处理
+    /// - Returns:`UITapGestureRecognizer`
     @discardableResult
     func addTapGestureRecognizer(_ action: @escaping Callbacks.RecognizerCallback) -> UITapGestureRecognizer {
         let obj = UITapGestureRecognizer(target: nil, action: nil)
@@ -1260,9 +1260,9 @@ public extension UIView {
 
     /// 添加`UILongPressGestureRecognizer`(长按)
     /// - Parameters:
-    ///   - action: 事件处理
-    ///   - minimumPressDuration: 最小长按时间
-    /// - Returns: `UILongPressGestureRecognizer`
+    ///   - action:事件处理
+    ///   - minimumPressDuration:最小长按时间
+    /// - Returns:`UILongPressGestureRecognizer`
     @discardableResult
     func addLongPressGestureRecognizer(
         _ action: @escaping Callbacks.RecognizerCallback,
@@ -1279,8 +1279,8 @@ public extension UIView {
     }
 
     /// 添加`UIPanGestureRecognizer`(拖拽)
-    /// - Parameter action: 事件处理
-    /// - Returns: `UIPanGestureRecognizer`
+    /// - Parameter action:事件处理
+    /// - Returns:`UIPanGestureRecognizer`
     @discardableResult
     func addPanGestureRecognizer(_ action: @escaping Callbacks.RecognizerCallback) -> UIPanGestureRecognizer {
         let obj = UIPanGestureRecognizer(target: nil, action: nil)
@@ -1301,10 +1301,10 @@ public extension UIView {
 
     /// 添加`UIScreenEdgePanGestureRecognizer`(屏幕边缘拖拽)
     /// - Parameters:
-    ///   - target: 监听对象
-    ///   - action: 事件处理
-    ///   - edgs: 边缘
-    /// - Returns: `UIScreenEdgePanGestureRecognizer`
+    ///   - target:监听对象
+    ///   - action:事件处理
+    ///   - edgs:边缘
+    /// - Returns:`UIScreenEdgePanGestureRecognizer`
     @discardableResult
     func addScreenEdgePanGestureRecognizer(
         _ target: Any?,
@@ -1319,9 +1319,9 @@ public extension UIView {
 
     /// 添加`UIScreenEdgePanGestureRecognizer`(屏幕边缘拖拽)
     /// - Parameters:
-    ///   - action: 事件
-    ///   - edgs: 边缘
-    /// - Returns: `UIScreenEdgePanGestureRecognizer`
+    ///   - action:事件
+    ///   - edgs:边缘
+    /// - Returns:`UIScreenEdgePanGestureRecognizer`
     @discardableResult
     func addScreenEdgePanGestureRecognizer(
         action: @escaping Callbacks.RecognizerCallback,
@@ -1338,10 +1338,10 @@ public extension UIView {
 
     /// 添加`UISwipeGestureRecognizer`(轻扫)
     /// - Parameters:
-    ///   - target: 事件对象
-    ///   - action: 事件处理
-    ///   - direction: 轻扫方向
-    /// - Returns: `UISwipeGestureRecognizer`
+    ///   - target:事件对象
+    ///   - action:事件处理
+    ///   - direction:轻扫方向
+    /// - Returns:`UISwipeGestureRecognizer`
     @discardableResult
     func addSwipeGestureRecognizer(
         _ target: Any?,
@@ -1356,9 +1356,9 @@ public extension UIView {
 
     /// 添加`UISwipeGestureRecognizer`(轻扫)
     /// - Parameters:
-    ///   - action: 事件处理
-    ///   - direction: 轻扫方向
-    /// - Returns: `UISwipeGestureRecognizer`
+    ///   - action:事件处理
+    ///   - direction:轻扫方向
+    /// - Returns:`UISwipeGestureRecognizer`
     func addSwipeGestureRecognizer(
         _ action: @escaping Callbacks.RecognizerCallback,
         for direction: UISwipeGestureRecognizer.Direction
@@ -1373,8 +1373,8 @@ public extension UIView {
     }
 
     /// 添加`UIPinchGestureRecognizer`(捏合)
-    /// - Parameter action: 事件处理
-    /// - Returns: `UIPinchGestureRecognizer`
+    /// - Parameter action:事件处理
+    /// - Returns:`UIPinchGestureRecognizer`
     func addPinchGestureRecognizer(_ action: @escaping Callbacks.RecognizerCallback) -> UIPinchGestureRecognizer {
         let obj = UIPinchGestureRecognizer(target: nil, action: nil)
         addCommonGestureRecognizer(obj)
@@ -1391,8 +1391,8 @@ public extension UIView {
     }
 
     /// 添加`UIRotationGestureRecognizer`(旋转)
-    /// - Parameter action: 事件处理
-    /// - Returns: `UIRotationGestureRecognizer`
+    /// - Parameter action:事件处理
+    /// - Returns:`UIRotationGestureRecognizer`
     @discardableResult
     func addRotationGestureRecognizer(action: @escaping Callbacks.RecognizerCallback) -> UIRotationGestureRecognizer {
         let obj = UIRotationGestureRecognizer(target: nil, action: nil)
@@ -1419,13 +1419,13 @@ public extension UIView {
 public extension UIView {
     /// 设置线性渐变边框
     /// - Parameters:
-    ///   - size: 大小
-    ///   - direction: 渐变方向
-    ///   - locations: 位置
-    ///   - colors: 颜色数组
-    ///   - lineWidth: 线框
-    ///   - roundingCorners: 圆角方向
-    ///   - cornerRadii: 圆角大小
+    ///   - size:大小
+    ///   - direction:渐变方向
+    ///   - locations:位置
+    ///   - colors:颜色数组
+    ///   - lineWidth:线框
+    ///   - roundingCorners:圆角方向
+    ///   - cornerRadii:圆角大小
     func setupLinearGradientBorder(
         _ size: CGSize,
         direction: CMGradientDirection = .horizontal,
@@ -1455,10 +1455,10 @@ public extension UIView {
 
     /// 添加线性渐变背景图层
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - locations: 颜色位置
-    ///   - colors: 渐变的颜色数组
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - locations:颜色位置
+    ///   - colors:渐变的颜色数组
     func setupLinearGradientBackgroundLayer(
         _ size: CGSize,
         direction: CMGradientDirection = .horizontal,
@@ -1476,10 +1476,10 @@ public extension UIView {
 
     /// 添加线性渐变背景颜色
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - locations: 颜色位置
-    ///   - colors: 渐变的颜色数组
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - locations:颜色位置
+    ///   - colors:渐变的颜色数组
     func setupLinearGradientBackgroundColor(
         _ size: CGSize,
         direction: CMGradientDirection = .horizontal,
@@ -1496,12 +1496,12 @@ public extension UIView {
 
     /// 线性渐变动画
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - startColors: 开始颜色数组
-    ///   - endColors: 结束颜色数组
-    ///   - locations: 渐变位置
-    ///   - duration: 动画时长
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - startColors:开始颜色数组
+    ///   - endColors:结束颜色数组
+    ///   - locations:渐变位置
+    ///   - duration:动画时长
     func linearGradientColorAnimation(
         _ size: CGSize,
         direction: CMGradientDirection = .horizontal,
@@ -1531,10 +1531,10 @@ public extension UIView {
 
     ///  开始线性渐变动画
     /// - Parameters:
-    ///   - gradientLayer: 要执行动画的图层
-    ///   - startColors: 开始颜色数组
-    ///   - endColors: 结束颜色数组
-    ///   - duration: 动画时长
+    ///   - gradientLayer:要执行动画的图层
+    ///   - startColors:开始颜色数组
+    ///   - endColors:结束颜色数组
+    ///   - duration:动画时长
     private func startLinearGradientColorAnimation(
         _ gradientLayer: CAGradientLayer,
         startColors: [UIColor],
@@ -1564,7 +1564,7 @@ public extension UIView {
 // MARK: - 角标(徽章)
 public extension UIView {
     /// 添加角标
-    /// - Parameter number: 角标数字(0表示移除角标, ""空字符串表示 小红点无数字)
+    /// - Parameter number:角标数字(0表示移除角标, ""空字符串表示 小红点无数字)
     func setupBadge(_ number: String) {
         var badgeLabel: UILabel? = viewWithTag(6202) as? UILabel
         if number == "0" {
@@ -1689,9 +1689,9 @@ public extension UIView {
 public extension UIView {
     /// 开启水波纹动画(动画层数根据颜色数组变化)
     /// - Parameters:
-    ///   - colors: 颜色数组
-    ///   - scale: 缩放
-    ///   - duration: 动画时间
+    ///   - colors:颜色数组
+    ///   - scale:缩放
+    ///   - duration:动画时间
     final func startWaterWaveAnimation(colors: [UIColor], scale: CGFloat, duration: TimeInterval) {
         if superview?.viewWithTag(3257) != nil {
             return
@@ -1742,71 +1742,71 @@ public extension UIView {
 }
 
 /*
- 两部分组成：粒子发射引擎 和 粒子单元
- 1、粒子发射引擎(CAEmitterLayer)：负责粒子发射效果的宏观属性,例如粒子的发生速度、粒子的存活时间、粒子的发射位置等等
- CAEmitterLayer的属性：
- - emitterCells：CAEmitterCell对象的数组,用于把粒子投放到layer上
- - birthRate：粒子产生速度,默认1个每秒
- - lifetime：粒子纯在时间,默认1秒
- - emitterPosition：发射器在xy平面的中心位置
- - emitterZPosition：发射器在z平面的位置
- - preservesDepth：是否开启三维效果
- - velocity：粒子运动速度
- - scale：粒子的缩放比例
- - spin：自旋转速度
- - seed：用于初始化随机数产生的种子
- - emitterSize：发射器的尺寸
- - emitterDepth：发射器的深度
- - emitterShape：发射器的形状
- - point: 点的形状,粒子从一个点发出
- - line:  线的形状,粒子从一条线发出
- - rectangle: 矩形形状,粒子从一个矩形中发
- - cuboid: 立方体形状,会影响Z平面的效果
- - circle: 粒子发射器引擎为球圆形形状,粒子会在圆形范围发射
- - sphere:  粒子发射器引擎为球形形状
- - emitterMode：发射器发射模式
+ 两部分组成:粒子发射引擎 和 粒子单元
+ 1、粒子发射引擎(CAEmitterLayer):负责粒子发射效果的宏观属性,例如粒子的发生速度、粒子的存活时间、粒子的发射位置等等
+ CAEmitterLayer的属性:
+ - emitterCells:CAEmitterCell对象的数组,用于把粒子投放到layer上
+ - birthRate:粒子产生速度,默认1个每秒
+ - lifetime:粒子纯在时间,默认1秒
+ - emitterPosition:发射器在xy平面的中心位置
+ - emitterZPosition:发射器在z平面的位置
+ - preservesDepth:是否开启三维效果
+ - velocity:粒子运动速度
+ - scale:粒子的缩放比例
+ - spin:自旋转速度
+ - seed:用于初始化随机数产生的种子
+ - emitterSize:发射器的尺寸
+ - emitterDepth:发射器的深度
+ - emitterShape:发射器的形状
+ - point:点的形状,粒子从一个点发出
+ - line: 线的形状,粒子从一条线发出
+ - rectangle:矩形形状,粒子从一个矩形中发
+ - cuboid:立方体形状,会影响Z平面的效果
+ - circle:粒子发射器引擎为球圆形形状,粒子会在圆形范围发射
+ - sphere: 粒子发射器引擎为球形形状
+ - emitterMode:发射器发射模式
  - points 从发射器中发出
  - outline 从发射器边缘发出
  - surface 从发射器表面发出
  - volume 从发射器中点发出
- - renderMode：发射器渲染模式
- - unordered: 粒子无序出现,多个粒子单元发射器的粒子将混合
- - oldestFirst: 生命久的粒子会被渲染在最上层
- - oldestLast: 生命短的粒子会被渲染在最上层
- - backToFront: 粒子的渲染按照Z轴进行上下排序
- - additive: 粒子将被混合
+ - renderMode:发射器渲染模式
+ - unordered:粒子无序出现,多个粒子单元发射器的粒子将混合
+ - oldestFirst:生命久的粒子会被渲染在最上层
+ - oldestLast:生命短的粒子会被渲染在最上层
+ - backToFront:粒子的渲染按照Z轴进行上下排序
+ - additive:粒子将被混合
 
- 2、粒子单元(CAEmitterCell)：用来设置具体单位粒子的属性,例如粒子的运动速度、粒子的形变与颜色等等
- CAEmitterCell的属性：
- - name：粒子的名字
- - color：粒子的颜色
- - enabled：粒子是否渲染
- - contents：渲染粒子,是个CGImageRef的对象,即粒子要展示的图片
- - contentsRect：渲染范围
- - birthRate：粒子产生速度
- - lifetime：生命周期
- - lifetimeRange：生命周期增减范围
- - velocity：粒子运动速度
- - velocityRange：速度范围
- - spin：粒子旋转速度
- - spinrange：粒子旋转速度范围
- - scale：缩放比例
- - scaleRange：缩放比例范围
- - scaleSpeed：缩放比例速度
- - alphaRange:：一个粒子的颜色alpha能改变的范围
- - alphaSpeed:：粒子透明度在生命周期内的改变速度
- - redRange：一个粒子的颜色red能改变的范围
- - redSpeed：粒子red在生命周期内的改变速度
- - blueRange：一个粒子的颜色blue能改变的范围
- - blueSpeed：粒子blue在生命周期内的改变速度
- - greenRange：一个粒子的颜色green能改变的范围
- - greenSpeed：粒子green在生命周期内的改变速度
- - xAcceleration：粒子x方向的加速度分量
- - yAcceleration：粒子y方向的加速度分量
- - zAcceleration：粒子z方向的加速度分量
- - emissionRange：粒子发射角度范围
- - emissionLongitude：粒子在x-y平面的发射角度
- - emissionLatitude：发射的z轴方向的发射角度
+ 2、粒子单元(CAEmitterCell):用来设置具体单位粒子的属性,例如粒子的运动速度、粒子的形变与颜色等等
+ CAEmitterCell的属性:
+ - name:粒子的名字
+ - color:粒子的颜色
+ - enabled:粒子是否渲染
+ - contents:渲染粒子,是个CGImageRef的对象,即粒子要展示的图片
+ - contentsRect:渲染范围
+ - birthRate:粒子产生速度
+ - lifetime:生命周期
+ - lifetimeRange:生命周期增减范围
+ - velocity:粒子运动速度
+ - velocityRange:速度范围
+ - spin:粒子旋转速度
+ - spinrange:粒子旋转速度范围
+ - scale:缩放比例
+ - scaleRange:缩放比例范围
+ - scaleSpeed:缩放比例速度
+ - alphaRange::一个粒子的颜色alpha能改变的范围
+ - alphaSpeed::粒子透明度在生命周期内的改变速度
+ - redRange:一个粒子的颜色red能改变的范围
+ - redSpeed:粒子red在生命周期内的改变速度
+ - blueRange:一个粒子的颜色blue能改变的范围
+ - blueSpeed:粒子blue在生命周期内的改变速度
+ - greenRange:一个粒子的颜色green能改变的范围
+ - greenSpeed:粒子green在生命周期内的改变速度
+ - xAcceleration:粒子x方向的加速度分量
+ - yAcceleration:粒子y方向的加速度分量
+ - zAcceleration:粒子z方向的加速度分量
+ - emissionRange:粒子发射角度范围
+ - emissionLongitude:粒子在x-y平面的发射角度
+ - emissionLatitude:发射的z轴方向的发射角度
  */
 // MARK: - 粒子发射器
 public class CMEmitterStyle: NSObject {
@@ -1823,7 +1823,7 @@ public class CMEmitterStyle: NSObject {
     public var cellScale: CGFloat = 0.7
     /// 缩放比例范围
     public var cellScaleRange: CGFloat = 0.3
-    /// 粒子存活的时间(指：粒子从创建出来展示在界面上到从界面上消失释放的整个过程)
+    /// 粒子存活的时间(指:粒子从创建出来展示在界面上到从界面上消失释放的整个过程)
     public var cellEmitterLifetime: Float = 3
     /// 生命周期增减范围
     public var cellLifetimeRange: Float = 3
@@ -1852,8 +1852,8 @@ public class CMEmitterStyle: NSObject {
 public extension UIView {
     /// 启动 粒子发射器
     /// - Parameters:
-    ///   - emitterImageNames: 粒子单元图片名
-    ///   - style: 发射器和粒子的样式
+    ///   - emitterImageNames:粒子单元图片名
+    ///   - style:发射器和粒子的样式
     @discardableResult
     func startEmitter(emitterImageNames: [String], style: CMEmitterStyle = CMEmitterStyle()) -> CAEmitterLayer {
         // 创建发射器
@@ -1892,9 +1892,9 @@ public extension UIView {
 
     /// 创建例子,并且设置例子相关的属性
     /// - Parameters:
-    ///   - emitterImageNames: 粒子单元图片名
-    ///   - style: 发射器和粒子的样式
-    /// - Returns: 粒子数组
+    ///   - emitterImageNames:粒子单元图片名
+    ///   - style:发射器和粒子的样式
+    /// - Returns:粒子数组
     private func createEmitterCell(emitterImageNames: [String], style: CMEmitterStyle) -> [CAEmitterCell] {
         // 粒子单元数组
         var cells: [CAEmitterCell] = []
@@ -1954,8 +1954,8 @@ public extension UIView {
     }
 
     /// 设置 tag 值
-    /// - Parameter tag: 值
-    /// - Returns: `Self`
+    /// - Parameter tag:值
+    /// - Returns:`Self`
     @discardableResult
     func tag(_ tag: Int) -> Self {
         self.tag = tag
@@ -1963,8 +1963,8 @@ public extension UIView {
     }
 
     /// 设置圆角
-    /// - Parameter cornerRadius: 圆角
-    /// - Returns: `Self`
+    /// - Parameter cornerRadius:圆角
+    /// - Returns:`Self`
     @discardableResult
     func cornerRadius(_ cornerRadius: CGFloat) -> Self {
         layer.cornerRadius = cornerRadius
@@ -1972,8 +1972,8 @@ public extension UIView {
     }
 
     /// 设置是否`masktoToBounds`
-    /// - Parameter masksToBounds: 是否设置
-    /// - Returns: `Self`
+    /// - Parameter masksToBounds:是否设置
+    /// - Returns:`Self`
     @discardableResult
     func masksToBounds(_ masksToBounds: Bool) -> Self {
         layer.masksToBounds = masksToBounds
@@ -1981,8 +1981,8 @@ public extension UIView {
     }
 
     /// 设置裁剪
-    /// - Parameter clipsToBounds: 是否裁剪超出部分
-    /// - Returns: `Self`
+    /// - Parameter clipsToBounds:是否裁剪超出部分
+    /// - Returns:`Self`
     @discardableResult
     func clipsToBounds(_ clipsToBounds: Bool) -> Self {
         self.clipsToBounds = clipsToBounds
@@ -1990,8 +1990,8 @@ public extension UIView {
     }
 
     /// 内容填充模式
-    /// - Parameter mode: 模式
-    /// - Returns: 返回图片的模式
+    /// - Parameter mode:模式
+    /// - Returns:返回图片的模式
     @discardableResult
     func contentMode(_ mode: UIView.ContentMode) -> Self {
         contentMode = mode
@@ -1999,8 +1999,8 @@ public extension UIView {
     }
 
     /// 设置背景色
-    /// - Parameter color: 颜色
-    /// - Returns: `Self`
+    /// - Parameter color:颜色
+    /// - Returns:`Self`
     @discardableResult
     func backgroundColor(_ backgroundColor: UIColor) -> Self {
         self.backgroundColor = backgroundColor
@@ -2008,8 +2008,8 @@ public extension UIView {
     }
 
     /// 设置十六进制颜色
-    /// - Parameter hex: 十六进制颜色
-    /// - Returns: `Self`
+    /// - Parameter hex:十六进制颜色
+    /// - Returns:`Self`
     @discardableResult
     func backgroundColor(_ hex: String) -> Self {
         backgroundColor = UIColor(hex: hex)
@@ -2017,8 +2017,8 @@ public extension UIView {
     }
 
     /// 被添加到某个视图上
-    /// - Parameter superView: 父视图
-    /// - Returns: `Self`
+    /// - Parameter superView:父视图
+    /// - Returns:`Self`
     @discardableResult
     func addTo(_ superView: UIView) -> Self {
         superView.addSubview(self)
@@ -2026,8 +2026,8 @@ public extension UIView {
     }
 
     /// 设置是否允许交互
-    /// - Parameter isUserInteractionEnabled: 是否支持触摸
-    /// - Returns: `Self`
+    /// - Parameter isUserInteractionEnabled:是否支持触摸
+    /// - Returns:`Self`
     @discardableResult
     func isUserInteractionEnabled(_ isUserInteractionEnabled: Bool) -> Self {
         self.isUserInteractionEnabled = isUserInteractionEnabled
@@ -2035,8 +2035,8 @@ public extension UIView {
     }
 
     /// 设置是否隐藏
-    /// - Parameter isHidden: 是否隐藏
-    /// - Returns: `Self`
+    /// - Parameter isHidden:是否隐藏
+    /// - Returns:`Self`
     @discardableResult
     func isHidden(_ isHidden: Bool) -> Self {
         self.isHidden = isHidden
@@ -2044,8 +2044,8 @@ public extension UIView {
     }
 
     /// 设置透明度
-    /// - Parameter alpha: 透明度
-    /// - Returns: `Self`
+    /// - Parameter alpha:透明度
+    /// - Returns:`Self`
     @discardableResult
     func alpha(_ alpha: CGFloat) -> Self {
         self.alpha = alpha
@@ -2053,8 +2053,8 @@ public extension UIView {
     }
 
     /// 设置`tintColor`
-    /// - Parameter tintColor: tintColor description
-    /// - Returns: `Self`
+    /// - Parameter tintColor:tintColor description
+    /// - Returns:`Self`
     @discardableResult
     func tintColor(_ tintColor: UIColor) -> Self {
         self.tintColor = tintColor
@@ -2063,8 +2063,8 @@ public extension UIView {
 
     /// 设置边框颜色
     /// - Parameters:
-    ///   - color: 边框颜色
-    /// - Returns: `Self`
+    ///   - color:边框颜色
+    /// - Returns:`Self`
     @discardableResult
     func borderColor(_ color: UIColor) -> Self {
         layer.borderColor = color.cgColor
@@ -2073,8 +2073,8 @@ public extension UIView {
 
     /// 设置边框颜色
     /// - Parameters:
-    ///   - hex: 十六进制颜色值
-    /// - Returns: `Self`
+    ///   - hex:十六进制颜色值
+    /// - Returns:`Self`
     @discardableResult
     func borderColor(_ hex: String) -> Self {
         layer.borderColor = UIColor(hex: hex).cgColor
@@ -2083,8 +2083,8 @@ public extension UIView {
 
     /// 设置边框宽度
     /// - Parameters:
-    ///   - width: 边框宽度
-    /// - Returns: `Self`
+    ///   - width:边框宽度
+    /// - Returns:`Self`
     @discardableResult
     func borderWidth(_ width: CGFloat = 0.5) -> Self {
         layer.borderWidth = width
@@ -2092,8 +2092,8 @@ public extension UIView {
     }
 
     /// 是否开启光栅化
-    /// - Parameter rasterize: 是否开启光栅化
-    /// - Returns: `Self`
+    /// - Parameter rasterize:是否开启光栅化
+    /// - Returns:`Self`
     @discardableResult
     func shouldRasterize(_ rasterize: Bool) -> Self {
         layer.shouldRasterize = rasterize
@@ -2101,8 +2101,8 @@ public extension UIView {
     }
 
     /// 设置光栅化比例
-    /// - Parameter scale: 光栅化比例
-    /// - Returns: `Self`
+    /// - Parameter scale:光栅化比例
+    /// - Returns:`Self`
     @discardableResult
     func rasterizationScale(_ scale: CGFloat) -> Self {
         layer.rasterizationScale = scale
@@ -2110,8 +2110,8 @@ public extension UIView {
     }
 
     /// 设置阴影颜色
-    /// - Parameter color: 颜色
-    /// - Returns: `Self`
+    /// - Parameter color:颜色
+    /// - Returns:`Self`
     @discardableResult
     func shadowColor(_ color: UIColor) -> Self {
         layer.shadowColor(color)
@@ -2119,8 +2119,8 @@ public extension UIView {
     }
 
     /// 设置阴影颜色
-    /// - Parameter hex: 十六进制颜色值
-    /// - Returns: `Self`
+    /// - Parameter hex:十六进制颜色值
+    /// - Returns:`Self`
     @discardableResult
     func shadowColor(_ hex: String) -> Self {
         layer.shadowColor(UIColor(hex: hex))
@@ -2128,8 +2128,8 @@ public extension UIView {
     }
 
     /// 设置阴影偏移
-    /// - Parameter offset: 偏移
-    /// - Returns: `Self`
+    /// - Parameter offset:偏移
+    /// - Returns:`Self`
     @discardableResult
     func shadowOffset(_ offset: CGSize) -> Self {
         layer.shadowOffset = offset
@@ -2137,8 +2137,8 @@ public extension UIView {
     }
 
     /// 设置阴影圆角
-    /// - Parameter radius: 圆角
-    /// - Returns: `Self`
+    /// - Parameter radius:圆角
+    /// - Returns:`Self`
     @discardableResult
     func shadowRadius(_ radius: CGFloat) -> Self {
         layer.shadowRadius = radius
@@ -2146,8 +2146,8 @@ public extension UIView {
     }
 
     /// 设置不透明度
-    /// - Parameter opacity: 不透明度
-    /// - Returns: `Self`
+    /// - Parameter opacity:不透明度
+    /// - Returns:`Self`
     @discardableResult
     func shadowOpacity(_ opacity: Float) -> Self {
         layer.shadowOpacity = opacity
@@ -2155,8 +2155,8 @@ public extension UIView {
     }
 
     /// 设置阴影路径
-    /// - Parameter path: 路径
-    /// - Returns: `Self`
+    /// - Parameter path:路径
+    /// - Returns:`Self`
     @discardableResult
     func shadowPath(_ path: CGPath) -> Self {
         layer.shadowPath = path
@@ -2165,9 +2165,9 @@ public extension UIView {
 
     /// 添加点击事件
     /// - Parameters:
-    ///   - target: 监听对象
-    ///   - selector: 方法
-    /// - Returns: `Self`
+    ///   - target:监听对象
+    ///   - selector:方法
+    /// - Returns:`Self`
     @discardableResult
     func addTapAction(_ target: Any, _ selector: Selector) -> Self {
         isUserInteractionEnabled = true
@@ -2188,8 +2188,8 @@ public extension UIView {
 // MARK: - 链式语法(frame相关设置)
 public extension UIView {
     /// 设置 frame
-    /// - Parameter frame: frame
-    /// - Returns: `Self`
+    /// - Parameter frame:frame
+    /// - Returns:`Self`
     @discardableResult
     func rect(_ frame: CGRect) -> Self {
         self.frame = frame
@@ -2197,8 +2197,8 @@ public extension UIView {
     }
 
     /// 设置 frame
-    /// - Parameter frame: frame
-    /// - Returns: `Self`
+    /// - Parameter frame:frame
+    /// - Returns:`Self`
     @discardableResult
     func frame(_ frame: CGRect) -> Self {
         self.frame = frame
@@ -2207,8 +2207,8 @@ public extension UIView {
 
     /// 控件的origin
     /// - Parameters:
-    ///   - origin: 坐标
-    /// - Returns: `Self`
+    ///   - origin:坐标
+    /// - Returns:`Self`
     @discardableResult
     func origin(_ origin: CGPoint) -> Self {
         var temp: CGRect = frame
@@ -2219,8 +2219,8 @@ public extension UIView {
 
     /// 控件的尺寸
     /// - Parameters:
-    ///   - size: 尺寸
-    /// - Returns: `Self`
+    ///   - size:尺寸
+    /// - Returns:`Self`
     @discardableResult
     func size(_ size: CGSize) -> Self {
         var temp: CGRect = frame
@@ -2231,8 +2231,8 @@ public extension UIView {
 
     /// 控件左边(`minX`)
     /// - Parameters:
-    ///   - x: 左侧距离
-    /// - Returns: `Self`
+    ///   - x:左侧距离
+    /// - Returns:`Self`
     @discardableResult
     func x(_ x: CGFloat) -> Self {
         var temp = frame
@@ -2243,8 +2243,8 @@ public extension UIView {
 
     /// 控件顶部(`minY`)
     /// - Parameters:
-    ///   - y: 顶部距离
-    /// - Returns: `Self`
+    ///   - y:顶部距离
+    /// - Returns:`Self`
     @discardableResult
     func y(_ y: CGFloat) -> Self {
         var temp = frame
@@ -2255,8 +2255,8 @@ public extension UIView {
 
     /// 控件的宽度
     /// - Parameters:
-    ///   - width: 宽度
-    /// - Returns: `Self`
+    ///   - width:宽度
+    /// - Returns:`Self`
     @discardableResult
     func width(_ width: CGFloat) -> Self {
         var temp: CGRect = frame
@@ -2267,8 +2267,8 @@ public extension UIView {
 
     /// 控件的高度
     /// - Parameters:
-    ///   - width: 宽度
-    /// - Returns: `Self`
+    ///   - width:宽度
+    /// - Returns:`Self`
     @discardableResult
     func height(_ height: CGFloat) -> Self {
         var temp: CGRect = frame
@@ -2279,8 +2279,8 @@ public extension UIView {
 
     /// 控件顶部(`minY`)
     /// - Parameters:
-    ///   - top: 顶部距离
-    /// - Returns: `Self`
+    ///   - top:顶部距离
+    /// - Returns:`Self`
     @discardableResult
     func top(_ top: CGFloat) -> Self {
         var temp = frame
@@ -2291,8 +2291,8 @@ public extension UIView {
 
     /// 控件底部(`maxY`)
     /// - Parameters:
-    ///   - bottom: 底部距离
-    /// - Returns: `Self`
+    ///   - bottom:底部距离
+    /// - Returns:`Self`
     @discardableResult
     func bottom(_ bottom: CGFloat) -> Self {
         var temp = frame
@@ -2303,8 +2303,8 @@ public extension UIView {
 
     /// 控件左边(`minX`)
     /// - Parameters:
-    ///   - left: 左侧距离
-    /// - Returns: `Self`
+    ///   - left:左侧距离
+    /// - Returns:`Self`
     @discardableResult
     func left(_ left: CGFloat) -> Self {
         var temp = frame
@@ -2315,8 +2315,8 @@ public extension UIView {
 
     /// 控件右边(`maxX`)
     /// - Parameters:
-    ///   - right: 右侧距离
-    /// - Returns: `Self`
+    ///   - right:右侧距离
+    /// - Returns:`Self`
     @discardableResult
     func right(_ right: CGFloat) -> Self {
         var temp = frame
@@ -2327,8 +2327,8 @@ public extension UIView {
 
     /// 控件中心点
     /// - Parameters:
-    ///   - center: 中心位置
-    /// - Returns: `Self`
+    ///   - center:中心位置
+    /// - Returns:`Self`
     @discardableResult
     func center(_ center: CGPoint) -> Self {
         self.center = center
@@ -2337,8 +2337,8 @@ public extension UIView {
 
     /// 控件中心点X
     /// - Parameters:
-    ///   - centerX: 中心位置X
-    /// - Returns: `Self`
+    ///   - centerX:中心位置X
+    /// - Returns:`Self`
     @discardableResult
     func centerX(_ centerX: CGFloat) -> Self {
         var temp: CGPoint = center
@@ -2349,8 +2349,8 @@ public extension UIView {
 
     /// 控件中心点Y
     /// - Parameters:
-    ///   - centerY: 中心位置Y
-    /// - Returns: `Self`
+    ///   - centerY:中心位置Y
+    /// - Returns:`Self`
     @discardableResult
     func centerY(_ centerY: CGFloat) -> Self {
         var temp: CGPoint = center

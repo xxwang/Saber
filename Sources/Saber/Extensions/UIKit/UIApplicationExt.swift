@@ -81,8 +81,8 @@ public extension UIApplication {
 // MARK: - 静态方法
 public extension UIApplication {
     /// app商店链接
-    /// - Parameter appID: 应用在商店中的ID
-    /// - Returns: URL字符串
+    /// - Parameter appID:应用在商店中的ID
+    /// - Returns:URL字符串
     @discardableResult
     static func appURL(with appID: String) -> String {
         let appStoreURL = "itms-apps://itunes.apple.com/app/id\(appID)?mt=8"
@@ -90,8 +90,8 @@ public extension UIApplication {
     }
 
     /// app详情链接
-    /// - Parameter appID: 应用在商店中的ID
-    /// - Returns: URL字符串
+    /// - Parameter appID:应用在商店中的ID
+    /// - Returns:URL字符串
     @discardableResult
     static func appDetailURL(with appID: String) -> String {
         let detailURL = "http://itunes.apple.com/cn/lookup?id=\(appID)"
@@ -212,11 +212,11 @@ public extension CMOtherApp {
 public extension UIApplication {
     /// 打开手机上的`设置App`并跳转至本App的权限界面(带提示窗)
     /// - Parameters:
-    ///   - title: 提示标题
-    ///   - message: 提示内容
-    ///   - cancel: 取消按钮标题
-    ///   - confirm: 确认按钮标题
-    ///   - parent: 来源控制器(谁来弹出提示窗)
+    ///   - title:提示标题
+    ///   - message:提示内容
+    ///   - cancel:取消按钮标题
+    ///   - confirm:确认按钮标题
+    ///   - parent:来源控制器(谁来弹出提示窗)
     static func openSettings(_ title: String?, message: String?, cancel: String = "取消", confirm: String = "设置", parent: UIViewController? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancleAction = UIAlertAction(title: cancel, style: .cancel, handler: nil)
@@ -248,7 +248,7 @@ public extension UIApplication {
     }
 
     /// 前往AppStore进行评价
-    /// - Parameter appID: 应用在AppStore中的ID
+    /// - Parameter appID:应用在AppStore中的ID
     static func evaluationInAppStore(_ appID: String) {
         let appURLString = "https://itunes.apple.com/cn/app/id" + appID + "?mt=12"
         guard let url = URL(string: appURLString), UIApplication.shared.canOpenURL(url) else {
@@ -263,8 +263,8 @@ public extension UIApplication {
 
     /// 应用跳转
     /// - Parameters:
-    ///   - vc: 跳转时所在控制器
-    ///   - appID: app的id
+    ///   - vc:跳转时所在控制器
+    ///   - appID:app的id
     static func updateApp(vc: UIViewController, appID: String) {
         guard appID.count > 0 else {
             return
@@ -282,8 +282,8 @@ public extension UIApplication {
 
     /// 打开应用更新页面
     /// - Parameters:
-    ///   - sourceVC: 跳转时的来源控制器(需要遵守`SKStoreProductViewControllerDelegate`协议)
-    ///   - appID: 用在AppStore中的ID(在Connect中创建应用后生成的ID)
+    ///   - sourceVC:跳转时的来源控制器(需要遵守`SKStoreProductViewControllerDelegate`协议)
+    ///   - appID:用在AppStore中的ID(在Connect中创建应用后生成的ID)
     static func updateApp<T>(from sourceVC: T, appID: String) where T: UIViewController, T: SKStoreProductViewControllerDelegate {
         guard appID.count > 0 else {
             return
@@ -302,24 +302,24 @@ public extension UIApplication {
 
     /// 打开手机上安装的系统app
     /// - Parameters:
-    ///   - app: 系统App枚举
-    ///   - completion: 完成回调
+    ///   - app:系统App枚举
+    ///   - completion:完成回调
     static func openSystemApp(_ app: CMSystemApp, completion: @escaping Callbacks.CompleteBoolCallback) {
         openURL(app.url, completion: completion)
     }
 
     /// 打开手机上安装的第三方App
     /// - Parameters:
-    ///   - app: 第三方app枚举
-    ///   - completion: 完成回调
+    ///   - app:第三方app枚举
+    ///   - completion:完成回调
     static func openOtherApp(_ app: CMOtherApp, completion: @escaping Callbacks.CompleteBoolCallback) {
         openURL(app.url, completion: completion)
     }
 
     /// 拨打电话操作
     /// - Parameters:
-    ///   - phoneNumber: 要拨打的电话号码
-    ///   - completion: 完成回调
+    ///   - phoneNumber:要拨打的电话号码
+    ///   - completion:完成回调
     static func call(with phoneNumber: String, completion: @escaping Callbacks.CompleteBoolCallback) {
         // 判断是否有效
         guard let phoneNumberEncoding = ("tel://" + phoneNumber)
@@ -335,8 +335,8 @@ public extension UIApplication {
 
     /// 打开指定URL地址
     /// - Parameters:
-    ///   - url: 要打开的URL地址
-    ///   - complete: 完成回调
+    ///   - url:要打开的URL地址
+    ///   - complete:完成回调
     static func openURL(_ url: URL, completion: @escaping Callbacks.CompleteBoolCallback) {
         // iOS 10.0 以前
         guard #available(iOS 10.0, *) else {
@@ -379,8 +379,8 @@ public extension UIApplication {
     }
 
     /// 指定版本号与应用当前版本号进行比较
-    /// - Parameter version: 传进来的版本号码
-    /// - Returns: 返回对比加过,true：比当前的版本大,false：比当前的版本小
+    /// - Parameter version:传进来的版本号码
+    /// - Returns:返回对比加过,true:比当前的版本大,false:比当前的版本小
     static func compareVersion(version: String) -> Bool {
         // 获取要比较的(主版本号、次版本号、补丁版本号)
         let newVersionResult = appVersion(version: version)
@@ -430,8 +430,8 @@ public extension UIApplication {
     }
 
     /// 分割版本号
-    /// - Parameter version: 要分割的版本号
-    /// - Returns: (isSuccess:是否成功, versions: (major: 主版本号, minor: 次版本号, patch: 补丁版本号))
+    /// - Parameter version:要分割的版本号
+    /// - Returns:(isSuccess:是否成功, versions:(major:主版本号, minor:次版本号, patch:补丁版本号))
     static func appVersion(version: String) -> (isSuccess: Bool, versions: (major: Int, minor: Int, patch: Int)) {
         // 获取(主版本号、次版本号、补丁版本号)字符串数组
         let versionNumbers = version.split(with: ".")
@@ -458,7 +458,7 @@ public extension UIApplication {
 // MARK: - 推送
 public extension UIApplication {
     /// 注册APNs远程推送
-    /// - Parameter delegate: 代理对象
+    /// - Parameter delegate:代理对象
     static func registerAPNsWithDelegate(_ delegate: Any) {
         if #available(iOS 10.0, *) {
             let options: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -482,12 +482,12 @@ public extension UIApplication {
 
     /// 添加本地通知
     /// - Parameters:
-    ///   - trigger: 触发器
-    ///   - content: 内容
-    ///   - identifier: 标识
-    ///   - categories: 分类
-    ///   - repeats: 是否重复
-    ///   - handler: 处理回调
+    ///   - trigger:触发器
+    ///   - content:内容
+    ///   - identifier:标识
+    ///   - categories:分类
+    ///   - repeats:是否重复
+    ///   - handler:处理回调
     @available(iOS 10.0, *)
     func addLocalUserNotification(
         trigger: AnyObject,

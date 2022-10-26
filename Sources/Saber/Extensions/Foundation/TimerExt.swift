@@ -4,9 +4,9 @@ import Foundation
 public extension Timer {
     /// 构造器创建定时器
     /// - Parameters:
-    ///   - timeInterval: 时间间隔
-    ///   - repeats: 是否重复执行
-    ///   - block: 执行代码的`block`
+    ///   - timeInterval:时间间隔
+    ///   - repeats:是否重复执行
+    ///   - block:执行代码的`block`
     convenience init(safeTimerWithTimeInterval timeInterval: TimeInterval, repeats: Bool, block: @escaping ((Timer) -> Void)) {
         if #available(iOS 10.0, *) {
             self.init(timeInterval: timeInterval, repeats: repeats, block: block)
@@ -20,10 +20,10 @@ public extension Timer {
 public extension Timer {
     ///  创建定时器
     /// - Parameters:
-    ///   - timeInterval: 时间间隔
-    ///   - repeats: 是否重复执行
-    ///   - block: 执行代码的`block`
-    /// - Returns: 返回 `Timer`
+    ///   - timeInterval:时间间隔
+    ///   - repeats:是否重复执行
+    ///   - block:执行代码的`block`
+    /// - Returns:返回 `Timer`
     @discardableResult
     static func scheduledSafeTimer(timeInterval: TimeInterval, repeats: Bool, block: @escaping ((Timer) -> Void)) -> Timer {
         if #available(iOS 10.0, *) {
@@ -34,9 +34,9 @@ public extension Timer {
 
     /// C语言的形式创建定时器
     /// - Parameters:
-    ///   - timeInterval: 时间间隔
-    ///   - handler: 定时器的回调
-    /// - Returns: 返回 `Timer`
+    ///   - timeInterval:时间间隔
+    ///   - handler:定时器的回调
+    /// - Returns:返回 `Timer`
     @discardableResult
     static func runThisEvery(timeInterval: TimeInterval, handler: @escaping (Timer?) -> Void) -> Timer? {
         let fireDate = CFAbsoluteTimeGetCurrent()

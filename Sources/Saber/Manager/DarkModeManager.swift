@@ -1,10 +1,10 @@
 import UIKit
 
 /*
- 默认开启：跟随系统模式
+ 默认开启:跟随系统模式
 
  1、跟随系统
- 1.1、需要设置：
+ 1.1、需要设置:
  UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.overrideUserInterfaceStyle = .unspecified
  2、不跟随系统
  2.1、浅色,UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.overrideUserInterfaceStyle = .light
@@ -50,7 +50,7 @@ public class DarkModeManager: NSObject {
         return false
     }
 
-    /// 智能换肤的时间段：默认是：21:00~8:00
+    /// 智能换肤的时间段:默认是:21:00~8:00
     public static var SmartPeelingTimeIntervalValue: String {
         get {
             if let value = UserDefaults.value(for: CMSmartPeelingTimeIntervalKey) as? String {
@@ -99,12 +99,12 @@ public extension DarkModeManager {
         }
     }
 
-    /// 设置：浅色 / 深色
+    /// 设置:浅色 / 深色
     static func setDarkModeCustom(isLight: Bool) {
         if #available(iOS 13.0, *) {
-            // 只要设置了模式：就是黑或者白
+            // 只要设置了模式:就是黑或者白
             UIWindow.keyWindow?.overrideUserInterfaceStyle = isLight ? .light : .dark
-            // 设置跟随系统和智能换肤：否
+            // 设置跟随系统和智能换肤:否
             UserDefaults.setValue(value: false, for: CMDarkToSystemKey)
             UserDefaults.setValue(value: false, for: CMSmartPeelingKey)
             // 黑白模式的设置
@@ -119,21 +119,21 @@ public extension DarkModeManager {
     }
 
     /// 智能换肤
-    /// - Parameter isSmartPeeling: 是否智能换肤
+    /// - Parameter isSmartPeeling:是否智能换肤
     static func setSmartPeelingDarkMode(isSmartPeeling: Bool) {
         if #available(iOS 13.0, *) {
             // 设置智能换肤
             UserDefaults.setValue(value: isSmartPeeling, for: CMSmartPeelingKey)
-            // 智能换肤根据时间段来设置：黑或者白
+            // 智能换肤根据时间段来设置:黑或者白
             UIWindow.keyWindow?.overrideUserInterfaceStyle = isLight ? .light : .dark
-            // 设置跟随系统：否
+            // 设置跟随系统:否
             UserDefaults.setValue(value: false, for: CMDarkToSystemKey)
             UserDefaults.setValue(value: isLight, for: CMLightDarkKey)
         } else {
             // 模式存储
             // 设置智能换肤
             UserDefaults.setValue(value: isSmartPeeling, for: CMSmartPeelingKey)
-            // 设置跟随系统：否
+            // 设置跟随系统:否
             UserDefaults.setValue(value: isLight, for: CMLightDarkKey)
             // 通知模式更新
             SkinManager.shared.updateSkin()
@@ -157,7 +157,7 @@ public extension DarkModeManager {
         DarkModeManager.SmartPeelingTimeIntervalValue = startTime + "~" + endTime
 
         if #available(iOS 13.0, *) {
-            // 只要设置了模式：就是黑或者白
+            // 只要设置了模式:就是黑或者白
             UIWindow.keyWindow?.overrideUserInterfaceStyle = light ? .light : .dark
             // 黑白模式的设置
             UserDefaults.setValue(value: light, for: CMLightDarkKey)
@@ -174,9 +174,9 @@ public extension DarkModeManager {
 public extension DarkModeManager {
     /// 深色模式和浅色模式颜色设置,非layer颜色设置
     /// - Parameters:
-    ///   - lightColor: 浅色模式的颜色
-    ///   - darkColor: 深色模式的颜色
-    /// - Returns: 返回一个颜色(UIColor)
+    ///   - lightColor:浅色模式的颜色
+    ///   - darkColor:深色模式的颜色
+    /// - Returns:返回一个颜色(UIColor)
     static func darkModeColor(lightColor: UIColor, darkColor: UIColor) -> UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { traitCollection -> UIColor in
@@ -201,17 +201,17 @@ public extension DarkModeManager {
         }
     }
 
-    /// 是否为智能换肤的时间：黑色
-    /// - Returns: 结果
+    /// 是否为智能换肤的时间:黑色
+    /// - Returns:结果
     static func isSmartPeelingTime(startTime: String? = nil, endTime: String? = nil) -> Bool {
-        // 获取暗黑模式时间的区间,转为两个时间戳,取出当前的时间戳,看是否在区间内,在的话：黑色,否则白色
+        // 获取暗黑模式时间的区间,转为两个时间戳,取出当前的时间戳,看是否在区间内,在的话:黑色,否则白色
         var timeIntervalValue: [String] = []
         if startTime != nil, endTime != nil {
             timeIntervalValue = [startTime!, endTime!]
         } else {
             timeIntervalValue = DarkModeManager.SmartPeelingTimeIntervalValue.split(with: "~")
         }
-        // 1、时间区间分隔为：开始时间 和 结束时间
+        // 1、时间区间分隔为:开始时间 和 结束时间
         // 2、当前的时间转时间戳
         let currentDate = Date()
         let currentTimeStamp = Int(currentDate.dateAsTimestamp())!
@@ -229,9 +229,9 @@ public extension DarkModeManager {
 public extension DarkModeManager {
     /// 深色图片和浅色图片切换 (深色模式适配)
     /// - Parameters:
-    ///   - light: 浅色模式的图片
-    ///   - dark: 深色模式的图片
-    /// - Returns: 最终图片
+    ///   - light:浅色模式的图片
+    ///   - dark:深色模式的图片
+    /// - Returns:最终图片
     static func darkModeImage(light: UIImage?, dark: UIImage?) -> UIImage? {
         if #available(iOS 13.0, *) {
             guard let weakLight = light,

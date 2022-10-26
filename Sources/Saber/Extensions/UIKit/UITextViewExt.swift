@@ -42,11 +42,11 @@ public extension UITextView {
     /// 限制输入的字数
     /// `- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;`里面调用
     /// - Parameters:
-    ///   - range: 范围
-    ///   - text: 输入的文字
-    ///   - maxCharacters: 限制字数
-    ///   - regex: 可输入内容(正则)
-    /// - Returns: 返回是否可输入
+    ///   - range:范围
+    ///   - text:输入的文字
+    ///   - maxCharacters:限制字数
+    ///   - regex:可输入内容(正则)
+    /// - Returns:返回是否可输入
     func inputRestrictions(shouldChangeTextIn range: NSRange, replacementText text: String, maxCharacters: Int, regex: String?) -> Bool {
         guard !text.isEmpty else {
             return true
@@ -93,8 +93,8 @@ public extension UITextView {
 
     /// 添加链接文本(链接为空时则表示普通文本)
     /// - Parameters:
-    ///   - string: 文本
-    ///   - withURLString: 链接
+    ///   - string:文本
+    ///   - withURLString:链接
     func appendLinkString(string: String, font: UIFont, withURLString: String = "") {
         // 原来的文本内容
         let attrString = NSMutableAttributedString()
@@ -141,7 +141,7 @@ public extension UITextView {
                     let word = words[i]
                     let keyword = chopOffNonAlphaNumericCharacters(word as String)
                     if keyword != "", i > 0 {
-                        // 使用自定义的scheme来表示各种特殊链接,比如：mention:hangge
+                        // 使用自定义的scheme来表示各种特殊链接,比如:mention:hangge
                         // 使得这些字段会变蓝色且可点击
                         // 匹配的范围
                         let remainingRangeLength = min(nsText.length - bookmark2 + 1, word.count + 2)
@@ -156,7 +156,7 @@ public extension UITextView {
                         // 匹配#话题#
                         matchRange = nsText.range(of: "#\(keyword)#", options: .literal, range: remainingRange)
                         attrString.addAttribute(NSAttributedString.Key.link, value: "test2:\(encodeKeyword)", range: matchRange)
-                        // attrString.addAttributes([NSAttributedString.Key.link : "test2:\(encodeKeyword)"], range: matchRange)
+                        // attrString.addAttributes([NSAttributedString.Key.link :"test2:\(encodeKeyword)"], range:matchRange)
                     }
                     // 移动坐标索引记录
                     bookmark2 += word.count + 1
@@ -171,8 +171,8 @@ public extension UITextView {
     }
 
     /// 过滤部多余的非数字和字符的部分
-    /// - Parameter text: @hangge.123 -> @hangge
-    /// - Returns: 返回过滤后的字符串
+    /// - Parameter text:@hangge.123 -> @hangge
+    /// - Returns:返回过滤后的字符串
     private func chopOffNonAlphaNumericCharacters(_ text: String) -> String {
         let nonAlphaNumericCharacters = CharacterSet.alphanumerics.inverted
         let characterArray = text.components(separatedBy: nonAlphaNumericCharacters)
@@ -247,7 +247,7 @@ private extension UITextView {
     }
 
     /// 占位符
-    /// - Parameter placeholder: 占位符
+    /// - Parameter placeholder:占位符
     func initPlaceholder(_ placeholder: String) {
         NotificationCenter.default.addObserver(self, selector: #selector(textChange(_:)), name: UITextView.textDidChangeNotification, object: self)
 
@@ -280,7 +280,7 @@ private extension UITextView {
     }
 
     /// 动态监听
-    /// - Parameter notification: 动态监听
+    /// - Parameter notification:动态监听
     @objc func textChange(_ notification: Notification) {
         let textView = notification.object as! UITextView
         if placeholder != nil {
@@ -298,8 +298,8 @@ public extension UITextView {
     }
 
     /// 设置文字
-    /// - Parameter text: 文字
-    /// - Returns: `Self`
+    /// - Parameter text:文字
+    /// - Returns:`Self`
     @discardableResult
     func text(_ text: String) -> Self {
         self.text = text
@@ -307,8 +307,8 @@ public extension UITextView {
     }
 
     /// 设置富文本
-    /// - Parameter attributedText: 富文本文字
-    /// - Returns: `Self`
+    /// - Parameter attributedText:富文本文字
+    /// - Returns:`Self`
     @discardableResult
     func attributedText(_ attributedText: NSAttributedString) -> Self {
         self.attributedText = attributedText
@@ -316,8 +316,8 @@ public extension UITextView {
     }
 
     /// 设置文本格式
-    /// - Parameter textAlignment: 文本格式
-    /// - Returns: `Self`
+    /// - Parameter textAlignment:文本格式
+    /// - Returns:`Self`
     @discardableResult
     func textAlignment(_ textAlignment: NSTextAlignment) -> Self {
         self.textAlignment = textAlignment
@@ -325,8 +325,8 @@ public extension UITextView {
     }
 
     /// 设置文本颜色
-    /// - Parameter color: 文本颜色
-    /// - Returns: `Self`
+    /// - Parameter color:文本颜色
+    /// - Returns:`Self`
     @discardableResult
     func textColor(_ textColor: UIColor) -> Self {
         self.textColor = textColor
@@ -334,8 +334,8 @@ public extension UITextView {
     }
 
     /// 设置文本颜色(十六进制字符串)
-    /// - Parameter hex: 十六进制字符串
-    /// - Returns: `Self`
+    /// - Parameter hex:十六进制字符串
+    /// - Returns:`Self`
     @discardableResult
     func textColor(_ hex: String) -> Self {
         textColor = UIColor(hex: hex)
@@ -343,8 +343,8 @@ public extension UITextView {
     }
 
     /// 设置文本字体
-    /// - Parameter font: 字体
-    /// - Returns: `Self`
+    /// - Parameter font:字体
+    /// - Returns:`Self`
     @discardableResult
     func font(_ font: UIFont) -> Self {
         self.font = font
@@ -352,8 +352,8 @@ public extension UITextView {
     }
 
     /// 设置系统字体
-    /// - Parameter fontSize: 字体大小
-    /// - Returns: `Self`
+    /// - Parameter fontSize:字体大小
+    /// - Returns:`Self`
     @discardableResult
     func systemFont(_ fontSize: CGFloat) -> Self {
         font = UIFont.systemFont(ofSize: fontSize)
@@ -361,8 +361,8 @@ public extension UITextView {
     }
 
     /// 设置代理
-    /// - Parameter delegate: 代理
-    /// - Returns: `Self`
+    /// - Parameter delegate:代理
+    /// - Returns:`Self`
     @discardableResult
     func delegate(_ delegate: UITextViewDelegate) -> Self {
         self.delegate = delegate
@@ -370,8 +370,8 @@ public extension UITextView {
     }
 
     /// 设置键盘类型
-    /// - Parameter keyboardType: 键盘样式
-    /// - Returns: `Self`
+    /// - Parameter keyboardType:键盘样式
+    /// - Returns:`Self`
     @discardableResult
     func keyboardType(_ keyboardType: UIKeyboardType) -> Self {
         self.keyboardType = keyboardType
@@ -379,8 +379,8 @@ public extension UITextView {
     }
 
     /// 设置键盘`return`键类型
-    /// - Parameter returnKeyType: 按钮样式
-    /// - Returns: `Self`
+    /// - Parameter returnKeyType:按钮样式
+    /// - Returns:`Self`
     @discardableResult
     func returnKeyType(_ returnKeyType: UIReturnKeyType) -> Self {
         self.returnKeyType = returnKeyType
@@ -388,40 +388,40 @@ public extension UITextView {
     }
 
     /// 设置`Return`键是否有内容才可以点击
-    /// - Parameter enable: 是否开启
-    /// - Returns: `Self`
+    /// - Parameter enable:是否开启
+    /// - Returns:`Self`
     func enablesReturnKeyAutomatically(_ enable: Bool) -> Self {
         enablesReturnKeyAutomatically = enable
         return self
     }
 
     /// 设置占位符
-    /// - Parameter placeholder: 占位符文字
-    /// - Returns: `Self`
+    /// - Parameter placeholder:占位符文字
+    /// - Returns:`Self`
     func placeholder(_ placeholder: String) -> Self {
         self.placeholder = placeholder
         return self
     }
 
     /// 设置占位符颜色
-    /// - Parameter textColor: 文字颜色
-    /// - Returns: `Self`
+    /// - Parameter textColor:文字颜色
+    /// - Returns:`Self`
     func placeholderTextColor(_ textColor: UIColor) -> Self {
         placeholderColor = textColor
         return self
     }
 
     /// 设置占位符字体
-    /// - Parameter font: 文字字体
-    /// - Returns: `Self`
+    /// - Parameter font:文字字体
+    /// - Returns:`Self`
     func placeholderFont(_ font: UIFont) -> Self {
         placeholderFont = font
         return self
     }
 
     /// 设置占位符`Origin`
-    /// - Parameter origin: `CGPoint`
-    /// - Returns: `Self`
+    /// - Parameter origin:`CGPoint`
+    /// - Returns:`Self`
     func placeholderOrigin(_ origin: CGPoint) -> Self {
         placeholderOrigin = origin
         return self

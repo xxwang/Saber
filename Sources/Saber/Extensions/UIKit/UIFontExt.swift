@@ -6,7 +6,7 @@ import UIKit
 public extension UIFont {
     /// 把字体转换为粗体
     ///
-    ///     UIFont.preferredFont(forTextStyle: .body).bold
+    ///     UIFont.preferredFont(forTextStyle:.body).bold
     ///
     var bold: UIFont {
         return UIFont(descriptor: fontDescriptor.withSymbolicTraits(.traitBold)!, size: 0)
@@ -14,7 +14,7 @@ public extension UIFont {
 
     /// 把字体转换为斜体
     ///
-    ///     UIFont.preferredFont(forTextStyle: .body).italic
+    ///     UIFont.preferredFont(forTextStyle:.body).italic
     ///
     var italic: UIFont {
         return UIFont(descriptor: fontDescriptor.withSymbolicTraits(.traitItalic)!, size: 0)
@@ -22,7 +22,7 @@ public extension UIFont {
 
     /// 把字体转换为等距字体
     ///
-    ///     UIFont.preferredFont(forTextStyle: .body).monospaced
+    ///     UIFont.preferredFont(forTextStyle:.body).monospaced
     ///
     var monospaced: UIFont {
         let settings = [[
@@ -40,16 +40,16 @@ public extension UIFont {
 public extension UIFont {
     /// 创建`微软雅黑`字体
     /// - Parameters:
-    ///   - type: 类型
-    ///   - size: 大小
+    ///   - type:类型
+    ///   - size:大小
     convenience init(yaHei type: MicrosoftYaHeiFont, size: CGFloat = 12) {
         self.init(name: type.rawValue, size: size)!
     }
 
     /// 创建`苹方`字体
     /// - Parameters:
-    ///   - type: 类型
-    ///   - size: 大小
+    ///   - type:类型
+    ///   - size:大小
     convenience init(pingFang type: PingFangSCFont, size: CGFloat = 12) {
         self.init(name: type.rawValue, size: size)!
     }
@@ -58,8 +58,8 @@ public extension UIFont {
 // MARK: - 链式语法
 public extension UIFont {
     /// 设置字体大小
-    /// - Parameter size: 字体大小
-    /// - Returns: `Self`\
+    /// - Parameter size:字体大小
+    /// - Returns:`Self`\
     @discardableResult
     func fontSize(_ fontSize: CGFloat) -> UIFont {
         return withSize(fontSize)
@@ -72,7 +72,7 @@ public extension UIFont {
     static func printAllFonts() {
         print("────────────────────────────────────────────────────────────")
         for fontFamilyName in UIFont.familyNames {
-            print("字体家族名称: \(fontFamilyName)")
+            print("字体家族名称:\(fontFamilyName)")
             for fontName in UIFont.fontNames(forFamilyName: fontFamilyName) {
                 print("├────── \(fontName)")
             }
@@ -82,9 +82,9 @@ public extension UIFont {
 
     /// `微软雅黑`字体
     /// - Parameters:
-    ///   - type: 字体类型
-    ///   - size: 字体字号
-    /// - Returns: `UIFont`
+    ///   - type:字体类型
+    ///   - size:字体字号
+    /// - Returns:`UIFont`
     static func microsoftYaHei(_ type: MicrosoftYaHeiFont, size: CGFloat) -> UIFont {
         guard let font = UIFont(name: type.rawValue, size: size) else {
             return UIFont.systemFont(ofSize: size)
@@ -94,9 +94,9 @@ public extension UIFont {
 
     /// 苹方字体
     /// - Parameters:
-    ///   - type: 字体类型
-    ///   - size: 字体字号
-    /// - Returns: UIFont
+    ///   - type:字体类型
+    ///   - size:字体字号
+    /// - Returns:UIFont
     static func pingFangSC(_ type: PingFangSCFont, size: CGFloat) -> UIFont {
         guard let font = UIFont(name: type.rawValue, size: size) else {
             return UIFont.systemFont(ofSize: size)
@@ -106,9 +106,9 @@ public extension UIFont {
 
     /// 系统字体
     /// - Parameters:
-    ///   - type: 字体字重(不传`type`为默认字体)
-    ///   - size: 字体字号
-    /// - Returns: `UIFont`
+    ///   - type:字体字重(不传`type`为默认字体)
+    ///   - size:字体字号
+    /// - Returns:`UIFont`
     static func system(_ type: SystemFont? = nil, size: CGFloat) -> UIFont {
         guard let type = type else {
             return .systemFont(ofSize: size)

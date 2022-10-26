@@ -112,16 +112,16 @@ public extension BinaryFloatingPoint {
     }
 
     /// 截断到小数点后某一位
-    /// - Parameter places: 指定位数
-    /// - Returns: 截断后的结果
+    /// - Parameter places:指定位数
+    /// - Returns:截断后的结果
     func truncate(places: Int) -> Self {
         let divisor = pow(10.0, places.double)
         return Self(double * divisor / divisor)
     }
 
     /// 四舍五入到小数点后某一位
-    /// - Parameter places: 指定位数
-    /// - Returns: 四舍五入后的结果
+    /// - Parameter places:指定位数
+    /// - Returns:四舍五入后的结果
     func round(_ places: Int) -> Self {
         let divisor = pow(10.0, places.double)
         return Self((double * divisor).rounded() / divisor)
@@ -129,9 +129,9 @@ public extension BinaryFloatingPoint {
 
     /// 返回具有指定小数位数和舍入规则的舍入值.如果`places`为负数,小数部分则将使用'0'
     /// - Parameters:
-    ///   - places: 预期的小数位数
-    ///   - rule: 要使用的舍入规则
-    /// - Returns: 四舍五入的值
+    ///   - places:预期的小数位数
+    ///   - rule:要使用的舍入规则
+    /// - Returns:四舍五入的值
     func rounded(_ places: Int, rule: FloatingPointRoundingRule) -> Self {
         let factor = Self(pow(10.0, Double(max(0, places))))
         return (self * factor).rounded(rule) / factor

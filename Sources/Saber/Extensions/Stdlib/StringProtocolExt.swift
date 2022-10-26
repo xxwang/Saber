@@ -4,9 +4,9 @@ import Foundation
 public extension StringProtocol {
     /// 获取最长相同后缀
     /// - Parameters:
-    ///   - aString: 用于与`self`比较的对象
-    ///   - options: 选项
-    /// - Returns: 最长相同后缀
+    ///   - aString:用于与`self`比较的对象
+    ///   - options:选项
+    /// - Returns:最长相同后缀
     func commonSuffix<T: StringProtocol>(with aString: T, options: String.CompareOptions = []) -> String {
         return String(zip(reversed(), aString.reversed())
             .lazy

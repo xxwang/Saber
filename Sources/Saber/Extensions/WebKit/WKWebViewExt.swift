@@ -46,7 +46,7 @@ public extension WKWebView {
 // MARK: - 方法
 public extension WKWebView {
     /// 获取网页快照
-    /// - Parameter completion: 完成回调
+    /// - Parameter completion:完成回调
     func makemakeScreenshot(_ completion: @escaping (_ image: UIImage?) -> Void) {
         scrollView.makeScreenshot(completion)
     }
@@ -55,21 +55,21 @@ public extension WKWebView {
 // MARK: - 脚本
 public extension WKWebView {
     /// 向WKWebView注册JS代码
-    /// - Parameter sourceCode: 要注入的JS代码
+    /// - Parameter sourceCode:要注入的JS代码
     func addUserScript(_ sourceCode: String) {
         let userScript = WKUserScript(source: sourceCode, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         configuration.userContentController.addUserScript(userScript)
     }
 
     /// 在WKWebView执行JS代码
-    /// - Parameter sourceCode: 注入的js代码
+    /// - Parameter sourceCode:注入的js代码
     func evaluateScript(_ sourceCode: String, completionHandler: ((Any?, Error?) -> Void)? = nil) {
         evaluateJavaScript(sourceCode, completionHandler: completionHandler)
     }
 
     /// 调整字体的比例
-    /// - Parameter ratio: 比例
-    /// - Returns: 返回结果
+    /// - Parameter ratio:比例
+    /// - Returns:返回结果
     func adjustFontSizeRatio(_ ratio: CGFloat) {
         let scriptCode = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(ratio)%'"
         evaluateScript(scriptCode)
@@ -86,10 +86,10 @@ public extension WKWebView {
 public extension WKWebView {
     /// 加载网页(URL字符串)方法解决:Web页面包含了`Ajax`请求的话, `cookie`要重新处理, 这个处理需要在`WKWebView`的`WKWebViewConfiguration`中进行配置
     /// - Parameters:
-    ///   - urlString: 要加载的URL链接地址字符串
-    ///   - headers: 要加载的请求头
-    ///   - timeout: 超时时间
-    /// - Returns: WKNavigation
+    ///   - urlString:要加载的URL链接地址字符串
+    ///   - headers:要加载的请求头
+    ///   - timeout:超时时间
+    /// - Returns:WKNavigation
     func load(_ urlString: String?, headers: [String: Any]? = nil, timeout: TimeInterval? = nil) -> WKNavigation? {
         guard let urlString = urlString,
               let url = URL(string: urlString)
@@ -102,10 +102,10 @@ public extension WKWebView {
 
     /// 加载网页(URL)方法解决:Web页面包含了`Ajax`请求的话, `cookie`要重新处理, 这个处理需要在`WKWebView`的`WKWebViewConfiguration`中进行配置
     /// - Parameters:
-    ///   - url: 要加载的URL链接地址
-    ///   - headers: 要加载的请求头
-    ///   - timeout: 超时时间
-    /// - Returns: WKNavigation
+    ///   - url:要加载的URL链接地址
+    ///   - headers:要加载的请求头
+    ///   - timeout:超时时间
+    /// - Returns:WKNavigation
     @discardableResult
     func load(_ url: URL?, headers: [String: Any]? = nil, timeout: TimeInterval? = nil) -> WKNavigation? {
         // 要加载的URL

@@ -25,11 +25,11 @@ public extension PhotoManager {
     ///
     /// - APP需要您的同意,才能访问相机进行拍摄/识别/视频通话,如禁止将无法拍摄/识别图片以及视频通话
     /// - Parameters:
-    ///   - editor: 是否是编辑状态
-    ///   - complete: image回调
+    ///   - editor:是否是编辑状态
+    ///   - complete:image回调
     func openCamera(editor: Bool, complete: @escaping (_ image: UIImage) -> Void) -> UIImagePickerController? {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-            print("\(#file) - [\(#line)]: camera is invalid, please check")
+            print("\(#file) - [\(#line)]:camera is invalid, please check")
             return nil
         }
         completed = complete
@@ -47,8 +47,8 @@ public extension PhotoManager {
     /// - APP需要您的同意,才能访问相册进行选择照片上传/发布信息,如禁止将无法上传选择照片上传/发布信息
     /// - APP需要您的同意,才能将照片保存至相册,如禁止将无法保存图片
     /// - Parameters:
-    ///   - editor: 是否允许编辑
-    ///   - complete: image回调
+    ///   - editor:是否允许编辑
+    ///   - complete:image回调
     func openPhotoLibrary(editor: Bool = false, complete: @escaping (_ image: UIImage) -> Void) -> UIImagePickerController {
         completed = complete
         isEditor = editor
@@ -102,9 +102,9 @@ public extension PhotoManager {
 
     /// 保存图片到自定义相册
     /// - Parameters:
-    ///   - image: 要保存的图片
-    ///   - albumName: 自定义相册名称
-    ///   - completion: 完成回调
+    ///   - image:要保存的图片
+    ///   - albumName:自定义相册名称
+    ///   - completion:完成回调
     func saveImage2Album(_ image: UIImage, albumName: String = "", completion: ((_ result: AlbumResult) -> Void)?) {
         // 验证权限
         if !PHPhotoLibraryIsAuthorized {
