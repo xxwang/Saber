@@ -14,7 +14,7 @@ public extension UICollectionViewCell {
 // MARK: - 方法
 public extension UICollectionViewCell {
     /// `cell`所在`UICollectionView`
-    /// - Returns:`UICollectionView`, 未找到返回`nil`
+    /// - Returns: `UICollectionView`, 未找到返回`nil`
     func collectionView() -> UICollectionView? {
         for view in sequence(first: superview, next: { $0?.superview }) {
             if let collectionView = view as? UICollectionView {

@@ -6,7 +6,7 @@ public class RuntimeManager: NSObject {}
 // MARK: - 静态方法
 public extension RuntimeManager {
     /// 成员变量列表
-    /// - Parameter type:类型
+    /// - Parameter type: 类型
     @discardableResult
     static func ivars(_ type: AnyClass) -> [String] {
         var listName = [String]()
@@ -23,8 +23,8 @@ public extension RuntimeManager {
     }
 
     /// 获取所有的属性名字
-    /// - Parameter aClass:类名
-    /// - Returns:返回属性名字数组
+    /// - Parameter aClass: 类名
+    /// - Returns: 返回属性名字数组
     @discardableResult
     static func getAllPropertyName(_ aClass: AnyClass) -> [String] {
         var count = UInt32()
@@ -45,8 +45,8 @@ public extension RuntimeManager {
     }
 
     /// 获取方法列表
-    /// - Parameter classType:所属类型
-    /// - Returns:方法列表
+    /// - Parameter classType: 所属类型
+    /// - Returns: 方法列表
     @discardableResult
     static func methods(from classType: AnyClass) -> [Selector] {
         var methodNum: UInt32 = 0
@@ -67,9 +67,9 @@ public extension RuntimeManager {
 public extension RuntimeManager {
     /// 交换方法(方法为字符串格式)
     /// - Parameters:
-    ///   - target:被交换的方法名
-    ///   - replace:用于交换的方法名
-    ///   - classType:所属类型
+    ///   - target: 被交换的方法名
+    ///   - replace: 用于交换的方法名
+    ///   - classType: 所属类型
     static func exchangeMethod(target: String,
                                replace: String,
                                class classType: AnyClass)
@@ -81,9 +81,9 @@ public extension RuntimeManager {
 
     /// 交换方法(方法为Selector格式)
     /// - Parameters:
-    ///   - selector:被交换的方法
-    ///   - replace:用于交换的方法
-    ///   - classType:所属类型
+    ///   - selector: 被交换的方法
+    ///   - replace: 用于交换的方法
+    ///   - classType: 所属类型
     static func exchangeMethod(selector: Selector,
                                replace: Selector,
                                class classType: AnyClass)

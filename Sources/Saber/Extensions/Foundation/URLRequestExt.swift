@@ -18,7 +18,7 @@ public extension URLRequest {
 
         if let headers = allHTTPHeaderFields {
             for (key, value) in headers where key != "Cookie" {
-                command.append("-H '\(key):\(value)'")
+                command.append("-H '\(key): \(value)'")
             }
         }
 
@@ -35,7 +35,7 @@ public extension URLRequest {
 // MARK: - 构造方法
 public extension URLRequest {
     /// 使用URL字符串创建`URLRequest`
-    /// - Parameter urlString:`URL`字符串
+    /// - Parameter urlString: `URL`字符串
     init?(urlString: String) {
         guard let url = URL(string: urlString) else { return nil }
         self.init(url: url)

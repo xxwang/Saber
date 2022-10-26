@@ -18,8 +18,8 @@ public extension Locale {
 
 public extension Locale {
     /// 获取给定国家/地区代码的国旗表情符号
-    /// - Parameter isoRegionCode:`ISO`区域代码
-    /// - Returns:给定地区代码的标志符号字符串(可选)
+    /// - Parameter isoRegionCode: `ISO`区域代码
+    /// - Returns: 给定地区代码的标志符号字符串(可选)
     static func flagEmoji(forRegionCode isoRegionCode: String) -> String? {
         return isoRegionCode.unicodeScalars.reduce(into: String()) {
             guard let flagScalar = UnicodeScalar(UInt32(127_397) + $1.value) else { return }

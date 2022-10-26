@@ -3,14 +3,14 @@ import Foundation
 // MARK: - 排序
 public extension MutableCollection where Self: RandomAccessCollection {
     /// 根据`keyPath`和`compare`函数对集合进行排序
-    /// - Parameters keyPath:路径
-    /// - Parameter compare:比较函数
+    /// - Parameters keyPath: 路径
+    /// - Parameter compare: 比较函数
     mutating func sort<T>(by keyPath: KeyPath<Element, T>, with compare: (T, T) -> Bool) {
         sort { compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
     }
 
     /// 根据`keyPath`对集合进行排序
-    /// - Parameters keyPath:路径
+    /// - Parameters keyPath: 路径
     mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>) {
         sort { $0[keyPath: keyPath] < $1[keyPath: keyPath] }
     }
@@ -32,9 +32,9 @@ public extension MutableCollection where Self: RandomAccessCollection {
 
     /// 根据三个路径对集合进行排序
     /// - Parameters:
-    ///     - keyPath1:要排序的路径 需要遵守`Comparable`协议
-    ///     - keyPath2:`keyPath1`结果相等 使用`keyPath2` 需要遵守`Comparable`协议
-    ///     - keyPath3:`keyPath2`结果相等 使用`keyPath3` 需要遵守`Comparable`协议
+    ///     - keyPath1: 要排序的路径 需要遵守`Comparable`协议
+    ///     - keyPath2: `keyPath1`结果相等 使用`keyPath2` 需要遵守`Comparable`协议
+    ///     - keyPath3: `keyPath2`结果相等 使用`keyPath3` 需要遵守`Comparable`协议
     mutating func sort<T: Comparable, U: Comparable, V: Comparable>(by keyPath1: KeyPath<Element, T>,
                                                                     and keyPath2: KeyPath<Element, U>,
                                                                     and keyPath3: KeyPath<Element, V>)
@@ -55,8 +55,8 @@ public extension MutableCollection where Self: RandomAccessCollection {
 public extension MutableCollection {
     /// 为集合中所有元素的指定`keyPath`赋一个值
     /// - Parameters:
-    ///   - value:要赋的值
-    ///   - keyPath:路径
+    ///   - value: 要赋的值
+    ///   - keyPath: 路径
     mutating func assignToAll<Value>(value: Value, by keyPath: WritableKeyPath<Element, Value>) {
         for idx in indices {
             self[idx][keyPath: keyPath] = value

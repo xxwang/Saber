@@ -16,8 +16,8 @@ public extension CATextLayer {
     }
 
     /// 设置文字的内容
-    /// - Parameter string:文字内容
-    /// - Returns:`Self`
+    /// - Parameter string: 文字内容
+    /// - Returns: `Self`
     @discardableResult
     func string(_ string: String) -> Self {
         self.string = string
@@ -25,8 +25,8 @@ public extension CATextLayer {
     }
 
     /// 设置 `NSAttributedString` 文字
-    /// - Parameter attributedString:`NSAttributedString`文字
-    /// - Returns:`Self`
+    /// - Parameter attributedString: `NSAttributedString`文字
+    /// - Returns: `Self`
     @discardableResult
     func attributedString(_ attributedString: NSAttributedString) -> Self {
         string = attributedString
@@ -34,8 +34,8 @@ public extension CATextLayer {
     }
 
     /// 自动换行,默认NO
-    /// - Parameter isWrapped:是否自动换行
-    /// - Returns:`Self`
+    /// - Parameter isWrapped: 是否自动换行
+    /// - Returns: `Self`
     @discardableResult
     func isWrapped(_ isWrapped: Bool) -> Self {
         self.isWrapped = isWrapped
@@ -43,12 +43,12 @@ public extension CATextLayer {
     }
 
     /// 当文本显示不全时的裁剪方式
-    /// - Parameter truncationMode:裁剪方式
+    /// - Parameter truncationMode: 裁剪方式
     /// none 不剪裁,默认
     /// start 剪裁开始部分
     /// end 剪裁结束部分
     /// middle 剪裁中间部分
-    /// - Returns:`Self`
+    /// - Returns: `Self`
     @discardableResult
     func truncationMode(_ truncationMode: CATextLayerTruncationMode) -> Self {
         self.truncationMode = truncationMode
@@ -56,8 +56,8 @@ public extension CATextLayer {
     }
 
     /// 文本显示模式
-    /// - Parameter alignmentMode:文本显示模式
-    /// - Returns:ccc
+    /// - Parameter alignmentMode: 文本显示模式
+    /// - Returns: ccc
     @discardableResult
     func alignmentMode(_ alignmentMode: CATextLayerAlignmentMode) -> Self {
         self.alignmentMode = alignmentMode
@@ -65,8 +65,8 @@ public extension CATextLayer {
     }
 
     /// 设置字体的颜色
-    /// - Parameter foregroundColor:字体的颜色
-    /// - Returns:`Self`
+    /// - Parameter foregroundColor: 字体的颜色
+    /// - Returns: `Self`
     @discardableResult
     func foregroundColor(_ foregroundColor: UIColor) -> Self {
         self.foregroundColor = foregroundColor.cgColor
@@ -74,8 +74,8 @@ public extension CATextLayer {
     }
 
     /// 设置字体的颜色(十六进制)
-    /// - Parameter hex:十六进制字符串颜色
-    /// - Returns:`Self`
+    /// - Parameter hex: 十六进制字符串颜色
+    /// - Returns: `Self`
     @discardableResult
     func foregroundColor(_ hex: String) -> Self {
         foregroundColor = UIColor(hex: hex).cgColor
@@ -83,8 +83,8 @@ public extension CATextLayer {
     }
 
     /// 设置内容缩放
-    /// - Parameter scale:内容缩放(默认:`UIScreen.main.scale`)
-    /// - Returns:`Self`
+    /// - Parameter scale: 内容缩放(默认: `UIScreen.main.scale`)
+    /// - Returns: `Self`
     @discardableResult
     func contentsScale(_ scale: CGFloat = UIScreen.main.scale) -> Self {
         contentsScale = scale
@@ -92,8 +92,8 @@ public extension CATextLayer {
     }
 
     /// 设置字体的大小
-    /// - Parameter fontSize:字体的大小
-    /// - Returns:`Self`
+    /// - Parameter fontSize: 字体的大小
+    /// - Returns: `Self`
     @discardableResult
     func fontSize(_ fontSize: CGFloat) -> Self {
         self.fontSize = fontSize
@@ -105,8 +105,8 @@ public extension CATextLayer {
     }
 
     /// 设置字体
-    /// - Parameter font:字体
-    /// - Returns:`Self`
+    /// - Parameter font: 字体
+    /// - Returns: `Self`
     @discardableResult
     func font(_ font: UIFont) -> Self {
         self.font = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
@@ -115,8 +115,8 @@ public extension CATextLayer {
     }
 
     /// 设置字体粗体
-    /// - Parameter boldfontSize:粗体字体大小
-    /// - Returns:`Self`
+    /// - Parameter boldfontSize: 粗体字体大小
+    /// - Returns: `Self`
     @discardableResult
     func boldFont(_ boldfontSize: CGFloat) -> Self {
         fontSize = boldfontSize

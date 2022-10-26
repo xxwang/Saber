@@ -18,9 +18,9 @@ public extension DocumentManager {
     /// - `Capabilities` -> `iCloud` -> `iCould Documents`允许访问文件
     /// - `Containers` -> `+` -> `iCloud.bundleid` 允许下载icloud资源
     /// - Parameters:
-    ///   - types:需要的文件类型
-    ///   - mode:操作模式
-    ///   - complete:完成回调(文件数据,文件名)
+    ///   - types: 需要的文件类型
+    ///   - mode: 操作模式
+    ///   - complete: 完成回调(文件数据,文件名)
     func openDocument(_ types: [String], mode: UIDocumentPickerMode, complete: @escaping (_ isSuccess: Bool, _ data: Data?, _ fileName: String?) -> Void) {
         completion = complete
         //    常用格式

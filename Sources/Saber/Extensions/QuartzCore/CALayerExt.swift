@@ -26,12 +26,12 @@ public extension CALayer {
     /// BasicAnimation 移动到指定`CGPoint`
     /// 实际为移动CALyer的`position`, `position`默认为图层的中心点位置
     /// - Parameters:
-    ///   - endPoint:要移动到的`Point`
-    ///   - duration:动画持续时长
-    ///   - delay:延时
-    ///   - repeatCount:重复动画次数
-    ///   - removedOnCompletion:在动画完成后是否移除动画
-    ///   - option:动画节奏控制
+    ///   - endPoint: 要移动到的`Point`
+    ///   - duration: 动画持续时长
+    ///   - delay: 延时
+    ///   - repeatCount: 重复动画次数
+    ///   - removedOnCompletion: 在动画完成后是否移除动画
+    ///   - option: 动画节奏控制
     func animationMovePoint(
         to endPoint: CGPoint,
         duration: TimeInterval,
@@ -54,12 +54,12 @@ public extension CALayer {
 
     /// BasicAnimation X值移动动画
     /// - Parameters:
-    ///   - moveValue:移动到的X值
-    ///   - duration:动画持续时长
-    ///   - delay:延时
-    ///   - repeatCount:重复动画次数
-    ///   - removedOnCompletion:在动画完成后是否移除动画
-    ///   - option:动画节奏控制
+    ///   - moveValue: 移动到的X值
+    ///   - duration: 动画持续时长
+    ///   - delay: 延时
+    ///   - repeatCount: 重复动画次数
+    ///   - removedOnCompletion: 在动画完成后是否移除动画
+    ///   - option: 动画节奏控制
     func animationMoveX(
         moveValue: Any?,
         duration: TimeInterval = 2.0,
@@ -82,12 +82,12 @@ public extension CALayer {
 
     /// BasicAnimation Y值移动动画
     /// - Parameters:
-    ///   - moveValue:移动到的Y值
-    ///   - duration:动画持续时长
-    ///   - delay:延时
-    ///   - repeatCount:重复动画次数
-    ///   - removedOnCompletion:在动画完成后是否移除动画
-    ///   - option:动画节奏控制
+    ///   - moveValue: 移动到的Y值
+    ///   - duration: 动画持续时长
+    ///   - delay: 延时
+    ///   - repeatCount: 重复动画次数
+    ///   - removedOnCompletion: 在动画完成后是否移除动画
+    ///   - option: 动画节奏控制
     func animationMoveY(
         moveValue: Any?,
         duration: TimeInterval = 2.0,
@@ -110,12 +110,12 @@ public extension CALayer {
 
     /// BasicAnimation圆角动画
     /// - Parameters:
-    ///   - cornerRadius:圆角大小
-    ///   - duration:动画持续时长
-    ///   - delay:延时
-    ///   - repeatCount:重复动画次数
-    ///   - removedOnCompletion:在动画完成后是否移除动画
-    ///   - option:动画节奏控制
+    ///   - cornerRadius: 圆角大小
+    ///   - duration: 动画持续时长
+    ///   - delay: 延时
+    ///   - repeatCount: 重复动画次数
+    ///   - removedOnCompletion: 在动画完成后是否移除动画
+    ///   - option: 动画节奏控制
     func animationCornerRadius(
         cornerRadius: Any?,
         duration: TimeInterval = 2.0,
@@ -138,12 +138,12 @@ public extension CALayer {
 
     /// BasicAnimation缩放动画
     /// - Parameters:
-    ///   - scaleValue:缩放值
-    ///   - duration:动画持续时长
-    ///   - delay:延时
-    ///   - repeatCount:重复动画次数
-    ///   - removedOnCompletion:在动画完成后是否移除动画
-    ///   - option:动画节奏控制
+    ///   - scaleValue: 缩放值
+    ///   - duration: 动画持续时长
+    ///   - delay: 延时
+    ///   - repeatCount: 重复动画次数
+    ///   - removedOnCompletion: 在动画完成后是否移除动画
+    ///   - option: 动画节奏控制
     func animationScale(
         scaleValue: Any?,
         duration: TimeInterval = 2.0,
@@ -166,12 +166,12 @@ public extension CALayer {
 
     /// BasicAnimation旋转动画
     /// - Parameters:
-    ///   - rotation:旋转的角度
-    ///   - duration:动画持续时长
-    ///   - delay:延时
-    ///   - repeatCount:重复动画次数
-    ///   - removedOnCompletion:在动画完成后是否移除动画
-    ///   - option:动画节奏控制
+    ///   - rotation: 旋转的角度
+    ///   - duration: 动画持续时长
+    ///   - delay: 延时
+    ///   - repeatCount: 重复动画次数
+    ///   - removedOnCompletion: 在动画完成后是否移除动画
+    ///   - option: 动画节奏控制
     func animationRotation(
         rotation: Any?,
         duration: TimeInterval = 2.0,
@@ -194,14 +194,14 @@ public extension CALayer {
 
     /// `CABasicAnimation`基础动画
     /// - Parameters:
-    ///   - keyPath:动画的类型
-    ///   - startValue:开始值
-    ///   - endValue:结束值
-    ///   - duration:动画时长
-    ///   - delay:延时
-    ///   - repeatCount:重复动画次数
-    ///   - removedOnCompletion:在动画完成后是否移除动画
-    ///   - option:动画节奏控制
+    ///   - keyPath: 动画的类型
+    ///   - startValue: 开始值
+    ///   - endValue: 结束值
+    ///   - duration: 动画时长
+    ///   - delay: 延时
+    ///   - repeatCount: 重复动画次数
+    ///   - removedOnCompletion: 在动画完成后是否移除动画
+    ///   - option: 动画节奏控制
     func baseBasicAnimation(
         keyPath: String,
         startValue: Any?,
@@ -243,13 +243,13 @@ public extension CALayer {
 public extension CALayer {
     /// `position`动画(移动是以视图的`锚点`移动的, 默认是视图的`中心点`)
     /// - Parameters:
-    ///   - values:位置数组(CGPoint)
-    ///   - keyTimes:位置对应的时间点数组
-    ///   - duration:动画时长
-    ///   - delay:延时
-    ///   - repeatCount:动画重复次数
-    ///   - removedOnCompletion:动画完成是否移除动画
-    ///   - option:动画选项
+    ///   - values: 位置数组(CGPoint)
+    ///   - keyTimes: 位置对应的时间点数组
+    ///   - duration: 动画时长
+    ///   - delay: 延时
+    ///   - repeatCount: 动画重复次数
+    ///   - removedOnCompletion: 动画完成是否移除动画
+    ///   - option: 动画选项
     func addKeyframeAnimationPosition(
         values: [Any],
         keyTimes: [NSNumber]?,
@@ -274,13 +274,13 @@ public extension CALayer {
 
     /// 抖动动画(根据传入的弧度)
     /// - Parameters:
-    ///   - values:弧度数组
-    ///   - keyTimes:每帧的时间点
-    ///   - duration:动画时长
-    ///   - delay:延时
-    ///   - repeatCount:动画重复次数
-    ///   - removedOnCompletion:动画完成是否移除
-    ///   - option:动画选项
+    ///   - values: 弧度数组
+    ///   - keyTimes: 每帧的时间点
+    ///   - duration: 动画时长
+    ///   - delay: 延时
+    ///   - repeatCount: 动画重复次数
+    ///   - removedOnCompletion: 动画完成是否移除
+    ///   - option: 动画选项
     func addKeyframeAnimationRotation(
         values: [Any] = [
             -5.cgFloat.degreesAsRadians,
@@ -309,12 +309,12 @@ public extension CALayer {
 
     /// `CGPath`移动动画
     /// - Parameters:
-    ///   - path:动画路径
-    ///   - duration:动画时长
-    ///   - delay:延时
-    ///   - repeatCount:动画重复次数
-    ///   - removedOnCompletion:是否在动画完成后移除动画
-    ///   - option:动画控制选项
+    ///   - path: 动画路径
+    ///   - duration: 动画时长
+    ///   - delay: 延时
+    ///   - repeatCount: 动画重复次数
+    ///   - removedOnCompletion: 是否在动画完成后移除动画
+    ///   - option: 动画控制选项
     func addKeyframeAnimationPositionBezierPath(
         path: CGPath? = nil,
         duration: TimeInterval = 2.0,
@@ -336,15 +336,15 @@ public extension CALayer {
 
     /// `CAKeyframeAnimation`基础动画
     /// - Parameters:
-    ///   - keyPath:动画的类型(旋转/缩放/移动/...)
-    ///   - values:对应动画类型的值数组(每个时间点的值)
-    ///   - keyTimes:对应值数组的时间数组
-    ///   - duration:动画时长
-    ///   - delay:延时
-    ///   - repeatCount:动画重复的次数
-    ///   - path:动画路径
-    ///   - removedOnCompletion:是否在动画完成之后移除动画
-    ///   - option:动画节奏控制选项
+    ///   - keyPath: 动画的类型(旋转/缩放/移动/...)
+    ///   - values: 对应动画类型的值数组(每个时间点的值)
+    ///   - keyTimes: 对应值数组的时间数组
+    ///   - duration: 动画时长
+    ///   - delay: 延时
+    ///   - repeatCount: 动画重复的次数
+    ///   - path: 动画路径
+    ///   - removedOnCompletion: 是否在动画完成之后移除动画
+    ///   - option: 动画节奏控制选项
     func baseKeyframeAnimation(
         keyPath: String,
         values: [Any]? = nil,
@@ -400,11 +400,11 @@ public extension CALayer {
  比UIVIew转场动画具有更多的动画效果,
  原生默认Push视图的效果就是通过CATransition的kCATransitionPush类型来实现
 
- type:过渡动画的类型
- fade:渐变
- moveIn:覆盖
- push:推出
- reveal:揭开
+ type: 过渡动画的类型
+ fade: 渐变
+ moveIn: 覆盖
+ push: 推出
+ reveal: 揭开
 
  私有动画类型的值有:
  "cube"
@@ -415,19 +415,19 @@ public extension CALayer {
  "pageUnCurl"
  ...
 
- subtype:过渡动画的方向
- fromRight:从右边
- fromLeft:从左边
- fromTop:从顶部
- fromBottom:从底部
+ subtype: 过渡动画的方向
+ fromRight: 从右边
+ fromLeft: 从左边
+ fromTop: 从顶部
+ fromBottom: 从底部
  */
 public extension CALayer {
     /// 过渡动画
     /// - Parameters:
-    ///   - type:过渡动画的类型
-    ///   - subtype:过渡动画的方向
-    ///   - duration:动画的时间
-    ///   - delay:延时
+    ///   - type: 过渡动画的类型
+    ///   - subtype: 过渡动画的方向
+    ///   - duration: 动画的时间
+    ///   - delay: 延时
     func addTransition(
         type: CATransitionType,
         subtype: CATransitionSubtype?,
@@ -460,15 +460,15 @@ public extension CALayer {
 public extension CALayer {
     /// `CASpringAnimation`Bounds 动画
     /// - Parameters:
-    ///   - toValue:动画目标值(CGRect)
-    ///   - delay:延时
-    ///   - mass:质量(影响弹簧的惯性,质量越大,弹簧惯性越大,运动的幅度越大)
-    ///   - stiffness:刚度系数(劲度系数/弹性系数),刚度系数越大,形变产生的力就越大,运动越快
-    ///   - damping:阻尼系数(阻尼系数越大,弹簧的停止越快)
-    ///   - initialVelocity:始速率(弹簧动画的初始速度大小,弹簧运动的初始方向与初始速率的正负一致,若初始速率为0,表示忽略该属性)
-    ///   - repeatCount:动画重复次数
-    ///   - removedOnCompletion:动画完成是否移除动画
-    ///   - option:动画控制选项
+    ///   - toValue: 动画目标值(CGRect)
+    ///   - delay: 延时
+    ///   - mass: 质量(影响弹簧的惯性,质量越大,弹簧惯性越大,运动的幅度越大)
+    ///   - stiffness: 刚度系数(劲度系数/弹性系数),刚度系数越大,形变产生的力就越大,运动越快
+    ///   - damping: 阻尼系数(阻尼系数越大,弹簧的停止越快)
+    ///   - initialVelocity: 始速率(弹簧动画的初始速度大小,弹簧运动的初始方向与初始速率的正负一致,若初始速率为0,表示忽略该属性)
+    ///   - repeatCount: 动画重复次数
+    ///   - removedOnCompletion: 动画完成是否移除动画
+    ///   - option: 动画控制选项
     func addSpringAnimationBounds(
         toValue: Any?,
         delay: TimeInterval = 0,
@@ -495,16 +495,16 @@ public extension CALayer {
 
     /// `CASpringAnimation`动画
     /// - Parameters:
-    ///   - path:动画类型
-    ///   - toValue:动画目标值
-    ///   - delay:延时
-    ///   - mass:质量(影响弹簧的惯性,质量越大,弹簧惯性越大,运动的幅度越大)
-    ///   - stiffness:刚度系数(劲度系数/弹性系数),刚度系数越大,形变产生的力就越大,运动越快
-    ///   - damping:阻尼系数(阻尼系数越大,弹簧的停止越快)
-    ///   - initialVelocity:始速率(弹簧动画的初始速度大小,弹簧运动的初始方向与初始速率的正负一致,若初始速率为0,表示忽略该属性)
-    ///   - repeatCount:动画重复次数
-    ///   - removedOnCompletion:动画完成是否移除动画
-    ///   - option:动画控制选项
+    ///   - path: 动画类型
+    ///   - toValue: 动画目标值
+    ///   - delay: 延时
+    ///   - mass: 质量(影响弹簧的惯性,质量越大,弹簧惯性越大,运动的幅度越大)
+    ///   - stiffness: 刚度系数(劲度系数/弹性系数),刚度系数越大,形变产生的力就越大,运动越快
+    ///   - damping: 阻尼系数(阻尼系数越大,弹簧的停止越快)
+    ///   - initialVelocity: 始速率(弹簧动画的初始速度大小,弹簧运动的初始方向与初始速率的正负一致,若初始速率为0,表示忽略该属性)
+    ///   - repeatCount: 动画重复次数
+    ///   - removedOnCompletion: 动画完成是否移除动画
+    ///   - option: 动画控制选项
     func baseSpringAnimation(
         path: String?,
         toValue: Any? = nil,
@@ -528,7 +528,7 @@ public extension CALayer {
         springAnimation.damping = damping
         // 初始速率,动画视图的初始速度大小;速率为正数时,速度方向与运动方向一致,速率为负数时,速度方向与运动方向相反
         springAnimation.initialVelocity = initialVelocity
-        // settlingDuration:结算时间(根据动画参数估算弹簧开始运动到停止的时间,动画设置的时间最好根据此时间来设置)
+        // settlingDuration: 结算时间(根据动画参数估算弹簧开始运动到停止的时间,动画设置的时间最好根据此时间来设置)
         springAnimation.duration = springAnimation.settlingDuration
         // 目标值
         springAnimation.toValue = toValue
@@ -553,12 +553,12 @@ public extension CALayer {
 public extension CALayer {
     /// `CAAnimationGroup`动画
     /// - Parameters:
-    ///   - animations:要执行的`CAAnimation`动画数组
-    ///   - duration:动画时长
-    ///   - delay:延时
-    ///   - repeatCount:动画重复次数
-    ///   - removedOnCompletion:动画完成是否移除动画
-    ///   - option:动画控制选项
+    ///   - animations: 要执行的`CAAnimation`动画数组
+    ///   - duration: 动画时长
+    ///   - delay: 延时
+    ///   - repeatCount: 动画重复次数
+    ///   - removedOnCompletion: 动画完成是否移除动画
+    ///   - option: 动画控制选项
     func baseAnimationGroup(
         animations: [CAAnimation]? = nil,
         duration: TimeInterval = 2.0,
@@ -595,8 +595,8 @@ public extension CALayer {
     }
 
     /// 设置背景色
-    /// - Parameter color:背景色
-    /// - Returns:`Self`
+    /// - Parameter color: 背景色
+    /// - Returns: `Self`
     @discardableResult
     func backgroundColor(_ color: UIColor) -> Self {
         backgroundColor = color.cgColor
@@ -604,8 +604,8 @@ public extension CALayer {
     }
 
     /// 设置背景色 (十六进制字符串)
-    /// - Parameter hex:背景色 (十六进制字符串)
-    /// - Returns:`Self`
+    /// - Parameter hex: 背景色 (十六进制字符串)
+    /// - Returns: `Self`
     @discardableResult
     func backgroundColor(_ hex: String) -> Self {
         backgroundColor = UIColor(hex: hex).cgColor
@@ -613,8 +613,8 @@ public extension CALayer {
     }
 
     /// 设置frame
-    /// - Parameter frame:frame
-    /// - Returns:`Self`
+    /// - Parameter frame: frame
+    /// - Returns: `Self`
     @discardableResult
     func frame(_ frame: CGRect) -> Self {
         self.frame = frame
@@ -622,8 +622,8 @@ public extension CALayer {
     }
 
     /// 添加到父视图
-    /// - Parameter superView:父视图(UIView)
-    /// - Returns:`Self`
+    /// - Parameter superView: 父视图(UIView)
+    /// - Returns: `Self`
     @discardableResult
     func add(to superView: UIView) -> Self {
         superView.layer.addSublayer(self)
@@ -631,8 +631,8 @@ public extension CALayer {
     }
 
     /// 添加到父视图(CALayer)
-    /// - Parameter superLayer:父视图(CALayer)
-    /// - Returns:`Self`
+    /// - Parameter superLayer: 父视图(CALayer)
+    /// - Returns: `Self`
     @discardableResult
     func add(to superLayer: CALayer) -> Self {
         superLayer.addSublayer(self)
@@ -640,8 +640,8 @@ public extension CALayer {
     }
 
     /// 是否隐藏
-    /// - Parameter isHidden:是否隐藏
-    /// - Returns:`Self`
+    /// - Parameter isHidden: 是否隐藏
+    /// - Returns: `Self`
     @discardableResult
     func isHidden(_ isHidden: Bool) -> Self {
         self.isHidden = isHidden
@@ -649,8 +649,8 @@ public extension CALayer {
     }
 
     /// 设置边框宽度
-    /// - Parameter width:边框宽度
-    /// - Returns:`Self`
+    /// - Parameter width: 边框宽度
+    /// - Returns: `Self`
     @discardableResult
     func borderWidth(_ width: CGFloat) -> Self {
         borderWidth = width
@@ -658,8 +658,8 @@ public extension CALayer {
     }
 
     /// 设置边框颜色
-    /// - Parameter color:边框颜色
-    /// - Returns:`Self`
+    /// - Parameter color: 边框颜色
+    /// - Returns: `Self`
     @discardableResult
     func borderColor(_ color: UIColor) -> Self {
         borderColor = color.cgColor
@@ -667,8 +667,8 @@ public extension CALayer {
     }
 
     /// 设置边框颜色(十六进制颜色值)
-    /// - Parameter hex:边框颜色
-    /// - Returns:`Self`
+    /// - Parameter hex: 边框颜色
+    /// - Returns: `Self`
     @discardableResult
     func borderColor(_ hex: String) -> Self {
         borderColor = UIColor(hex: hex).cgColor
@@ -676,8 +676,8 @@ public extension CALayer {
     }
 
     /// 是否开启光栅化
-    /// - Parameter rasterize:是否开启光栅化
-    /// - Returns:`Self`
+    /// - Parameter rasterize: 是否开启光栅化
+    /// - Returns: `Self`
     @discardableResult
     func shouldRasterize(_ rasterize: Bool) -> Self {
         shouldRasterize = rasterize
@@ -685,8 +685,8 @@ public extension CALayer {
     }
 
     /// 设置光栅化比例
-    /// - Parameter scale:光栅化比例
-    /// - Returns:`Self`
+    /// - Parameter scale: 光栅化比例
+    /// - Returns: `Self`
     @discardableResult
     func rasterizationScale(_ scale: CGFloat) -> Self {
         rasterizationScale = scale
@@ -694,8 +694,8 @@ public extension CALayer {
     }
 
     /// 设置阴影颜色
-    /// - Parameter color:阴影颜色
-    /// - Returns:`Self`
+    /// - Parameter color: 阴影颜色
+    /// - Returns: `Self`
     @discardableResult
     func shadowColor(_ color: UIColor) -> Self {
         shadowColor = color.cgColor
@@ -703,17 +703,17 @@ public extension CALayer {
     }
 
     /// 设置阴影颜色(十六进制颜色值)
-    /// - Parameter hex:阴影颜色
-    /// - Returns:`Self`
+    /// - Parameter hex: 阴影颜色
+    /// - Returns: `Self`
     @discardableResult
     func shadowColor(_ hex: String) -> Self {
         shadowColor = UIColor(hex: hex).cgColor
         return self
     }
 
-    /// 设置阴影的透明度,取值范围:0~1
-    /// - Parameter opacity:阴影的透明度
-    /// - Returns:`Self`
+    /// 设置阴影的透明度,取值范围: 0~1
+    /// - Parameter opacity: 阴影的透明度
+    /// - Returns: `Self`
     @discardableResult
     func shadowOpacity(_ opacity: Float) -> Self {
         shadowOpacity = opacity
@@ -721,8 +721,8 @@ public extension CALayer {
     }
 
     /// 设置阴影的偏移量
-    /// - Parameter offset:偏移量
-    /// - Returns:`Self`
+    /// - Parameter offset: 偏移量
+    /// - Returns: `Self`
     @discardableResult
     func shadowOffset(_ offset: CGSize) -> Self {
         shadowOffset = offset
@@ -730,8 +730,8 @@ public extension CALayer {
     }
 
     /// 设置阴影圆角
-    /// - Parameter radius:圆角大小
-    /// - Returns:`Self`
+    /// - Parameter radius: 圆角大小
+    /// - Returns: `Self`
     @discardableResult
     func shadowRadius(_ radius: CGFloat) -> Self {
         shadowRadius = radius
@@ -739,9 +739,9 @@ public extension CALayer {
     }
 
     /// 高性能添加阴影 Shadow Path
-    /// 提示:当用bounds设置path时,看起来的效果与只设置了shadowOpacity一样,但是添加了shadowPath后消除了离屏渲染问题
-    /// - Parameter path:阴影Path
-    /// - Returns:`Self`
+    /// 提示: 当用bounds设置path时,看起来的效果与只设置了shadowOpacity一样,但是添加了shadowPath后消除了离屏渲染问题
+    /// - Parameter path: 阴影Path
+    /// - Returns: `Self`
     @discardableResult
     func shadowPath(_ path: CGPath) -> Self {
         shadowPath = path
@@ -749,8 +749,8 @@ public extension CALayer {
     }
 
     /// 设置裁剪
-    /// - Parameter masksToBounds:是否裁剪
-    /// - Returns:`Self`
+    /// - Parameter masksToBounds: 是否裁剪
+    /// - Returns: `Self`
     @discardableResult
     func masksToBounds(_ masksToBounds: Bool = true) -> Self {
         self.masksToBounds = masksToBounds
@@ -758,8 +758,8 @@ public extension CALayer {
     }
 
     /// 设置圆角
-    /// - Parameter cornerRadius:圆角
-    /// - Returns:`Self`
+    /// - Parameter cornerRadius: 圆角
+    /// - Returns: `Self`
     @discardableResult
     func cornerRadius(_ cornerRadius: CGFloat) -> Self {
         self.cornerRadius = cornerRadius
@@ -769,9 +769,9 @@ public extension CALayer {
     /// 设置圆角(可设置部分角)
     /// ⚠️ frame 大小必须已确定
     /// - Parameters:
-    ///   - radius:圆角半径
-    ///   - corners:需要实现为圆角的角,可传入多个[], 默认所有圆角
-    /// - Returns:`Self`
+    ///   - radius: 圆角半径
+    ///   - corners: 需要实现为圆角的角,可传入多个[], 默认所有圆角
+    /// - Returns: `Self`
     @discardableResult
     func corner(
         _ radius: CGFloat,

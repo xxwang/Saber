@@ -5,8 +5,8 @@ public extension UIBezierPath {
     /// 使用从一个`CGPoint`到另一个`CGPoint`的线初始化`UIBezierPath`
     ///
     /// - Parameters:
-    ///   - from:指向路径的起点
-    ///   - otherPoint:路径应该结束的点
+    ///   - from: 指向路径的起点
+    ///   - otherPoint: 路径应该结束的点
     convenience init(from: CGPoint, to otherPoint: CGPoint) {
         self.init()
         move(to: from)
@@ -15,7 +15,7 @@ public extension UIBezierPath {
 
     /// 初始化用直线连接给定`CGPoint`的`UIBezierPath`
     ///
-    /// - Parameter points:路径所包含的点
+    /// - Parameter points: 路径所包含的点
     convenience init(points: [CGPoint]) {
         self.init()
         if !points.isEmpty {
@@ -28,7 +28,7 @@ public extension UIBezierPath {
 
     /// 使用给定的`CGPoint`初始化多边形`UIBezierPath`至少得3个点
     ///
-    /// - Parameter points:路径所包含的点
+    /// - Parameter points: 路径所包含的点
     convenience init?(polygonWithPoints points: [CGPoint]) {
         guard points.count > 2 else { return nil }
         self.init()
@@ -42,8 +42,8 @@ public extension UIBezierPath {
     /// 使用给定大小的椭圆形路径初始化`UIBezierPath`
     ///
     /// - Parameters:
-    ///   - size:椭圆形的宽度和高度
-    ///   - centered:椭圆是否应在其坐标空间中居中
+    ///   - size: 椭圆形的宽度和高度
+    ///   - centered: 椭圆是否应在其坐标空间中居中
     convenience init(ovalOf size: CGSize, centered: Bool) {
         let origin = centered ? CGPoint(x: -size.width / 2, y: -size.height / 2) : .zero
         self.init(ovalIn: CGRect(origin: origin, size: size))
@@ -52,8 +52,8 @@ public extension UIBezierPath {
     /// 用给定大小的矩形路径初始化`UIBezierPath`
     ///
     /// - Parameters:
-    ///   - size:矩形的宽度和高度
-    ///   - centered:椭圆是否应在其坐标空间中居中
+    ///   - size: 矩形的宽度和高度
+    ///   - centered: 椭圆是否应在其坐标空间中居中
     convenience init(rectOf size: CGSize, centered: Bool) {
         let origin = centered ? CGPoint(x: -size.width / 2, y: -size.height / 2) : .zero
         self.init(rect: CGRect(origin: origin, size: size))
@@ -64,10 +64,10 @@ public extension UIBezierPath {
 public extension UIBezierPath {
     /// 根据圆上任意三个点添加圆弧
     /// - Parameters:
-    ///   - startPoint:起点
-    ///   - centerPoint:中间任意一点
-    ///   - endPoint:结束点
-    ///   - clockwise:顺时针方向
+    ///   - startPoint: 起点
+    ///   - centerPoint: 中间任意一点
+    ///   - endPoint: 结束点
+    ///   - clockwise: 顺时针方向
     func addArc(startPoint: CGPoint, centerPoint: CGPoint, endPoint: CGPoint, clockwise: Bool) {
         // 求圆心
         let arcCenter = getCircleCenter(pontA: startPoint, pontB: centerPoint, pontC: endPoint)
@@ -81,10 +81,10 @@ public extension UIBezierPath {
 
     /// 根据圆心和任意2个点添加圆弧
     /// - Parameters:
-    ///   - arcCenter:圆心
-    ///   - startPoint:起点
-    ///   - endPoint:结束点
-    ///   - clockwise:顺时针,逆时针 这个决定这哪一个半圆
+    ///   - arcCenter: 圆心
+    ///   - startPoint: 起点
+    ///   - endPoint: 结束点
+    ///   - clockwise: 顺时针,逆时针 这个决定这哪一个半圆
     func addArc(arcCenter: CGPoint, startPoint: CGPoint, endPoint: CGPoint, clockwise: Bool) {
         // 求半径
         let radius = getRadius(center: arcCenter, point: startPoint)
@@ -100,11 +100,11 @@ private extension UIBezierPath {
     // 计算圆心类
     /// 求圆心思路
     /// 0. 设置原先坐标为(centerX,centerY)
-    /// 1.求出AB线的斜率,根据AB线的斜率 * AB垂线的斜率 = -1 得出 AB垂线的斜率:shapeABVertical
+    /// 1.求出AB线的斜率,根据AB线的斜率 * AB垂线的斜率 = -1 得出 AB垂线的斜率: shapeABVertical
     /// 2.求出AB的中点,即AB垂线上的点.abCenter
     /// 3.根据斜率 = (y1-y2)/ (x1-x2)
-    /// 得出方程:shapeABVertical = (abCenter.y - centerY) / (abCenter.x - centerX)
-    /// 同理得出:shapeBCVertical = (bcCenter.y - centerY) / (bcCenter.x - centerX)
+    /// 得出方程: shapeABVertical = (abCenter.y - centerY) / (abCenter.x - centerX)
+    /// 同理得出: shapeBCVertical = (bcCenter.y - centerY) / (bcCenter.x - centerX)
     func getCircleCenter(pontA: CGPoint, pontB: CGPoint, pontC: CGPoint) -> CGPoint {
         let abCenter = getCenterPoint(pontA: pontA, pontB: pontB)
         let slopeAB = getSlope(pontA: pontA, pontB: pontB)
@@ -125,27 +125,27 @@ private extension UIBezierPath {
 
     /// 获取两点之间中间点
     /// - Parameters:
-    ///   - pontA:A 点
-    ///   - pontB:B 点
-    /// - Returns:两点之间中间点
+    ///   - pontA: A 点
+    ///   - pontB: B 点
+    /// - Returns: 两点之间中间点
     func getCenterPoint(pontA: CGPoint, pontB: CGPoint) -> CGPoint {
         return CGPoint(x: (pontA.x + pontB.x) / 2, y: (pontA.y + pontB.y) / 2)
     }
 
     /// 获取某条线的斜率
     /// - Parameters:
-    ///   - pontA:A 点
-    ///   - pontB:B 点
-    /// - Returns:某条线的斜率
+    ///   - pontA: A 点
+    ///   - pontB: B 点
+    /// - Returns: 某条线的斜率
     func getSlope(pontA: CGPoint, pontB: CGPoint) -> CGFloat {
         return (pontB.y - pontA.y) / (pontB.x - pontA.x)
     }
 
     /// 计算出半径
     /// - Parameters:
-    ///   - center:中心点
-    ///   - point:圆上的某点
-    /// - Returns:圆的半径
+    ///   - center: 中心点
+    ///   - point: 圆上的某点
+    /// - Returns: 圆的半径
     func getRadius(center: CGPoint, point: CGPoint) -> CGFloat {
         // 求半径
         let a = Double(Swift.abs(point.x - center.x))
@@ -171,9 +171,9 @@ private extension UIBezierPath {
     /// |                    |
     /// 获取圆心角的方法
     /// - Parameters:
-    ///   - center:圆心
-    ///   - point:点
-    /// - Returns:圆角
+    ///   - center: 圆心
+    ///   - point: 点
+    /// - Returns: 圆角
     func getAngle(center: CGPoint, point: CGPoint) -> CGFloat {
         let pointX = point.x
         let pointY = point.y

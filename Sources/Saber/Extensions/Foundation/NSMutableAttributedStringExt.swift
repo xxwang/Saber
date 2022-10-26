@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - 富文本属性介绍
 /*
- NSFontAttributeName                  设置字体属性,默认值:字体:Helvetica(Neue) 字号:12
+ NSFontAttributeName                  设置字体属性,默认值: 字体: Helvetica(Neue) 字号: 12
  NSForegroundColorAttributeNam      设置字体颜色,取值为 UIColor对象,默认值为黑色
  NSBackgroundColorAttributeName     设置字体所在区域背景颜色,取值为 UIColor对象,默认值为nil, 透明色
  NSLigatureAttributeName              设置连体属性,取值为NSNumber 对象(整数),0 表示没有连体字符,1 表示使用默认的连体字符
@@ -28,8 +28,8 @@ import UIKit
 // MARK: - 链式语法
 public extension NSMutableAttributedString {
     /// 设置富文本文字的 字间距
-    /// - Parameter spacing:间距
-    /// - Returns:`Self`
+    /// - Parameter spacing: 间距
+    /// - Returns: `Self`
     @discardableResult
     func wordSpacing(_ wordSpacing: CGFloat) -> Self {
         addAttributes([.kern: wordSpacing], range: fullNSRange)
@@ -37,8 +37,8 @@ public extension NSMutableAttributedString {
     }
 
     /// 设置删除线
-    /// - Parameter style:删除线样式
-    /// - Returns:`Self`
+    /// - Parameter style: 删除线样式
+    /// - Returns: `Self`
     @discardableResult
     func strikethrough(_ style: NSUnderlineStyle = .single) -> Self {
         addAttributes([.strikethroughStyle: style.rawValue], range: fullNSRange)
@@ -47,9 +47,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定范围的字体
     /// - Parameters:
-    ///   - font:字体
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - font: 字体
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func font(_ font: UIFont, for range: NSRange) -> Self {
         return addAttributes([NSAttributedString.Key.font: font], for: range)
@@ -57,17 +57,17 @@ public extension NSMutableAttributedString {
 
     /// 添加特定文字的字体
     /// - Parameters:
-    ///   - font:字体
-    ///   - text:特定文字
-    /// - Returns:`Self`
+    ///   - font: 字体
+    ///   - text: 特定文字
+    /// - Returns: `Self`
     @discardableResult
     func font(_ font: UIFont, for text: String) -> Self {
         return addAttributes([NSAttributedString.Key.font: font], for: text)
     }
 
     /// 设置富文本文字的 `UIFont`
-    /// - Parameter font:`UIFont`
-    /// - Returns:`Self`
+    /// - Parameter font: `UIFont`
+    /// - Returns: `Self`
     @discardableResult
     func font(_ font: UIFont) -> Self {
         addAttributes([.font: font], range: fullNSRange)
@@ -76,9 +76,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定区域的文字颜色
     /// - Parameters:
-    ///   - color:文字颜色
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - color: 文字颜色
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func foregroundColor(_ color: UIColor, for range: NSRange) -> Self {
         return addAttributes([NSAttributedString.Key.foregroundColor: color], for: range)
@@ -86,17 +86,17 @@ public extension NSMutableAttributedString {
 
     /// 添加特定文字的颜色
     /// - Parameters:
-    ///   - color:文字颜色
-    ///   - range:文字
-    /// - Returns:`Self`
+    ///   - color: 文字颜色
+    ///   - range: 文字
+    /// - Returns: `Self`
     @discardableResult
     func foregroundColor(_ color: UIColor, for text: String) -> Self {
         return addAttributes([NSAttributedString.Key.foregroundColor: color], for: text)
     }
 
     /// 设置富文本文字的颜色
-    /// - Parameter color:富文本文字的颜色
-    /// - Returns:`Self`
+    /// - Parameter color: 富文本文字的颜色
+    /// - Returns: `Self`
     @discardableResult
     func foregroundColor(_ color: UIColor) -> Self {
         addAttributes([.foregroundColor: color], range: fullNSRange)
@@ -105,10 +105,10 @@ public extension NSMutableAttributedString {
 
     /// 添加特定范围行间距
     /// - Parameters:
-    ///   - lineSpacing:行间距
-    ///   - alignment:对齐方式
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - lineSpacing: 行间距
+    ///   - alignment: 对齐方式
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func lineSpacing(_ lineSpacing: CGFloat, alignment: NSTextAlignment = .left, for range: NSRange) -> Self {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -119,10 +119,10 @@ public extension NSMutableAttributedString {
 
     /// 添加特定文本行间距
     /// - Parameters:
-    ///   - lineSpacing:行间距
-    ///   - alignment:对齐方式
-    ///   - text:文本
-    /// - Returns:`Self`
+    ///   - lineSpacing: 行间距
+    ///   - alignment: 对齐方式
+    ///   - text: 文本
+    /// - Returns: `Self`
     @discardableResult
     func lineSpacing(_ lineSpacing: CGFloat, alignment: NSTextAlignment = .left, for text: String) -> Self {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -133,10 +133,10 @@ public extension NSMutableAttributedString {
 
     /// 添加特定范围的下划线
     /// - Parameters:
-    ///   - color:下划线颜色
-    ///   - stytle:下划线样式
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - color: 下划线颜色
+    ///   - stytle: 下划线样式
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func underline(_ color: UIColor, stytle: NSUnderlineStyle = .single, for range: NSRange) -> Self {
         // 下划线样式
@@ -149,10 +149,10 @@ public extension NSMutableAttributedString {
 
     /// 添加特定文本的下划线
     /// - Parameters:
-    ///   - color:下划线颜色
-    ///   - stytle:下划线样式
-    ///   - text:文本
-    /// - Returns:`Self`
+    ///   - color: 下划线颜色
+    ///   - stytle: 下划线样式
+    ///   - text: 文本
+    /// - Returns: `Self`
     @discardableResult
     func underline(_ color: UIColor, stytle: NSUnderlineStyle = .single, for text: String) -> Self {
         // 下划线样式
@@ -165,9 +165,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定范围的删除线
     /// - Parameters:
-    ///   - color:删除线颜色
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - color: 删除线颜色
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func deleteline(_ color: UIColor, for range: NSRange) -> Self {
         var attributes = [NSAttributedString.Key: Any]()
@@ -187,9 +187,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定文本的删除线
     /// - Parameters:
-    ///   - color:删除线颜色
-    ///   - text:文本
-    /// - Returns:`Self`
+    ///   - color: 删除线颜色
+    ///   - text: 文本
+    /// - Returns: `Self`
     @discardableResult
     func deleteline(_ color: UIColor, for text: String) -> Self {
         var attributes = [NSAttributedString.Key: Any]()
@@ -209,10 +209,10 @@ public extension NSMutableAttributedString {
 
     /// 插入图片(可以图片名称或者图片URL地址,如果为网络图片,需要传入`imageBounds`)
     /// - Parameters:
-    ///   - imageSource:图片资源(可本地图片/网络图片)
-    ///   - imageBounds:图片的大小,默认为`.zero`(以底部基线为标准Y>0:图片向上移动；Y<0:图片向下移动)
-    ///   - imageIndex:图片的位置,默认放在开头
-    /// - Returns:`Self`
+    ///   - imageSource: 图片资源(可本地图片/网络图片)
+    ///   - imageBounds: 图片的大小,默认为`.zero`(以底部基线为标准Y>0: 图片向上移动；Y<0: 图片向下移动)
+    ///   - imageIndex: 图片的位置,默认放在开头
+    /// - Returns: `Self`
     @discardableResult
     func insertImage(_ imageSource: String, imageBounds: CGRect = .zero, imageIndex: Int = 0) -> Self {
         // NSTextAttachment可以将要插入的图片作为特殊字符处理
@@ -227,8 +227,8 @@ public extension NSMutableAttributedString {
     }
 
     /// 添加首行缩进
-    /// - Parameter indent:缩进宽度
-    /// - Returns:`Self`
+    /// - Parameter indent: 缩进宽度
+    /// - Returns: `Self`
     @discardableResult
     func firstLineHeadIndent(_ indent: CGFloat) -> Self {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -238,9 +238,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定范围的倾斜
     /// - Parameters:
-    ///   - obliqueness:倾斜
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - obliqueness: 倾斜
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func obliqueness(_ obliqueness: Float = 0, for range: NSRange) -> Self {
         return addAttributes([NSAttributedString.Key.obliqueness: obliqueness], for: range)
@@ -248,9 +248,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定文本的倾斜
     /// - Parameters:
-    ///   - obliqueness:倾斜
-    ///   - text:文本
-    /// - Returns:`Self`
+    ///   - obliqueness: 倾斜
+    ///   - text: 文本
+    /// - Returns: `Self`
     @discardableResult
     func obliqueness(_ obliqueness: Float = 0, for text: String) -> NSAttributedString {
         return addAttributes([NSAttributedString.Key.obliqueness: obliqueness], for: text)
@@ -258,9 +258,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定范围的属性
     /// - Parameters:
-    ///   - attributes:属性
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - attributes: 属性
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func addAttributes(_ attributes: [NSAttributedString.Key: Any], for range: NSRange) -> Self {
         for name in attributes.keys {
@@ -271,9 +271,9 @@ public extension NSMutableAttributedString {
 
     /// 添加特定文本的属性
     /// - Parameters:
-    ///   - attributes:属性
-    ///   - text:文本
-    /// - Returns:`Self`
+    ///   - attributes: 属性
+    ///   - text: 文本
+    /// - Returns: `Self`
     @discardableResult
     func addAttributes(_ attributes: [NSAttributedString.Key: Any], for text: String) -> Self {
         let ranges = self.ranges(with: [text])
@@ -289,10 +289,10 @@ public extension NSMutableAttributedString {
 
     /// 添加属性到与正则表达式匹配的字符串
     /// - Parameters:
-    ///   - attributes:属性字典
-    ///   - pattern:指向目标的正则表达式
-    ///   - options:匹配期间应用于表达式的正则表达式选项.请参阅`NSRegularExpression.Options`
-    /// - Returns:`Self`
+    ///   - attributes: 属性字典
+    ///   - pattern: 指向目标的正则表达式
+    ///   - options: 匹配期间应用于表达式的正则表达式选项.请参阅`NSRegularExpression.Options`
+    /// - Returns: `Self`
     @discardableResult
     func addAttributes(_ attributes: [Key: Any],
                        toRangesMatching pattern: String,
@@ -310,9 +310,9 @@ public extension NSMutableAttributedString {
 
     /// 添加属性到特定字符串
     /// - Parameters:
-    ///   - attributes:属性字典
-    ///   - target:要应用于的属性的字符串
-    /// - Returns:`NSAttributedString`
+    ///   - attributes: 属性字典
+    ///   - target: 要应用于的属性的字符串
+    /// - Returns: `NSAttributedString`
     @discardableResult
     func addAttributes<T: StringProtocol>(attributes: [Key: Any],
                                           toOccurrencesOf target: T) -> NSAttributedString

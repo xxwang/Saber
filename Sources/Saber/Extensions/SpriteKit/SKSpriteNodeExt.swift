@@ -3,7 +3,7 @@ import SpriteKit
 // MARK: - 方法
 public extension SKSpriteNode {
     /// 等比填充
-    /// - Parameter fillSize:边界尺寸
+    /// - Parameter fillSize: 边界尺寸
     func aspectFill(to fillSize: CGSize) {
         if let textureSize = texture?.size() {
             let width = textureSize.width

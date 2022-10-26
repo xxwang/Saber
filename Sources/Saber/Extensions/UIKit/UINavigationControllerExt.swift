@@ -4,9 +4,9 @@ import UIKit
 public extension UINavigationController {
     /// `Push`方法(把控制器压入导航栈中)
     /// - Parameters:
-    ///   - viewController:要入栈的控制器
-    ///   - animated:是否动画
-    ///   - completion:完成回调
+    ///   - viewController: 要入栈的控制器
+    ///   - animated: 是否动画
+    ///   - completion: 完成回调
     func pushViewController(
         _ viewController: UIViewController,
         animated: Bool = true,
@@ -20,8 +20,8 @@ public extension UINavigationController {
 
     /// `pop`方法(把控制器从栈中移除)
     /// - Parameters:
-    ///   - animated:是否动画
-    ///   - completion:完成回调
+    ///   - animated: 是否动画
+    ///   - completion: 完成回调
     func popViewController(
         animated: Bool = true,
         completion: (() -> Void)? = nil
@@ -33,7 +33,7 @@ public extension UINavigationController {
     }
 
     /// 设置导航条为透明
-    /// - Parameter tintColor:导航条tintColor
+    /// - Parameter tintColor: 导航条tintColor
     func setupTransparent(with tintColor: UIColor = .white) {
         navigationBar.isTranslucent = true
         navigationBar.setBackgroundImage(UIImage(), for: .default)

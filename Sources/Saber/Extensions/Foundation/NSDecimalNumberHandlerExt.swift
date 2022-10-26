@@ -12,7 +12,7 @@ import Foundation
  raiseOnUnderflow 下溢错误处理
  raiseOnDivideByZero 除以0的错误处理
 
- public enum RoundingMode :UInt {
+ public enum RoundingMode : UInt {
  case plain = 0 是四舍五入
  case down = 1 是向下取整
  case up = 2 是向上取整
@@ -37,9 +37,9 @@ public enum CMDecimalNumberHandlerType: String {
 public extension NSDecimalNumberHandler {
     /// 向下取整取倍数
     /// - Parameters:
-    ///   - value1:除数
-    ///   - value2:被除数
-    /// - Returns:值
+    ///   - value1: 除数
+    ///   - value2: 被除数
+    /// - Returns: 值
     static func getFloorIntValue(value1: Any, value2: Any) -> Int {
         return decimalNumberHandlerValue(type: .dividing, value1: value1, value2: value2, roundingMode: .down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false).intValue
     }
@@ -66,26 +66,26 @@ public extension NSDecimalNumberHandler {
 
     /// 两个数字之间的计算
     /// - Parameters:
-    ///   - type:计算的类型
-    ///   - value1:值
-    ///   - value2:值
-    /// - Returns:计算结果
+    ///   - type: 计算的类型
+    ///   - value1: 值
+    ///   - value2: 值
+    /// - Returns: 计算结果
     static func calculation(type: CMDecimalNumberHandlerType, value1: Any, value2: Any) -> NSDecimalNumber {
         return decimalNumberHandlerValue(type: type, value1: value1, value2: value2, roundingMode: .down, scale: 30, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
     }
 
-    /// 两个数的:加 减 乘 除
+    /// 两个数的: 加 减 乘 除
     /// - Parameters:
-    ///   - type:计算的类型
-    ///   - value1:第一个值
-    ///   - value2:第二个人值
-    ///   - roundingMode:舍入方式
-    ///   - scale:小数点后舍入值的位数
+    ///   - type: 计算的类型
+    ///   - value1: 第一个值
+    ///   - value2: 第二个人值
+    ///   - roundingMode: 舍入方式
+    ///   - scale: 小数点后舍入值的位数
     ///   - exact: 精度错误处理
-    ///   - overflow:溢出错误处理
-    ///   - underflow:下溢错误处理
-    ///   - divideByZero:除以0的错误处理
-    /// - Returns:`NSDecimalNumber`
+    ///   - overflow: 溢出错误处理
+    ///   - underflow: 下溢错误处理
+    ///   - divideByZero: 除以0的错误处理
+    /// - Returns: `NSDecimalNumber`
     static func decimalNumberHandlerValue(type: CMDecimalNumberHandlerType, value1: Any, value2: Any, roundingMode: NSDecimalNumber.RoundingMode, scale: Int16, raiseOnExactness exact: Bool, raiseOnOverflow overflow: Bool, raiseOnUnderflow underflow: Bool, raiseOnDivideByZero divideByZero: Bool) -> NSDecimalNumber {
         let amountHandler = NSDecimalNumberHandler(roundingMode: roundingMode, scale: scale, raiseOnExactness: exact, raiseOnOverflow: overflow, raiseOnUnderflow: underflow, raiseOnDivideByZero: divideByZero)
         let oneNumber = NSDecimalNumber(string: "\(value1)")

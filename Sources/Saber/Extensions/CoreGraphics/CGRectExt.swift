@@ -11,8 +11,8 @@ public extension CGRect {
 public extension CGRect {
     /// 构造一个带中心点的CGRect
     /// - Parameters:
-    ///   - center:中心点坐标
-    ///   - size:尺寸
+    ///   - center: 中心点坐标
+    ///   - size: 尺寸
     init(center: CGPoint, size: CGSize) {
         let origin = CGPoint(x: center.x - size.width / 2.0, y: center.y - size.height / 2.0)
         self.init(origin: origin, size: size)
@@ -23,12 +23,12 @@ public extension CGRect {
 public extension CGRect {
     /// 通过使用指定的锚点调整大小来创建一个新的CGRect
     /// - Parameters:
-    ///   - size:新的尺寸
-    ///   - anchor:锚点
+    ///   - size: 新的尺寸
+    ///   - anchor: 锚点
     ///     '(0, 0)' 左上角,'(1, 1)'右下角
     ///     默认为 '(0.5, 0.5)' 中心点:
     ///
-    ///            anchor = CGPoint(x:0.0, y:1.0):
+    ///            anchor = CGPoint(x: 0.0, y: 1.0):
     ///
     ///                         A2------B2
     ///            A----B       |          |

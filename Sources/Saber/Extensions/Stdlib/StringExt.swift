@@ -326,20 +326,20 @@ public extension String {
 
     /// 检查字符串是否为有效的电子邮件格式
     ///
-    /// - Note:请注意,此属性不会针对电子邮件服务器验证电子邮件地址.它只是试图确定其格式是否适合电子邮件地址
+    /// - Note: 请注意,此属性不会针对电子邮件服务器验证电子邮件地址.它只是试图确定其格式是否适合电子邮件地址
     ///
     ///     "john@doe.com".isValidEmail -> true
     ///
     var isValidEmail: Bool {
-        // http://emailregex.com/
+        // http: //emailregex.com/
         let regex =
-            "^(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[\\p{L}0-9](?:[a-z0-9-]*[\\p{L}0-9])?\\.)+[\\p{L}0-9](?:[\\p{L}0-9-]*[\\p{L}0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[\\p{L}0-9-]*[\\p{L}0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$"
+            "^(?: [\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?: \\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+)*|\"(?: [\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?: (?: [\\p{L}0-9](?: [a-z0-9-]*[\\p{L}0-9])?\\.)+[\\p{L}0-9](?: [\\p{L}0-9-]*[\\p{L}0-9])?|\\[(?: (?: 25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?: 25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[\\p{L}0-9-]*[\\p{L}0-9]: (?: [\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$"
         return range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
     }
 
     /// 检查字符串是否是有效的URL
     ///
-    ///     "https://google.com".isValidURL -> true
+    ///     "https: //google.com".isValidURL -> true
     ///
     var isValidURL: Bool {
         return URL(string: self) != nil
@@ -347,7 +347,7 @@ public extension String {
 
     /// 检查字符串是否是有效带协议头的URL
     ///
-    ///     "https://google.com".isValidSchemedURL -> true
+    ///     "https: //google.com".isValidSchemedURL -> true
     ///     "google.com".isValidSchemedURL -> false
     ///
     var isValidSchemedURL: Bool {
@@ -357,7 +357,7 @@ public extension String {
 
     /// 检查字符串是否是有效的https URL
     ///
-    ///     "https://google.com".isValidHttpsURL -> true
+    ///     "https: //google.com".isValidHttpsURL -> true
     ///
     var isValidHttpsURL: Bool {
         guard let url = URL(string: self) else { return false }
@@ -366,7 +366,7 @@ public extension String {
 
     /// 检查字符串是否是有效的http URL
     ///
-    ///     "http://google.com".isValidHttpURL -> true
+    ///     "http: //google.com".isValidHttpURL -> true
     ///
     var isValidHttpURL: Bool {
         guard let url = URL(string: self) else { return false }
@@ -375,7 +375,7 @@ public extension String {
 
     /// 检查字符串是否是有效的文件URL
     ///
-    ///     "file://Documents/file.txt".isValidFileURL -> true
+    ///     "file: //Documents/file.txt".isValidFileURL -> true
     ///
     var isValidFileURL: Bool {
         return URL(string: self)?.isFileURL ?? false
@@ -485,23 +485,23 @@ public extension String {
     }
 
     /// 将 `NSRange` 转换为 `Range<String.Index>`
-    /// - Parameter NSRange:要转换的`NSRange`
-    /// - Returns:在字符串中找到的 `NSRange` 的等效 `Range<String.Index>`
+    /// - Parameter NSRange: 要转换的`NSRange`
+    /// - Returns: 在字符串中找到的 `NSRange` 的等效 `Range<String.Index>`
     func range(_ nsRange: NSRange) -> Range<Index> {
         guard let range = Range(nsRange, in: self) else { fatalError("Failed to find range \(nsRange) in \(self)") }
         return range
     }
 
     /// 将 `Range<String.Index>` 转换为 `NSRange`
-    /// - Parameter range:要转换的`Range<String.Index>`
-    /// - Returns:在字符串中找到的 `Range` 的等效 `NSRange`
+    /// - Parameter range: 要转换的`Range<String.Index>`
+    /// - Returns: 在字符串中找到的 `Range` 的等效 `NSRange`
     func nsRange(_ range: Range<String.Index>) -> NSRange {
         return NSRange(range, in: self)
     }
 
     /// 获取指定字符串在属性字符串中的范围
-    /// - Parameter subStr:子串
-    /// - Returns:某个子串在父串中的范围
+    /// - Parameter subStr: 子串
+    /// - Returns: 某个子串在父串中的范围
     func subNSRange(_ subStr: String) -> NSRange {
         guard let range = range(of: subStr) else {
             return NSRange(location: 0, length: 0)
@@ -510,8 +510,8 @@ public extension String {
     }
 
     /// 获取某个`子串`在`父串`中的范围->`Range`
-    /// - Parameter str:子串
-    /// - Returns:某个子串在父串中的范围
+    /// - Parameter str: 子串
+    /// - Returns: 某个子串在父串中的范围
     func range(_ subString: String) -> Range<String.Index>? {
         return range(of: subString)
     }
@@ -521,9 +521,9 @@ public extension String {
 public extension String {
     /// 从`base64`字符串创建一个新字符串(`base64`解码)
     ///
-    ///     String(base64:"SGVsbG8gV29ybGQh") = "Hello World!"
-    ///     String(base64:"hello") = nil
-    /// - Parameters base64:`base64`字符串
+    ///     String(base64: "SGVsbG8gV29ybGQh") = "Hello World!"
+    ///     String(base64: "hello") = nil
+    /// - Parameters base64: `base64`字符串
     init?(base64: String) {
         guard let decodedData = Data(base64Encoded: base64) else { return nil }
         guard let str = String(data: decodedData, encoding: .utf8) else { return nil }
@@ -532,8 +532,8 @@ public extension String {
 
     /// 创建一个给定长度的新随机字符串
     ///
-    ///     String(randomOfLength:10) -> "gY8r3MHvlQ"
-    /// - Parameters length:字符串中的字符数
+    ///     String(randomOfLength: 10) -> "gY8r3MHvlQ"
+    /// - Parameters length: 字符串中的字符数
     init(randomOfLength length: Int) {
         guard length > 0 else {
             self.init()
@@ -547,9 +547,9 @@ public extension String {
 public extension String {
     /// 使用索引下标安全地获取字符串中对应的字符
     ///
-    ///     "Hello World!"[safe:3] -> "l"
-    ///     "Hello World!"[safe:20] -> nil
-    /// - Parameters index:索引下标
+    ///     "Hello World!"[safe: 3] -> "l"
+    ///     "Hello World!"[safe: 20] -> nil
+    /// - Parameters index: 索引下标
     subscript(safe index: Int) -> Character? {
         guard index >= 0, index < count else { return nil }
         return self[self.index(startIndex, offsetBy: index)]
@@ -572,12 +572,12 @@ public extension String {
 
     /// 在给定范围内安全地获取子字符串
     ///
-    ///     "Hello World!"[safe:6..<11] -> "World"
-    ///     "Hello World!"[safe:21..<110] -> nil
+    ///     "Hello World!"[safe: 6..<11] -> "World"
+    ///     "Hello World!"[safe: 21..<110] -> nil
     ///
-    ///     "Hello World!"[safe:6...11] -> "World!"
-    ///     "Hello World!"[safe:21...110] -> nil
-    /// - Parameters range:范围表达式
+    ///     "Hello World!"[safe: 6...11] -> "World!"
+    ///     "Hello World!"[safe: 21...110] -> nil
+    /// - Parameters range: 范围表达式
     subscript<R>(safe range: R) -> String? where R: RangeExpression, R.Bound == Int {
         let range = range.relative(to: Int.min ..< Int.max)
         guard range.lowerBound >= 0,
@@ -604,8 +604,8 @@ public extension String {
     }
 
     /// 获取字符串指定`NSRange`的子字符串
-    /// - Parameter bounds:子字符串的范围,范围的边界必须是集合的有效索引
-    /// - Returns:字符串的一部分
+    /// - Parameter bounds: 子字符串的范围,范围的边界必须是集合的有效索引
+    /// - Returns: 字符串的一部分
     subscript(bounds: NSRange) -> Substring {
         guard let range = Range(bounds, in: self) else { fatalError("Failed to find range \(bounds) in \(self)") }
         return self[range]
@@ -616,11 +616,11 @@ public extension String {
 public extension String {
     /// 把字符串转为`URL`(失败返回`nil`)
     ///
-    ///     "https://google.com".url -> URL(string:"https://google.com")
+    ///     "https: //google.com".url -> URL(string: "https: //google.com")
     ///     "not url".url -> nil
     ///
     var url: URL? {
-        if hasPrefix("http://") || hasPrefix("https://") {
+        if hasPrefix("http: //") || hasPrefix("https: //") {
             return URL(string: self)
         }
         return URL(fileURLWithPath: self)
@@ -704,18 +704,18 @@ public extension String {
         return (self as NSString).pathComponents
     }
 
-    /// 添加路径组件类似`NSString=>appendingPathComponent(str:String)`
+    /// 添加路径组件类似`NSString=>appendingPathComponent(str: String)`
     ///
-    /// - Note:此方法仅适用于文件路径(例如,URL 的字符串表示形式
-    /// - Parameter str:要添加的路径组件(如果需要可以在前面添加分隔符`/`)
-    /// - Returns:添加路径组件后而生成的新字符串
+    /// - Note: 此方法仅适用于文件路径(例如,URL 的字符串表示形式
+    /// - Parameter str: 要添加的路径组件(如果需要可以在前面添加分隔符`/`)
+    /// - Returns: 添加路径组件后而生成的新字符串
     func appendingPathComponent(_ str: String) -> String {
         return (self as NSString).appendingPathComponent(str)
     }
 
-    /// 添加路径扩展类似`NSString=>appendingPathExtension(str:String)`
-    /// - Parameters str:要添加的扩展
-    /// - Returns:添加路径扩展后而生成的新字符串
+    /// 添加路径扩展类似`NSString=>appendingPathExtension(str: String)`
+    /// - Parameters str: 要添加的扩展
+    /// - Returns: 添加路径扩展后而生成的新字符串
     func appendingPathExtension(_ str: String) -> String? {
         return (self as NSString).appendingPathExtension(str)
     }
@@ -806,11 +806,11 @@ public extension String {
 public extension String {
     /// `格式日期字符串`成`日期对象`
     ///
-    ///     "2017-01-15".date(withFormat:"yyyy-MM-dd") -> Date set to Jan 15, 2017
-    ///     "not date string".date(withFormat:"yyyy-MM-dd") -> nil
-    /// - Parameters format:日期格式
-    /// - Returns:来自字符串的日期对象
-    func date(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
+    ///     "2017-01-15".date(withFormat: "yyyy-MM-dd") -> Date set to Jan 15, 2017
+    ///     "not date string".date(withFormat: "yyyy-MM-dd") -> nil
+    /// - Parameters format: 日期格式
+    /// - Returns: 来自字符串的日期对象
+    func date(withFormat format: String = "yyyy-MM-dd HH: mm: ss") -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = .current
         dateFormatter.timeZone = .current
@@ -819,9 +819,9 @@ public extension String {
     }
 
     /// `日期格式字符串`转`时间戳(秒)`
-    /// - Parameter format:日期格式
-    /// - Returns:时间戳(秒)
-    func timeStamp(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Double {
+    /// - Parameter format: 日期格式
+    /// - Returns: 时间戳(秒)
+    func timeStamp(withFormat format: String = "yyyy-MM-dd HH: mm: ss") -> Double {
         let date = self.date(withFormat: format)
         return date?.timeIntervalSince1970 ?? 0
     }
@@ -830,12 +830,12 @@ public extension String {
 // MARK: - 静态方法
 public extension String {
     /// 给定长度的`乱数假文`字符串
-    /// - Parameters length:限制`乱数假文`字符数(默认为` 445 - 完整`的`乱数假文`)
-    /// - Returns:指定长度的`乱数假文`字符串
+    /// - Parameters length: 限制`乱数假文`字符数(默认为` 445 - 完整`的`乱数假文`)
+    /// - Returns: 指定长度的`乱数假文`字符串
     static func loremIpsum(ofLength length: Int = 445) -> String {
         guard length > 0 else { return "" }
 
-        // https://www.lipsum.com/
+        // https: //www.lipsum.com/
         let loremIpsum = """
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         """
@@ -847,9 +847,9 @@ public extension String {
 
     /// 给定长度的随机字符串
     ///
-    ///     String.random(ofLength:18) -> "u7MMZYvGo9obcOcPj8"
-    /// - Parameters length:字符串中的字符数
-    /// - Returns:给定长度的随机字符串
+    ///     String.random(ofLength: 18) -> "u7MMZYvGo9obcOcPj8"
+    /// - Parameters length: 字符串中的字符数
+    /// - Returns: 给定长度的随机字符串
     static func random(ofLength length: Int) -> String {
         guard length > 0 else { return "" }
         let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -864,8 +864,8 @@ public extension String {
 // MARK: - 方法(类型转换)
 public extension String {
     /// `汉字字符串`转成`拼音字符串`
-    /// - Parameter isLatin:`true:带声调`,`false:不带声调`,`默认 false`
-    /// - Returns:拼音字符串
+    /// - Parameter isLatin: `true: 带声调`,`false: 不带声调`,`默认 false`
+    /// - Returns: 拼音字符串
     func pinYin(_ isTone: Bool = false) -> String {
         let mutableString = NSMutableString(string: self) as CFMutableString
 
@@ -883,8 +883,8 @@ public extension String {
     /// 提取汉字拼音首字母(每个汉字)
     ///
     ///     "爱国" --> AG
-    /// - Parameter isUpper:`true:大写首字母`,`false:小写首字母`,`默认true`
-    /// - Returns:字符串的拼音首字母字符串
+    /// - Parameter isUpper: `true: 大写首字母`,`false: 小写首字母`,`默认true`
+    /// - Returns: 字符串的拼音首字母字符串
     func pinYinInitials(_ isUpper: Bool = true) -> String {
         let pinYin = pinYin(false).components(separatedBy: " ")
         let initials = pinYin.compactMap { String(format: "%c", $0.cString(using: .utf8)![0]) }
@@ -899,10 +899,8 @@ class Person {
     init(name: String) {
         self.name = name
     }
-    
-    required init() {
-        
-    }
+
+    required init() {}
 }
 
 // MARK: - 方法(类型转换)
@@ -912,14 +910,14 @@ public extension String {
         guard let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String else {
             return nil
         }
-        
+
         let classNameString = "\(namespace.removeSomeStringUseSomeString(removeString: " ", replacingString: "_")).\(self)"
         guard let anyClass: AnyClass = NSClassFromString(classNameString) else {
             return nil
         }
         return anyClass
     }
-    
+
     /// `类名字符串`转`类实例`(类需要是继承自`NSObject`)
     func nsObject() -> NSObject? {
         guard let anyClass: AnyClass = anyClass() else {
@@ -929,7 +927,6 @@ public extension String {
         let instance = classType.init()
         return instance
     }
-
 }
 
 // MARK: - 方法(mutating)
@@ -990,11 +987,11 @@ public extension String {
     /// 使用指定开始索引和长度切片字符串并赋值给`self`
     ///
     ///     var str = "Hello World"
-    ///     str.slice(from:6, length:5)
+    ///     str.slice(from: 6, length: 5)
     ///     print(str) // prints "World"
     /// - Parameters:
-    ///   - index:给定索引后要切片的字符数
-    ///   - length:给定索引后要切片的字符数
+    ///   - index: 给定索引后要切片的字符数
+    ///   - length: 给定索引后要切片的字符数
     @discardableResult
     mutating func slice(from index: Int, length: Int) -> String {
         if let str = slicing(from: index, length: length) {
@@ -1006,11 +1003,11 @@ public extension String {
     /// 将给定的字符串从开始索引切片到结束索引(如果适用)
     ///
     ///     var str = "Hello World"
-    ///     str.slice(from:6, to:11)
+    ///     str.slice(from: 6, to: 11)
     ///     print(str) // prints "World"
     /// - Parameters:
-    ///   - start:切片应该从的字符串索引
-    ///   - end:切片应该结束的字符串索引
+    ///   - start: 切片应该从的字符串索引
+    ///   - end: 切片应该结束的字符串索引
     @discardableResult
     mutating func slice(from start: Int, to end: Int) -> String {
         guard end >= start else { return self }
@@ -1023,9 +1020,9 @@ public extension String {
     /// 从指定起始索引切片到字符串结束
     ///
     ///     var str = "Hello World"
-    ///     str.slice(at:6)
+    ///     str.slice(at: 6)
     ///     print(str) // prints "World"
-    /// - Parameters index:切片应该开始的字符串索引
+    /// - Parameters index: 切片应该开始的字符串索引
     @discardableResult
     mutating func slice(at index: Int) -> String {
         guard index < count else { return self }
@@ -1033,6 +1030,139 @@ public extension String {
             self = str
         }
         return self
+    }
+
+    /// 从字符串中获取指定开始位置到指定长度的子字符串
+    ///
+    ///     "Hello World".slicing(from: 6, length: 5) -> "World"
+    /// - Parameters:
+    ///   - index: 字符串索引开始
+    ///   - length: 给定索引后要切片的字符数
+    /// - Returns: 长度为字符数的切片子字符串
+    func slicing(from index: Int, length: Int) -> String? {
+        guard length >= 0, index >= 0, index < count else { return nil }
+        guard index.advanced(by: length) <= count else {
+            return self[safe: index ..< count]
+        }
+        guard length > 0 else { return "" }
+        return self[safe: index ..< index.advanced(by: length)]
+    }
+
+    /// 截取子字符串(从`from`开始到`字符串结尾`)
+    /// - Parameter from: 开始位置
+    /// - Returns: 子字符串
+    func subString(from: Int) -> String {
+        let end = count
+        return self[from ..< end]
+    }
+
+    /// 截取子字符串(从`开头`到`to`)
+    /// - Parameter to: 停止位置
+    /// - Returns: 子字符串
+    func subString(to: Int) -> String {
+        return self[0 ..< to]
+    }
+
+    /// 截取子字符串(从`from`开始截取`length`个字符)
+    /// - Parameters:
+    ///   - from: 开始截取位置
+    ///   - length: 长度
+    /// - Returns: 子字符串
+    func subString(from: Int, length: Int) -> String {
+        let end = from + length
+        return self[from ..< end]
+    }
+
+    /// 截取子字符串(从`from`开始截取到`to`)
+    /// - Parameters:
+    ///   - from: 开始位置
+    ///   - to: 结束位置
+    /// - Returns: 子字符串
+    func subString(from: Int, to: Int) -> String {
+        return self[from ..< to]
+    }
+
+    /// 根据`NSRange`截取子字符串
+    /// - Parameter range: `NSRange`
+    /// - Returns: 子字符串
+    func subString(range: NSRange) -> String {
+        return (self as NSString).substring(with: range)
+    }
+
+    /// 根据`Range`截取子字符串
+    /// - Parameter range: `Range<Int>`
+    /// - Returns: 子字符串
+    func subString(range: Range<Int>) -> String {
+        return self[range]
+    }
+
+    /// 根据`Range`截取子字符串
+    /// - Parameter range: `Range<String.Index>`
+    /// - Returns: 子字符串
+    func subString(range: Range<String.Index>) -> String {
+        let subString = self[range]
+        return String(subString)
+    }
+
+    /// 获取某个位置的字符串
+    /// - Parameter index: 位置
+    /// - Returns: 某个位置的字符串
+    func indexString(index: Int) -> String {
+        return slice(index ..< index + 1)
+    }
+
+    /// 切割字符串(区间范围 前闭后开)
+    ///
+    ///     CountableClosedRange: 可数的闭区间,如 0...2
+    ///     CountableRange: 可数的开区间,如 0..<2
+    ///     ClosedRange: 不可数的闭区间,如 0.1...2.1
+    ///     Range: 不可数的开居间,如 0.1..<2.1
+    /// - Parameter range: 范围
+    /// - Returns: 切割后的字符串
+    func slice(_ range: CountableRange<Int>) -> String {
+        let startIndex = validIndex(original: range.lowerBound)
+        let endIndex = validIndex(original: range.upperBound)
+        guard startIndex < endIndex else {
+            return ""
+        }
+        return String(self[startIndex ..< endIndex])
+    }
+
+    /// 截断字符串(限于给定数量的字符)
+    ///
+    ///     "This is a very long sentence".truncated(toLength: 14) -> "This is a very..."
+    ///     "Short sentence".truncated(toLength: 14) -> "Short sentence"
+    /// - Parameters:
+    ///   - toLength: 切割前的最大字符数(从字符开头要保留的字符数量)
+    ///   - trailing: 要添加到截断字符串末尾的字符串(默认为“...”)
+    /// - Returns: 截断的字符串+尾巴
+    func truncated(toLength length: Int, trailing: String? = "...") -> String {
+        guard 0 ..< count ~= length else { return self }
+        return self[startIndex ..< index(startIndex, offsetBy: length)] + (trailing ?? "")
+    }
+
+    /// 省略字符串
+    /// - Parameters:
+    ///   - length: 开始省略长度(保留长度)
+    ///   - suffix: 后缀
+    func truncate(_ length: Int, suffix: String = "...") -> String {
+        return count > length ? self[0 ..< length] + suffix : self
+    }
+
+    /// 分割字符串
+    /// - Parameters:
+    ///   - length: 每段长度
+    ///   - separator: 分隔符
+    func truncate(_ length: Int, separator: String = "-") -> String {
+        var newValue = ""
+        for (i, char) in enumerated() {
+            if i > (count - length) {
+                newValue += "\(char)"
+            } else {
+                newValue += (((i % length) == (length - 1)) ? "\(char)\(separator)" : "\(char)")
+            }
+        }
+        return newValue
     }
 
     /// 删除字符串开头和结尾的空格和换行符
@@ -1050,11 +1180,11 @@ public extension String {
     /// 截断字符串(将其剪切为给定数量的字符)
     ///
     ///     var str = "This is a very long sentence"
-    ///     str.truncate(toLength:14)
+    ///     str.truncate(toLength: 14)
     ///     print(str) // prints "This is a very..."
     /// - Parameters:
-    ///   - toLength:切割前的最大字符数(从字符开头要保留的字符数量)
-    ///   - trailing:要添加到截断字符串末尾的字符串(默认为“...”)
+    ///   - toLength: 切割前的最大字符数(从字符开头要保留的字符数量)
+    ///   - trailing: 要添加到截断字符串末尾的字符串(默认为“...”)
     @discardableResult
     mutating func truncate(toLength length: Int, trailing: String? = "...") -> String {
         guard length > 0 else { return self }
@@ -1062,6 +1192,14 @@ public extension String {
             self = self[startIndex ..< index(startIndex, offsetBy: length)] + (trailing ?? "")
         }
         return self
+    }
+
+    /// 分割字符串
+    /// - Parameter delimiter: 分割根据
+    /// - Returns: 分割结果数组
+    func split(with char: String) -> [String] {
+        let components = self.components(separatedBy: char)
+        return components != [""] ? components : []
     }
 
     /// 转义字符串(URL编码)
@@ -1095,10 +1233,10 @@ public extension String {
     /// 在开始时用另一个字符串填充字符串以适应长度参数大小
     ///
     ///     "hue".padStart(10) -> "       hue"
-    ///     "hue".padStart(10, with:"br") -> "brbrbrbhue"
+    ///     "hue".padStart(10, with: "br") -> "brbrbrbhue"
     /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
+    ///   - length: 要填充的目标长度
+    ///   - string: 填充字符串. 默认为`“ ”`
     @discardableResult
     mutating func padStart(_ length: Int, with string: String = " ") -> String {
         self = paddingStart(length, with: string)
@@ -1108,14 +1246,60 @@ public extension String {
     /// 在开始时用另一个字符串填充字符串以适应长度参数大小
     ///
     ///     "hue".padEnd(10) -> "hue       "
-    ///     "hue".padEnd(10, with:"br") -> "huebrbrbrb"
+    ///     "hue".padEnd(10, with: "br") -> "huebrbrbrb"
     /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
+    ///   - length: 要填充的目标长度
+    ///   - string: 填充字符串. 默认为`“ ”`
     @discardableResult
     mutating func padEnd(_ length: Int, with string: String = " ") -> String {
         self = paddingEnd(length, with: string)
         return self
+    }
+
+    /// 通过填充返回一个字符串,以适应长度参数大小,并在开始时使用另一个字符串
+    ///
+    ///     "hue".paddingStart(10) -> "       hue"
+    ///     "hue".paddingStart(10, with: "br") -> "brbrbrbhue"
+    /// - Parameters:
+    ///   - length: 要填充的目标长度
+    ///   - string: 填充字符串. 默认为`“ ”`
+    /// - Returns: 开头有填充的字符串
+    func paddingStart(_ length: Int, with string: String = " ") -> String {
+        guard count < length else { return self }
+
+        let padLength = length - count
+        if padLength < string.count {
+            return string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)] + self
+        } else {
+            var padding = string
+            while padding.count < padLength {
+                padding.append(string)
+            }
+            return padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)] + self
+        }
+    }
+
+    /// 通过填充返回一个字符串,以使长度参数大小与最后的另一个字符串相匹配
+    ///
+    ///     "hue".paddingEnd(10) -> "hue       "
+    ///     "hue".paddingEnd(10, with: "br") -> "huebrbrbrb"
+    /// - Parameters:
+    ///   - length: 要填充的目标长度
+    ///   - string: 填充字符串. 默认为`“ ”`
+    /// - Returns: 末尾有填充的字符串
+    func paddingEnd(_ length: Int, with string: String = " ") -> String {
+        guard count < length else { return self }
+
+        let padLength = length - count
+        if padLength < string.count {
+            return self + string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)]
+        } else {
+            var padding = string
+            while padding.count < padLength {
+                padding.append(string)
+            }
+            return self + padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)]
+        }
     }
 }
 
@@ -1125,7 +1309,7 @@ public extension String {
     ///
     ///     "Hello\ntest".lines() -> ["Hello", "test"]
     ///
-    /// - Returns:分割后的字符串数组
+    /// - Returns: 分割后的字符串数组
     func lines() -> [String] {
         var result = [String]()
         enumerateLines { line, _ in
@@ -1134,51 +1318,11 @@ public extension String {
         return result
     }
 
-    /// 获取文字的每一行字符串 空字符串为空数组(⚠️不适用于属性文本)
-    /// - Parameters:
-    ///   - maxWidth:最大宽度
-    ///   - font:字体
-    /// - Returns:行字符串数组
-    func lines(_ maxWidth: CGFloat, font: UIFont) -> [String] {
-        // 段落样式
-        let style = NSMutableParagraphStyle()
-        style.lineBreakMode = .byCharWrapping
-
-        // UIFont字体转CFFont
-        let cfFont = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
-
-        // 属性字符串
-        let attStr = NSMutableAttributedString(string: self)
-        attStr.addAttributes([
-            .paragraphStyle: style,
-            NSAttributedString.Key(kCTFontAttributeName as String): cfFont,
-        ], range: NSRange(location: 0, length: attStr.length))
-
-        let frameSetter = CTFramesetterCreateWithAttributedString(attStr)
-
-        let path = CGMutablePath()
-        path.addRect(CGRect(x: 0, y: 0, width: maxWidth, height: 100_000), transform: .identity)
-
-        let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CFIndex(0), CFIndex(0)), path, nil)
-        let lines = CTFrameGetLines(frame) as? [AnyHashable]
-        var linesArray: [String] = []
-
-        for line in lines ?? [] {
-            let lineRange = CTLineGetStringRange(line as! CTLine)
-            let range = NSRange(location: lineRange.location, length: lineRange.length)
-
-            let lineString = (self as NSString).substring(with: range)
-            CFAttributedStringSetAttribute(attStr, lineRange, kCTKernAttributeName, NSNumber(value: 0.0))
-            linesArray.append(lineString)
-        }
-        return linesArray
-    }
-
-    /// 字符串中的字数(word)
+    /// 字符串中的字数(`word`)
     ///
     ///     "Swift is amazing".wordsCount() -> 3
     ///
-    /// - Returns:字符串中包含的单词数
+    /// - Returns: 字符串中包含的单词数
     func wordCount() -> Int {
         let chararacterSet = CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters)
         let comps = components(separatedBy: chararacterSet)
@@ -1195,7 +1339,7 @@ public extension String {
         return count
     }
 
-    /// 计算字符个数(英文 = 1,数字 = 1,汉语 = 2)
+    /// 计算字符个数(`英文 = 1`,`数字 = 1`,`汉语 = 2`)
     var countOfChars: Int {
         var count = 0
         guard !isEmpty else {
@@ -1216,7 +1360,7 @@ public extension String {
     ///
     ///     "SwifterSwift".unicodeArray() -> [83, 119, 105, 102, 116, 101, 114, 83, 119, 105, 102, 116]
     ///
-    /// - Returns:字符串中所有字符的 unicode
+    /// - Returns: 字符串中所有字符的 unicode
     func unicodeArray() -> [Int] {
         return unicodeScalars.map { Int($0.value) }
     }
@@ -1225,7 +1369,7 @@ public extension String {
     ///
     ///     "Swift is amazing".words() -> ["Swift", "is", "amazing"]
     ///
-    /// - Returns:字符串中包含的单词
+    /// - Returns: 字符串中包含的单词
     func words() -> [String] {
         let chararacterSet = CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters)
         let comps = components(separatedBy: chararacterSet)
@@ -1244,7 +1388,7 @@ public extension String {
     ///
     ///     "This is a test, since e is appearing everywhere e should be the common character".mostCommonCharacter() -> "e"
     ///
-    /// - Returns:出现最频繁的字符
+    /// - Returns: 出现最频繁的字符
     func mostCommonCharacter() -> Character? {
         let mostCommon = withoutSpacesAndNewLines.reduce(into: [Character: Int]()) {
             let count = $0[$1] ?? 0
@@ -1254,11 +1398,11 @@ public extension String {
         return mostCommon
     }
 
-    /// 将字符串转换为 slug 字符串
+    /// 将字符串转换为 `slug 字符串`
     ///
     ///     "Swift is amazing".toSlug() -> "swift-is-amazing"
     ///
-    /// - Returns:slug格式的字符串
+    /// - Returns: slug格式的字符串
     func toSlug() -> String {
         let lowercased = self.lowercased()
         let latinized = lowercased.folding(options: .diacriticInsensitive, locale: Locale.current)
@@ -1285,11 +1429,11 @@ public extension String {
     /// 检查字符串是否包含子字符串的一个或多个实例
     ///
     ///     "Hello World!".contain("O") -> false
-    ///     "Hello World!".contain("o", caseSensitive:false) -> true
+    ///     "Hello World!".contain("o", caseSensitive: false) -> true
     /// - Parameters:
-    ///   - string:要搜索的子字符串
-    ///   - caseSensitive:为区分大小写的搜索设置true(默认值为true)
-    /// - Returns:如果字符串包含一个或多个子字符串实例,则为true
+    ///   - string: 要搜索的子字符串
+    ///   - caseSensitive: 是否区分大小写(默认值为`true`)
+    /// - Returns: 如果字符串包含一个或多个子字符串实例,则为`true`
     func contains(_ string: String, caseSensitive: Bool = true) -> Bool {
         if !caseSensitive {
             return range(of: string, options: .caseInsensitive) != nil
@@ -1297,28 +1441,28 @@ public extension String {
         return range(of: string) != nil
     }
 
-    /// 判断是否包含某个子串
-    /// - Parameter find:子串
-    /// - Returns:Bool
+    /// 判断是否包含某个子串`区分大小写`
+    /// - Parameter find: 子串
+    /// - Returns: `Bool`
     func contains(find: String) -> Bool {
-        return range(of: find) != nil
+        return contains(find, caseSensitive: true)
     }
 
-    ///  判断是否包含某个子串 -- 忽略大小写
-    /// - Parameter find:子串
-    /// - Returns:Bool
+    ///  判断是否包含某个子串`忽略大小写`
+    /// - Parameter find: 子串
+    /// - Returns: `Bool`
     func containsIgnoringCase(find: String) -> Bool {
-        return range(of: find, options: .caseInsensitive) != nil
+        return contains(find, caseSensitive: false)
     }
 
-    /// 符串中的子字符串计数
+    /// 字符串中的子字符串个数
     ///
-    ///     "Hello World!".count(of:"o") -> 2
-    ///     "Hello World!".count(of:"L", caseSensitive:false) -> 3
+    ///     "Hello World!".count(of: "o") -> 2
+    ///     "Hello World!".count(of: "L", caseSensitive: false) -> 3
     /// - Parameters:
-    ///   - string:要搜索的子字符串
-    ///   - caseSensitive:为区分大小写的搜索设置true(默认为true)
-    /// - Returns:子字符串在字符串中出现的计数
+    ///   - string: 要搜索的子字符串
+    ///   - caseSensitive: 是否区分大小写(默认为`true`)
+    /// - Returns: 子字符串在字符串中出现的计数
     func count(of string: String, caseSensitive: Bool = true) -> Int {
         if !caseSensitive {
             return lowercased().components(separatedBy: string.lowercased()).count - 1
@@ -1326,45 +1470,14 @@ public extension String {
         return components(separatedBy: string).count - 1
     }
 
-    /// 检查字符串是否以子字符串结尾
-    ///
-    ///     "Hello World!".ends(with:"!") -> true
-    ///     "Hello World!".ends(with:"WoRld!", caseSensitive:false) -> true
-    /// - Parameters:
-    ///   - suffix:用于搜索字符串是否以结尾的子字符串
-    ///   - caseSensitive:为区分大小写的搜索设置true(默认为true)
-    /// - Returns:如果字符串以子字符串结尾,则返回true
-    func ends(with suffix: String, caseSensitive: Bool = true) -> Bool {
-        if !caseSensitive {
-            return lowercased().hasSuffix(suffix.lowercased())
-        }
-        return hasSuffix(suffix)
-    }
-
-    /// 从字符串中获取指定开始位置到指定长度的子字符串
-    ///
-    ///     "Hello World".slicing(from:6, length:5) -> "World"
-    /// - Parameters:
-    ///   - index:字符串索引开始
-    ///   - length:给定索引后要切片的字符数
-    /// - Returns:长度为字符数的切片子字符串
-    func slicing(from index: Int, length: Int) -> String? {
-        guard length >= 0, index >= 0, index < count else { return nil }
-        guard index.advanced(by: length) <= count else {
-            return self[safe: index ..< count]
-        }
-        guard length > 0 else { return "" }
-        return self[safe: index ..< index.advanced(by: length)]
-    }
-
     /// 检查字符串是否以子字符串开头
     ///
-    ///     "hello World".starts(with:"h") -> true
-    ///     "hello World".starts(with:"H", caseSensitive:false) -> true
+    ///     "hello World".starts(with: "h") -> true
+    ///     "hello World".starts(with: "H", caseSensitive: false) -> true
     /// - Parameters:
-    ///   - suffix:搜索字符串是否以开头的子字符串
-    ///   - caseSensitive:为区分大小写的搜索设置为真(默认为真)
-    /// - Returns:如果字符串以子字符串开头,则返回 true
+    ///   - suffix: 搜索字符串是否以开头的子字符串
+    ///   - caseSensitive: 是否区分大小写(默认为`true`)
+    /// - Returns: 如果字符串以子字符串开头,则返回 `true`
     func starts(with prefix: String, caseSensitive: Bool = true) -> Bool {
         if !caseSensitive {
             return lowercased().hasPrefix(prefix.lowercased())
@@ -1372,75 +1485,45 @@ public extension String {
         return hasPrefix(prefix)
     }
 
-    /// 截断的字符串(限于给定数量的字符)
+    /// 检查字符串是否以子字符串结尾
     ///
-    ///     "This is a very long sentence".truncated(toLength:14) -> "This is a very..."
-    ///     "Short sentence".truncated(toLength:14) -> "Short sentence"
+    ///     "Hello World!".ends(with: "!") -> true
+    ///     "Hello World!".ends(with: "WoRld!", caseSensitive: false) -> true
     /// - Parameters:
-    ///   - toLength:切割前的最大字符数(从字符开头要保留的字符数量)
-    ///   - trailing:要添加到截断字符串末尾的字符串(默认为“...”)
-    /// - Returns:截断的字符串+尾巴
-    func truncated(toLength length: Int, trailing: String? = "...") -> String {
-        guard 0 ..< count ~= length else { return self }
-        return self[startIndex ..< index(startIndex, offsetBy: length)] + (trailing ?? "")
-    }
-
-    /// 省略字符串
-    /// - Parameters:
-    ///   - length:开始省略长度(保留长度)
-    ///   - suffix:后缀
-    func truncate(_ length: Int, suffix: String = "...") -> String {
-        return count > length ? self[0 ..< length] + suffix : self
-    }
-
-    /// 分割字符串
-    /// - Parameters:
-    ///   - length:每段长度
-    ///   - separator:分隔符
-    func truncate(_ length: Int, separator: String = "-") -> String {
-        var newValue = ""
-        for (i, char) in enumerated() {
-            if i > (count - length) {
-                newValue += "\(char)"
-            } else {
-                newValue += (((i % length) == (length - 1)) ? "\(char)\(separator)" : "\(char)")
-            }
+    ///   - suffix: 用于搜索字符串是否以结尾的子字符串
+    ///   - caseSensitive: 是否区分大小写(默认为`true`)
+    /// - Returns: 如果字符串以子字符串结尾,则返回`true`
+    func ends(with suffix: String, caseSensitive: Bool = true) -> Bool {
+        if !caseSensitive {
+            return lowercased().hasSuffix(suffix.lowercased())
         }
-        return newValue
-    }
-
-    /// 分割字符串
-    /// - Parameter delimiter:分割根据
-    /// - Returns:分割结果数组
-    func split(with char: String) -> [String] {
-        let components = self.components(separatedBy: char)
-        return components != [""] ? components : []
+        return hasSuffix(suffix)
     }
 
     /// 验证字符串是否匹配正则表达式模式
-    /// - Parameters pattern:要验证的模式
-    /// - Returns:如果字符串与模式匹配,则返回:`true`
+    /// - Parameters pattern: 要验证的模式
+    /// - Returns: 如果字符串与模式匹配,则返回: `true`
     func matches(pattern: String) -> Bool {
         return range(of: pattern, options: .regularExpression, range: nil, locale: nil) != nil
     }
 
     /// 验证字符串是否与正则表达式匹配
     /// - Parameters:
-    ///   - regex:进行验证的正则表达式
-    ///   - options:要使用的匹配选项
-    /// - Returns:如果字符串与正则表达式匹配,则返回:`true`
+    ///   - regex: 进行验证的正则表达式
+    ///   - options: 要使用的匹配选项
+    /// - Returns: 如果字符串与正则表达式匹配,则返回: `true`
     func matches(regex: NSRegularExpression, options: NSRegularExpression.MatchingOptions = []) -> Bool {
         let range = NSRange(startIndex ..< endIndex, in: self)
         return regex.firstMatch(in: self, options: options, range: range) != nil
     }
 
-    /// 返回一个新字符串,其中接收者指定范围内所有出现的正则表达式都被模板替换
+    /// 在指定`searchRange`中使用`template`替换与`regex`匹配的内容
     /// - Parameters:
-    ///   - regex:进行替换的正则表达式
-    ///   - template:替换正则表达式的模板
-    ///   - options:要使用的匹配选项
-    ///   - searchRange:要搜索的范围
-    /// - Returns:一个新字符串,其中接收者的 searchRange 中所有出现的正则表达式都被模板替换
+    ///   - regex: 进行替换的正则表达式
+    ///   - template: 替换正则表达式的模板
+    ///   - options: 要使用的匹配选项
+    ///   - searchRange: 要搜索的范围
+    /// - Returns: 一个新字符串,其中接收者的 `searchRange` 中所有出现的正则表达式都被模板替换
     func replacingOccurrences(
         of regex: NSRegularExpression,
         with template: String,
@@ -1451,57 +1534,26 @@ public extension String {
         return regex.stringByReplacingMatches(in: self, options: options, range: range, withTemplate: template)
     }
 
-    /// 通过填充返回一个字符串,以适应长度参数大小,并在开始时使用另一个字符串
-    ///
-    ///   "hue".paddingStart(10) -> "       hue"
-    ///   "hue".paddingStart(10, with:"br") -> "brbrbrbhue"
+    /// 使用正则表达式替换
     /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
-    /// - Returns:开头有填充的字符串
-    func paddingStart(_ length: Int, with string: String = " ") -> String {
-        guard count < length else { return self }
-
-        let padLength = length - count
-        if padLength < string.count {
-            return string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)] + self
-        } else {
-            var padding = string
-            while padding.count < padLength {
-                padding.append(string)
-            }
-            return padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)] + self
-        }
+    ///   - pattern: 正则
+    ///   - with: 用来替换的字符串
+    ///   - options: 选项
+    /// - Returns: 返回替换后的字符串
+    func pregReplace(pattern: String, with: String,
+                     options: NSRegularExpression.Options = []) -> String
+    {
+        let regex = try! NSRegularExpression(pattern: pattern, options: options)
+        return regex.stringByReplacingMatches(in: self, options: [],
+                                              range: NSRange(location: 0, length: count),
+                                              withTemplate: with)
     }
 
-    /// 通过填充返回一个字符串,以使长度参数大小与最后的另一个字符串相匹配
+    /// 从字符串中删除指定的前缀
     ///
-    ///   "hue".paddingEnd(10) -> "hue       "
-    ///   "hue".paddingEnd(10, with:"br") -> "huebrbrbrb"
-    /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
-    /// - Returns:末尾有填充的字符串
-    func paddingEnd(_ length: Int, with string: String = " ") -> String {
-        guard count < length else { return self }
-
-        let padLength = length - count
-        if padLength < string.count {
-            return self + string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)]
-        } else {
-            var padding = string
-            while padding.count < padLength {
-                padding.append(string)
-            }
-            return self + padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)]
-        }
-    }
-
-    /// 从字符串中删除给定的前缀
-    ///
-    ///   "Hello, World!".removingPrefix("Hello, ") -> "World!"
-    /// - Parameters prefix:要从字符串中删除的前缀
-    /// - Returns:去除前缀后的字符串
+    ///     "Hello, World!".removingPrefix("Hello, ") -> "World!"
+    /// - Parameters prefix: 要从字符串中删除的前缀
+    /// - Returns: 去除前缀后的字符串
     func removingPrefix(_ prefix: String) -> String {
         guard hasPrefix(prefix) else { return self }
         return String(dropFirst(prefix.count))
@@ -1509,9 +1561,9 @@ public extension String {
 
     /// 从字符串中删除给定的后缀
     ///
-    ///   "Hello, World!".removingSuffix(", World!") -> "Hello"
-    /// - Parameters suffix:要从字符串中删除的后缀
-    /// - Returns:删除后缀后的字符串
+    ///     "Hello, World!".removingSuffix(", World!") -> "Hello"
+    /// - Parameters suffix: 要从字符串中删除的后缀
+    /// - Returns: 删除后缀后的字符串
     func removingSuffix(_ suffix: String) -> String {
         guard hasSuffix(suffix) else { return self }
         return String(dropLast(suffix.count))
@@ -1519,33 +1571,33 @@ public extension String {
 
     /// 为字符串添加前缀
     ///
-    ///     "www.apple.com".withPrefix("https://") -> "https://www.apple.com"
-    /// - Parameters prefix:添加到字符串的前缀
-    /// - Returns:带有前缀的字符串
+    ///     "www.apple.com".withPrefix("https: //") -> "https: //www.apple.com"
+    /// - Parameters prefix: 添加到字符串的前缀
+    /// - Returns: 带有前缀的字符串
     func withPrefix(_ prefix: String) -> String {
         guard !hasPrefix(prefix) else { return self }
         return prefix + self
     }
 
-    /// 子字符串最后一次出现的位置
-    /// - Parameter sub:子字符串
-    /// - Returns:返回字符串的位置(如果内部不存在该字符串则返回 -1)
+    /// `子字符串``第一次`出现的位置
+    /// - Parameter sub: 子字符串
+    /// - Returns: 返回字符串的位置(如果不存在该字符串则返回 `-1`)
     func positionFirst(of sub: String) -> Int {
         return position(of: sub)
     }
 
-    /// 子字符串第一次出现的位置
-    /// - Parameter sub:子字符串
-    /// - Returns:返回字符串的位置(如果内部不存在该字符串则返回 -1)
+    /// `子字符串``最后一次`出现的位置
+    /// - Parameter sub: 子字符串
+    /// - Returns: 返回字符串的位置(如果不存在该字符串则返回 `-1`)
     func positionLast(of sub: String) -> Int {
         return position(of: sub, backwards: true)
     }
 
-    /// 返回(第一次/最后一次)出现的指定子字符串在此字符串中的索引,如果内部不存在该字符串则返回 -1
+    /// 返回字符串`第一次/最后一次`出现的`位置索引`,不存在返回`-1`
     /// - Parameters:
-    ///   - sub:子字符串
-    ///   - backwards:如果backwards参数设置为true,则返回最后出现的位置
-    /// - Returns:位置
+    ///   - sub: 子字符串
+    ///   - backwards: 如果`backwards`参数设置为`true`,则返回最后一次出现的位置
+    /// - Returns: 位置
     func position(of sub: String, backwards: Bool = false) -> Int {
         var pos = -1
         if let range = range(of: sub, options: backwards ? .backwards : .literal) {
@@ -1556,93 +1608,11 @@ public extension String {
         return pos
     }
 
-    /// 截取子字符串(从from开始到字符串结尾)
-    /// - Parameter from:开始位置
-    /// - Returns:子字符串
-    func subString(from: Int) -> String {
-        let end = count
-        return self[from ..< end]
-    }
-
-    /// 截取子字符串(从开头到to)
-    /// - Parameter to:停止位置
-    /// - Returns:子字符串
-    func subString(to: Int) -> String {
-        return self[0 ..< to]
-    }
-
-    /// 截取子字符串(从from开始截取length个字符)
-    /// - Parameters:
-    ///   - from:开始截取位置
-    ///   - length:长度
-    /// - Returns:子字符串
-    func subString(from: Int, length: Int) -> String {
-        let end = from + length
-        return self[from ..< end]
-    }
-
-    /// 截取子字符串(从from开始截取到to)
-    /// - Parameters:
-    ///   - from:开始位置
-    ///   - to:结束位置
-    /// - Returns:子字符串
-    func subString(from: Int, to: Int) -> String {
-        return self[from ..< to]
-    }
-
-    /// 根据`NSRange`截取子字符串
-    /// - Parameter range:`NSRange`
-    /// - Returns:子字符串
-    func subString(range: NSRange) -> String {
-        return (self as NSString).substring(with: range)
-    }
-
-    /// 根据`Range`截取子字符串
-    /// - Parameter range:`Range<Int>`
-    /// - Returns:子字符串
-    func subString(range: Range<Int>) -> String {
-        return self[range]
-    }
-
-    /// 根据`Range`截取子字符串
-    /// - Parameter range:`Range<String.Index>`
-    /// - Returns:子字符串
-    func subString(range: Range<String.Index>) -> String {
-        let subString = self[range]
-        return String(subString)
-    }
-
-    /// 获取某个位置的字符串
-    /// - Parameter index:位置
-    /// - Returns:某个位置的字符串
-    func indexString(index: Int) -> String {
-        return slice(index ..< index + 1)
-    }
-
-    /// 切割字符串(区间范围 前闭后开)
-    ///     CountableClosedRange:可数的闭区间,如 0...2
-    ///     CountableRange:可数的开区间,如 0..<2
-    ///     ClosedRange:不可数的闭区间,如 0.1...2.1
-    ///     Range:不可数的开居间,如 0.1..<2.1
-    /// - Parameter range:范围
-    /// - Returns:切割后的字符串
-    func slice(_ range: CountableRange<Int>) -> String {
-        // 如 slice(2..<6)
-        /// upperBound(上界)
-        /// lowerBound(下界)
-        let startIndex = validIndex(original: range.lowerBound)
-        let endIndex = validIndex(original: range.upperBound)
-        guard startIndex < endIndex else {
-            return ""
-        }
-        return String(self[startIndex ..< endIndex])
-    }
-
     /// 在任意位置插入字符串
     /// - Parameters:
-    ///   - content:插入内容
-    ///   - locat:插入的位置
-    /// - Returns:添加后的字符串
+    ///   - content: 插入内容
+    ///   - locat: 插入的位置
+    /// - Returns: 添加后的字符串
     func insertString(content: String, locat: Int) -> String {
         guard locat < count else {
             return self
@@ -1654,19 +1624,21 @@ public extension String {
 
     /// 替换字符串
     /// - Parameters:
-    ///   - string:要替换的字符串
-    ///   - withString:要替换成的字符串
-    /// - Returns:替换完成的字符串
+    ///   - string: 要替换的字符串
+    ///   - withString: 要替换成的字符串
+    /// - Returns: 替换完成的字符串
     func replace(_ string: String, with withString: String) -> String {
         return replacingOccurrences(of: string, with: withString)
     }
 
     /// 隐藏敏感信息
+    ///
+    ///     "012345678912".HideSensitiveContent(range: 3..<8, replace: "*****") -> "012*****912"
     /// - Parameters:
-    ///   - range:要隐藏的内容范围
-    ///   - replace:用来替换敏感内容的字符串
-    /// - Returns:隐藏敏感信息后的字符串
-    func HideSensitiveContent(range: Range<Int>, replace: String = "****") -> String {
+    ///   - range: 要隐藏的内容范围
+    ///   - replace: 用来替换敏感内容的字符串
+    /// - Returns: 隐藏敏感信息后的字符串
+    func hideSensitiveContent(range: Range<Int>, replace: String = "****") -> String {
         if count < range.upperBound {
             return self
         }
@@ -1676,14 +1648,16 @@ public extension String {
         return self.replace(subStr, with: replace)
     }
 
-    /// 重复字符串
+    /// 生成指定数量的重复字符串
+    /// - Parameter count: 要重复的字符串个数
+    /// - Returns: 拼接后的字符串
     func `repeat`(_ count: Int) -> String {
         return String(repeating: self, count: count)
     }
 
-    /// 校验字符串位置是否合理,并返回String.Index
-    /// - Parameter original:位置
-    /// - Returns:String.Index
+    /// 校验`字符串位置`是否有效,并返回`String.Index`
+    /// - Parameter original: 位置
+    /// - Returns: `String.Index`
     func validIndex(original: Int) -> String.Index {
         switch original {
         case ...startIndex.utf16Offset(in: self):
@@ -1695,33 +1669,18 @@ public extension String {
         }
     }
 
-    /// 某个字符使用某个字符替换掉
+    /// 移除`self`中指定字符串,并用指定字符串来进行替换
     /// - Parameters:
-    ///   - removeString:原始字符
-    ///   - replacingString:替换后的字符
-    /// - Returns:替换后的整体字符串
+    ///   - removeString: 要移除的字符串
+    ///   - replacingString: 替换的字符串
+    /// - Returns: 替换后的整体字符串
     func removeSomeStringUseSomeString(removeString: String, replacingString: String = "") -> String {
         return replacingOccurrences(of: removeString, with: replacingString)
     }
 
-    /// 使用正则表达式替换
-    /// - Parameters:
-    ///   - pattern:正则
-    ///   - with:用来替换的字符串
-    ///   - options:策略
-    /// - Returns:返回替换后的字符串
-    func pregReplace(pattern: String, with: String,
-                     options: NSRegularExpression.Options = []) -> String
-    {
-        let regex = try! NSRegularExpression(pattern: pattern, options: options)
-        return regex.stringByReplacingMatches(in: self, options: [],
-                                              range: NSRange(location: 0, length: count),
-                                              withTemplate: with)
-    }
-
     /// 删除指定的字符
-    /// - Parameter characterString:指定的字符
-    /// - Returns:返回删除后的字符
+    /// - Parameter characterString: 指定的字符
+    /// - Returns: 返回删除后的字符
     func removeCharacter(characterString: String) -> String {
         let characterSet = CharacterSet(charactersIn: characterString)
         return trimmingCharacters(in: characterSet)
@@ -1731,7 +1690,7 @@ public extension String {
 // MARK: - HTML字符引用
 public extension String {
     /// 字符串转为HTML字符引用
-    /// - Returns:字符引用
+    /// - Returns: 字符引用
     func stringAsHtmlCharacterEntityReferences() -> String {
         var result = ""
         for scalar in utf16 {
@@ -1743,7 +1702,7 @@ public extension String {
     }
 
     /// HTML字符引用转字符串
-    /// - Returns:普通字符串
+    /// - Returns: 普通字符串
     func htmlCharacterEntityReferencesAsString() -> String? {
         let attributedOptions: [NSAttributedString.DocumentReadingOptionKey: Any] = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
                                                                                      NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue]
@@ -1758,9 +1717,9 @@ public extension String {
 public extension String {
     /// HTML源码转属性字符串
     /// - Parameters:
-    ///   - font:字体
-    ///   - lineSpacing:行间距
-    /// - Returns:属性字符串
+    ///   - font: 字体
+    ///   - lineSpacing: 行间距
+    /// - Returns: 属性字符串
     func htmlCodeAsAttributedString(
         font: UIFont? = UIFont.systemFont(ofSize: 16),
         lineSpacing: CGFloat? = 10
@@ -1797,11 +1756,11 @@ public extension String {
 
     /// 高亮显示关键字(返回属性字符串)
     /// - Parameters:
-    ///   - keyword:要高亮的关键词
-    ///   - keywordCololor:关键高亮字颜色
-    ///   - otherColor:非高亮文字颜色
-    ///   - options:匹配选项
-    /// - Returns:返回匹配后的属性字符串
+    ///   - keyword: 要高亮的关键词
+    ///   - keywordCololor: 关键高亮字颜色
+    ///   - otherColor: 非高亮文字颜色
+    ///   - options: 匹配选项
+    /// - Returns: 返回匹配后的属性字符串
     func highlightSubString(
         keyword: String,
         keywordCololor: UIColor,
@@ -1830,9 +1789,9 @@ public extension String {
 public extension String {
     /// 计算字符串大小
     /// - Parameters:
-    ///   - maxWidth:最大宽度
-    ///   - font:文字字体
-    /// - Returns:返回计算好的size
+    ///   - maxWidth: 最大宽度
+    ///   - font: 文字字体
+    /// - Returns: 返回计算好的size
     func textSize(
         _ maxWidth: CGFloat = UIScreen.main.bounds.width,
         font: UIFont
@@ -1854,11 +1813,11 @@ public extension String {
 
     /// 以属性字符串的方式计算字符串大小
     /// - Parameters:
-    ///   - maxWidth:最大宽度
-    ///   - font:字体
-    ///   - lineSpaceing:行间距
-    ///   - wordSpacing:字间距
-    /// - Returns:size
+    ///   - maxWidth: 最大宽度
+    ///   - font: 字体
+    ///   - lineSpaceing: 行间距
+    ///   - wordSpacing: 字间距
+    /// - Returns: size
     func attributedSize(
         _ maxWidth: CGFloat = UIScreen.main.bounds.width,
         font: UIFont,
@@ -1920,7 +1879,7 @@ public extension String {
 // Binary:     二进制
 // Octal:      八进制
 // Decimal:    十进制
-// Hexadecimal:十六进制
+// Hexadecimal: 十六进制
 // --------------------------------------
 
 // MARK: - 进制转换
@@ -2049,8 +2008,8 @@ public extension ExpressibleByStringLiteral {
 // MARK: - `NSDecimalNumber`苹果针对浮点类型计算精度问题提供出来的计算类
 public extension String {
     /// ＋ 加法运算
-    /// - Parameter strNumber:strNumber description
-    /// - Returns:description
+    /// - Parameter strNumber: strNumber description
+    /// - Returns: description
     func adding(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2065,8 +2024,8 @@ public extension String {
     }
 
     /// － 减法运算
-    /// - Parameter strNumber:strNumber description
-    /// - Returns:description
+    /// - Parameter strNumber: strNumber description
+    /// - Returns: description
     func subtracting(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2081,8 +2040,8 @@ public extension String {
     }
 
     /// x 乘法运算
-    /// - Parameter strNumber:strNumber description
-    /// - Returns:description
+    /// - Parameter strNumber: strNumber description
+    /// - Returns: description
     func multiplying(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2097,8 +2056,8 @@ public extension String {
     }
 
     /// / 除法运算
-    /// - Parameter strNumber:strNumber description
-    /// - Returns:description
+    /// - Parameter strNumber: strNumber description
+    /// - Returns: description
     func dividing(_ strNumber: String?) -> String {
         var ln = NSDecimalNumber(string: self)
         var rn = NSDecimalNumber(string: strNumber)
@@ -2120,18 +2079,18 @@ public extension String {
 public extension String {
     /// 重载 Swift 的“包含”运算符以匹配正则表达式模式
     /// - Parameters:
-    ///   - lhs:检查正则表达式模式的字符串
-    ///   - rhs:要匹配的正则表达式模式
-    /// - Returns:如果字符串与模式匹配,则返回 true
+    ///   - lhs: 检查正则表达式模式的字符串
+    ///   - rhs: 要匹配的正则表达式模式
+    /// - Returns: 如果字符串与模式匹配,则返回 true
     static func ~= (lhs: String, rhs: String) -> Bool {
         return lhs.range(of: rhs, options: .regularExpression) != nil
     }
 
     /// 重载 Swift 的“包含”运算符以匹配正则表达式
     /// - Parameters:
-    ///   - lhs:检查正则表达式的字符串
-    ///   - rhs:要匹配的正则表达式
-    /// - Returns:如果字符串中的正则表达式至少有一个匹配项,则返回:`true`
+    ///   - lhs: 检查正则表达式的字符串
+    ///   - rhs: 要匹配的正则表达式
+    /// - Returns: 如果字符串中的正则表达式至少有一个匹配项,则返回: `true`
     static func ~= (lhs: String, rhs: NSRegularExpression) -> Bool {
         let range = NSRange(lhs.startIndex ..< lhs.endIndex, in: lhs)
         return rhs.firstMatch(in: lhs, range: range) != nil
@@ -2141,9 +2100,9 @@ public extension String {
     ///
     ///     'bar' * 3 -> "barbarbar"
     /// - Parameters:
-    ///   - lhs:要重复的字符串
-    ///   - rhs:重复字符串的次数
-    /// - Returns:给定字符串重复 n 次的新字符串
+    ///   - lhs: 要重复的字符串
+    ///   - rhs: 重复字符串的次数
+    /// - Returns: 给定字符串重复 n 次的新字符串
     static func * (lhs: String, rhs: Int) -> String {
         guard rhs > 0 else { return "" }
         return String(repeating: lhs, count: rhs)
@@ -2153,9 +2112,9 @@ public extension String {
     ///
     ///     3 * 'bar' -> "barbarbar"
     /// - Parameters:
-    ///   - lhs:重复字符的次数
-    ///   - rhs:要重复的字符串
-    /// - Returns:给定字符串重复 n 次的新字符串
+    ///   - lhs: 重复字符的次数
+    ///   - rhs: 要重复的字符串
+    /// - Returns: 给定字符串重复 n 次的新字符串
     static func * (lhs: Int, rhs: String) -> String {
         guard lhs > 0 else { return "" }
         return String(repeating: rhs, count: lhs)
@@ -2167,7 +2126,7 @@ public extension String {
     /// 金额字符串转化为带逗号的金额, 按照千分位表示
     /// "1234567" => 1,234,567
     /// "1234567.56" => 1,234,567.56
-    /// - Returns:千分位表示字符串
+    /// - Returns: 千分位表示字符串
     func amountAsThousands() -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -2188,7 +2147,7 @@ public extension String {
     }
 
     /// 删除小数点后面多余的0
-    /// - Returns:删除小数点后多余0的数字字符串
+    /// - Returns: 删除小数点后多余0的数字字符串
     func deleteMoreThanZeroFromAfterDecimalPoint() -> String {
         var rst = self
         var i = 1
@@ -2212,9 +2171,9 @@ public extension String {
 
     /// 保留小数点后面指定位数
     /// - Parameters:
-    ///   - numberDecimal:保留几位小数
-    ///   - mode:模式
-    /// - Returns:返回保留后的小数(非数字字符串,返回0或0.0)
+    ///   - numberDecimal: 保留几位小数
+    ///   - mode: 模式
+    /// - Returns: 返回保留后的小数(非数字字符串,返回0或0.0)
     func keepDecimalPlaces(decimalPlaces: Int = 0, mode: NumberFormatter.RoundingMode = .floor) -> String {
         // 转为小数对象
         var decimalNumber = NSDecimalNumber(string: self)
@@ -2277,8 +2236,8 @@ public extension String {
 
     /// 返回指定表达式的值
     /// - Parameters:
-    ///   - pattern:正则表达式
-    ///   - count:匹配数量
+    ///   - pattern: 正则表达式
+    ///   - count: 匹配数量
     func regexpText(_ pattern: String, count: Int = 1) -> [String]? {
         guard let regx = try? NSRegularExpression(pattern: pattern, options: []),
               let result = regx.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.count))
@@ -2294,8 +2253,8 @@ public extension String {
     }
 
     /// 是否有与正则匹配的项
-    /// - Parameter pattern:正则表达式
-    /// - Returns:是否匹配
+    /// - Parameter pattern: 正则表达式
+    /// - Returns: 是否匹配
     func isMatchRegexp(_ pattern: String) -> Bool {
         guard let regx = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
             return false
@@ -2306,8 +2265,8 @@ public extension String {
 
     /// 获取匹配的Range
     /// - Parameters:
-    ///   - pattern:匹配规则
-    /// - Returns:返回匹配的[NSRange]结果
+    ///   - pattern: 匹配规则
+    /// - Returns: 返回匹配的[NSRange]结果
     func matchRange(_ pattern: String) -> [NSRange] {
         guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
             return []
@@ -2347,7 +2306,7 @@ public extension String {
 
     var isEmail: Bool {
         //     let pattern = "^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
-        let pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?"
+        let pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?: \\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?: [\\w](?: [\\w-]*[\\w])?\\.)+[\\w](?: [\\w-]*[\\w])?"
         return regexp(pattern)
     }
 
@@ -2364,7 +2323,7 @@ public extension String {
     }
 
     /// 设置密码必须符合由数字,大写字母,小写字母,特殊符
-    /// - Parameter complex:是否复杂密码 至少其中(两种/三种)组成密码
+    /// - Parameter complex: 是否复杂密码 至少其中(两种/三种)组成密码
     func password(_ complex: Bool = false) -> Bool {
         var pattern = "^(?![A-Z]+$)(?![a-z]+$)(?!\\d+$)(?![\\W_]+$)\\S{8,20}$"
         if complex {
@@ -2373,8 +2332,8 @@ public extension String {
         return regexp(pattern)
     }
 
-    /// 是否为0-9之间的数字(字符串的组成是:0-9之间的数字)
-    /// - Returns:返回结果
+    /// 是否为0-9之间的数字(字符串的组成是: 0-9之间的数字)
+    /// - Returns: 返回结果
     func isValidNumberValue() -> Bool {
         guard !isEmpty else {
             return false
@@ -2383,8 +2342,8 @@ public extension String {
         return regexp(rgex)
     }
 
-    /// 是否为数字或者小数点(字符串的组成是:0-9之间的数字或者小数点即可)
-    /// - Returns:返回结果
+    /// 是否为数字或者小数点(字符串的组成是: 0-9之间的数字或者小数点即可)
+    /// - Returns: 返回结果
     func isValidNumberAndDecimalPoint() -> Bool {
         guard !isEmpty else {
             return false
@@ -2496,7 +2455,7 @@ public extension String {
     /// 返回当前字符窜中的 link range数组
     var linkRanges: [NSRange]? {
         // url, ##, 中文字母数字
-        let patterns = ["[a-zA-Z]*://[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
+        let patterns = ["[a-zA-Z]*: //[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
         // 遍历数组,生成range的数组
         var ranges = [NSRange]()
 
@@ -2516,8 +2475,8 @@ public extension String {
 // MARK: - 私有
 public extension String {
     /// 是否是闰年
-    /// - Parameter year:年份
-    /// - Returns:返回是否是闰年
+    /// - Parameter year: 年份
+    /// - Returns: 返回是否是闰年
     private func isLeapYear(year: Int) -> Bool {
         if year % 400 == 0 {
             return true
@@ -2553,8 +2512,8 @@ public extension String {
 // MARK: - base64(属性)
 public extension String {
     /// Base64 编解码
-    /// - Parameter encode:true:编码 false:解码
-    /// - Returns:编解码结果
+    /// - Parameter encode: true: 编码 false: 解码
+    /// - Returns: 编解码结果
     func base64String(encode: Bool) -> String? {
         if encode {
             return base64Encoded
@@ -2600,7 +2559,7 @@ public extension String {
 // MARK: - unicode编码和解码
 public extension String {
     /// Unicode编码
-    /// - Returns:unicode编码后的字符串
+    /// - Returns: unicode编码后的字符串
     func unicodeEncode() -> String {
         var tempStr = String()
         for v in utf16 {
@@ -2616,7 +2575,7 @@ public extension String {
     }
 
     /// Unicode解码
-    /// - Returns:unicode解码后的字符串
+    /// - Returns: unicode解码后的字符串
     func unicodeDecode() -> String {
         let tempStr1 = replacingOccurrences(of: "\\u", with: "\\U")
         let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")

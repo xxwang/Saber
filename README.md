@@ -6,7 +6,7 @@ Saber(日常开发工具包)
 ```
 #### 安装
 ```
-.package(url:"git@gitee.com:zenwb/Saber.git", from:"x.x.x")
+.package(url: "git@gitee.com: zenwb/Saber.git", from: "x.x.x")
 ```
 
 ### 指定文件

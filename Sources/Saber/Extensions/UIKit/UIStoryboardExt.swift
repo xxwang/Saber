@@ -13,8 +13,8 @@ public extension UIStoryboard {
 // MARK: - 方法
 public extension UIStoryboard {
     /// 使用`UIStoryboard`实例化指定类型控制器(`UIViewController`类或其子类)
-    /// - Parameter name:`UIViewController`类型
-    /// - Returns:与指定类名对应的视图控制器
+    /// - Parameter name: `UIViewController`类型
+    /// - Returns: 与指定类名对应的视图控制器
     func instantiateViewController<T: UIViewController>(withClass name: T.Type) -> T? {
         return instantiateViewController(withIdentifier: String(describing: name)) as? T
     }

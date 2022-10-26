@@ -9,8 +9,8 @@ public class VideoManager: NSObject {}
 public extension VideoManager {
     /// 播放视频(`AVPlayerViewController`)
     /// - Parameters:
-    ///   - url:视频`URL`
-    ///   - target:弹出控制器的源控制器
+    ///   - url: 视频`URL`
+    ///   - target: 弹出控制器的源控制器
     static func playVideo(_ url: URL, target: UIViewController) {
         let player = AVPlayer(url: url)
         let controller = AVPlayerViewController()
@@ -24,8 +24,8 @@ public extension VideoManager {
 // MARK: - 截图
 public extension VideoManager {
     /// 截图视频封面(同步)
-    /// - Parameter url:视频`URL`
-    /// - Returns:封面图片
+    /// - Parameter url: 视频`URL`
+    /// - Returns: 封面图片
     static func videoCover(_ url: URL?) -> UIImage? {
         guard let url = url else {
             return nil
@@ -44,9 +44,9 @@ public extension VideoManager {
     }
 
     /// 截图视频封面(异步)
-    /// - Parameter url:视频`URL`
-    /// - Parameter success:结果回调
-    /// - Returns:封面图片
+    /// - Parameter url: 视频`URL`
+    /// - Parameter success: 结果回调
+    /// - Returns: 封面图片
     static func videoCover(_ videoURL: URL, success: ((UIImage?) -> Void)?) {
         DispatchQueue.global().async {
             let avAsset = AVURLAsset(url: videoURL, options: nil)
@@ -78,8 +78,8 @@ public extension VideoManager {
 public extension VideoManager {
     /// 保存视频,`url`需要是本地路径
     /// - Parameters:
-    ///   - url:视频保存的地址
-    ///   - completed:完成回调
+    ///   - url: 视频保存的地址
+    ///   - completed: 完成回调
     static func saveVideo(_ url: URL, completed: ((Bool) -> Void)?) {
         AuthorizedManager.authorizePhotoWith { isOK in
             if isOK {
@@ -97,8 +97,8 @@ public extension VideoManager {
 
     /// 视频格式转换 & 压缩` .mov `转成` .mp4`
     /// - Parameters:
-    ///   - file:文件URL
-    ///   - completed:完成回调
+    ///   - file: 文件URL
+    ///   - completed: 完成回调
     static func mov2mp4(_ file: URL, completed: ((URL) -> Void)?) {
         let asset = AVURLAsset(url: file, options: nil)
         guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality) else {
@@ -113,7 +113,7 @@ public extension VideoManager {
             case .failed:
                 let exportError = exportSession.error
                 if let exportError = exportError {
-                    Log.info("AVAssetExportSessionStatusFailed:\(exportError.localizedDescription)")
+                    Log.info("AVAssetExportSessionStatusFailed: \(exportError.localizedDescription)")
                 }
             case .completed:
                 completed?(output)
@@ -124,8 +124,8 @@ public extension VideoManager {
 
     /// 从`PHAsset`中获取`MP4`链接
     /// - Parameters:
-    ///   - asset:`PHAsset`
-    ///   - completed:完成回调
+    ///   - asset: `PHAsset`
+    ///   - completed: 完成回调
     static func mp4Path(from asset: PHAsset, completed: ((String?) -> Void)?) {
         let assetResources = PHAssetResource.assetResources(for: asset)
         var _resource: PHAssetResource?

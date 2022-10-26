@@ -14,8 +14,8 @@ public extension NSMutableParagraphStyle {
     }
 
     /// 设置对齐方式
-    /// - Parameter alignment:对方方式
-    /// - Returns:`Self`
+    /// - Parameter alignment: 对方方式
+    /// - Returns: `Self`
     @discardableResult
     func alignment(_ alignment: NSTextAlignment) -> Self {
         self.alignment = alignment
@@ -23,8 +23,8 @@ public extension NSMutableParagraphStyle {
     }
 
     /// 设置换行方式
-    /// - Parameter lineBreakMode:换行方式
-    /// - Returns:`Self`
+    /// - Parameter lineBreakMode: 换行方式
+    /// - Returns: `Self`
     @discardableResult
     func lineBreakMode(_ lineBreakMode: NSLineBreakMode) -> Self {
         self.lineBreakMode = lineBreakMode
@@ -32,8 +32,8 @@ public extension NSMutableParagraphStyle {
     }
 
     /// 设置行间距
-    /// - Parameter lineSpacing:行间距
-    /// - Returns:`Self`
+    /// - Parameter lineSpacing: 行间距
+    /// - Returns: `Self`
     @discardableResult
     func lineSpacing(_ lineSpacing: CGFloat) -> Self {
         self.lineSpacing = lineSpacing
@@ -41,8 +41,8 @@ public extension NSMutableParagraphStyle {
     }
 
     /// 设置段落间距
-    /// - Parameter paragraphSpacing:段落间距
-    /// - Returns:`Self`
+    /// - Parameter paragraphSpacing: 段落间距
+    /// - Returns: `Self`
     @discardableResult
     func paragraphSpacing(_ paragraphSpacing: CGFloat) -> Self {
         self.paragraphSpacing = paragraphSpacing

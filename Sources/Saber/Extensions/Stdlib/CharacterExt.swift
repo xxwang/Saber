@@ -44,7 +44,7 @@ public extension Character {
     }
 
     /// 是否为`emoji`表情
-    /// - Note:http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
+    /// - Note: http: //stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
     var isEmoji: Bool {
         isSimpleEmoji || isCombinedIntoEmoji
     }
@@ -61,8 +61,8 @@ public extension Character {
 // MARK: - 方法
 public extension Character {
     /// 生成重复字符字符串
-    /// - Parameter count:字符个数
-    /// - Returns:字符串
+    /// - Parameter count: 字符个数
+    /// - Returns: 字符串
     func `repeat`(_ count: Int) -> String {
         return self * count
     }
@@ -72,9 +72,9 @@ public extension Character {
 public extension Character {
     /// 生成重复字符字符串
     /// - Parameters:
-    ///   - lhs:要重复的字符
-    ///   - rhs:字符重复数量
-    /// - Returns:字符串
+    ///   - lhs: 要重复的字符
+    ///   - rhs: 字符重复数量
+    /// - Returns: 字符串
     static func * (lhs: Character, rhs: Int) -> String {
         guard rhs > 0 else { return "" }
         return String(repeating: String(lhs), count: rhs)
@@ -82,9 +82,9 @@ public extension Character {
 
     /// 生成重复字符字符串
     /// - Parameters:
-    ///   - lhs:字符重复数量
-    ///   - rhs:要重复的字符
-    /// - Returns:字符串
+    ///   - lhs: 字符重复数量
+    ///   - rhs: 要重复的字符
+    /// - Returns: 字符串
     static func * (lhs: Int, rhs: Character) -> String {
         guard lhs > 0 else { return "" }
         return String(repeating: String(rhs), count: lhs)

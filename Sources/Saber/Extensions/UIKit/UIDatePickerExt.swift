@@ -22,8 +22,8 @@ public extension UIDatePicker {
     }
 
     /// 设置时区
-    /// - Parameter timeZone:时区
-    /// - Returns:`Self`
+    /// - Parameter timeZone: 时区
+    /// - Returns: `Self`
     @discardableResult
     func timeZone(_ timeZone: TimeZone) -> Self {
         self.timeZone = timeZone
@@ -31,8 +31,8 @@ public extension UIDatePicker {
     }
 
     /// 设置模式
-    /// - Parameter datePickerMode:模式
-    /// - Returns:`Self`
+    /// - Parameter datePickerMode: 模式
+    /// - Returns: `Self`
     @discardableResult
     func datePickerMode(_ datePickerMode: Mode) -> Self {
         self.datePickerMode = datePickerMode
@@ -40,8 +40,8 @@ public extension UIDatePicker {
     }
 
     /// 设置样式
-    /// - Parameter preferredDatePickerStyle:样式
-    /// - Returns:`Self`
+    /// - Parameter preferredDatePickerStyle: 样式
+    /// - Returns: `Self`
     @discardableResult
     @available(iOS 13.4, *)
     func preferredDatePickerStyle(_ preferredDatePickerStyle: UIDatePickerStyle) -> Self {
@@ -50,8 +50,8 @@ public extension UIDatePicker {
     }
 
     /// 是否高亮今天
-    /// - Parameter highlightsToday:是否高亮今天
-    /// - Returns:`Self`
+    /// - Parameter highlightsToday: 是否高亮今天
+    /// - Returns: `Self`
     @discardableResult
     func highlightsToday(_ highlightsToday: Bool) -> Self {
         setValue(highlightsToday, forKey: "highlightsToday")
@@ -59,8 +59,8 @@ public extension UIDatePicker {
     }
 
     /// 设置文字颜色
-    /// - Parameter textColor:文字颜色
-    /// - Returns:`Self`
+    /// - Parameter textColor: 文字颜色
+    /// - Returns: `Self`
     @discardableResult
     func textColor(_ textColor: UIColor) -> Self {
         setValue(textColor, forKeyPath: "textColor")

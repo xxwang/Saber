@@ -67,7 +67,7 @@ public extension UIApplication {
 
     /// 网络状态是否可用
     static var reachable: Bool {
-        let data = NSData(contentsOf: URL(string: "https://www.baidu.com/")!)
+        let data = NSData(contentsOf: URL(string: "https: //www.baidu.com/")!)
         return (data != nil)
     }
 
@@ -81,35 +81,35 @@ public extension UIApplication {
 // MARK: - 静态方法
 public extension UIApplication {
     /// app商店链接
-    /// - Parameter appID:应用在商店中的ID
-    /// - Returns:URL字符串
+    /// - Parameter appID: 应用在商店中的ID
+    /// - Returns: URL字符串
     @discardableResult
     static func appURL(with appID: String) -> String {
-        let appStoreURL = "itms-apps://itunes.apple.com/app/id\(appID)?mt=8"
+        let appStoreURL = "itms-apps: //itunes.apple.com/app/id\(appID)?mt=8"
         return appStoreURL
     }
 
     /// app详情链接
-    /// - Parameter appID:应用在商店中的ID
-    /// - Returns:URL字符串
+    /// - Parameter appID: 应用在商店中的ID
+    /// - Returns: URL字符串
     @discardableResult
     static func appDetailURL(with appID: String) -> String {
-        let detailURL = "http://itunes.apple.com/cn/lookup?id=\(appID)"
+        let detailURL = "http: //itunes.apple.com/cn/lookup?id=\(appID)"
         return detailURL
     }
 }
 
 // MARK: - 系统app枚举
 public enum CMSystemApp: String {
-    case safari = "http://"
-    case googleMaps = "http://maps.google.com"
-    case Phone = "tel://"
-    case SMS = "sms://"
-    case Mail = "mailto://"
-    case iBooks = "ibooks://"
-    case AppStore = "itms-apps://itunes.apple.com"
-    case Music = "music://"
-    case Videos = "videos://"
+    case safari = "http: //"
+    case googleMaps = "http: //maps.google.com"
+    case Phone = "tel: //"
+    case SMS = "sms: //"
+    case Mail = "mailto: //"
+    case iBooks = "ibooks: //"
+    case AppStore = "itms-apps: //itunes.apple.com"
+    case Music = "music: //"
+    case Videos = "videos: //"
 }
 
 // MARK: - 系统app枚举扩展
@@ -123,81 +123,81 @@ public extension CMSystemApp {
 // MARK: - 第三方app枚举
 public enum CMOtherApp: String {
     /// 微信
-    case weixin = "weixin://"
+    case weixin = "weixin: //"
     /// QQ
-    case qq = "mqq://"
+    case qq = "mqq: //"
     /// 腾讯微博
-    case tencentWeibo = "TencentWeibo://"
+    case tencentWeibo = "TencentWeibo: //"
     /// 淘宝
-    case taobao = "taobao://"
+    case taobao = "taobao: //"
     /// 支付宝
-    case alipay = "alipay://"
+    case alipay = "alipay: //"
     /// 微博
-    case weico = "weico://"
+    case weico = "weico: //"
     /// QQ浏览器
-    case mqqbrowser = "mqqbrowser://"
+    case mqqbrowser = "mqqbrowser: //"
     /// uc浏览器
-    case ucbrowser = " ucbrowser://"
+    case ucbrowser = " ucbrowser: //"
     /// 海豚浏览器
-    case dolphin = "dolphin://"
+    case dolphin = "dolphin: //"
     /// 欧朋浏览器
-    case ohttp = "ohttp://"
+    case ohttp = "ohttp: //"
     /// 搜狗浏览器
-    case sogouMSE = "SogouMSE://"
+    case sogouMSE = "SogouMSE: //"
     ///  百度地图
-    case baidumap = "baidumap://"
+    case baidumap = "baidumap: //"
     /// 谷歌Chrome浏览器
-    case googlechrome = "googlechrome://"
+    case googlechrome = "googlechrome: //"
     ///  优酷
-    case youku = "youku://"
+    case youku = "youku: //"
     /// 京东
-    case jd = "openapp.jdmoble://"
+    case jd = "openapp.jdmoble: //"
     /// 人人
-    case renren = "renren://"
+    case renren = "renren: //"
     /// 美团
-    case meituan = "imeituan://"
+    case meituan = "imeituan: //"
     /// 1号店
-    case wccbyihaodian = "wccbyihaodian://"
+    case wccbyihaodian = "wccbyihaodian: //"
     /// 我查查
-    case wcc = " wcc://"
+    case wcc = " wcc: //"
     /// 有道词典
-    case yddictproapp = "yddictproapp://"
+    case yddictproapp = "yddictproapp: //"
     /// 知乎
-    case zhihu = "zhihu://"
+    case zhihu = "zhihu: //"
     /// 点评
-    case dianping = "dianping://"
+    case dianping = "dianping: //"
     /// 微盘
-    case sinavdisk = "sinavdisk://"
+    case sinavdisk = "sinavdisk: //"
     /// 豆瓣fm
-    case doubanradio = "doubanradio://"
+    case doubanradio = "doubanradio: //"
     /// 网易公开课
-    case ntesopen = "ntesopen://"
+    case ntesopen = "ntesopen: //"
     /// 名片全能王
-    case camcard = "camcard://"
+    case camcard = "camcard: //"
     /// QQ音乐
-    case qqmusic = "qqmusic://"
+    case qqmusic = "qqmusic: //"
     /// 腾讯视频
-    case tenvideo = "envideo://"
+    case tenvideo = "envideo: //"
     /// 豆瓣电影
-    case doubanmovie = "doubanmovie://"
+    case doubanmovie = "doubanmovie: //"
     /// 网易云音乐
-    case orpheus = "orpheus://"
+    case orpheus = "orpheus: //"
     /// 网易新闻
-    case newsapp = "newsapp://"
+    case newsapp = "newsapp: //"
     /// 网易应用
-    case apper = "apper://"
+    case apper = "apper: //"
     /// 网易彩票
-    case ntescaipiao = "ntescaipiao://"
+    case ntescaipiao = "ntescaipiao: //"
     /// 有道云笔记
-    case youdaonote = "youdaonote://"
+    case youdaonote = "youdaonote: //"
     /// 多看
-    case duokan = "duokan-reader://"
+    case duokan = "duokan-reader: //"
     /// 全国空气质量指数
-    case dirtybeijing = "dirtybeijing://"
+    case dirtybeijing = "dirtybeijing: //"
     /// 百度音乐
-    case baidumusic = "baidumusic://"
+    case baidumusic = "baidumusic: //"
     /// 下厨房
-    case xcfapp = "xcfapp://"
+    case xcfapp = "xcfapp: //"
 }
 
 // MARK: - 第三方app枚举扩展
@@ -212,11 +212,11 @@ public extension CMOtherApp {
 public extension UIApplication {
     /// 打开手机上的`设置App`并跳转至本App的权限界面(带提示窗)
     /// - Parameters:
-    ///   - title:提示标题
-    ///   - message:提示内容
-    ///   - cancel:取消按钮标题
-    ///   - confirm:确认按钮标题
-    ///   - parent:来源控制器(谁来弹出提示窗)
+    ///   - title: 提示标题
+    ///   - message: 提示内容
+    ///   - cancel: 取消按钮标题
+    ///   - confirm: 确认按钮标题
+    ///   - parent: 来源控制器(谁来弹出提示窗)
     static func openSettings(_ title: String?, message: String?, cancel: String = "取消", confirm: String = "设置", parent: UIViewController? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancleAction = UIAlertAction(title: cancel, style: .cancel, handler: nil)
@@ -248,9 +248,9 @@ public extension UIApplication {
     }
 
     /// 前往AppStore进行评价
-    /// - Parameter appID:应用在AppStore中的ID
+    /// - Parameter appID: 应用在AppStore中的ID
     static func evaluationInAppStore(_ appID: String) {
-        let appURLString = "https://itunes.apple.com/cn/app/id" + appID + "?mt=12"
+        let appURLString = "https: //itunes.apple.com/cn/app/id" + appID + "?mt=12"
         guard let url = URL(string: appURLString), UIApplication.shared.canOpenURL(url) else {
             return
         }
@@ -263,8 +263,8 @@ public extension UIApplication {
 
     /// 应用跳转
     /// - Parameters:
-    ///   - vc:跳转时所在控制器
-    ///   - appID:app的id
+    ///   - vc: 跳转时所在控制器
+    ///   - appID: app的id
     static func updateApp(vc: UIViewController, appID: String) {
         guard appID.count > 0 else {
             return
@@ -282,8 +282,8 @@ public extension UIApplication {
 
     /// 打开应用更新页面
     /// - Parameters:
-    ///   - sourceVC:跳转时的来源控制器(需要遵守`SKStoreProductViewControllerDelegate`协议)
-    ///   - appID:用在AppStore中的ID(在Connect中创建应用后生成的ID)
+    ///   - sourceVC: 跳转时的来源控制器(需要遵守`SKStoreProductViewControllerDelegate`协议)
+    ///   - appID: 用在AppStore中的ID(在Connect中创建应用后生成的ID)
     static func updateApp<T>(from sourceVC: T, appID: String) where T: UIViewController, T: SKStoreProductViewControllerDelegate {
         guard appID.count > 0 else {
             return
@@ -302,27 +302,27 @@ public extension UIApplication {
 
     /// 打开手机上安装的系统app
     /// - Parameters:
-    ///   - app:系统App枚举
-    ///   - completion:完成回调
+    ///   - app: 系统App枚举
+    ///   - completion: 完成回调
     static func openSystemApp(_ app: CMSystemApp, completion: @escaping Callbacks.CompleteBoolCallback) {
         openURL(app.url, completion: completion)
     }
 
     /// 打开手机上安装的第三方App
     /// - Parameters:
-    ///   - app:第三方app枚举
-    ///   - completion:完成回调
+    ///   - app: 第三方app枚举
+    ///   - completion: 完成回调
     static func openOtherApp(_ app: CMOtherApp, completion: @escaping Callbacks.CompleteBoolCallback) {
         openURL(app.url, completion: completion)
     }
 
     /// 拨打电话操作
     /// - Parameters:
-    ///   - phoneNumber:要拨打的电话号码
-    ///   - completion:完成回调
+    ///   - phoneNumber: 要拨打的电话号码
+    ///   - completion: 完成回调
     static func call(with phoneNumber: String, completion: @escaping Callbacks.CompleteBoolCallback) {
         // 判断是否有效
-        guard let phoneNumberEncoding = ("tel://" + phoneNumber)
+        guard let phoneNumberEncoding = ("tel: //" + phoneNumber)
             .addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed),
             let url = URL(string: phoneNumberEncoding),
             UIApplication.shared.canOpenURL(url)
@@ -335,8 +335,8 @@ public extension UIApplication {
 
     /// 打开指定URL地址
     /// - Parameters:
-    ///   - url:要打开的URL地址
-    ///   - complete:完成回调
+    ///   - url: 要打开的URL地址
+    ///   - complete: 完成回调
     static func openURL(_ url: URL, completion: @escaping Callbacks.CompleteBoolCallback) {
         // iOS 10.0 以前
         guard #available(iOS 10.0, *) else {
@@ -379,8 +379,8 @@ public extension UIApplication {
     }
 
     /// 指定版本号与应用当前版本号进行比较
-    /// - Parameter version:传进来的版本号码
-    /// - Returns:返回对比加过,true:比当前的版本大,false:比当前的版本小
+    /// - Parameter version: 传进来的版本号码
+    /// - Returns: 返回对比加过,true: 比当前的版本大,false: 比当前的版本小
     static func compareVersion(version: String) -> Bool {
         // 获取要比较的(主版本号、次版本号、补丁版本号)
         let newVersionResult = appVersion(version: version)
@@ -430,8 +430,8 @@ public extension UIApplication {
     }
 
     /// 分割版本号
-    /// - Parameter version:要分割的版本号
-    /// - Returns:(isSuccess:是否成功, versions:(major:主版本号, minor:次版本号, patch:补丁版本号))
+    /// - Parameter version: 要分割的版本号
+    /// - Returns: (isSuccess: 是否成功, versions: (major: 主版本号, minor: 次版本号, patch: 补丁版本号))
     static func appVersion(version: String) -> (isSuccess: Bool, versions: (major: Int, minor: Int, patch: Int)) {
         // 获取(主版本号、次版本号、补丁版本号)字符串数组
         let versionNumbers = version.split(with: ".")
@@ -458,7 +458,7 @@ public extension UIApplication {
 // MARK: - 推送
 public extension UIApplication {
     /// 注册APNs远程推送
-    /// - Parameter delegate:代理对象
+    /// - Parameter delegate: 代理对象
     static func registerAPNsWithDelegate(_ delegate: Any) {
         if #available(iOS 10.0, *) {
             let options: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -482,12 +482,12 @@ public extension UIApplication {
 
     /// 添加本地通知
     /// - Parameters:
-    ///   - trigger:触发器
-    ///   - content:内容
-    ///   - identifier:标识
-    ///   - categories:分类
-    ///   - repeats:是否重复
-    ///   - handler:处理回调
+    ///   - trigger: 触发器
+    ///   - content: 内容
+    ///   - identifier: 标识
+    ///   - categories: 分类
+    ///   - repeats: 是否重复
+    ///   - handler: 处理回调
     @available(iOS 10.0, *)
     func addLocalUserNotification(
         trigger: AnyObject,

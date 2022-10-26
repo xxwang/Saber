@@ -12,7 +12,7 @@ public protocol SkinProvider: AnyObject {
 
 // MARK: - `Skinable`协议
 public protocol Skinable: AnyObject {
-    /// 在这个方法中更新主题(前提:遵守`Skinable`协议)
+    /// 在这个方法中更新主题(前提: 遵守`Skinable`协议)
     func apply()
 }
 
@@ -39,7 +39,7 @@ public class SkinManager: SkinProvider {
     }
 
     /// 注册监听
-    /// - Parameter observer:监听对象
+    /// - Parameter observer: 监听对象
     public func register<Observer: Skinable>(observer: Observer) {
         if #available(iOS 13.0, *) {
             return
@@ -48,7 +48,7 @@ public class SkinManager: SkinProvider {
     }
 
     /// 移除监听
-    /// - Parameter observer:监听对象
+    /// - Parameter observer: 监听对象
     public func remove<Observer: Skinable>(observer: Observer) {
         if !observers.contains(observer) {
             return

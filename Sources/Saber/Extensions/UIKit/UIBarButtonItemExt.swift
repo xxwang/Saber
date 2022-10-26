@@ -17,8 +17,8 @@ public extension UIBarButtonItem {
 public extension UIBarButtonItem {
     /// 将事件响应者及事件响应方法添加到`UIBarButtonItem`
     /// - Parameters:
-    ///   - target:事件响应者
-    ///   - action:事件响应方法
+    ///   - target: 事件响应者
+    ///   - action: 事件响应方法
     func addAction(_ target: AnyObject, action: Selector) {
         self.target = target
         self.action = action
@@ -26,8 +26,8 @@ public extension UIBarButtonItem {
 
     /// 添加事件处理回调
     /// - Parameters:
-    ///   - action:事件处理回调
-    /// - Returns:`Self`
+    ///   - action: 事件处理回调
+    /// - Returns: `Self`
     @discardableResult
     func addActionHandler(_ action: ((UIBarButtonItem?) -> Void)?) -> Self {
         swiftCallback = action
@@ -39,7 +39,7 @@ public extension UIBarButtonItem {
 // MARK: - 静态方法
 public extension UIBarButtonItem {
     /// 创建特定宽度的`UIBarButtonItem`
-    /// - Parameter width:UIBarButtonItem的宽度
+    /// - Parameter width: UIBarButtonItem的宽度
     static func fixedSpace(width: CGFloat) -> UIBarButtonItem {
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         barButtonItem.width = width
@@ -48,15 +48,15 @@ public extension UIBarButtonItem {
 
     /// 创建自定义`UIBarButtonItem`
     /// - Parameters:
-    ///   - imageName:图片名称
-    ///   - highlightedImageName:高亮图片名称
-    ///   - title:标题
-    ///   - font:字体
-    ///   - titleColor:标题颜色
-    ///   - highlightedTitleColor:高亮标题颜色
-    ///   - target:事件响应方
-    ///   - action:事件处理方法
-    /// - Returns:`UIBarButtonItem`
+    ///   - imageName: 图片名称
+    ///   - highlightedImageName: 高亮图片名称
+    ///   - title: 标题
+    ///   - font: 字体
+    ///   - titleColor: 标题颜色
+    ///   - highlightedTitleColor: 高亮标题颜色
+    ///   - target: 事件响应方
+    ///   - action: 事件处理方法
+    /// - Returns: `UIBarButtonItem`
     static func create(
         imageName: String? = nil,
         highlightedImageName: String? = nil,
@@ -117,7 +117,7 @@ extension UIBarButtonItem: AssociateCompatible {
     }
 
     /// 事件处理
-    /// - Parameter event:事件发生者
+    /// - Parameter event: 事件发生者
     @objc internal func eventHandler(_ event: UIBarButtonItem) {
         swiftCallback?(event)
     }

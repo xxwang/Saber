@@ -74,7 +74,7 @@ public extension UILabel {
 // MARK: - 构造方法
 public extension UILabel {
     /// 使用内容字符串来创建一个`UILabel`
-    /// - Parameter text:内容字符串
+    /// - Parameter text: 内容字符串
     convenience init(text: String?) {
         self.init()
         self.text = text
@@ -82,8 +82,8 @@ public extension UILabel {
 
     /// 使用内容字符串和字体样式来创建一个`UILabel`
     /// - Parameters:
-    ///   - text:内容字符串
-    ///   - style:字体样式
+    ///   - text: 内容字符串
+    ///   - style: 字体样式
     convenience init(text: String, style: UIFont.TextStyle) {
         self.init()
         font = UIFont.preferredFont(forTextStyle: style)
@@ -94,15 +94,15 @@ public extension UILabel {
 // MARK: - 获取`UILabel`中内容大小
 public extension UILabel {
     /// 获取`UILabel`中`字符串`的大小
-    /// - Parameter maxWidth:最大宽度
-    /// - Returns:`CGSize`
+    /// - Parameter maxWidth: 最大宽度
+    /// - Returns: `CGSize`
     func textSize(_ maxWidth: CGFloat = kSCREEN_WIDTH) -> CGSize {
         return text?.textSize(maxWidth, font: font) ?? .zero
     }
 
     /// 获取`UILabel`中`属性字符串`的大小
-    /// - Parameter maxWidth:最大宽度
-    /// - Returns:`CGSize`
+    /// - Parameter maxWidth: 最大宽度
+    /// - Returns: `CGSize`
     func attributedSize(_ maxWidth: CGFloat = kSCREEN_WIDTH) -> CGSize {
         return attributedText?.attributedSize(maxWidth) ?? .zero
     }
@@ -112,12 +112,12 @@ public extension UILabel {
 public extension UILabel {
     /// 混合图片和文本
     /// - Parameters:
-    ///   - text:文字内容
-    ///   - images:图片数组
-    ///   - spacing:间距
-    ///   - scale:缩放比例
-    ///   - insertIndex:图片插入位置
-    ///   - isOrgin:是否使用图片原始大小
+    ///   - text: 文字内容
+    ///   - images: 图片数组
+    ///   - spacing: 间距
+    ///   - scale: 缩放比例
+    ///   - insertIndex: 图片插入位置
+    ///   - isOrgin: 是否使用图片原始大小
     func blend(
         _ text: String?,
         images: [UIImage?] = [],
@@ -170,10 +170,10 @@ public extension UILabel {
 
     /// 设置`text`间距
     /// - Parameters:
-    ///   - text:文本字符串
-    ///   - lineSpacing:行间距
-    ///   - wordSpacing:字间距
-    /// - Returns:`NSMutableAttributedString`
+    ///   - text: 文本字符串
+    ///   - lineSpacing: 行间距
+    ///   - wordSpacing: 字间距
+    /// - Returns: `NSMutableAttributedString`
     func setupTextSpacing(
         with text: String,
         lineSpacing: CGFloat,
@@ -213,11 +213,11 @@ public extension UILabel {
 public extension UILabel {
     /// 获取`UILabel`的文本行数及每一行的内容
     /// - Parameters:
-    ///   - labelWidth:`UILabel`的宽度
-    ///   - lineSpacing:行间距
-    ///   - wordSpacing:字间距
-    ///   - paragraphSpacing:段落间距
-    /// - Returns:行数及每行内容
+    ///   - labelWidth: `UILabel`的宽度
+    ///   - lineSpacing: 行间距
+    ///   - wordSpacing: 字间距
+    ///   - paragraphSpacing: 段落间距
+    /// - Returns: 行数及每行内容
     func linesContent(
         _ labelWidth: CGFloat? = nil,
         lineSpacing: CGFloat = 0.0,
@@ -271,7 +271,7 @@ public extension UILabel {
     }
 
     /// 修改`UILabel`行间距
-    /// - Parameter lineSpacing:行间距大小
+    /// - Parameter lineSpacing: 行间距大小
     func changeLineSpacing(_ lineSpacing: CGFloat) {
         guard let text = text, text.count > 0 else {
             return
@@ -312,7 +312,7 @@ public extension UILabel {
     }
 
     /// 修改`UILabel`字间距
-    /// - Parameter wordSpacing:字间距大小
+    /// - Parameter wordSpacing: 字间距大小
     func changeWordSpacing(_ wordSpacing: CGFloat) {
         guard let text = text, text.count > 0 else {
             return
@@ -338,8 +338,8 @@ public extension UILabel {
 
     /// 改变`UILabel`行间距和字间距
     /// - Parameters:
-    ///   - lineSpace:行间距
-    ///   - wordSpace:字间距
+    ///   - lineSpace: 行间距
+    ///   - wordSpace: 字间距
     func changeSpacing(_ lineSpacing: CGFloat, wordSpacing: CGFloat) {
         changeLineSpacing(lineSpacing)
         changeWordSpacing(wordSpacing)
@@ -347,8 +347,8 @@ public extension UILabel {
 
     /// `UILabel`添加删除线
     /// - Parameters:
-    ///   - lineValue:删除线的粗细
-    ///   - lineColor:删除线的颜色
+    ///   - lineValue: 删除线的粗细
+    ///   - lineColor: 删除线的颜色
     func deleteLine(_ lineValue: Int = 1, lineColor: UIColor = .black) {
         guard let text = text, text.count > 0 else {
             return
@@ -381,13 +381,13 @@ public extension UILabel {
 private extension UILabel {
     /// 根据传入参数生成属性列表
     /// - Parameters:
-    ///   - font:字体
-    ///   - lineBreakMode:换行样式
-    ///   - textAlignment:文本对齐
-    ///   - lineSpacing:行间距
-    ///   - wordSpacing:字间距
-    ///   - paragraphSpacing:段落间距
-    /// - Returns:` [NSAttributedString.Key :Any]`
+    ///   - font: 字体
+    ///   - lineBreakMode: 换行样式
+    ///   - textAlignment: 文本对齐
+    ///   - lineSpacing: 行间距
+    ///   - wordSpacing: 字间距
+    ///   - paragraphSpacing: 段落间距
+    /// - Returns: ` [NSAttributedString.Key : Any]`
     private static func attributeList(
         font: UIFont,
         lineBreakMode: NSLineBreakMode,
@@ -420,8 +420,8 @@ public extension UILabel {
     }
 
     /// 设置文字
-    /// - Parameter text:文字内容
-    /// - Returns:`Self`
+    /// - Parameter text: 文字内容
+    /// - Returns: `Self`
     @discardableResult
     func text(_ text: String) -> Self {
         self.text = text
@@ -429,8 +429,8 @@ public extension UILabel {
     }
 
     /// 设置文字行数
-    /// - Parameter lines:行数
-    /// - Returns:`Self`
+    /// - Parameter lines: 行数
+    /// - Returns: `Self`
     @discardableResult
     func numberOfLines(_ lines: Int) -> Self {
         numberOfLines = lines
@@ -438,8 +438,8 @@ public extension UILabel {
     }
 
     /// 设置换行模式
-    /// - Parameter mode:模式
-    /// - Returns:`Self`
+    /// - Parameter mode: 模式
+    /// - Returns: `Self`
     @discardableResult
     func lineBreakMode(_ mode: NSLineBreakMode) -> Self {
         lineBreakMode = mode
@@ -447,8 +447,8 @@ public extension UILabel {
     }
 
     /// 设置文字对齐方式
-    /// - Parameter alignment:对齐方式
-    /// - Returns:`Self`
+    /// - Parameter alignment: 对齐方式
+    /// - Returns: `Self`
     @discardableResult
     func textAlignment(_ alignment: NSTextAlignment) -> Self {
         textAlignment = alignment
@@ -456,8 +456,8 @@ public extension UILabel {
     }
 
     /// 设置富文本文字
-    /// - Parameter attributedText:富文本文字
-    /// - Returns:`Self`
+    /// - Parameter attributedText: 富文本文字
+    /// - Returns: `Self`
     @discardableResult
     func attributedText(_ attributedText: NSAttributedString) -> Self {
         self.attributedText = attributedText
@@ -465,7 +465,7 @@ public extension UILabel {
     }
 
     /// 设置文本颜色
-    /// - Parameter color:颜色
+    /// - Parameter color: 颜色
     /// - Returns: `Self`
     @discardableResult
     func textColor(_ color: UIColor) -> Self {
@@ -474,8 +474,8 @@ public extension UILabel {
     }
 
     /// 设置文本颜色(十六进制字符串)
-    /// - Parameter hex:十六进制字符串
-    /// - Returns:`Self`
+    /// - Parameter hex: 十六进制字符串
+    /// - Returns: `Self`
     @discardableResult
     func textColor(_ hex: String) -> Self {
         textColor = UIColor(hex: hex)
@@ -483,8 +483,8 @@ public extension UILabel {
     }
 
     /// 设置字体的大小
-    /// - Parameter font:字体的大小
-    /// - Returns:`Self`
+    /// - Parameter font: 字体的大小
+    /// - Returns: `Self`
     @discardableResult
     func font(_ font: UIFont) -> Self {
         self.font = font
@@ -492,8 +492,8 @@ public extension UILabel {
     }
 
     /// 设置字体的大小
-    /// - Parameter fontSize:字体的大小
-    /// - Returns:`Self`
+    /// - Parameter fontSize: 字体的大小
+    /// - Returns: `Self`
     @discardableResult
     func systemFont(_ fontSize: CGFloat) -> Self {
         font = UIFont.systemFont(ofSize: fontSize)
@@ -501,8 +501,8 @@ public extension UILabel {
     }
 
     /// 设置字体的大小(粗体)
-    /// - Parameter fontSize:字体的大小
-    /// - Returns:`Self`
+    /// - Parameter fontSize: 字体的大小
+    /// - Returns: `Self`
     @discardableResult
     func boldSystemFont(_ fontSize: CGFloat) -> Self {
         font = UIFont.boldSystemFont(ofSize: fontSize)
@@ -511,9 +511,9 @@ public extension UILabel {
 
     /// 设置特定范围的字体
     /// - Parameters:
-    ///   - font:字体
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - font: 字体
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedFont(_ font: UIFont, for range: NSRange) -> Self {
         let attribuedString = attributedText?.setFont(font, for: range)
@@ -523,9 +523,9 @@ public extension UILabel {
 
     /// 设置特定文字的字体
     /// - Parameters:
-    ///   - font:字体
-    ///   - text:要设置字体的文字
-    /// - Returns:`Self`
+    ///   - font: 字体
+    ///   - text: 要设置字体的文字
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedFont(_ font: UIFont, for text: String) -> Self {
         let attributedString = attributedText?.setFont(font, for: text)
@@ -535,9 +535,9 @@ public extension UILabel {
 
     /// 设置特定区域的文字颜色
     /// - Parameters:
-    ///   - color:文字颜色
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - color: 文字颜色
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedColor(_ color: UIColor, for range: NSRange) -> Self {
         let attributedString = attributedText?.setForegroundColor(color, for: range)
@@ -547,9 +547,9 @@ public extension UILabel {
 
     /// 设置特定文字的颜色
     /// - Parameters:
-    ///   - color:文字颜色
-    ///   - text:要设置颜色的文字
-    /// - Returns:`Self`
+    ///   - color: 文字颜色
+    ///   - text: 要设置颜色的文字
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedColor(_ color: UIColor, for text: String) -> Self {
         let attributedString = attributedText?.setForegroundColor(color, for: text)
@@ -558,8 +558,8 @@ public extension UILabel {
     }
 
     /// 设置行间距
-    /// - Parameter spacing:行间距
-    /// - Returns:`Self`
+    /// - Parameter spacing: 行间距
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedLineSpacing(_ spacing: CGFloat) -> Self {
         let attributedString = attributedText?.setLineSpacing(spacing, for: (text ?? "").fullNSRange)
@@ -569,10 +569,10 @@ public extension UILabel {
 
     /// 设置特定范围的下划线
     /// - Parameters:
-    ///   - color:下划线颜色
-    ///   - style:下划线样式
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - color: 下划线颜色
+    ///   - style: 下划线样式
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedUnderLine(_ color: UIColor, style: NSUnderlineStyle = .single, for range: NSRange) -> Self {
         let attributedString = attributedText?.setUnderline(color, stytle: style, for: range)
@@ -582,10 +582,10 @@ public extension UILabel {
 
     /// 设置特定文字的下划线
     /// - Parameters:
-    ///   - color:下划线颜色
-    ///   - style:下划线样式
-    ///   - range:要设置下划线的文字
-    /// - Returns:`Self`
+    ///   - color: 下划线颜色
+    ///   - style: 下划线样式
+    ///   - range: 要设置下划线的文字
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedUnderLine(_ color: UIColor, style: NSUnderlineStyle = .single, for text: String) -> Self {
         let attributedString = attributedText?.setUnderline(color, stytle: style, for: text)
@@ -595,8 +595,8 @@ public extension UILabel {
 
     /// 设置特定范围的删除线
     /// - Parameters:
-    ///   - color:删除线颜色
-    ///   - range:范围
+    ///   - color: 删除线颜色
+    ///   - range: 范围
     @discardableResult
     func setAttributedDeleteLine(_ color: UIColor, for range: NSRange) -> Self {
         let attributedString = attributedText?.setDeleteline(color, for: range)
@@ -606,8 +606,8 @@ public extension UILabel {
 
     /// 设置特定文字的删除线
     /// - Parameters:
-    ///   - color:删除线颜色
-    ///   - range:要设置删除线的文字
+    ///   - color: 删除线颜色
+    ///   - range: 要设置删除线的文字
     @discardableResult
     func setAttributedDeleteLine(_ color: UIColor, for text: String) -> Self {
         let attributedString = attributedText?.setDeleteline(color, for: text)
@@ -616,8 +616,8 @@ public extension UILabel {
     }
 
     /// 设置首行缩进
-    /// - Parameter indent:进度宽度
-    /// - Returns:`Self`
+    /// - Parameter indent: 进度宽度
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedFirstLineHeadIndent(_ indent: CGFloat) -> Self {
         let attributedString = attributedText?.setFirstLineHeadIndent(indent)
@@ -627,9 +627,9 @@ public extension UILabel {
 
     /// 设置特定范围的倾斜
     /// - Parameters:
-    ///   - inclination:倾斜度
-    ///   - range:范围
-    /// - Returns:`Self`
+    ///   - inclination: 倾斜度
+    ///   - range: 范围
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedBliqueness(_ inclination: Float = 0, for range: NSRange) -> Self {
         let attributedString = attributedText?.setObliqueness(inclination, for: range)
@@ -639,9 +639,9 @@ public extension UILabel {
 
     /// 设置特定文字的倾斜
     /// - Parameters:
-    ///   - inclination:倾斜度
-    ///   - text:特定文字
-    /// - Returns:`Self`
+    ///   - inclination: 倾斜度
+    ///   - text: 特定文字
+    /// - Returns: `Self`
     @discardableResult
     func setAttributedBliqueness(_ inclination: Float = 0, for text: String) -> Self {
         let attributedString = attributedText?.setObliqueness(inclination, for: text)
@@ -651,10 +651,10 @@ public extension UILabel {
 
     /// 插入图片
     /// - Parameters:
-    ///   - imageSource:图片资源(图片名称/URL地址)
-    ///   - imageBounds:图片的大小,默认为.zero,即自动根据图片大小设置,并以底部基线为标准. y > 0 :图片向上移动；y < 0 :图片向下移动
-    ///   - imageIndex:图片的位置,默认放在开头
-    /// - Returns:`Self`
+    ///   - imageSource: 图片资源(图片名称/URL地址)
+    ///   - imageBounds: 图片的大小,默认为.zero,即自动根据图片大小设置,并以底部基线为标准. y > 0 : 图片向上移动；y < 0 : 图片向下移动
+    ///   - imageIndex: 图片的位置,默认放在开头
+    /// - Returns: `Self`
     @discardableResult
     func insertAttributedImage(
         _ imageSource: String,
@@ -669,8 +669,8 @@ public extension UILabel {
     }
 
     /// 是否调整字体大小到适配宽度
-    /// - Parameter adjusts:是否调整
-    /// - Returns:`Self`
+    /// - Parameter adjusts: 是否调整
+    /// - Returns: `Self`
     @discardableResult
     func adjustsFontSizeToFitWidth(_ adjusts: Bool) -> Self {
         adjustsFontSizeToFitWidth = adjusts

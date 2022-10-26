@@ -88,8 +88,8 @@ public extension UIWindow {
     }
 
     /// 获取基准控制器的最顶层控制器
-    /// - Parameter base:基准控制器
-    /// - Returns:返回 UIViewController
+    /// - Parameter base: 基准控制器
+    /// - Returns: 返回 UIViewController
     static func topViewController(_ base: UIViewController? = nil) -> UIViewController? {
         var vc: UIViewController = windowRootViewController!
         if let base = base {
@@ -116,11 +116,11 @@ public extension UIWindow {
 public extension UIWindow {
     /// 设置`rootViewController`(如果设置之前已经存在`rootViewController`那么切换为新的`viewController`)
     /// - Parameters:
-    ///   - viewController:要设置的`viewController`
-    ///   - animated:是否动画
-    ///   - duration:动画时长
-    ///   - options:动画选项
-    ///   - competion:完成回调
+    ///   - viewController: 要设置的`viewController`
+    ///   - animated: 是否动画
+    ///   - duration: 动画时长
+    ///   - options: 动画选项
+    ///   - competion: 完成回调
     func setupRootViewController(
         to viewController: UIViewController,
         animated: Bool = true,
@@ -148,9 +148,9 @@ public extension UIWindow {
 // MARK: - 屏幕方向
 public extension UIWindow {
     /// 锁定屏幕方向
-    /// - Parameter isLandscape:锁定方向是否为横屏,`true`为锁定横屏
-    /// - Parameter block:是否锁定
-    /// - Returns:允许方向
+    /// - Parameter isLandscape: 锁定方向是否为横屏,`true`为锁定横屏
+    /// - Parameter block: 是否锁定
+    /// - Returns: 允许方向
     static func blockOrientation(isLandscape: Bool, block: Bool) -> UIInterfaceOrientationMask {
         if isLandscape {
             return block ? .landscape : .allButUpsideDown
@@ -159,7 +159,7 @@ public extension UIWindow {
     }
 
     /// 屏幕方向切换
-    /// - Parameter isLandscape:是否是横屏
+    /// - Parameter isLandscape: 是否是横屏
     static func changeOrientation(isLandscape: Bool) {
         if isLandscape { // 横屏
             if UIDevice.isLandscape {

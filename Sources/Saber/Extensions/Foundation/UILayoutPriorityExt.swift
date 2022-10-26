@@ -6,7 +6,7 @@ extension UILayoutPriority: ExpressibleByFloatLiteral, ExpressibleByIntegerLiter
     ///
     ///     constraint.priority = 0.5
     ///
-    /// - Parameter value:浮点数
+    /// - Parameter value: 浮点数
     public init(floatLiteral value: Float) {
         self.init(rawValue: value)
     }
@@ -15,7 +15,7 @@ extension UILayoutPriority: ExpressibleByFloatLiteral, ExpressibleByIntegerLiter
     ///
     ///     constraint.priority = 5
     ///
-    /// - Parameter value:整数
+    /// - Parameter value: 整数
     public init(integerLiteral value: Int) {
         self.init(rawValue: Float(value))
     }

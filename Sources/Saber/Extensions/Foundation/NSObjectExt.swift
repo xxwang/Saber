@@ -25,7 +25,7 @@ public extension NSObject {
 // MARK: - Runtime
 public extension NSObject {
     /// 利用运行时获取类里面的成员变量
-    /// - Returns:成员变量名数组
+    /// - Returns: 成员变量名数组
     @discardableResult
     static func printIvars() -> [String] {
         // 成员变量名字
@@ -54,10 +54,10 @@ public extension NSObject {
 
     /// 方法交换
     /// - Parameters:
-    ///   - origSel:原方法
-    ///   - replSel:新方法
-    ///   - isClassMethod:是否是类方法
-    /// - Returns:是否交换成功
+    ///   - origSel: 原方法
+    ///   - replSel: 新方法
+    ///   - isClassMethod: 是否是类方法
+    /// - Returns: 是否交换成功
     class func hookMethod(of origSel: Selector, with replSel: Selector, isClassMethod: Bool) -> Bool {
         let clz: AnyClass = classForCoder()
 
@@ -86,18 +86,18 @@ public extension NSObject {
 
     /// 交换实例对象方法
     /// - Parameters:
-    ///   - origSel:原 实例方法
-    ///   - replSel:新 实例方法
-    /// - Returns:是否成功
+    ///   - origSel: 原 实例方法
+    ///   - replSel: 新 实例方法
+    /// - Returns: 是否成功
     class func hookInstanceMethod(of origSel: Selector, with replSel: Selector) -> Bool {
         let clz: AnyClass = classForCoder()
         guard let oriMethod = class_getInstanceMethod(clz, origSel) as Method? else {
-            Log.info("原 实例方法:Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Log.info("原 实例方法: Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
         guard let repMethod = class_getInstanceMethod(clz, replSel) as Method? else {
-            Log.info("新 实例方法:Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Log.info("新 实例方法: Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
@@ -119,19 +119,19 @@ public extension NSObject {
 
     /// 交换类方法
     /// - Parameters:
-    ///   - origSel:原 类方法
-    ///   - replSel:新 类方法
-    /// - Returns:是否成功
+    ///   - origSel: 原 类方法
+    ///   - replSel: 新 类方法
+    /// - Returns: 是否成功
     class func hookClassMethod(of origSel: Selector, with replSel: Selector) -> Bool {
         let clz: AnyClass = classForCoder()
 
         guard let oriMethod = class_getClassMethod(clz, origSel) as Method? else {
-            Log.info("原 类方法:Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Log.info("原 类方法: Swizzling Method(\(origSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
         guard let repMethod = class_getClassMethod(clz, replSel) as Method? else {
-            Log.info("新 类方法 replSel:Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Log.info("新 类方法 replSel: Swizzling Method(\(replSel)) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
@@ -160,8 +160,8 @@ public extension NSObject {
 
         let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.once(token: onceToken) {
-            let oriSel = #selector(self.setValue(_:forUndefinedKey:))
-            let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
+            let oriSel = #selector(self.setValue(_: forUndefinedKey:))
+            let repSel = #selector(self.hook_setValue(_: forUndefinedKey:))
             _ = hookInstanceMethod(of: oriSel, with: repSel)
 
             let oriSel0 = #selector(self.value(forUndefinedKey:))
@@ -180,18 +180,18 @@ public extension NSObject {
 
     /// 如果键不存在会调用这个方法
     private func hook_setValue(_ value: Any?, forUndefinedKey key: String) {
-        Log.warning("setValue:forUndefinedKey:, 未知键Key:\(key) 值:\(value ?? "")")
+        Log.warning("setValue: forUndefinedKey: , 未知键Key: \(key) 值: \(value ?? "")")
     }
 
     /// 如果键不存在会调用这个方法
     private func hook_value(forUndefinedKey key: String) -> Any? {
-        Log.warning("valueForUndefinedKey:, 未知键:\(key)")
+        Log.warning("valueForUndefinedKey: , 未知键: \(key)")
         return nil
     }
 
     /// 给一个非指针对象(如`NSInteger`)赋值 nil, 直接忽略
     private func hook_setNilValueForKey(_ key: String) {
-        Log.info("Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil 键:\(key)")
+        Log.info("Invoke setNilValueForKey: , 不能给非指针对象(如NSInteger)赋值 nil 键: \(key)")
     }
 
     private func hook_setValuesForKeys(_ keyedValues: [String: Any]) {

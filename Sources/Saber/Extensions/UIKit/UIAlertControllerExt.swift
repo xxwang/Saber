@@ -5,11 +5,11 @@ import UIKit
 public extension UIAlertController {
     /// 创建 `UIAlertController`
     /// - Parameters:
-    ///   - title:标题
-    ///   - message:详细的信息
-    ///   - defaultTitle:默认按钮标题
-    ///   - preferredStyle:样式
-    ///   - tintColor:`UIAlertController`的`tintColor`
+    ///   - title: 标题
+    ///   - message: 详细的信息
+    ///   - defaultTitle: 默认按钮标题
+    ///   - preferredStyle: 样式
+    ///   - tintColor: `UIAlertController`的`tintColor`
     convenience init(
         _ title: String? = nil,
         message: String? = nil,
@@ -32,10 +32,10 @@ public extension UIAlertController {
 public extension UIAlertController {
     /// 弹起`UIAlertController`
     /// - Parameters:
-    ///   - animated:是否动画
-    ///   - shake:是否震动
-    ///   - deadline:消失时间
-    ///   - completion:完成回调
+    ///   - animated: 是否动画
+    ///   - shake: 是否震动
+    ///   - deadline: 消失时间
+    ///   - completion: 完成回调
     func show(
         animated: Bool = true,
         shake: Bool = false,
@@ -61,11 +61,11 @@ public extension UIAlertController {
 
     /// 添加一个`UIAlertAction`
     /// - Parameters:
-    ///   - title:标题
-    ///   - style:样式
-    ///   - isEnable:是否激活
-    ///   - action:点击处理回调
-    /// - Returns:`Self`
+    ///   - title: 标题
+    ///   - style: 样式
+    ///   - isEnable: 是否激活
+    ///   - action: 点击处理回调
+    /// - Returns: `Self`
     func addAction(
         title: String,
         style: UIAlertAction.Style = .default,
@@ -94,8 +94,8 @@ public extension UIAlertController {
     }
 
     /// 设置标题
-    /// - Parameter title:标题
-    /// - Returns:`Self`
+    /// - Parameter title: 标题
+    /// - Returns: `Self`
     @discardableResult
     func title(_ title: String?) -> Self {
         self.title = title
@@ -103,8 +103,8 @@ public extension UIAlertController {
     }
 
     /// 设置消息(副标题)
-    /// - Parameter message:消息内容
-    /// - Returns:`Self`
+    /// - Parameter message: 消息内容
+    /// - Returns: `Self`
     @discardableResult
     func message(_ message: String?) -> Self {
         self.message = message
@@ -112,8 +112,8 @@ public extension UIAlertController {
     }
 
     /// 添加 `UIAlertAction`
-    /// - Parameter action:`UIAlertAction` 事件
-    /// - Returns:`Self`
+    /// - Parameter action: `UIAlertAction` 事件
+    /// - Returns: `Self`
     @discardableResult
     func addAction(action: UIAlertAction) -> Self {
         addAction(action)
@@ -122,11 +122,11 @@ public extension UIAlertController {
 
     /// 添加一个`UIAlertAction`
     /// - Parameters:
-    ///   - title:标题
-    ///   - style:样式
-    ///   - isEnable:是否激活
-    ///   - action:点击处理回调
-    /// - Returns:`Self`
+    ///   - title: 标题
+    ///   - style: 样式
+    ///   - isEnable: 是否激活
+    ///   - action: 点击处理回调
+    /// - Returns: `Self`
     @discardableResult
     func addAction(
         title: String,
@@ -140,11 +140,11 @@ public extension UIAlertController {
 
     /// 添加一个`UITextField`
     /// - Parameters:
-    ///   - text:输入框默认文字
-    ///   - placeholder:占位文本
-    ///   - target:事件响应者
-    ///   - action:事件响应方法
-    /// - Returns:`Self`
+    ///   - text: 输入框默认文字
+    ///   - placeholder: 占位文本
+    ///   - target: 事件响应者
+    ///   - action: 事件响应方法
+    /// - Returns: `Self`
     @discardableResult
     func addTextField(
         text: String? = nil,

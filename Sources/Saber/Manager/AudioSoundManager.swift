@@ -33,13 +33,13 @@ public class AudioSoundManager {}
 public extension AudioSoundManager {
     /// 播放音频文件,
     /// - Parameters:
-    ///   - sound:音频路径
-    ///   - loops:循环次数(若loops为负数(-1)需要手动停止)
-    /// - Returns:AVAudioPlayer
+    ///   - sound: 音频路径
+    ///   - loops: 循环次数(若loops为负数(-1)需要手动停止)
+    /// - Returns: AVAudioPlayer
     @discardableResult
     static func playAudio(_ sound: String, loops: Int = 0) -> AVAudioPlayer? {
         guard let soundPath = Bundle.main.path(forResource: sound, ofType: nil) else {
-            print("\(#file) -- [\(#line)]:\(sound) is invalid")
+            print("\(#file) -- [\(#line)]: \(sound) is invalid")
             return nil
         }
         do {
@@ -61,8 +61,8 @@ public extension AudioSoundManager {
 
     /// 播放短音效 30s内
     /// - Parameters:
-    ///   - sound:声源文件
-    ///   - vibrate:是否震动播放
+    ///   - sound: 声源文件
+    ///   - vibrate: 是否震动播放
     static func playAudioSound(_ sound: String, vibrate: Bool = false) {
         guard let soundPath = Bundle.main.path(forResource: sound, ofType: nil) else {
             return

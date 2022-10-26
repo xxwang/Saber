@@ -10,8 +10,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置路径
-    /// - Parameter path:路径
-    /// - Returns:`Self`
+    /// - Parameter path: 路径
+    /// - Returns: `Self`
     @discardableResult
     func path(_ path: CGPath) -> Self {
         self.path = path
@@ -19,8 +19,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置线宽
-    /// - Parameter width:线宽
-    /// - Returns:`Self`
+    /// - Parameter width: 线宽
+    /// - Returns: `Self`
     @discardableResult
     func lineWidth(_ width: CGFloat) -> Self {
         lineWidth = width
@@ -28,8 +28,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置填充颜色
-    /// - Parameter color:颜色
-    /// - Returns:`Self`
+    /// - Parameter color: 颜色
+    /// - Returns: `Self`
     @discardableResult
     func fillColor(_ color: UIColor) -> Self {
         fillColor = color.cgColor
@@ -37,8 +37,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置笔触颜色
-    /// - Parameter color:颜色
-    /// - Returns:`Self`
+    /// - Parameter color: 颜色
+    /// - Returns: `Self`
     @discardableResult
     func strokeColor(_ color: UIColor) -> Self {
         strokeColor = color.cgColor
@@ -46,8 +46,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置笔触开始
-    /// - Parameter strokeStart:画笔开始
-    /// - Returns:`Self`
+    /// - Parameter strokeStart: 画笔开始
+    /// - Returns: `Self`
     @discardableResult
     func strokeStart(_ strokeStart: CGFloat) -> Self {
         self.strokeStart = strokeStart
@@ -55,8 +55,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置笔触结束
-    /// - Parameter strokeEnd:画笔结束
-    /// - Returns:`Self`
+    /// - Parameter strokeEnd: 画笔结束
+    /// - Returns: `Self`
     @discardableResult
     func strokeEnd(_ strokeEnd: CGFloat) -> Self {
         self.strokeEnd = strokeEnd
@@ -64,8 +64,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置最大斜接长度
-    /// - Parameter miterLimit:最大斜接长度
-    /// - Returns:`Self`
+    /// - Parameter miterLimit: 最大斜接长度
+    /// - Returns: `Self`
     @discardableResult
     func miterLimit(_ miterLimit: CGFloat) -> Self {
         self.miterLimit = miterLimit
@@ -73,8 +73,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置线条末端线帽的样式。
-    /// - Parameter lineCap:线帽样式
-    /// - Returns:`Self`
+    /// - Parameter lineCap: 线帽样式
+    /// - Returns: `Self`
     @discardableResult
     func lineCap(_ lineCap: CAShapeLayerLineCap) -> Self {
         self.lineCap = lineCap
@@ -82,8 +82,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置所创建边角的类型
-    /// - Parameter lineJoin:边角类型
-    /// - Returns:`Self`
+    /// - Parameter lineJoin: 边角类型
+    /// - Returns: `Self`
     @discardableResult
     func lineJoin(_ lineJoin: CAShapeLayerLineJoin) -> Self {
         self.lineJoin = lineJoin
@@ -91,8 +91,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置填充路径的填充规则
-    /// - Parameter fillRule:填充规则
-    /// - Returns:`Self`
+    /// - Parameter fillRule: 填充规则
+    /// - Returns: `Self`
     @discardableResult
     func fillRule(_ fillRule: CAShapeLayerFillRule) -> Self {
         self.fillRule = fillRule
@@ -100,8 +100,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置线型模版的起点
-    /// - Parameter lineDashPhase:线型模版的起点
-    /// - Returns:`Self`
+    /// - Parameter lineDashPhase: 线型模版的起点
+    /// - Returns: `Self`
     @discardableResult
     func lineDashPhase(_ lineDashPhase: CGFloat) -> Self {
         self.lineDashPhase = lineDashPhase
@@ -109,8 +109,8 @@ public extension CAShapeLayer {
     }
 
     /// 设置线性模版
-    /// - Parameter lineDashPattern:线性模版
-    /// - Returns:`Self`
+    /// - Parameter lineDashPattern: 线性模版
+    /// - Returns: `Self`
     @discardableResult
     func lineDashPattern(_ lineDashPattern: [NSNumber]) -> Self {
         self.lineDashPattern = lineDashPattern

@@ -62,7 +62,7 @@ public extension UITextField {
     }
 
     /// 是否都是数字
-    /// - Returns:返回结果
+    /// - Returns: 返回结果
     func validateDigits() -> Bool {
         let digitsRegEx = "[0-9]*"
         let digitsTest = NSPredicate(format: "SELF MATCHES %@", digitsRegEx)
@@ -71,8 +71,8 @@ public extension UITextField {
 
     /// 将工具栏添加到`UITextField` `inputAccessoryView`
     /// - Parameters:
-    ///   - items:要在工具栏中显示的`UIBarButtonItem`
-    ///   - height:工具栏高度
+    ///   - items: 要在工具栏中显示的`UIBarButtonItem`
+    ///   - height: 工具栏高度
     @discardableResult
     func addToolbar(items: [UIBarButtonItem]?, height: CGFloat = 44) -> UIToolbar {
         let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: height))
@@ -82,13 +82,13 @@ public extension UITextField {
     }
 
     /// 限制字数的输入
-    /// `- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;` 里面调用
+    /// `- (BOOL)textField: (UITextField *)textField shouldChangeCharactersInRange: (NSRange)range replacementString: (NSString *)string;` 里面调用
     /// - Parameters:
-    ///   - range:范围
-    ///   - text:输入的文字
-    ///   - maxCharacters:限制字数
-    ///   - regex:可输入内容(正则)
-    /// - Returns:返回是否可输入
+    ///   - range: 范围
+    ///   - text: 输入的文字
+    ///   - maxCharacters: 限制字数
+    ///   - regex: 可输入内容(正则)
+    /// - Returns: 返回是否可输入
     func inputRestrictions(shouldChangeTextIn range: NSRange, replacementText text: String, maxCharacters: Int, regex: String?) -> Bool {
         guard !text.isEmpty else {
             return true
@@ -143,8 +143,8 @@ public extension UITextField {
     }
 
     /// 设置文字
-    /// - Parameter text:文字
-    /// - Returns:`Self`
+    /// - Parameter text: 文字
+    /// - Returns: `Self`
     @discardableResult
     func text(_ text: String) -> Self {
         self.text = text
@@ -152,8 +152,8 @@ public extension UITextField {
     }
 
     /// 设置富文本
-    /// - Parameter attributedText:富文本文字
-    /// - Returns:`Self`
+    /// - Parameter attributedText: 富文本文字
+    /// - Returns: `Self`
     @discardableResult
     func attributedText(_ attributedText: NSAttributedString) -> Self {
         self.attributedText = attributedText
@@ -161,8 +161,8 @@ public extension UITextField {
     }
 
     /// 设置占位符
-    /// - Parameter placeholder:占位符文字
-    /// - Returns:`Self`
+    /// - Parameter placeholder: 占位符文字
+    /// - Returns: `Self`
     @discardableResult
     func placeholder(_ placeholder: String) -> Self {
         self.placeholder = placeholder
@@ -170,8 +170,8 @@ public extension UITextField {
     }
 
     /// 设置富文本占位符
-    /// - Parameter attributedPlaceholder:富文本占位符
-    /// - Returns:`Self`
+    /// - Parameter attributedPlaceholder: 富文本占位符
+    /// - Returns: `Self`
     @discardableResult
     func attributedPlaceholder(_ attributedPlaceholder: NSAttributedString) -> Self {
         self.attributedPlaceholder = attributedPlaceholder
@@ -179,8 +179,8 @@ public extension UITextField {
     }
 
     /// 设置占位符颜色
-    /// - Parameter color:颜色
-    /// - Returns:`Self`
+    /// - Parameter color: 颜色
+    /// - Returns: `Self`
     func placeholderTextColor(_ color: UIColor) -> Self {
         if let holder = attributedPlaceholder, !holder.string.isEmpty {
             var attributes = holder.attributes
@@ -195,8 +195,8 @@ public extension UITextField {
     }
 
     /// 设置占位符字体
-    /// - Parameter font:字体
-    /// - Returns:`Self`
+    /// - Parameter font: 字体
+    /// - Returns: `Self`
     func placeholderFont(_ font: UIFont) -> Self {
         if let holder = attributedPlaceholder, !holder.string.isEmpty {
             var attributes = holder.attributes
@@ -212,9 +212,9 @@ public extension UITextField {
 
     /// 设置占位符的字体及颜色
     /// - Parameters:
-    ///   - color:颜色
-    ///   - font:字体
-    /// - Returns:`Self`
+    ///   - color: 颜色
+    ///   - font: 字体
+    /// - Returns: `Self`
     func placeholder(_ color: UIColor, font: UIFont) -> Self {
         if let holder = attributedPlaceholder, !holder.string.isEmpty {
             var attributes = holder.attributes
@@ -230,8 +230,8 @@ public extension UITextField {
     }
 
     /// 设置文本格式
-    /// - Parameter textAlignment:文本格式
-    /// - Returns:`Self`
+    /// - Parameter textAlignment: 文本格式
+    /// - Returns: `Self`
     @discardableResult
     func textAlignment(_ textAlignment: NSTextAlignment) -> Self {
         self.textAlignment = textAlignment
@@ -239,8 +239,8 @@ public extension UITextField {
     }
 
     /// 设置文本颜色
-    /// - Parameter textColor:文本颜色
-    /// - Returns:`Self`
+    /// - Parameter textColor: 文本颜色
+    /// - Returns: `Self`
     @discardableResult
     func textColor(_ textColor: UIColor) -> Self {
         self.textColor = textColor
@@ -248,8 +248,8 @@ public extension UITextField {
     }
 
     /// 设置文本颜色(十六进制字符串)
-    /// - Parameter hex:十六进制字符串
-    /// - Returns:`Self`
+    /// - Parameter hex: 十六进制字符串
+    /// - Returns: `Self`
     @discardableResult
     func textColor(_ hex: String) -> Self {
         textColor = UIColor(hex: hex)
@@ -257,8 +257,8 @@ public extension UITextField {
     }
 
     /// 设置文本字体
-    /// - Parameter font:字体
-    /// - Returns:`Self`
+    /// - Parameter font: 字体
+    /// - Returns: `Self`
     @discardableResult
     func font(_ font: UIFont) -> Self {
         self.font = font
@@ -266,8 +266,8 @@ public extension UITextField {
     }
 
     /// 设置系统字体
-    /// - Parameter fontSize:字体大小
-    /// - Returns:`Self`
+    /// - Parameter fontSize: 字体大小
+    /// - Returns: `Self`
     @discardableResult
     func systemFont(_ fontSize: CGFloat) -> Self {
         font = UIFont.systemFont(ofSize: fontSize)
@@ -275,8 +275,8 @@ public extension UITextField {
     }
 
     /// 设置代理
-    /// - Parameter delegate:代理
-    /// - Returns:`Self`
+    /// - Parameter delegate: 代理
+    /// - Returns: `Self`
     @discardableResult
     func delegate(_ delegate: UITextFieldDelegate) -> Self {
         self.delegate = delegate
@@ -284,8 +284,8 @@ public extension UITextField {
     }
 
     /// 设置键盘类型
-    /// - Parameter keyboardType:键盘样式
-    /// - Returns:`Self`
+    /// - Parameter keyboardType: 键盘样式
+    /// - Returns: `Self`
     @discardableResult
     func keyboardType(_ keyboardType: UIKeyboardType) -> Self {
         self.keyboardType = keyboardType
@@ -293,8 +293,8 @@ public extension UITextField {
     }
 
     /// 设置键盘`return`键类型
-    /// - Parameter returnKeyType:按钮样式
-    /// - Returns:`Self`
+    /// - Parameter returnKeyType: 按钮样式
+    /// - Returns: `Self`
     @discardableResult
     func returnKeyType(_ returnKeyType: UIReturnKeyType) -> Self {
         self.returnKeyType = returnKeyType
@@ -302,8 +302,8 @@ public extension UITextField {
     }
 
     /// 设置左侧`view`模式
-    /// - Parameter mode:模式
-    /// - Returns:`Self`
+    /// - Parameter mode: 模式
+    /// - Returns: `Self`
     @discardableResult
     func leftViewMode(_ mode: ViewMode) -> Self {
         leftViewMode = mode
@@ -311,8 +311,8 @@ public extension UITextField {
     }
 
     /// 设置右侧`view`模式
-    /// - Parameter mode:模式
-    /// - Returns:`Self`
+    /// - Parameter mode: 模式
+    /// - Returns: `Self`
     @discardableResult
     func rightViewMode(_ mode: ViewMode) -> Self {
         rightViewMode = mode
@@ -320,8 +320,8 @@ public extension UITextField {
     }
 
     /// 添加左边的内边距
-    /// - Parameter padding:边距
-    /// - Returns:`Self`
+    /// - Parameter padding: 边距
+    /// - Returns: `Self`
     @discardableResult
     func leftPadding(_ padding: CGFloat) -> Self {
         let leftView = UIView()
@@ -332,8 +332,8 @@ public extension UITextField {
     }
 
     /// 添加右边的内边距
-    /// - Parameter padding:边距
-    /// - Returns:`Self`
+    /// - Parameter padding: 边距
+    /// - Returns: `Self`
     @discardableResult
     func rightPadding(_ padding: CGFloat) -> Self {
         let rightView = UIView()
@@ -345,10 +345,10 @@ public extension UITextField {
 
     /// 添加左边的`view`
     /// - Parameters:
-    ///   - view:要添加的view
-    ///   - containerRect:容器大小
-    ///   - contentRect:内容大小
-    /// - Returns:`Self`
+    ///   - view: 要添加的view
+    ///   - containerRect: 容器大小
+    ///   - contentRect: 内容大小
+    /// - Returns: `Self`
     @discardableResult
     func leftView(
         _ view: UIView?,
@@ -377,10 +377,10 @@ public extension UITextField {
 
     /// 添加右边的`view`
     /// - Parameters:
-    ///   - view:要添加的view
-    ///   - containerRect:容器大小
-    ///   - contentRect:内容大小
-    /// - Returns:`Self`
+    ///   - view: 要添加的view
+    ///   - containerRect: 容器大小
+    ///   - contentRect: 内容大小
+    /// - Returns: `Self`
     @discardableResult
     func rightView(
         _ view: UIView?,
