@@ -629,7 +629,7 @@ public extension String {
     }
 
     /// 提取出字符串中所有的`URL`链接
-    var URLs: [String]? {
+    var urls: [String]? {
         var urls = [String]()
         // 创建一个正则表达式对象
         guard let dataDetector = try? NSDataDetector(types: NSTextCheckingTypes(NSTextCheckingResult.CheckingType.link.rawValue)) else {
@@ -683,12 +683,12 @@ public extension String {
         return (self as NSString).pathExtension
     }
 
-    /// 返回删除最后一个路径组件之后字符串
+    /// 返回删除了最后一个路径组件之后的字符串
     var deletingLastPathComponent: String {
         return (self as NSString).deletingLastPathComponent
     }
 
-    /// 返回删除路径扩展之后的字符串
+    /// 返回删除了路径扩展之后的字符串
     var deletingPathExtension: String {
         return (self as NSString).deletingPathExtension
     }
@@ -698,7 +698,7 @@ public extension String {
         return (self as NSString).pathComponents
     }
 
-    /// 添加路径组件类似`NSString appendingPathComponent(str: String)`
+    /// 添加路径组件类似`NSString=>appendingPathComponent(str: String)`
     ///
     /// - Note: 此方法仅适用于文件路径(例如,URL 的字符串表示形式
     /// - Parameter str: 要添加的路径组件(如果需要可以在前面添加分隔符`/`)
@@ -707,7 +707,7 @@ public extension String {
         return (self as NSString).appendingPathComponent(str)
     }
 
-    /// 添加路径扩展类似`NSString appendingPathExtension(str: String)`
+    /// 添加路径扩展类似`NSString=>appendingPathExtension(str: String)`
     /// - Parameters str: 要添加的扩展
     /// - Returns: 添加路径扩展后而生成的新字符串
     func appendingPathExtension(_ str: String) -> String? {
@@ -717,35 +717,35 @@ public extension String {
 
 // MARK: - 沙盒
 public extension String {
-    /// Support 追加后的目录 / 文件地址 `备份在 iCloud`
+    /// `Support` 追加后的`目录 / 文件地址` `备份在 iCloud`
     var appendBySupport: String {
         let directory = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0]
         createDirs(directory)
         return directory + "/\(self)"
     }
 
-    /// Documents 追加后的目录／文件地址
+    /// `Documents` 追加后的`目录／文件地址`
     var appendByDocument: String {
         let directory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         createDirs(directory)
         return directory + "/\(self)"
     }
 
-    /// Cachees 追加后的目录／文件地址
+    /// `Cachees` 追加后的`目录／文件地址`
     var appendByCache: String {
         let directory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
         createDirs(directory)
         return directory + "/\(self)"
     }
 
-    /// tmp 追加后的目录／文件地址
+    /// `tmp` 追加后的`目录／文件地址`
     var appendByTemp: String {
         let directory = NSTemporaryDirectory()
         createDirs(directory)
         return directory + "/\(self)"
     }
 
-    /// Support 追加后的目录／文件地址 `备份在 iCloud`
+    /// `Support` 追加后的`目录／文件地址` `备份在 iCloud`
     var urlBySupport: URL {
         var fileURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         _ = appendByDocument
@@ -753,7 +753,7 @@ public extension String {
         return fileURL
     }
 
-    /// Documents 追加后的目录／文件地址
+    /// `Documents` 追加后的`目录／文件地址`
     var urlByDocument: URL {
         var fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         _ = appendByDocument
@@ -761,7 +761,7 @@ public extension String {
         return fileURL
     }
 
-    /// Cachees 追加后的目录／文件地址
+    /// `Cachees` 追加后的`目录／文件地址`
     var urlByCache: URL {
         var fileURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         _ = appendByCache
@@ -781,7 +781,7 @@ public extension String {
     }
 
     /// 创建目录
-    /// 如 cache/；以`/`结束代表是目录
+    /// 如 `cache/`；以`/`结束代表是`目录`
     func createDirs(_ directory: String = NSHomeDirectory()) {
         let path = contains(NSHomeDirectory()) ? self : "\(directory)/\(self)"
         let dirs = path.components(separatedBy: "/")
