@@ -3,7 +3,7 @@ import UIKit
 // MARK: - 属性
 public extension Data {
     /// `Data`转`字符串`
-    var data: String? {
+    var string: String? {
         string(encoding: .utf8)
     }
 
@@ -44,18 +44,18 @@ public extension Data {
 
 // MARK: - 方法
 public extension Data {
-    /// 将`Data`转为指定编码的字符串
-    /// - Parameters encoding: 编码
+    /// 将`Data`转为`指定编码的字符串`
+    /// - Parameters encoding: 编码格式
     /// - Returns: 对应字符串
     func string(encoding: String.Encoding = .utf8) -> String? {
         return String(data: self, encoding: encoding)
     }
 
-    /// `Data`转`Foundation`对象(数组, 字典...)
-    /// - Parameter options: 读取JSON数据和创建`Foundation`对象的选项
-    /// - Returns: 失败返回nil
-    func jsonObject(options: JSONSerialization.ReadingOptions = []) -> Any? {
-        guard let obj = try? JSONSerialization.jsonObject(with: self, options: options) else {
+    /// `Data`转`Foundation`对象(`数组, 字典...`)
+    /// - Parameter options: 读取`JSON`数据和创建`Foundation`对象的选项
+    /// - Returns: 失败返回`nil`
+    func jsonObject<T>(type: T.Type, options: JSONSerialization.ReadingOptions = []) -> T? {
+        guard let obj = try? JSONSerialization.jsonObject(with: self, options: options) as? Type else {
             return nil
         }
         return obj
@@ -65,7 +65,7 @@ public extension Data {
     /// - Parameters:
     ///   - from: 开始位置
     ///   - len: 截取长度
-    /// - Returns: 截取的Data
+    /// - Returns: 截取的`Data`
     func subData(from: Int, len: Int) -> Data? {
         guard from >= 0, len >= 0 else {
             return nil
@@ -77,5 +77,9 @@ public extension Data {
         let endIndex = index(self.startIndex, offsetBy: from + len)
         let range = startIndex ..< endIndex
         return self[range]
+    }
+    
+    func test() {
+        let res = self.jsonObject(type: [string: string].self)
     }
 }

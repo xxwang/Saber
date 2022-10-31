@@ -16,15 +16,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/CoderMJLee/MJRefresh", from: "3.7.5"),
-        .package(url: "https://github.com/onevcat/Kingfisher.git", branch: "version6-xcode13"),
+//        .package(url: "https://github.com/CoderMJLee/MJRefresh", from: "3.7.5"),
+//        .package(url: "https://github.com/onevcat/Kingfisher.git", branch: "version6-xcode13"),
     ],
     targets: [
         .target(
             name: "Saber",
             dependencies: [
-                "MJRefresh",
-                "Kingfisher",
+//                "MJRefresh",
+//                "Kingfisher",
             ],
             path: "Sources/Saber"
         ),
