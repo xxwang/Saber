@@ -5,7 +5,7 @@ public extension Calendar {
     /// 当月天数
     var currentMonthDays: Int {
         let currentDate = Date()
-        return self.numberOfDaysInMonth(for: currentDate)
+        return numberOfDaysInMonth(for: currentDate)
     }
 }
 

@@ -45,20 +45,25 @@ public extension Data {
 // MARK: - 方法
 public extension Data {
     /// 将`Data`转为`指定编码的字符串`
-    /// - Parameters encoding: 编码格式
+    /// - Parameter encoding: 编码格式
     /// - Returns: 对应字符串
     func string(encoding: String.Encoding = .utf8) -> String? {
         return String(data: self, encoding: encoding)
     }
 
-    /// `Data`转`Foundation`对象(`数组, 字典...`)
-    /// - Parameter options: 读取`JSON`数据和创建`Foundation`对象的选项
+    /// `Data`转指定`Foundation`对象(`数组, 字典...`)
+    /// - Parameters:
+    ///   - name: 要转换的目标类型`[String: Any].self`
+    ///   - options: 读取`JSON`数据和创建`Foundation`对象的选项
     /// - Returns: 失败返回`nil`
-    func jsonObject<T>(type: T.Type, options: JSONSerialization.ReadingOptions = []) -> T? {
-        guard let obj = try? JSONSerialization.jsonObject(with: self, options: options) as? Type else {
+    func jsonObject<T>(for name: T.Type = Any.self, options: JSONSerialization.ReadingOptions = []) -> T? {
+        guard let obj = try? JSONSerialization.jsonObject(with: self, options: options) else {
             return nil
         }
-        return obj
+        guard let classObj = obj as? T else {
+            return nil
+        }
+        return classObj
     }
 
     /// 截取指定长度`Data`
@@ -77,9 +82,5 @@ public extension Data {
         let endIndex = index(self.startIndex, offsetBy: from + len)
         let range = startIndex ..< endIndex
         return self[range]
-    }
-    
-    func test() {
-        let res = self.jsonObject(type: [string: string].self)
     }
 }

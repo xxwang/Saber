@@ -1,4 +1,4 @@
-import Kingfisher
+//import Kingfisher
 import UIKit
 
 // MARK: - 方法
@@ -80,70 +80,70 @@ public extension UIImageView {
     ///   - url: 图片`URL`地址(URL/字符串都可以)
     ///   - placeholder: 占位图片
     ///   - fail: 失败图片
-    func loadImage(
-        _ source: Any?,
-        placeholder: UIImage? = nil,
-        fail: UIImage? = nil
-    ) {
-        // 设置占位图片
-        if let placeholder = placeholder {
-            image = placeholder
-        }
-
-        // 检查资源是否为空
-        guard let source = source else {
-            image = fail ?? placeholder
-            return
-        }
-
-        // 图片
-        if let image = source as? UIImage {
-            self.image = image
-            return
-        }
-
-        var imageURL: URL?
-        if let string = source as? String { // 字符串
-            if !string.hasPrefix("http: //"), !string.hasPrefix("https: //") {
-                image = string.image ?? (fail ?? placeholder)
-                return
-            } else {
-                imageURL = URL(string: string)
-            }
-        } else if let sourceURL = source as? URL { // URL
-            imageURL = sourceURL
-        } else { // 非法资源
-            image = fail ?? placeholder
-            return
-        }
-
-        guard let imageURL = imageURL, imageURL.isValid else {
-            image = fail ?? placeholder
-            return
-        }
-
-        // 加载指示器
-        kf.indicatorType = .activity
-        let options: KingfisherOptionsInfo = [
-            .scaleFactor(UIScreen.screenScale),
-            .transition(.fade(1)),
-            .cacheOriginalImage,
-        ]
-        kf.setImage(
-            with: imageURL,
-            placeholder: placeholder,
-            options: options
-        ) { result in
-            switch result {
-            //                  case let .success: (value):
-            case .success:
-                //                  Log.info("图片加载成功!\(value)")
-                break
-            case let .failure(error):
-                Log.error("图片加载失败!\n地址: \(imageURL.absoluteString)\n错误: \(error.localizedDescription)")
-            }
-        }
-    }
+//    func loadImage(
+//        _ source: Any?,
+//        placeholder: UIImage? = nil,
+//        fail: UIImage? = nil
+//    ) {
+//        // 设置占位图片
+//        if let placeholder = placeholder {
+//            image = placeholder
+//        }
+//
+//        // 检查资源是否为空
+//        guard let source = source else {
+//            image = fail ?? placeholder
+//            return
+//        }
+//
+//        // 图片
+//        if let image = source as? UIImage {
+//            self.image = image
+//            return
+//        }
+//
+//        var imageURL: URL?
+//        if let string = source as? String { // 字符串
+//            if !string.hasPrefix("http: //"), !string.hasPrefix("https: //") {
+//                image = string.image ?? (fail ?? placeholder)
+//                return
+//            } else {
+//                imageURL = URL(string: string)
+//            }
+//        } else if let sourceURL = source as? URL { // URL
+//            imageURL = sourceURL
+//        } else { // 非法资源
+//            image = fail ?? placeholder
+//            return
+//        }
+//
+//        guard let imageURL = imageURL, imageURL.isValid else {
+//            image = fail ?? placeholder
+//            return
+//        }
+//
+//        // 加载指示器
+//        kf.indicatorType = .activity
+//        let options: KingfisherOptionsInfo = [
+//            .scaleFactor(UIScreen.screenScale),
+//            .transition(.fade(1)),
+//            .cacheOriginalImage,
+//        ]
+//        kf.setImage(
+//            with: imageURL,
+//            placeholder: placeholder,
+//            options: options
+//        ) { result in
+//            switch result {
+//            //                  case let .success: (value):
+//            case .success:
+//                //                  Log.info("图片加载成功!\(value)")
+//                break
+//            case let .failure(error):
+//                Log.error("图片加载失败!\n地址: \(imageURL.absoluteString)\n错误: \(error.localizedDescription)")
+//            }
+//        }
+//    }
 }
 
 // MARK: - Gif

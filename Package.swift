@@ -15,17 +15,11 @@ let package = Package(
             targets: ["Saber"]
         ),
     ],
-    dependencies: [
-//        .package(url: "https://github.com/CoderMJLee/MJRefresh", from: "3.7.5"),
-//        .package(url: "https://github.com/onevcat/Kingfisher.git", branch: "version6-xcode13"),
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "Saber",
-            dependencies: [
-//                "MJRefresh",
-//                "Kingfisher",
-            ],
+            dependencies: [],
             path: "Sources/Saber"
         ),
         .testTarget(

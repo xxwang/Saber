@@ -9,27 +9,6 @@ import Foundation
 
 // MARK: - 属性
 public extension String {
-    /// 字符串转字典
-    var dict: [String: Any]? {
-        guard let data = data else { return nil }
-        guard let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            return nil
-        }
-        return dict
-    }
-
-    /// 字符串转字典数组
-    var dicts: [[String: Any]]? {
-        guard let data = data else { return nil }
-        guard let dicts = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
-            return nil
-        }
-        return dicts
-    }
-}
-
-// MARK: - 属性
-public extension String {
     /// 字符串转`Int`
     var int: Int {
         return Int(self) ?? 0
@@ -425,6 +404,27 @@ public extension String {
     ///
     var regexEscaped: String {
         return NSRegularExpression.escapedPattern(for: self)
+    }
+}
+
+// MARK: - 属性
+public extension String {
+    /// 字符串转`字典`
+    var dict: [String: Any]? {
+        guard let data = data else { return nil }
+        guard let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            return nil
+        }
+        return dict
+    }
+
+    /// 字符串转`字典数组`
+    var dicts: [[String: Any]]? {
+        guard let data = data else { return nil }
+        guard let dicts = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
+            return nil
+        }
+        return dicts
     }
 }
 
@@ -894,38 +894,32 @@ public extension String {
     }
 }
 
-class Person {
-    var name: String = ""
-    init(name: String) {
-        self.name = name
-    }
-
-    required init() {}
-}
-
 // MARK: - 方法(类型转换)
 public extension String {
-    /// `字符串`转`AnyClass`
-    func anyClass() -> AnyClass? {
+    /// `字符串`转指定类类型默认:`AnyClass`
+    /// - Parameter name: 指定的目标类类型
+    /// - Returns: T.Type
+    func toClass<T>(for name: T.Type = AnyClass.self) -> T.Type? {
         guard let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String else {
             return nil
         }
 
         let classNameString = "\(namespace.removeSomeStringUseSomeString(removeString: " ", replacingString: "_")).\(self)"
-        guard let anyClass: AnyClass = NSClassFromString(classNameString) else {
+        guard let nameClass = NSClassFromString(classNameString) as? T.Type else {
             return nil
         }
-        return anyClass
+        return nameClass
     }
 
     /// `类名字符串`转`类实例`(类需要是继承自`NSObject`)
-    func nsObject() -> NSObject? {
-        guard let anyClass: AnyClass = anyClass() else {
+    /// - Parameter name:  指定的目标类类型
+    /// - Returns: 指定类型对象
+    func toObject<T>(for name: T.Type = NSObject.self) -> T? where T: NSObject {
+        guard let nameClass = toClass(for: name) else {
             return nil
         }
-        let classType = anyClass as! NSObject.Type
-        let instance = classType.init()
-        return instance
+        let object = nameClass.init()
+        return object
     }
 }
 

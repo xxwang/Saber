@@ -29,11 +29,11 @@ public extension UILabel {
     }
 
     /// 获取`UILabel`的每一行字符串(需要`UILabel`具有宽度值)
-    var textLines: [String] {
-        let text = self.text ?? ""
-        let font = self.font!
-        return text.lines(bounds.width, font: font)
-    }
+//    var textLines: [String] {
+//        let text = self.text ?? ""
+//        let font = self.font!
+//        return text.lines(bounds.width, font: font)
+//    }
 
     /// 获取`UILabel`第一行内容
     var firstLineString: String? {

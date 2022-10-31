@@ -66,7 +66,7 @@ public extension Array {
     ///
     ///     [2, 3, 4, 5].prepend(1) -> [1, 2, 3, 4, 5]
     ///     ["e", "l", "l", "o"].prepend("h") -> ["h", "e", "l", "l", "o"]
-    /// - Parameters newElement: 要插入的元素
+    /// - Parameter newElement: 要插入的元素
     mutating func prepend(_ newElement: Element) {
         insert(newElement, at: 0)
     }
