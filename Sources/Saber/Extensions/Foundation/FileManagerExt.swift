@@ -389,7 +389,7 @@ public extension FileManager {
             return (false, "写入数据不能为空!")
         }
 
-        guard let url = path.url, url.isValid else {
+        guard let url = path.url, path.isValidURL else {
             return (false, "写入路径错误!")
         }
 

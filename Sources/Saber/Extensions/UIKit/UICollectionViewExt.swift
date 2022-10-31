@@ -1,4 +1,4 @@
-//import MJRefresh
+// import MJRefresh
 import UIKit
 
 // MARK: - 属性
@@ -15,7 +15,7 @@ public extension UICollectionView {
 }
 
 // MARK: - MJRefresh
-//public extension UICollectionView {
+// public extension UICollectionView {
 //    /// 设置头部刷新控件(下拉刷新)
 //    func setupHeaderRefreshing(refreshingCallback: @escaping MJRefreshComponentAction) {
 //        let header = MJRefreshNormalHeader(refreshingBlock: refreshingCallback)
@@ -50,7 +50,7 @@ public extension UICollectionView {
 //            mj_footer?.endRefreshingWithNoMoreData()
 //        }
 //    }
-//}
+// }
 
 // MARK: - 移动
 public extension UICollectionView {

@@ -1,4 +1,4 @@
-//import MJRefresh
+// import MJRefresh
 import UIKit
 
 // MARK: - 属性
@@ -16,7 +16,7 @@ public extension UITableView {
 }
 
 // MARK: - MJRefresh
-//public extension UITableView {
+// public extension UITableView {
 //    /// 设置头部刷新控件(下拉刷新)
 //    func setupHeaderRefreshing(refreshingCallback: @escaping MJRefreshComponentAction) {
 //        let header = MJRefreshNormalHeader(refreshingBlock: refreshingCallback)
@@ -51,7 +51,7 @@ public extension UITableView {
 //            mj_footer?.endRefreshingWithNoMoreData()
 //        }
 //    }
-//}
+// }
 
 // MARK: - 方法
 public extension UITableView {

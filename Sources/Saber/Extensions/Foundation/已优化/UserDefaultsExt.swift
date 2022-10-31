@@ -5,12 +5,12 @@ public extension UserDefaults {
     /// 使用下标从`UserDefaults`获取对象
     /// - Parameters:
     /// - key: 输入当前用户的默认数据库
-    subscript(key: String) -> Any? {
+    static subscript(key: String) -> Any? {
         get {
-            return object(forKey: key)
+            return value(for: key)
         }
         set {
-            set(newValue, forKey: key)
+            setValue(newValue, for: key)
             UserDefaults.standard.synchronize()
         }
     }
@@ -24,7 +24,7 @@ public extension UserDefaults {
     ///   - key: 对应的键
     /// - Returns: 是否成功
     @discardableResult
-    static func setValue(value: Any?, for key: String?) -> Bool {
+    static func setValue(_ value: Any?, for key: String?) -> Bool {
         guard let value = value,
               let key = key
         else {
@@ -77,11 +77,11 @@ public extension UserDefaults {
     ///   - key: 保存对象的键
     ///   - encoder: 编码器
     /// - Returns: 是否保存成功
-    static func set<T: Codable>(object: T, forKey key: String, usingEncoder encoder: JSONEncoder = JSONEncoder()) -> Bool {
+    static func setObject<T: Codable>(_ object: T, forKey key: String, usingEncoder encoder: JSONEncoder = JSONEncoder()) -> Bool {
         guard let data = try? encoder.encode(object) else {
             return false
         }
-        setValue(value: data, for: key)
+        setValue(data, for: key)
         standard.synchronize()
         return true
     }
@@ -92,7 +92,7 @@ public extension UserDefaults {
     ///   - key: 存储对象的键
     ///   - decoder: 解码器
     /// - Returns: 遵守`Codable`的对象
-    static func object<T: Codable>(_ type: T.Type, with key: String, usingDecoder decoder: JSONDecoder = JSONDecoder()) -> T? {
+    static func object<T: Codable>(_ type: T.Type, for key: String, usingDecoder decoder: JSONDecoder = JSONDecoder()) -> T? {
         guard let data = value(forKey: key) as? Data else {
             return nil
         }

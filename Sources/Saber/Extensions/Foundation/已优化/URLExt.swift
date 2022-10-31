@@ -3,12 +3,12 @@ import UIKit
 
 // MARK: - 属性
 public extension URL {
-    /// 检测应用是否能打开这个URL
-    var isValid: Bool {
+    /// 检测应用是否能打开这个`URL`
+    var canOpen: Bool {
         return UIApplication.shared.canOpenURL(self)
     }
 
-    /// 以字典形式返回URL的参数
+    /// 以字典形式返回`URL`的`参数`
     var queryParameters: [String: String]? {
         guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else { return nil }
@@ -25,34 +25,37 @@ public extension URL {
 
 // MARK: - 构造方法
 public extension URL {
-    /// 使用基本URL和相对字符串初始化“URL”对象.如果'string'格式不正确,则返回nil
+    /// 使用基础`URL`和`路径字符串`初始化`URL`对象
     /// - Parameters:
-    ///   - string: 用来初始化'URL'对象的URL字符串
-    ///   - url: BaseURL
-    init?(string: String?, relativeTo url: URL? = nil) {
+    ///   - string: `URL`路径
+    ///   - baseURL: 基础`URL`
+    init?(string: String?, baseURL: URL? = nil) {
         guard let string = string else { return nil }
-        self.init(string: string, relativeTo: url)
+        self.init(string: string, relativeTo: baseURL)
     }
 
-    /**
-     从字符串初始化强制展开的“URL”.如果字符串无效,可能会崩溃
-     - Parameter unsafeString: 用于初始化'URL'对象的URL字符串
-     */
-    init(unsafeString: String) {
-        self.init(string: unsafeString)!
+    /// 使用基础`URL字符串`和`路径字符串`初始化`URL`对象
+    /// - Parameters:
+    ///   - string: `URL`路径
+    ///   - baseString: 基础`URL字符串`
+    init?(string: String?, baseString: String? = nil) {
+        guard let string = string else { return nil }
+        guard let baseString = baseString else { return nil }
+        guard let baseURL = baseString.url else { return nil }
+        self.init(string: string, relativeTo: baseURL)
     }
 }
 
 // MARK: - 方法
 public extension URL {
-    /// 返回附加查询参数的URL
+    /// 给`URL`添加查询参数并返回携带查询参数的 `URL`
     ///
-    ///          let url = URL(string: "https: //google.com")!
-    ///          let param = ["q": "Swifter Swift"]
-    ///          url.appendingQueryParameters(params) -> "https: //google.com?q=Swifter%20Swift"
+    ///     let url = URL(string: "https: //google.com")!
+    ///     let param = ["q": "Swifter Swift"]
+    ///     url.appendingQueryParameters(params) -> "https: //google.com?q=Swifter%20Swift"
     ///
     /// - Parameter parameters: 参数字典
-    /// - Returns: 附加给定查询参数的URL
+    /// - Returns: 附加查询参数的`URL`
     func appendingQueryParameters(_ parameters: [String: String]) -> URL {
         var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = (urlComponents.queryItems ?? []) + parameters
@@ -60,12 +63,12 @@ public extension URL {
         return urlComponents.url!
     }
 
-    /// 将查询参数附加到URL
+    /// 将查询参数添加到`URL`
     ///
-    ///          var url = URL(string: "https: //google.com")!
-    ///          let param = ["q": "Swifter Swift"]
-    ///          url.appendQueryParameters(params)
-    ///          print(url) // prints "https: //google.com?q=Swifter%20Swift"
+    ///     var url = URL(string: "https: //google.com")!
+    ///     let param = ["q": "Swifter Swift"]
+    ///     url.appendQueryParameters(params)
+    ///     print(url) // prints "https: //google.com?q=Swifter%20Swift"
     ///
     /// - Parameter parameters: 参数字典
     mutating func appendQueryParameters(_ parameters: [String: String]) {
@@ -74,8 +77,8 @@ public extension URL {
 
     /// 获取查询参数中键对应的值
     ///
-    ///    var url = URL(string: "https: //google.com?code=12345")!
-    ///    queryValue(for: "code") -> "12345"
+    ///     var url = URL(string: "https: //google.com?code=12345")!
+    ///     queryValue(for: "code") -> "12345"
     ///
     /// - Parameter key: 键
     func queryValue(for key: String) -> String? {
@@ -85,12 +88,12 @@ public extension URL {
             .value
     }
 
-    /// 通过删除所有路径组件返回新URL
+    /// 通过删除所有路径组件返回新`URL`
     ///
     ///     let url = URL(string: "https: //domain.com/path/other")!
     ///     print(url.deletingAllPathComponents()) // prints "https: //domain.com/"
     ///
-    /// - Returns: 删除所有路径组件的URL
+    /// - Returns: `URL`
     func deletingAllPathComponents() -> URL {
         var url: URL = self
         for _ in 0 ..< pathComponents.count - 1 {
@@ -99,11 +102,11 @@ public extension URL {
         return url
     }
 
-    /// 从URL中删除所有路径组件
+    /// 从`URL`中删除所有路径组件
     ///
-    ///          var url = URL(string: "https: //domain.com/path/other")!
-    ///          url.deleteAllPathComponents()
-    ///          print(url) // prints "https: //domain.com/"
+    ///     var url = URL(string: "https: //domain.com/path/other")!
+    ///     url.deleteAllPathComponents()
+    ///     print(url) // prints "https: //domain.com/"
     mutating func deleteAllPathComponents() {
         for _ in 0 ..< pathComponents.count - 1 {
             deleteLastPathComponent()
@@ -112,8 +115,8 @@ public extension URL {
 
     /// 生成没有协议的新URL
     ///
-    ///          let url = URL(string: "https: //domain.com")!
-    ///          print(url.droppedScheme()) // prints "domain.com"
+    ///     let url = URL(string: "https: //domain.com")!
+    ///     print(url.droppedScheme()) // prints "domain.com"
     func droppedScheme() -> URL? {
         if let scheme = scheme {
             let droppedScheme = String(absoluteString.dropFirst(scheme.count + 3))
@@ -126,18 +129,18 @@ public extension URL {
         return URL(string: droppedScheme)
     }
 
-    /// 从给定的 url 生成缩略图. 如果无法创建缩略图,则返回 nil. 此功能可能需要一些时间才能完成. 如果缩略图不是从本地资源生成的,建议使用dispatch
+    /// 根据`视频URL`在指定时间`秒`截取图像
     ///
     ///     var url = URL(string: "https: //video.golem.de/files/1/1/20637/wrkw0718-sd.mp4")!
     ///     var thumbnail = url.thumbnail()
     ///     thumbnail = url.thumbnail(fromTime: 5)
     ///
     ///     DisptachQueue.main.async {
-    ///           someImageView.image = url.thumbnail()
+    ///      someImageView.image = url.thumbnail()
     ///     }
     ///
-    /// - Parameter time: 应生成图像的视频的秒数
-    /// - Returns: AVAssetImageGenerator 的 UIImage 结果
+    /// - Parameter time: 需要生成图片的视频的时间`秒`
+    /// - Returns: `UIImage`
     func thumbnail(fromTime time: Float64 = 0) -> UIImage? {
         let imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: self))
         let time = CMTimeMakeWithSeconds(time, preferredTimescale: 1)

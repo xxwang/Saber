@@ -932,7 +932,7 @@ public extension UIView {
         // 多少行
         let rowNum = NSInteger(bounds.height * 3.5 / 80)
         // 多少列: 自己的宽度 / (每个水印的宽度+间隔)
-        let colNum = NSInteger(bounds.width / markText.textSize(bounds.width, font: font).width)
+        let colNum = NSInteger(bounds.width / markText.strSize(bounds.width, font: font).width)
 
         for i in 0 ..< rowNum {
             for j in 0 ..< colNum {

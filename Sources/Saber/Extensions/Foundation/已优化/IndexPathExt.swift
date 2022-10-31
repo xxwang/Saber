@@ -19,4 +19,17 @@ public extension IndexPath {
     var nextRow: IndexPath {
         return IndexPath(row: row + 1, section: section)
     }
+
+    /// 前一组索引
+    var previousSection: IndexPath {
+        if section == 0 {
+            return self
+        }
+        return IndexPath(row: row, section: section - 1)
+    }
+
+    /// 下一组索引
+    var nextSection: IndexPath {
+        return IndexPath(row: row, section: section + 1)
+    }
 }

@@ -3,7 +3,7 @@ import Foundation
 // MARK: - 属性
 public extension URLRequest {
     /// `URLRequest`的`cURL`命令表示形式
-    var curlString: String {
+    var cURLString: String {
         guard let url = url else { return "" }
 
         var baseCommand = "curl \(url.absoluteString)"
@@ -36,7 +36,7 @@ public extension URLRequest {
 public extension URLRequest {
     /// 使用URL字符串创建`URLRequest`
     /// - Parameter urlString: `URL`字符串
-    init?(urlString: String) {
+    init?(string urlString: String) {
         guard let url = URL(string: urlString) else { return nil }
         self.init(url: url)
     }

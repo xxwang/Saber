@@ -428,6 +428,14 @@ public extension String {
     }
 }
 
+// MARK: - Notification.Name
+public extension String {
+    /// 通知名称
+    var notificationName: Notification.Name {
+        return Notification.Name(self)
+    }
+}
+
 // MARK: - emoji
 public extension String {
     /// 是否为单个`emoji`表情
@@ -1740,8 +1748,8 @@ public extension String {
     /// - Parameters:
     ///   - maxWidth: 最大宽度
     ///   - font: 文字字体
-    /// - Returns: 返回计算好的size
-    func textSize(
+    /// - Returns: 结果`CGSize`
+    func strSize(
         _ maxWidth: CGFloat = UIScreen.main.bounds.width,
         font: UIFont
     ) -> CGSize {
@@ -1766,8 +1774,8 @@ public extension String {
     ///   - font: 字体
     ///   - lineSpaceing: 行间距
     ///   - wordSpacing: 字间距
-    /// - Returns: size
-    func attributedSize(
+    /// - Returns: 结果`CGSize`
+    func attributeSize(
         _ maxWidth: CGFloat = UIScreen.main.bounds.width,
         font: UIFont,
         lineSpacing: CGFloat = 0,
