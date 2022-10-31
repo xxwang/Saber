@@ -3,7 +3,7 @@ import Foundation
 
 // MARK: - 属性
 public extension NSObject {
-    /// 获取对象类名(需要继承自`NSObject`)
+    /// 获取`对象`的`类名字符串`(类需要继承自`NSObject`)
     var className: String {
         let name = type(of: self).description()
         if name.contains(".") {
@@ -16,35 +16,32 @@ public extension NSObject {
 
 // MARK: - 静态属性
 public extension NSObject {
-    /// 获取类的类名(需要继承自`NSObject`)
+    /// 获取`类`的`类名字符串`
     static var className: String {
         return String(describing: self)
     }
-}
 
-// MARK: - Runtime
-public extension NSObject {
-    /// 利用运行时获取类里面的成员变量
-    /// - Returns: 成员变量名数组
-    @discardableResult
-    static func printIvars() -> [String] {
-        // 成员变量名字
-        var propertyNames = [String]()
+    /// 获取类中所有成员变量
+    static var memberVariables: [String] {
+        // 成员变量名字数组
+        var varNames = [String]()
         // 成员变量数量
         var count: UInt32 = 0
+
         // ivars是一个数组
-        let ivars = class_copyIvarList(Self.self, &count)
+        let ivarList = class_copyIvarList(Self.self, &count)
         for i in 0 ..< count {
             // ivar是一个结构体的指针
-            let ivar = ivars![Int(i)]
+            let ivar = ivarList![Int(i)]
             // 获取 成员变量的名称,cName c语言的字符串,首元素地址
             let cName = ivar_getName(ivar)
             let name = String(cString: cName!, encoding: String.Encoding.utf8)
-            propertyNames.append(name ?? "没有内容")
+            varNames.append(name ?? "没有内容")
         }
         // 方法中有copy,create,的都需要释放
-        free(ivars)
-        return propertyNames
+        free(ivarList)
+
+        return varNames
     }
 }
 
