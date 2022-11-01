@@ -10,10 +10,10 @@ public extension Timer {
     ///   - mode: `RunLoop`模式
     ///   - block: 执行代码的`block`
     convenience init(
-        fire date: Date = .now,
+        startDate date: Date = .now,
         timeInterval: TimeInterval,
         repeats: Bool,
-        forMode mode: RunLoop.Mode = .default,
+        forMode mode: RunLoop.Mode,
         block: @escaping ((Timer) -> Void)
     ) {
         if #available(iOS 10.0, *) {
