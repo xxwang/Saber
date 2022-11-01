@@ -80,7 +80,7 @@ public extension NSObject {
         if self != NSObject.self {
             return false
         }
-        
+
         let selfClass: AnyClass = classForCoder()
 
         guard
