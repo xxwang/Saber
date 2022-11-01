@@ -31,42 +31,40 @@ public extension Timer {
         }
         RunLoop.current.add(self, forMode: mode)
     }
-    
-    
-//        /// 使用构造方法创建定时器(需要调用`fire()`,需要加入`RunLoop`)
-//        /// - Parameters:
-//        ///   - date: 开始时间
-//        ///   - timeInterval: 时间间隔
-//        ///   - repeats: 是否重复执行
-//        ///   - mode: `RunLoop`模式
-//        ///   - block: 执行代码的`block`
-//    convenience init(
-//        startDate date: Date = .now,
-//        timeInterval: TimeInterval,
-//        repeats: Bool,
-//        forMode mode: RunLoop.Mode,
-//        block: @escaping ((Timer) -> Void)
-//    ) {
-//        if #available(iOS 10.0, *) {
-//            self.init(
-//                fire: date,
-//                interval: timeInterval,
-//                repeats: repeats,
-//                block: block
-//            )
-//        } else {
-//            self.init(
-//                fireAt: date,
-//                interval: timeInterval,
-//                target: Timer.self,
-//                selector: #selector(Timer.timerCB(timer:)),
-//                userInfo: block,
-//                repeats: repeats
-//            )
-//        }
-//            //        RunLoop.current.add(self, forMode: mode)
-//    }
-    
+
+    /// 使用构造方法创建带开始时间的定时器(需要调用`fire()`,需要加入`RunLoop`)
+    /// - Parameters:
+    ///   - date: 开始时间
+    ///   - timeInterval: 时间间隔
+    ///   - repeats: 是否重复执行
+    ///   - mode: `RunLoop`模式
+    ///   - block: 执行代码的`block`
+    convenience init(
+        startDate date: Date,
+        timeInterval: TimeInterval,
+        repeats: Bool,
+        forMode mode: RunLoop.Mode,
+        block: @escaping ((Timer) -> Void)
+    ) {
+        if #available(iOS 10.0, *) {
+            self.init(
+                fire: date,
+                interval: timeInterval,
+                repeats: repeats,
+                block: block
+            )
+        } else {
+            self.init(
+                fireAt: date,
+                interval: timeInterval,
+                target: Timer.self,
+                selector: #selector(Timer.timerCB(timer:)),
+                userInfo: block,
+                repeats: repeats
+            )
+        }
+        RunLoop.current.add(self, forMode: mode)
+    }
 }
 
 // MARK: - 静态方法
