@@ -17,11 +17,23 @@ public extension Timer {
         block: @escaping ((Timer) -> Void)
     ) {
         if #available(iOS 10.0, *) {
-            self.init(fire: date, interval: timeInterval, repeats: repeats, block: block)
+            self.init(
+                fire: date,
+                interval: timeInterval,
+                repeats: repeats,
+                block: block
+            )
         } else {
-            self.init(fireAt: date, interval: timeInterval, target: Timer.self, selector: #selector(Timer.timerCB(timer:)), userInfo: block, repeats: repeats)
+            self.init(
+                fireAt: date,
+                interval: timeInterval,
+                target: Timer.self,
+                selector: #selector(Timer.timerCB(timer:)),
+                userInfo: block,
+                repeats: repeats
+            )
         }
-        RunLoop.current.add(self, forMode: mode)
+//        RunLoop.current.add(self, forMode: mode)
     }
 }
 
