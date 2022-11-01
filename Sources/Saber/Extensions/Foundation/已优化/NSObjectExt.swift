@@ -51,7 +51,7 @@ public extension NSObject {
         of originalSelector: Selector,
         with newSelector: Selector
     ) -> Bool {
-        return self.hookMethod(of: originalSelector, with: newSelector, class: true)
+        return hookMethod(of: originalSelector, with: newSelector, class: true)
     }
 
     /// 交换对象的两个方法
@@ -63,7 +63,7 @@ public extension NSObject {
         of originalSelector: Selector,
         with newSelector: Selector
     ) -> Bool {
-        return self.hookMethod(of: originalSelector, with: newSelector, class: false)
+        return hookMethod(of: originalSelector, with: newSelector, class: false)
     }
 
     /// 交换类的两个方法
@@ -77,7 +77,7 @@ public extension NSObject {
         with newSelector: Selector,
         class isClassMethod: Bool
     ) -> Bool {
-        let selfClass: AnyClass = self.classForCoder()
+        let selfClass: AnyClass = classForCoder()
 
         guard
             let originalMethod = (isClassMethod
@@ -122,26 +122,26 @@ public extension NSObject {
         if self != NSObject.self {
             return
         }
-
-        
+        // 设值方法交换
+        hook_setValues()
     }
-    
-        /// 设置方法交换
-    private class func hook_setMethod() {
+
+    /// 交换设值方法
+    private class func hook_setValues() {
         let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(self.setValue(_: forUndefinedKey:))
             let repSel = #selector(self.hook_setValue(_: forUndefinedKey:))
             _ = hookInstanceMethod(of: oriSel, with: repSel)
-            
+
             let oriSel0 = #selector(self.value(forUndefinedKey:))
             let repSel0 = #selector(self.hook_value(forUndefinedKey:))
             _ = hookInstanceMethod(of: oriSel0, with: repSel0)
-            
+
             let oriSel1 = #selector(self.setNilValueForKey(_:))
             let repSel1 = #selector(self.hook_setNilValueForKey(_:))
             _ = hookInstanceMethod(of: oriSel1, with: repSel1)
-            
+
             let oriSel2 = #selector(self.setValuesForKeys(_:))
             let repSel2 = #selector(self.hook_setValuesForKeys(_:))
             _ = hookInstanceMethod(of: oriSel2, with: repSel2)
