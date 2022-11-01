@@ -32,7 +32,7 @@ public extension Timer {
         RunLoop.current.add(self, forMode: mode)
     }
 
-    /// 使用构造方法创建带开始时间的定时器(需要调用`fire()`,需要加入`RunLoop`)
+    /// 使用构造方法创建带`延时`的定时器(不需要调用`fire()`,需要加入`RunLoop`)
     /// - Parameters:
     ///   - date: 开始时间
     ///   - timeInterval: 时间间隔
