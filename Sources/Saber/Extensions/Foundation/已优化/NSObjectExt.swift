@@ -42,7 +42,7 @@ public extension NSObject {
 
 // MARK: - 交换方法
 @objc public extension NSObject {
-    /// 交换类的两个方法
+    /// 交换类的两个方法(方法前需要`@objc dynamic`修饰)
     /// - Parameters:
     ///   - originalSelector: 原始方法
     ///   - newSelector: 新方法
@@ -54,7 +54,7 @@ public extension NSObject {
         return hookMethod(of: originalSelector, with: newSelector, classMethod: true)
     }
 
-    /// 交换对象的两个方法
+    /// 交换对象的两个方法(方法前需要`@objc dynamic`修饰)
     /// - Parameters:
     ///   - originalSelector: 原始方法
     ///   - newSelector: 新方法
@@ -66,7 +66,7 @@ public extension NSObject {
         return hookMethod(of: originalSelector, with: newSelector, classMethod: false)
     }
 
-    /// 交换类的两个方法
+    /// 交换类的两个方法(方法前需要`@objc dynamic`修饰)
     /// - Parameters:
     ///   - originalSelector: 原始方法
     ///   - newSelector: 新方法
