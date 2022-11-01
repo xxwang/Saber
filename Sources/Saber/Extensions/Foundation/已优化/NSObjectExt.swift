@@ -51,7 +51,7 @@ public extension NSObject {
         of originalSelector: Selector,
         with newSelector: Selector
     ) -> Bool {
-        return hookMethod(of: originalSelector, with: newSelector, class: true)
+        return hookMethod(of: originalSelector, with: newSelector, classMethod: true)
     }
 
     /// 交换对象的两个方法
@@ -63,7 +63,7 @@ public extension NSObject {
         of originalSelector: Selector,
         with newSelector: Selector
     ) -> Bool {
-        return hookMethod(of: originalSelector, with: newSelector, class: false)
+        return hookMethod(of: originalSelector, with: newSelector, classMethod: false)
     }
 
     /// 交换类的两个方法
@@ -75,15 +75,19 @@ public extension NSObject {
     class func hookMethod(
         of originalSelector: Selector,
         with newSelector: Selector,
-        class isClassMethod: Bool
+        classMethod: Bool
     ) -> Bool {
+        if self != NSObject.self {
+            return false
+        }
+        
         let selfClass: AnyClass = classForCoder()
 
         guard
-            let originalMethod = (isClassMethod
+            let originalMethod = (classMethod
                 ? class_getClassMethod(selfClass, originalSelector)
                 : class_getInstanceMethod(selfClass, originalSelector)),
-            let newMethod = (isClassMethod
+            let newMethod = (classMethod
                 ? class_getClassMethod(selfClass, newSelector)
                 : class_getInstanceMethod(selfClass, newSelector))
         else {
