@@ -199,7 +199,7 @@ public extension Date {
         return ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0)))
     }
 
-    /// 将日期格式化为ISO8601标准的格式`(yyyy-MM-dd'T'HH: mm: ss.SSS)`
+    /// 将日期格式化为`ISO8601`标准的格式`(yyyy-MM-dd'T'HH: mm: ss.SSS)`
     ///
     ///     Date().iso8601String -> "2017-01-12T14: 51: 29.574Z"
     var iso8601String: String {
@@ -506,21 +506,20 @@ public extension Date {
 
 // MARK: - 构造方法
 public extension Date {
-    /// 使用日历组件创建一个日期
+    /// 使用`日历组件`创建一个`Date`
     ///
     ///     let date = Date(year: 2010, month: 1, day: 12) // "Jan 12, 2010, 7: 45 PM"
-    ///
     /// - Parameters:
-    ///   - calendar: 日历(默认为当前)
-    ///   - timeZone: 时区(默认为当前)
-    ///   - era: 时代(默认为当前时代)
-    ///   - year: 年份(默认为当前年份)
-    ///   - month: 月份(默认为当前月份)
-    ///   - day: 日(默认为今天)
-    ///   - hour: 小时(默认为当前小时)
-    ///   - minute: 分钟(默认为当前分钟)
-    ///   - second: 秒(默认为当前秒)
-    ///   - nanosecond: 纳秒(默认为当前纳秒)
+    ///   - calendar: 日历(`默认为当前`)
+    ///   - timeZone: 时区(`默认为当前`)
+    ///   - era: 时代(`默认为当前时代`)
+    ///   - year: 年份(`默认为当前年份`)
+    ///   - month: 月份(`默认为当前月份`)
+    ///   - day: 日(`默认为今天`)
+    ///   - hour: 小时(`默认为当前小时`)
+    ///   - minute: 分钟(`默认为当前分钟`)
+    ///   - second: 秒(`默认为当前秒`)
+    ///   - nanosecond: 纳秒(`默认为当前纳秒`)
     init?(
         calendar: Calendar? = Calendar.current,
         timeZone: TimeZone? = NSTimeZone.default,
@@ -549,11 +548,10 @@ public extension Date {
         self = date
     }
 
-    /// 根据ISO8601格式字符串创建日期对象
+    /// 根据`ISO8601`格式的`日期字符串`创建`Date`
     ///
     ///     let date = Date(iso8601String: "2017-01-12T16: 48: 00.959Z") // "Jan 12, 2017, 7: 48 PM"
-    ///
-    /// - Parameter iso8601String: ISO8601格式字符串(yyyy-MM-dd'T'HH: mm: ss.SSSZ).
+    /// - Parameter iso8601String: `ISO8601`格式字符串`(yyyy-MM-dd'T'HH: mm: ss.SSSZ)`
     init?(iso8601String: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -563,19 +561,18 @@ public extension Date {
         self = date
     }
 
-    /// 从 UNIX 时间戳创建新的日期对象
+    /// 从`UNIX`时间戳创建`Date`
     ///
     ///     let date = Date(unixTimestamp: 1484239783.922743) // "Jan 12, 2017, 7: 49 PM"
-    ///
-    /// - Parameter unixTimestamp: UNIX 时间戳.
+    /// - Parameter unixTimestamp: `UNIX`时间戳.
     init(unixTimestamp: Double) {
         self.init(timeIntervalSince1970: unixTimestamp)
     }
 
-    /// 从 Int 字面量创建日期对象
+    /// 使用`Int`字面量创建`Date`
     ///
     ///     let date = Date(integerLiteral: 2017_12_25) // "2017-12-25 00: 00: 00 +0000"
-    /// - Parameter value: Int值, 例如 20171225或者2017_12_25 etc.
+    /// - Parameter value: `Int`值, 例如`20171225`或者`2017_12_25`
     init?(integerLiteral value: Int) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"
@@ -586,45 +583,45 @@ public extension Date {
 
 // MARK: - 静态属性
 public extension Date {
-    /// 今天的日期
+    /// `今天`的`日期`
     static let todayDate: Date = .init()
 
-    /// 昨天的日期
+    /// `昨天`的`日期`
     static var yesterDayDate: Date? {
         return Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())
     }
 
-    /// 明天的日期
+    /// `明天`的`日期`
     static var tomorrowDate: Date? {
         return Calendar.current.date(byAdding: DateComponents(day: 1), to: Date())
     }
 
-    /// 前天的日期
+    /// `前天`的`日期`
     static var theDayBeforYesterDayDate: Date? {
         return Calendar.current.date(byAdding: DateComponents(day: -2), to: Date())
     }
 
-    /// 后天的日期
+    /// `后天`的`日期`
     static var theDayAfterYesterDayDate: Date? {
         return Calendar.current.date(byAdding: DateComponents(day: 2), to: Date())
     }
 
-    /// 获取当前 秒级 时间戳 - 10 位
+    /// 获取当前时间戳`秒`(`10位`)
     static var secondStamp: String {
         let timeInterval: TimeInterval = Date().timeIntervalSince1970
         return "\(Int(timeInterval))"
     }
 
-    /// 获取当前 毫秒级 时间戳 - 13 位
+    /// 获取当前时间戳`毫秒`(`13位`)
     static var milliStamp: String {
         let timeInterval: TimeInterval = Date().timeIntervalSince1970
         let millisecond = CLongLong(round(timeInterval * 1000))
         return "\(millisecond)"
     }
 
-    /// 获取当前的时间`Date`
+    /// 获取`当前`的`Date`
     static var nowDate: Date {
-        return Date()
+        return Date.now
     }
 }
 
