@@ -1,9 +1,7 @@
 import Foundation
 
-
 private let calendar = Calendar.current
 private let dateFormatter = DateFormatter()
-
 
 // MARK: - 时间戳的类型枚举
 public enum CMTimestampType: Int {
@@ -48,9 +46,14 @@ public extension Date {
         return Calendar(identifier: Calendar.current.identifier)
     }
 
-        /// 当前年属性哪个`年代`
-        ///
-        ///     Date().era -> 1
+    /// 日期字符串
+    var string: String {
+        return format()
+    }
+
+    /// 当前年属性哪个`年代`
+    ///
+    ///     Date().era -> 1
     var era: Int {
         return calendar.component(.era, from: self)
     }
@@ -80,15 +83,251 @@ public extension Date {
     var weekOfMonth: Int {
         return calendar.component(.weekOfMonth, from: self)
     }
-    
-        /// 本`周`中的第几`天`
-        ///
-        ///     Date().weekday -> 5
+
+    /// 本`周`中的第几`天`
+    ///
+    ///     Date().weekday -> 5
     var weekday: Int {
         return calendar.component(.weekday, from: self)
     }
 
+    /// 当前时间戳(单位`毫秒`)
+    var timestamp: Int {
+        return Int(timeIntervalSince1970 * 1000)
+    }
 
+    /// 当前时间戳(单位`秒`)
+    var unixTimestamp: Double {
+        return timeIntervalSince1970
+    }
+
+    /// 格林尼治时间戳(单位`秒`)
+    var timestampGMT: Int {
+        let offset = TimeZone.current.secondsFromGMT(for: self)
+        return Int(timeIntervalSince1970) - offset
+    }
+
+    /// 当前`时区`的`日期`
+    var currentZoneDate: Date {
+        let date = Date()
+        let zone = NSTimeZone.system
+        let time = zone.secondsFromGMT(for: date)
+        let dateNow = date.addingTimeInterval(TimeInterval(time))
+
+        return dateNow
+    }
+
+    /// `self`是`星期几`(中文)
+    var weekdayAsString: String {
+        let weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+        var calendar = Calendar(identifier: .gregorian)
+        let timeZone = TimeZone(identifier: "Asia/Shanghai")
+        calendar.timeZone = timeZone!
+        let theComponents = calendar.dateComponents([.weekday], from: self)
+        return weekdays[theComponents.weekday! - 1]
+    }
+
+    /// `self`是`几月`(英文)
+    var monthAsString: String {
+        dateFormatter.dateFormat = "MMMM"
+        return dateFormatter.string(from: self)
+    }
+
+    /// 日期`是否在将来`
+    ///
+    ///     Date(timeInterval: 100, since: Date()).isInFuture -> true
+    var isInFuture: Bool {
+        return self > Date()
+    }
+
+    /// 日期`是否过去`
+    ///
+    ///     Date(timeInterval: -100, since: Date()).isInPast -> true
+    var isInPast: Bool {
+        return self < Date()
+    }
+
+    /// 日期是否在`今天之内`
+    ///
+    ///     Date().isInToday -> true
+    var isInToday: Bool {
+        return calendar.isDateInToday(self)
+    }
+
+    /// 日期是否在`昨天之内`
+    ///
+    ///     Date().isInYesterday -> false
+    var isInYesterday: Bool {
+        return calendar.isDateInYesterday(self)
+    }
+
+    /// 日期是否在`明天之内`
+    ///
+    ///     Date().isInTomorrow -> false
+    var isInTomorrow: Bool {
+        return calendar.isDateInTomorrow(self)
+    }
+
+    /// 日期是否在`周末期间`
+    var isInWeekend: Bool {
+        return calendar.isDateInWeekend(self)
+    }
+
+    /// 日期是否在`工作日期间`
+    var isWorkday: Bool {
+        return !calendar.isDateInWeekend(self)
+    }
+
+    /// 日期是否在`本周内`
+    var isInCurrentWeek: Bool {
+        return calendar.isDate(self, equalTo: Date(), toGranularity: .weekOfYear)
+    }
+
+    /// 日期是否在`当前月份内`
+    var isInCurrentMonth: Bool {
+        return calendar.isDate(self, equalTo: Date(), toGranularity: .month)
+    }
+
+    /// 日期是否在`当年之内`
+    var isInCurrentYear: Bool {
+        return calendar.isDate(self, equalTo: Date(), toGranularity: .year)
+    }
+
+    /// 当前日期`是不是润年`
+    var isLeapYear: Bool {
+        let year = self.year
+        return ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0)))
+    }
+
+    /// 将日期格式化为ISO8601标准的格式`(yyyy-MM-dd'T'HH: mm: ss.SSS)`
+    ///
+    ///     Date().iso8601String -> "2017-01-12T14: 51: 29.574Z"
+    var iso8601String: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH: mm: ss.SSS"
+
+        return dateFormatter.string(from: self).appending("Z")
+    }
+
+    /// ` 距离最近`的可以被`五分钟整除`的`时间`
+    ///
+    ///     var date = Date() // "5: 54 PM"
+    ///     date.minute = 32 // "5: 32 PM"
+    ///     date.nearestFiveMinutes // "5: 30 PM"
+    ///
+    ///     date.minute = 44 // "5: 44 PM"
+    ///     date.nearestFiveMinutes // "5: 45 PM"
+    var nearestFiveMinutes: Date {
+        var components = calendar.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
+            from: self
+        )
+        let min = components.minute!
+        components.minute! = min % 5 < 3 ? min - min % 5 : min + 5 - (min % 5)
+        components.second = 0
+        components.nanosecond = 0
+        return calendar.date(from: components)!
+    }
+
+    /// `距离最近`的可以被`十分钟整除`的`时间`
+    ///
+    ///     var date = Date() // "5: 57 PM"
+    ///     date.minute = 34 // "5: 34 PM"
+    ///     date.nearestTenMinutes // "5: 30 PM"
+    ///
+    ///     date.minute = 48 // "5: 48 PM"
+    ///     date.nearestTenMinutes // "5: 50 PM"
+    var nearestTenMinutes: Date {
+        var components = calendar.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
+            from: self
+        )
+        let min = components.minute!
+        components.minute? = min % 10 < 6 ? min - min % 10 : min + 10 - (min % 10)
+        components.second = 0
+        components.nanosecond = 0
+        return calendar.date(from: components)!
+    }
+
+    /// `距离最近`的可以被`十五分钟(一刻钟)`整除的`时间`
+    ///
+    ///     var date = Date() // "5: 57 PM"
+    ///     date.minute = 34 // "5: 34 PM"
+    ///     date.nearestQuarterHour // "5: 30 PM"
+    ///
+    ///     date.minute = 40 // "5: 40 PM"
+    ///     date.nearestQuarterHour // "5: 45 PM"
+    var nearestQuarterHour: Date {
+        var components = calendar.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
+            from: self
+        )
+        let min = components.minute!
+        components.minute! = min % 15 < 8 ? min - min % 15 : min + 15 - (min % 15)
+        components.second = 0
+        components.nanosecond = 0
+        return calendar.date(from: components)!
+    }
+
+    /// `距离最近`的可以被`三十分钟(半小时)`整除的`时间`
+    ///
+    ///     var date = Date() // "6: 07 PM"
+    ///     date.minute = 41 // "6: 41 PM"
+    ///     date.nearestHalfHour // "6: 30 PM"
+    ///
+    ///     date.minute = 51 // "6: 51 PM"
+    ///     date.nearestHalfHour // "7: 00 PM"
+    var nearestHalfHour: Date {
+        var components = calendar.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
+            from: self
+        )
+        let min = components.minute!
+        components.minute! = min % 30 < 15 ? min - min % 30 : min + 30 - (min % 30)
+        components.second = 0
+        components.nanosecond = 0
+        return calendar.date(from: components)!
+    }
+
+    /// `距离最近`的可以被`六十分钟(一小时)`整除的`时间`
+    ///
+    ///     var date = Date() // "6: 17 PM"
+    ///     date.nearestHour // "6: 00 PM"
+    ///
+    ///     date.minute = 36 // "6: 36 PM"
+    ///     date.nearestHour // "7: 00 PM"
+    var nearestHour: Date {
+        let min = calendar.component(.minute, from: self)
+        let components: Set<Calendar.Component> = [.year, .month, .day, .hour]
+        let date = calendar.date(from: calendar.dateComponents(components, from: self))!
+
+        if min < 30 {
+            return date
+        }
+        return calendar.date(byAdding: .hour, value: 1, to: date)!
+    }
+
+    /// `昨天`的`日期`
+    ///
+    ///     let date = Date() // "Oct 3, 2018, 10: 57: 11"
+    ///     let yesterday = date.yesterday // "Oct 2, 2018, 10: 57: 11"
+    var yesterday: Date {
+        return calendar.date(byAdding: .day, value: -1, to: self) ?? Date()
+    }
+
+    /// `明天`的`日期`
+    ///
+    ///     let date = Date() // "Oct 3, 2018, 10: 57: 11"
+    ///     let tomorrow = date.tomorrow // "Oct 4, 2018, 10: 57: 11"
+    var tomorrow: Date {
+        return calendar.date(byAdding: .day, value: 1, to: self) ?? Date()
+    }
+}
+
+// MARK: - 日期组成部分
+public extension Date {
     /// 日期中的`年份`
     ///
     ///     Date().year -> 2017
@@ -150,7 +389,6 @@ public extension Date {
         }
     }
 
-    
     /// 日期中的`小时`
     ///
     ///     Date().hour -> 17 // 5 pm
@@ -193,10 +431,9 @@ public extension Date {
         }
     }
 
-    /// 秒
+    /// 日期中的`秒`
     ///
     ///     Date().second -> 55
-    ///
     ///     var someDate = Date()
     ///     someDate.second = 15
     var second: Int {
@@ -215,10 +452,34 @@ public extension Date {
         }
     }
 
-    /// 纳秒
+    /// 日期中的`毫秒`
+    ///
+    ///     Date().millisecond -> 68
+    ///
+    ///     var someDate = Date()
+    ///     someDate.millisecond = 68
+    var millisecond: Int {
+        get {
+            return calendar.component(.nanosecond, from: self) / 1_000_000
+        }
+        set {
+            let nanoSeconds = newValue * 1_000_000
+            #if targetEnvironment(macCatalyst)
+                let allowedRange = 0 ..< 1_000_000_000
+            #else
+                let allowedRange = calendar.range(of: .nanosecond, in: .second, for: self)!
+            #endif
+            guard allowedRange.contains(nanoSeconds) else { return }
+
+            if let date = calendar.date(bySetting: .nanosecond, value: nanoSeconds, of: self) {
+                self = date
+            }
+        }
+    }
+
+    /// 日期中的`纳秒`
     ///
     ///     Date().nanosecond -> 981379985
-    ///
     ///     var someDate = Date()
     ///     someDate.nanosecond = 981379985
     var nanosecond: Int {
@@ -240,277 +501,6 @@ public extension Date {
                 self = date
             }
         }
-    }
-
-    /// 毫秒
-    ///
-    ///     Date().millisecond -> 68
-    ///
-    ///     var someDate = Date()
-    ///     someDate.millisecond = 68
-    var millisecond: Int {
-        get {
-            return calendar.component(.nanosecond, from: self) / 1_000_000
-        }
-        set {
-            let nanoSeconds = newValue * 1_000_000
-            #if targetEnvironment(macCatalyst)
-                // The `Calendar` implementation in `macCatalyst` does not know that a nanosecond is 1/1,000,000,000th of a second
-                let allowedRange = 0 ..< 1_000_000_000
-            #else
-                let allowedRange = calendar.range(of: .nanosecond, in: .second, for: self)!
-            #endif
-            guard allowedRange.contains(nanoSeconds) else { return }
-
-            if let date = calendar.date(bySetting: .nanosecond, value: nanoSeconds, of: self) {
-                self = date
-            }
-        }
-    }
-
-    /// 获取当前时间戳／ms ,从1970年起算
-    var timestamp: Int {
-        return Int(timeIntervalSince1970 * 1000)
-    }
-
-    /// Unix时间戳 / s
-    ///
-    ///          Date().unixTimestamp -> 1484233862.826291
-    var unixTimestamp: Double {
-        return timeIntervalSince1970
-    }
-
-    /// 格林尼治时间戳 /s
-    var timestampGMT: Int {
-        let offset = TimeZone.current.secondsFromGMT(for: self)
-        return Int(timeIntervalSince1970) - offset
-    }
-
-    /// 获取当前时区日期
-    var currentZoneDate: Date {
-        // 当前日期(系统)
-        let date = Date()
-        // 当前时区(系统)
-        let zone = NSTimeZone.system
-        // 以秒为单位返回当前日期与系统格林尼治日期的差
-        let time = zone.secondsFromGMT(for: date)
-        // 然后把差的日期加上,就是当前系统准确的日期
-        let dateNow = date.addingTimeInterval(TimeInterval(time))
-
-        return dateNow
-    }
-
-    /// 从日期获取 星期(中文)
-    var weekdayStringFromDate: String {
-        let weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
-        var calendar = Calendar(identifier: .gregorian)
-        let timeZone = TimeZone(identifier: "Asia/Shanghai")
-        calendar.timeZone = timeZone!
-        let theComponents = calendar.dateComponents([.weekday], from: self)
-        return weekdays[theComponents.weekday! - 1]
-    }
-
-    /// 从日期获取 月(英文)
-    var monthAsString: String {
-        dateFormatter.dateFormat = "MMMM"
-        return dateFormatter.string(from: self)
-    }
-
-    /// 日期字符串
-    var string: String {
-        return format()
-    }
-
-    /// 检查日期是否在将来
-    ///
-    ///     Date(timeInterval: 100, since: Date()).isInFuture -> true
-    var isInFuture: Bool {
-        return self > Date()
-    }
-
-    /// 检查日期是否过去
-    ///
-    ///     Date(timeInterval: -100, since: Date()).isInPast -> true
-    var isInPast: Bool {
-        return self < Date()
-    }
-
-    /// 检查日期是否在今天之内
-    ///
-    ///     Date().isInToday -> true
-    var isInToday: Bool {
-        return calendar.isDateInToday(self)
-    }
-
-    /// 检查日期是否在昨天之内
-    ///
-    ///     Date().isInYesterday -> false
-    var isInYesterday: Bool {
-        return calendar.isDateInYesterday(self)
-    }
-
-    /// 检查日期是否在明天之内
-    ///
-    ///     Date().isInTomorrow -> false
-    var isInTomorrow: Bool {
-        return calendar.isDateInTomorrow(self)
-    }
-
-    /// 检查日期是否在周末期间
-    var isInWeekend: Bool {
-        return calendar.isDateInWeekend(self)
-    }
-
-    /// 检查日期是否在工作日期间
-    var isWorkday: Bool {
-        return !calendar.isDateInWeekend(self)
-    }
-
-    /// 检查日期是否在本周内
-    var isInCurrentWeek: Bool {
-        return calendar.isDate(self, equalTo: Date(), toGranularity: .weekOfYear)
-    }
-
-    /// 检查日期是否在当前月份内
-    var isInCurrentMonth: Bool {
-        return calendar.isDate(self, equalTo: Date(), toGranularity: .month)
-    }
-
-    /// 检查日期是否在当年之内
-    var isInCurrentYear: Bool {
-        return calendar.isDate(self, equalTo: Date(), toGranularity: .year)
-    }
-
-    /// 当前日期是不是润年
-    var isLeapYear: Bool {
-        let year = self.year
-        return ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0)))
-    }
-
-    /// 将日期格式化为ISO8601标准的格式(yyyy-MM-dd'T'HH: mm: ss.SSS)
-    ///
-    ///     Date().iso8601String -> "2017-01-12T14: 51: 29.574Z"
-    var iso8601String: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH: mm: ss.SSS"
-
-        return dateFormatter.string(from: self).appending("Z")
-    }
-
-    /// 距离最近的可以被五分钟整除的时间
-    ///
-    ///     var date = Date() // "5: 54 PM"
-    ///     date.minute = 32 // "5: 32 PM"
-    ///     date.nearestFiveMinutes // "5: 30 PM"
-    ///
-    ///     date.minute = 44 // "5: 44 PM"
-    ///     date.nearestFiveMinutes // "5: 45 PM"
-    var nearestFiveMinutes: Date {
-        var components = calendar.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
-            from: self
-        )
-        let min = components.minute!
-        components.minute! = min % 5 < 3 ? min - min % 5 : min + 5 - (min % 5)
-        components.second = 0
-        components.nanosecond = 0
-        return calendar.date(from: components)!
-    }
-
-    /// 距离最近的可以被十分钟整除的时间
-    ///
-    ///     var date = Date() // "5: 57 PM"
-    ///     date.minute = 34 // "5: 34 PM"
-    ///     date.nearestTenMinutes // "5: 30 PM"
-    ///
-    ///     date.minute = 48 // "5: 48 PM"
-    ///     date.nearestTenMinutes // "5: 50 PM"
-    var nearestTenMinutes: Date {
-        var components = calendar.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
-            from: self
-        )
-        let min = components.minute!
-        components.minute? = min % 10 < 6 ? min - min % 10 : min + 10 - (min % 10)
-        components.second = 0
-        components.nanosecond = 0
-        return calendar.date(from: components)!
-    }
-
-    /// 距离最近的可以被十五分钟(一刻钟)整除的时间
-    ///
-    ///     var date = Date() // "5: 57 PM"
-    ///     date.minute = 34 // "5: 34 PM"
-    ///     date.nearestQuarterHour // "5: 30 PM"
-    ///
-    ///     date.minute = 40 // "5: 40 PM"
-    ///     date.nearestQuarterHour // "5: 45 PM"
-    var nearestQuarterHour: Date {
-        var components = calendar.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
-            from: self
-        )
-        let min = components.minute!
-        components.minute! = min % 15 < 8 ? min - min % 15 : min + 15 - (min % 15)
-        components.second = 0
-        components.nanosecond = 0
-        return calendar.date(from: components)!
-    }
-
-    /// 距离最近的可以被三十分钟(半小时)整除的时间
-    ///
-    ///     var date = Date() // "6: 07 PM"
-    ///     date.minute = 41 // "6: 41 PM"
-    ///     date.nearestHalfHour // "6: 30 PM"
-    ///
-    ///     date.minute = 51 // "6: 51 PM"
-    ///     date.nearestHalfHour // "7: 00 PM"
-    var nearestHalfHour: Date {
-        var components = calendar.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second, .nanosecond],
-            from: self
-        )
-        let min = components.minute!
-        components.minute! = min % 30 < 15 ? min - min % 30 : min + 30 - (min % 30)
-        components.second = 0
-        components.nanosecond = 0
-        return calendar.date(from: components)!
-    }
-
-    /// 距离最近的可以被六十分钟(一小时)整除的时间
-    ///
-    ///     var date = Date() // "6: 17 PM"
-    ///     date.nearestHour // "6: 00 PM"
-    ///
-    ///     date.minute = 36 // "6: 36 PM"
-    ///     date.nearestHour // "7: 00 PM"
-    var nearestHour: Date {
-        let min = calendar.component(.minute, from: self)
-        let components: Set<Calendar.Component> = [.year, .month, .day, .hour]
-        let date = calendar.date(from: calendar.dateComponents(components, from: self))!
-
-        if min < 30 {
-            return date
-        }
-        return calendar.date(byAdding: .hour, value: 1, to: date)!
-    }
-
-    /// 昨天的日期
-    ///
-    ///     let date = Date() // "Oct 3, 2018, 10: 57: 11"
-    ///     let yesterday = date.yesterday // "Oct 2, 2018, 10: 57: 11"
-    var yesterday: Date {
-        return calendar.date(byAdding: .day, value: -1, to: self) ?? Date()
-    }
-
-    /// 明天的日期
-    ///
-    ///     let date = Date() // "Oct 3, 2018, 10: 57: 11"
-    ///     let tomorrow = date.tomorrow // "Oct 4, 2018, 10: 57: 11"
-    var tomorrow: Date {
-        return calendar.date(byAdding: .day, value: 1, to: self) ?? Date()
     }
 }
 
