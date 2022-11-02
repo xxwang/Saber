@@ -627,15 +627,15 @@ public extension Date {
 
 // MARK: - 格式化
 public extension Date {
-    /// 返回指定时区格式字符串
+    /// 获取`指定时区``指定格式`的`日期字符串`
     /// - Parameters:
     ///   - format: 时间格式
-    ///   - isGMT: 是否是格林尼治时区
-    /// - Returns: 转化后字符串
+    ///   - isGMT: 是否是`格林尼治时区`
+    /// - Returns: 日期字符串
     func format(_ format: String = "yyyy-MM-dd HH: mm: ss", isGMT: Bool = false) -> String {
         dateFormatter.dateFormat = format
         dateFormatter.locale = Locale.current
-        dateFormatter.timeZone = isGMT ? TimeZone(secondsFromGMT: 0) : TimeZone.autoupdatingCurrent // TimeZone.current
+        dateFormatter.timeZone = isGMT ? TimeZone(secondsFromGMT: 0) : TimeZone.autoupdatingCurrent
         return dateFormatter.string(from: self)
     }
 
