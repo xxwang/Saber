@@ -644,8 +644,7 @@ public extension Date {
     ///     Date().string(withFormat: "dd/MM/yyyy") -> "1/12/17"
     ///     Date().string(withFormat: "HH: mm") -> "23: 50"
     ///     Date().string(withFormat: "dd/MM/yyyy HH: mm") -> "1/12/17 23: 50"
-    ///
-    /// - Parameter format: 日期格式(默认 "dd/MM/yyyy").
+    /// - Parameter format: 日期格式(默认 `dd/MM/yyyy`).
     /// - Returns: 日期字符串
     func string(withFormat format: String = "dd/MM/yyyy HH: mm") -> String {
         let dateFormatter = DateFormatter()
