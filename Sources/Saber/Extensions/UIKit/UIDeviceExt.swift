@@ -122,7 +122,7 @@ public extension UIDevice {
     /// 当前设备能否打电话
     /// - Returns: 结果
     static func isCanCallTel() -> Bool {
-        if let url = URL(string: "tel: //") {
+        if let url = URL(string: "tel://") {
             return UIApplication.shared.canOpenURL(url)
         }
         return false

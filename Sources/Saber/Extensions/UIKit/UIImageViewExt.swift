@@ -104,7 +104,7 @@ public extension UIImageView {
 //
 //        var imageURL: URL?
 //        if let string = source as? String { // 字符串
-//            if !string.hasPrefix("http: //"), !string.hasPrefix("https: //") {
+//            if !string.hasPrefix("http://"), !string.hasPrefix("https://") {
 //                image = string.image ?? (fail ?? placeholder)
 //                return
 //            } else {

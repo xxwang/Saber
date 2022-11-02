@@ -154,7 +154,7 @@ public extension UIButton {
     /// 获取指定宽度下属性字符串的Size
     func attributedSize(_ maxWidth: CGFloat = kSCREEN_WIDTH) -> CGSize {
         if let attText = currentAttributedTitle {
-            return attText.attributedSize(maxWidth)
+            return attText.strSize(maxWidth)
         }
         return .zero
     }

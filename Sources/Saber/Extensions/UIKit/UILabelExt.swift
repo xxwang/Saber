@@ -104,7 +104,7 @@ public extension UILabel {
     /// - Parameter maxWidth: 最大宽度
     /// - Returns: `CGSize`
     func attributedSize(_ maxWidth: CGFloat = kSCREEN_WIDTH) -> CGSize {
-        return attributedText?.attributedSize(maxWidth) ?? .zero
+        return attributedText?.strSize(maxWidth) ?? .zero
     }
 }
 
@@ -663,7 +663,7 @@ public extension UILabel {
     ) -> Self {
         let attributedString = attributedText
         let mAttributedString = NSMutableAttributedString(attributedString: attributedString!)
-        mAttributedString.insertImage(imageSource, imageBounds: imageBounds, imageIndex: imageIndex)
+        mAttributedString.insert(image: imageSource, bounds: imageBounds, index: imageIndex)
         attributedText = mAttributedString
         return self
     }

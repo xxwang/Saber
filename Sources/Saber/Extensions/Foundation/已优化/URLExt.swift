@@ -50,9 +50,9 @@ public extension URL {
 public extension URL {
     /// 给`URL`添加查询参数并返回携带查询参数的 `URL`
     ///
-    ///     let url = URL(string: "https: //google.com")!
+    ///     let url = URL(string: "https://google.com")!
     ///     let param = ["q": "Swifter Swift"]
-    ///     url.appendingQueryParameters(params) -> "https: //google.com?q=Swifter%20Swift"
+    ///     url.appendingQueryParameters(params) -> "https://google.com?q=Swifter%20Swift"
     ///
     /// - Parameter parameters: 参数字典
     /// - Returns: 附加查询参数的`URL`
@@ -65,10 +65,10 @@ public extension URL {
 
     /// 将查询参数添加到`URL`
     ///
-    ///     var url = URL(string: "https: //google.com")!
+    ///     var url = URL(string: "https://google.com")!
     ///     let param = ["q": "Swifter Swift"]
     ///     url.appendQueryParameters(params)
-    ///     print(url) // prints "https: //google.com?q=Swifter%20Swift"
+    ///     print(url) // prints "https://google.com?q=Swifter%20Swift"
     ///
     /// - Parameter parameters: 参数字典
     mutating func appendQueryParameters(_ parameters: [String: String]) {
@@ -77,7 +77,7 @@ public extension URL {
 
     /// 获取查询参数中键对应的值
     ///
-    ///     var url = URL(string: "https: //google.com?code=12345")!
+    ///     var url = URL(string: "https://google.com?code=12345")!
     ///     queryValue(for: "code") -> "12345"
     ///
     /// - Parameter key: 键
@@ -90,8 +90,8 @@ public extension URL {
 
     /// 通过删除所有路径组件返回新`URL`
     ///
-    ///     let url = URL(string: "https: //domain.com/path/other")!
-    ///     print(url.deletingAllPathComponents()) // prints "https: //domain.com/"
+    ///     let url = URL(string: "https://domain.com/path/other")!
+    ///     print(url.deletingAllPathComponents()) // prints "https://domain.com/"
     ///
     /// - Returns: `URL`
     func deletingAllPathComponents() -> URL {
@@ -104,9 +104,9 @@ public extension URL {
 
     /// 从`URL`中删除所有路径组件
     ///
-    ///     var url = URL(string: "https: //domain.com/path/other")!
+    ///     var url = URL(string: "https://domain.com/path/other")!
     ///     url.deleteAllPathComponents()
-    ///     print(url) // prints "https: //domain.com/"
+    ///     print(url) // prints "https://domain.com/"
     mutating func deleteAllPathComponents() {
         for _ in 0 ..< pathComponents.count - 1 {
             deleteLastPathComponent()
@@ -115,7 +115,7 @@ public extension URL {
 
     /// 生成没有协议的新URL
     ///
-    ///     let url = URL(string: "https: //domain.com")!
+    ///     let url = URL(string: "https://domain.com")!
     ///     print(url.droppedScheme()) // prints "domain.com"
     func droppedScheme() -> URL? {
         if let scheme = scheme {
@@ -131,7 +131,7 @@ public extension URL {
 
     /// 根据`视频URL`在指定时间`秒`截取图像
     ///
-    ///     var url = URL(string: "https: //video.golem.de/files/1/1/20637/wrkw0718-sd.mp4")!
+    ///     var url = URL(string: "https://video.golem.de/files/1/1/20637/wrkw0718-sd.mp4")!
     ///     var thumbnail = url.thumbnail()
     ///     thumbnail = url.thumbnail(fromTime: 5)
     ///

@@ -67,7 +67,7 @@ public extension UIApplication {
 
     /// 网络状态是否可用
     static var reachable: Bool {
-        let data = NSData(contentsOf: URL(string: "https: //www.baidu.com/")!)
+        let data = NSData(contentsOf: URL(string: "https://www.baidu.com/")!)
         return (data != nil)
     }
 
@@ -85,7 +85,7 @@ public extension UIApplication {
     /// - Returns: URL字符串
     @discardableResult
     static func appURL(with appID: String) -> String {
-        let appStoreURL = "itms-apps: //itunes.apple.com/app/id\(appID)?mt=8"
+        let appStoreURL = "itms-apps://itunes.apple.com/app/id\(appID)?mt=8"
         return appStoreURL
     }
 
@@ -94,22 +94,22 @@ public extension UIApplication {
     /// - Returns: URL字符串
     @discardableResult
     static func appDetailURL(with appID: String) -> String {
-        let detailURL = "http: //itunes.apple.com/cn/lookup?id=\(appID)"
+        let detailURL = "http://itunes.apple.com/cn/lookup?id=\(appID)"
         return detailURL
     }
 }
 
 // MARK: - 系统app枚举
 public enum CMSystemApp: String {
-    case safari = "http: //"
-    case googleMaps = "http: //maps.google.com"
-    case Phone = "tel: //"
-    case SMS = "sms: //"
-    case Mail = "mailto: //"
-    case iBooks = "ibooks: //"
-    case AppStore = "itms-apps: //itunes.apple.com"
-    case Music = "music: //"
-    case Videos = "videos: //"
+    case safari = "http://"
+    case googleMaps = "http://maps.google.com"
+    case Phone = "tel://"
+    case SMS = "sms://"
+    case Mail = "mailto://"
+    case iBooks = "ibooks://"
+    case AppStore = "itms-apps://itunes.apple.com"
+    case Music = "music://"
+    case Videos = "videos://"
 }
 
 // MARK: - 系统app枚举扩展
@@ -123,81 +123,81 @@ public extension CMSystemApp {
 // MARK: - 第三方app枚举
 public enum CMOtherApp: String {
     /// 微信
-    case weixin = "weixin: //"
+    case weixin = "weixin://"
     /// QQ
-    case qq = "mqq: //"
+    case qq = "mqq://"
     /// 腾讯微博
-    case tencentWeibo = "TencentWeibo: //"
+    case tencentWeibo = "TencentWeibo://"
     /// 淘宝
-    case taobao = "taobao: //"
+    case taobao = "taobao://"
     /// 支付宝
-    case alipay = "alipay: //"
+    case alipay = "alipay://"
     /// 微博
-    case weico = "weico: //"
+    case weico = "weico://"
     /// QQ浏览器
-    case mqqbrowser = "mqqbrowser: //"
+    case mqqbrowser = "mqqbrowser://"
     /// uc浏览器
-    case ucbrowser = " ucbrowser: //"
+    case ucbrowser = " ucbrowser://"
     /// 海豚浏览器
-    case dolphin = "dolphin: //"
+    case dolphin = "dolphin://"
     /// 欧朋浏览器
-    case ohttp = "ohttp: //"
+    case ohttp = "ohttp://"
     /// 搜狗浏览器
-    case sogouMSE = "SogouMSE: //"
+    case sogouMSE = "SogouMSE://"
     ///  百度地图
-    case baidumap = "baidumap: //"
+    case baidumap = "baidumap://"
     /// 谷歌Chrome浏览器
-    case googlechrome = "googlechrome: //"
+    case googlechrome = "googlechrome://"
     ///  优酷
-    case youku = "youku: //"
+    case youku = "youku://"
     /// 京东
-    case jd = "openapp.jdmoble: //"
+    case jd = "openapp.jdmoble://"
     /// 人人
-    case renren = "renren: //"
+    case renren = "renren://"
     /// 美团
-    case meituan = "imeituan: //"
+    case meituan = "imeituan://"
     /// 1号店
-    case wccbyihaodian = "wccbyihaodian: //"
+    case wccbyihaodian = "wccbyihaodian://"
     /// 我查查
-    case wcc = " wcc: //"
+    case wcc = " wcc://"
     /// 有道词典
-    case yddictproapp = "yddictproapp: //"
+    case yddictproapp = "yddictproapp://"
     /// 知乎
-    case zhihu = "zhihu: //"
+    case zhihu = "zhihu://"
     /// 点评
-    case dianping = "dianping: //"
+    case dianping = "dianping://"
     /// 微盘
-    case sinavdisk = "sinavdisk: //"
+    case sinavdisk = "sinavdisk://"
     /// 豆瓣fm
-    case doubanradio = "doubanradio: //"
+    case doubanradio = "doubanradio://"
     /// 网易公开课
-    case ntesopen = "ntesopen: //"
+    case ntesopen = "ntesopen://"
     /// 名片全能王
-    case camcard = "camcard: //"
+    case camcard = "camcard://"
     /// QQ音乐
-    case qqmusic = "qqmusic: //"
+    case qqmusic = "qqmusic://"
     /// 腾讯视频
-    case tenvideo = "envideo: //"
+    case tenvideo = "envideo://"
     /// 豆瓣电影
-    case doubanmovie = "doubanmovie: //"
+    case doubanmovie = "doubanmovie://"
     /// 网易云音乐
-    case orpheus = "orpheus: //"
+    case orpheus = "orpheus://"
     /// 网易新闻
-    case newsapp = "newsapp: //"
+    case newsapp = "newsapp://"
     /// 网易应用
-    case apper = "apper: //"
+    case apper = "apper://"
     /// 网易彩票
-    case ntescaipiao = "ntescaipiao: //"
+    case ntescaipiao = "ntescaipiao://"
     /// 有道云笔记
-    case youdaonote = "youdaonote: //"
+    case youdaonote = "youdaonote://"
     /// 多看
-    case duokan = "duokan-reader: //"
+    case duokan = "duokan-reader://"
     /// 全国空气质量指数
-    case dirtybeijing = "dirtybeijing: //"
+    case dirtybeijing = "dirtybeijing://"
     /// 百度音乐
-    case baidumusic = "baidumusic: //"
+    case baidumusic = "baidumusic://"
     /// 下厨房
-    case xcfapp = "xcfapp: //"
+    case xcfapp = "xcfapp://"
 }
 
 // MARK: - 第三方app枚举扩展
@@ -250,7 +250,7 @@ public extension UIApplication {
     /// 前往AppStore进行评价
     /// - Parameter appID: 应用在AppStore中的ID
     static func evaluationInAppStore(_ appID: String) {
-        let appURLString = "https: //itunes.apple.com/cn/app/id" + appID + "?mt=12"
+        let appURLString = "https://itunes.apple.com/cn/app/id" + appID + "?mt=12"
         guard let url = URL(string: appURLString), UIApplication.shared.canOpenURL(url) else {
             return
         }
@@ -322,7 +322,7 @@ public extension UIApplication {
     ///   - completion: 完成回调
     static func call(with phoneNumber: String, completion: @escaping Callbacks.CompleteBoolCallback) {
         // 判断是否有效
-        guard let phoneNumberEncoding = ("tel: //" + phoneNumber)
+        guard let phoneNumberEncoding = ("tel://" + phoneNumber)
             .addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed),
             let url = URL(string: phoneNumberEncoding),
             UIApplication.shared.canOpenURL(url)

@@ -44,7 +44,7 @@ public extension Character {
     }
 
     /// 是否为`emoji`表情
-    /// - Note: http: //stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
+    /// - Note: http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
     var isEmoji: Bool {
         isSimpleEmoji || isCombinedIntoEmoji
     }

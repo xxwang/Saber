@@ -60,7 +60,7 @@ public extension UIImage {
     /// 从URL创建新图像
     ///
     /// - Important:
-    ///   使用此方法将data: //URL转换为UIImage对象
+    ///   使用此方法将data://URL转换为UIImage对象
     ///   不要使用此同步初始值设定项来请求基于网络的URL.对于基于网络的URL,此方法可以在慢速网络上阻止当前线程数十秒,导致用户体验不佳,在iOS中,可能会导致应用程序终止
     ///   而对于非文件URL,请考虑使用异步方式,使用`dataTask(with: completionHandler: )` 方法或诸如`AlamofireImage`, `Kingfisher`, `SDWebImage`等库来执行异步网络图像加载
     /// - Parameters:
@@ -2156,6 +2156,25 @@ public extension UIImage {
         default:
             return .defaultType
         }
+    }
+
+    /// 加载网络图片
+    /// - Parameter imageSource: 图片资源
+    /// - Returns: 图片
+    static func loadImage(_ imageSource: String) -> UIImage? {
+        if imageSource.hasPrefix("http://") || imageSource.hasPrefix("https://") { // 网络图片
+            let imageURL = URL(string: imageSource)
+            var imageData: Data?
+            do {
+                imageData = try Data(contentsOf: imageURL!)
+                return UIImage(data: imageData!)!
+            } catch {
+                return nil
+            }
+        } else if imageSource.contains("/") { // bundle路径
+            return UIImage(contentsOfFile: imageSource)
+        }
+        return UIImage(named: imageSource)!
     }
 
     /// 加载 `data` 数据的 `gif` 图片

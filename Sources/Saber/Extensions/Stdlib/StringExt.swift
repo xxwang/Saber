@@ -310,7 +310,7 @@ public extension String {
     ///     "john@doe.com".isValidEmail -> true
     ///
     var isValidEmail: Bool {
-        // http: //emailregex.com/
+        // http://emailregex.com/
         let regex =
             "^(?: [\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?: \\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+)*|\"(?: [\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?: (?: [\\p{L}0-9](?: [a-z0-9-]*[\\p{L}0-9])?\\.)+[\\p{L}0-9](?: [\\p{L}0-9-]*[\\p{L}0-9])?|\\[(?: (?: 25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?: 25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[\\p{L}0-9-]*[\\p{L}0-9]: (?: [\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$"
         return range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
@@ -318,7 +318,7 @@ public extension String {
 
     /// 检查字符串是否是有效的URL
     ///
-    ///     "https: //google.com".isValidURL -> true
+    ///     "https://google.com".isValidURL -> true
     ///
     var isValidURL: Bool {
         return URL(string: self) != nil
@@ -326,7 +326,7 @@ public extension String {
 
     /// 检查字符串是否是有效带协议头的URL
     ///
-    ///     "https: //google.com".isValidSchemedURL -> true
+    ///     "https://google.com".isValidSchemedURL -> true
     ///     "google.com".isValidSchemedURL -> false
     ///
     var isValidSchemedURL: Bool {
@@ -336,7 +336,7 @@ public extension String {
 
     /// 检查字符串是否是有效的https URL
     ///
-    ///     "https: //google.com".isValidHttpsURL -> true
+    ///     "https://google.com".isValidHttpsURL -> true
     ///
     var isValidHttpsURL: Bool {
         guard let url = URL(string: self) else { return false }
@@ -345,7 +345,7 @@ public extension String {
 
     /// 检查字符串是否是有效的http URL
     ///
-    ///     "http: //google.com".isValidHttpURL -> true
+    ///     "http://google.com".isValidHttpURL -> true
     ///
     var isValidHttpURL: Bool {
         guard let url = URL(string: self) else { return false }
@@ -354,7 +354,7 @@ public extension String {
 
     /// 检查字符串是否是有效的文件URL
     ///
-    ///     "file: //Documents/file.txt".isValidFileURL -> true
+    ///     "file://Documents/file.txt".isValidFileURL -> true
     ///
     var isValidFileURL: Bool {
         return URL(string: self)?.isFileURL ?? false
@@ -624,11 +624,11 @@ public extension String {
 public extension String {
     /// 把字符串转为`URL`(失败返回`nil`)
     ///
-    ///     "https: //google.com".url -> URL(string: "https: //google.com")
+    ///     "https://google.com".url -> URL(string: "https://google.com")
     ///     "not url".url -> nil
     ///
     var url: URL? {
-        if hasPrefix("http: //") || hasPrefix("https: //") {
+        if hasPrefix("http://") || hasPrefix("https://") {
             return URL(string: self)
         }
         return URL(fileURLWithPath: self)
@@ -843,7 +843,7 @@ public extension String {
     static func loremIpsum(ofLength length: Int = 445) -> String {
         guard length > 0 else { return "" }
 
-        // https: //www.lipsum.com/
+        // https://www.lipsum.com/
         let loremIpsum = """
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         """
@@ -1528,7 +1528,7 @@ public extension String {
 
     /// 为字符串添加前缀
     ///
-    ///     "www.apple.com".withPrefix("https: //") -> "https: //www.apple.com"
+    ///     "www.apple.com".withPrefix("https://") -> "https://www.apple.com"
     /// - Parameters prefix: 添加到字符串的前缀
     /// - Returns: 带有前缀的字符串
     func withPrefix(_ prefix: String) -> String {
@@ -2425,7 +2425,7 @@ public extension String {
     /// 返回当前字符窜中的 `link range`数组
     var linkRanges: [NSRange]? {
         // url, ##, 中文字母数字
-        let patterns = ["[a-zA-Z]*: //[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
+        let patterns = ["[a-zA-Z]*://[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
         // 遍历数组,生成range的数组
         var ranges = [NSRange]()
 
