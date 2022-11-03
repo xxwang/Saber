@@ -11,7 +11,7 @@ public extension Calendar {
 
 // MARK: - 方法
 public extension Calendar {
-    /// 返回指定`date``当月`的`天数`
+    /// 返回指定`Date``当月`的`天数`
     ///
     ///     let date = Date() // "Jan 12, 2017, 7: 07 PM"
     ///     Calendar.current.numberOfDaysInMonth(for: date) -> 31

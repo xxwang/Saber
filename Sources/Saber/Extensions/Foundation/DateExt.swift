@@ -1351,7 +1351,10 @@ public extension Date {
     ///   - range: 创建随机日期的范围. `range` 不能为空(不包含结束日期)
     ///   - generator: 创建新随机日期时使用的随机数生成器
     /// - Returns: `range` 范围内的随机日期
-    static func random<T>(in range: Range<Date>, using generator: inout T) -> Date where T: RandomNumberGenerator {
+    static func random<T>(
+        in range: Range<Date>,
+        using generator: inout T
+    ) -> Date where T: RandomNumberGenerator {
         return Date(timeIntervalSinceReferenceDate:
             TimeInterval.random(
                 in: range.lowerBound.timeIntervalSinceReferenceDate ..< range.upperBound.timeIntervalSinceReferenceDate,
@@ -1365,7 +1368,10 @@ public extension Date {
     ///   - range: 创建随机日期的范围(包含结束日期)
     ///   - generator: 创建新随机日期时使用的随机数生成器
     /// - Returns: `range` 范围内的随机日期
-    static func random<T>(in range: ClosedRange<Date>, using generator: inout T) -> Date
+    static func random<T>(
+        in range: ClosedRange<Date>,
+        using generator: inout T
+    ) -> Date
         where T: RandomNumberGenerator
     {
         return Date(timeIntervalSinceReferenceDate:
@@ -1378,12 +1384,16 @@ public extension Date {
 
 // MARK: - 静态方法
 public extension Date {
-    /// 获取某一年某一月的天数
-    /// - Parameters:
-    ///   - year: 年份
-    ///   - month: 月份
-    /// - Returns: 返回天数
-    static func daysCount(year: Int, month: Int) -> Int {
+
+        /// 获取`某一年某一月`的`天数`
+        /// - Parameters:
+        ///   - year: 年份
+        ///   - month: 月份
+        /// - Returns: 天数
+    static func daysCount(
+        year: Int,
+        month: Int
+    ) -> Int {
         switch month {
         case 1, 3, 5, 7, 8, 10, 12:
             return 31
@@ -1397,8 +1407,8 @@ public extension Date {
         }
     }
 
-    /// 获取当前月的天数
-    /// - Returns: 返回天数
+        /// 获取当前日期`月份`的`天数`
+        /// - Returns: 当前日期`月份`的`天数`
     static func currentMonthDays() -> Int {
         return daysCount(year: nowDate.year, month: nowDate.month)
     }

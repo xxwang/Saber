@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 // MARK: - 静态属性
@@ -34,7 +33,7 @@ public extension Bundle {
         return infoDict?[name] as? String
     }
 
-    /// App 名称`CFBundleDisplayName/CFBundleExecutable/CFBundleName`
+    /// App 名称`CFBundleDisplayName`/`CFBundleExecutable`/`CFBundleName`
     static var appDisplayName: String? {
         if let appName = infoDict?["CFBundleDisplayName"] as? String {
             return appName
