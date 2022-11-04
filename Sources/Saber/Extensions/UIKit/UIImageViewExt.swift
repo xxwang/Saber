@@ -4,7 +4,7 @@ import UIKit
 // MARK: - 方法
 public extension UIImageView {
     /// 添加模糊效果
-    /// - Parameter style: 模糊效果的样式
+    /// - Parameter style:模糊效果的样式
     func blur(with style: UIBlurEffect.Style = .light) {
         // 模糊效果
         let blurEffect = UIBlurEffect(style: style)
@@ -19,8 +19,8 @@ public extension UIImageView {
     }
 
     /// 添加模糊效果并返回`UIImageView`
-    /// - Parameter style: 模糊效果的样式 (默认 .light)
-    /// - Returns: 添加了模糊效果的UIImageView
+    /// - Parameter style:模糊效果的样式 (默认 .light)
+    /// - Returns:添加了模糊效果的UIImageView
     func blurred(with style: UIBlurEffect.Style = .light) -> UIImageView {
         let imgView = self
         imgView.blur(with: style)
@@ -28,7 +28,7 @@ public extension UIImageView {
     }
 
     /// 修改图像的颜色
-    /// - Parameter color: 要修改成的颜色
+    /// - Parameter color:要修改成的颜色
     func image(with color: UIColor) {
         /*
          .automatic = 0 // 根据图片的使用环境和所处的绘图上下文自动调整渲染模式.
@@ -44,10 +44,10 @@ public extension UIImageView {
 public extension UIImageView {
     /// 从`URL`下载网络图片并设置到`UIImageView`
     /// - Parameters:
-    ///   - url: 图片URL地址
-    ///   - contentMode: 图片视图内容模式
-    ///   - placeholder: 占位图片
-    ///   - completionHandler: 完成回调
+    ///   - url:图片URL地址
+    ///   - contentMode:图片视图内容模式
+    ///   - placeholder:占位图片
+    ///   - completionHandler:完成回调
     func download(
         form url: URL,
         contentMode: UIView.ContentMode = .scaleAspectFill,
@@ -77,13 +77,13 @@ public extension UIImageView {
 
     /// 加载网络图片(`Kingfisher`框架)
     /// - Parameters:
-    ///   - url: 图片`URL`地址(URL/字符串都可以)
-    ///   - placeholder: 占位图片
-    ///   - fail: 失败图片
+    ///   - url:图片`URL`地址(URL/字符串都可以)
+    ///   - placeholder:占位图片
+    ///   - fail:失败图片
 //    func loadImage(
-//        _ source: Any?,
-//        placeholder: UIImage? = nil,
-//        fail: UIImage? = nil
+//        _ source:Any?,
+//        placeholder:UIImage? = nil,
+//        fail:UIImage? = nil
 //    ) {
 //        // 设置占位图片
 //        if let placeholder = placeholder {
@@ -102,13 +102,13 @@ public extension UIImageView {
 //            return
 //        }
 //
-//        var imageURL: URL?
+//        var imageURL:URL?
 //        if let string = source as? String { // 字符串
 //            if !string.hasPrefix("http://"), !string.hasPrefix("https://") {
 //                image = string.image ?? (fail ?? placeholder)
 //                return
 //            } else {
-//                imageURL = URL(string: string)
+//                imageURL = URL(string:string)
 //            }
 //        } else if let sourceURL = source as? URL { // URL
 //            imageURL = sourceURL
@@ -124,23 +124,23 @@ public extension UIImageView {
 //
 //        // 加载指示器
 //        kf.indicatorType = .activity
-//        let options: KingfisherOptionsInfo = [
+//        let options:KingfisherOptionsInfo = [
 //            .scaleFactor(UIScreen.screenScale),
 //            .transition(.fade(1)),
 //            .cacheOriginalImage,
 //        ]
 //        kf.setImage(
-//            with: imageURL,
-//            placeholder: placeholder,
-//            options: options
+//            with:imageURL,
+//            placeholder:placeholder,
+//            options:options
 //        ) { result in
 //            switch result {
-//            //                  case let .success: (value):
+//            //                  case let .success:(value):
 //            case .success:
 //                //                  Log.info("图片加载成功!\(value)")
 //                break
 //            case let .failure(error):
-//                Log.error("图片加载失败!\n地址: \(imageURL.absoluteString)\n错误: \(error.localizedDescription)")
+//                Log.error("图片加载失败!\n地址:\(imageURL.absoluteString)\n错误:\(error.localizedDescription)")
 //            }
 //        }
 //    }
@@ -149,7 +149,7 @@ public extension UIImageView {
 // MARK: - Gif
 public extension UIImageView {
     /// 加载本地`Gif`图片的名称
-    /// - Parameter name: 图片名称
+    /// - Parameter name:图片名称
     func loadGif(imageNamed: String) {
         DispatchQueue.globalAsync {
             let image = UIImage.gif(name: imageNamed)
@@ -160,7 +160,7 @@ public extension UIImageView {
     }
 
     /// 加载`Asset`中的`Gif`图片
-    /// - Parameter asset: `asset`中的图片名称
+    /// - Parameter asset:`asset`中的图片名称
     func loadGif(asset: String) {
         DispatchQueue.globalAsync {
             let image = UIImage.gif(asset: asset)
@@ -171,7 +171,7 @@ public extension UIImageView {
     }
 
     /// 加载网络`URL`的`Gif`图片
-    /// - Parameter url: `Gif`图片URL地址
+    /// - Parameter url:`Gif`图片URL地址
     @available(iOS 9.0, *)
     func loadGif(url: String) {
         DispatchQueue.globalAsync {
@@ -192,8 +192,8 @@ public extension UIImageView {
     }
 
     /// 设置图片
-    /// - Parameter image: 图片
-    /// - Returns: `Self`
+    /// - Parameter image:图片
+    /// - Returns:`Self`
     @discardableResult
     func image(_ image: UIImage?) -> Self {
         self.image = image
@@ -201,8 +201,8 @@ public extension UIImageView {
     }
 
     /// 设置图片
-    /// - Parameter imageNamed: 图片名称
-    /// - Returns: `Self`
+    /// - Parameter imageNamed:图片名称
+    /// - Returns:`Self`
     @discardableResult
     func image(_ imageNamed: String) -> Self {
         image = UIImage(named: imageNamed)
@@ -210,8 +210,8 @@ public extension UIImageView {
     }
 
     /// 设置模糊效果
-    /// - Parameter style: 模糊效果样式
-    /// - Returns: `Self`
+    /// - Parameter style:模糊效果样式
+    /// - Returns:`Self`
     @discardableResult
     func blur(_ style: UIBlurEffect.Style = .light) -> Self {
         blur(with: style)

@@ -4,14 +4,14 @@ import UIKit
 public extension UIStackView {
     /// 使用`UIView`数组和参数初始化`UIStackView`
     ///
-    ///     let stackView = UIStackView(arrangedSubviews: [UIView(), UIView()], axis: .vertical)
+    ///     let stackView = UIStackView(arrangedSubviews:[UIView(), UIView()], axis:.vertical)
     ///
     /// - Parameters:
-    ///   - arrangedSubviews: 要添加到堆栈中的`UIView`
-    ///   - axis: 排列视图的轴线
-    ///   - spacing: 堆栈视图的排列视图的相邻边之间的距离(默认: `0.0`)
-    ///   - alignment: 垂直于堆栈视图的轴排列的子视图的对齐方式(默认: `.fill`)
-    ///   - distribution: 排列视图沿堆栈视图轴的分布(默认值: `.fill`)
+    ///   - arrangedSubviews:要添加到堆栈中的`UIView`
+    ///   - axis:排列视图的轴线
+    ///   - spacing:堆栈视图的排列视图的相邻边之间的距离(默认:`0.0`)
+    ///   - alignment:垂直于堆栈视图的轴排列的子视图的对齐方式(默认:`.fill`)
+    ///   - distribution:排列视图沿堆栈视图轴的分布(默认值:`.fill`)
     convenience init(
         arrangedSubviews: [UIView],
         axis: NSLayoutConstraint.Axis,
@@ -31,8 +31,8 @@ public extension UIStackView {
 public extension UIStackView {
     /// 添加自定义间距
     /// - Parameters:
-    ///   - spacing: 间距
-    ///   - arrangedSubview: 要添加到谁的后面
+    ///   - spacing:间距
+    ///   - arrangedSubview:要添加到谁的后面
     func addCustomSpacing(_ spacing: CGFloat, after arrangedSubview: UIView) {
         if #available(iOS 11.0, *) {
             self.setCustomSpacing(spacing, after: arrangedSubview)
@@ -54,7 +54,7 @@ public extension UIStackView {
     }
 
     /// 将视图数组添加到`arrangedSubviews`数组的末尾
-    /// - Parameter views: `UIView`数组
+    /// - Parameter views:`UIView`数组
     func addArrangedSubviews(_ views: [UIView]) {
         for view in views {
             addArrangedSubview(view)
@@ -70,13 +70,13 @@ public extension UIStackView {
 
     /// 交换排列子视图中的两个视图
     /// - Parameters:
-    ///   - view1: 要交换的第一个视图
-    ///   - view2: 要交换的第二个视图
-    ///   - animated: 设置为`true`以设置交换动画(默认值为`true`)
-    ///   - duration: 以秒为单位的动画持续时间(默认值为1秒)
-    ///   - delay: 以秒为单位的动画延迟(默认值为1秒)
-    ///   - options: 动画选项(默认为`AnimationOptions.curveLinear`)
-    ///   - completion: 可选的完成回调,用于在动画完成时运行(默认为`nil`)
+    ///   - view1:要交换的第一个视图
+    ///   - view2:要交换的第二个视图
+    ///   - animated:设置为`true`以设置交换动画(默认值为`true`)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - delay:以秒为单位的动画延迟(默认值为1秒)
+    ///   - options:动画选项(默认为`AnimationOptions.curveLinear`)
+    ///   - completion:可选的完成回调,用于在动画完成时运行(默认为`nil`)
     func swap(_ view1: UIView, _ view2: UIView,
               animated: Bool = false,
               duration: TimeInterval = 0.25,
@@ -114,8 +114,8 @@ public extension UIStackView {
     }
 
     /// 布局时是否参照基准线,默认是 `false`(决定了垂直轴如果是文本的话,是否按照 `baseline` 来参与布局)
-    /// - Parameter arrangement: 是否参照基线
-    /// - Returns: `Self`
+    /// - Parameter arrangement:是否参照基线
+    /// - Returns:`Self`
     @discardableResult
     func set(baselineRelative arrangement: Bool) -> Self {
         isBaselineRelativeArrangement = arrangement
@@ -123,8 +123,8 @@ public extension UIStackView {
     }
 
     /// 设置布局时是否以控件的`LayoutMargins`为标准,默认为 `false`,是以控件的`bounds`为标准
-    /// - Parameter arrangement: 是否以控件的`LayoutMargins`为标准
-    /// - Returns: `Self`
+    /// - Parameter arrangement:是否以控件的`LayoutMargins`为标准
+    /// - Returns:`Self`
     @discardableResult
     func set(layoutMarginsRelative arrangement: Bool) -> Self {
         isLayoutMarginsRelativeArrangement = arrangement
@@ -132,8 +132,8 @@ public extension UIStackView {
     }
 
     /// 子控件布局方向(水平或者垂直),也就是轴方向
-    /// - Parameter axis: 轴方向
-    /// - Returns: `Self`
+    /// - Parameter axis:轴方向
+    /// - Returns:`Self`
     @discardableResult
     func set(axis: NSLayoutConstraint.Axis) -> Self {
         self.axis = axis
@@ -141,8 +141,8 @@ public extension UIStackView {
     }
 
     /// 子视图在轴向上的分布方式
-    /// - Parameter distribution: 分布方式
-    /// - Returns: `Self`
+    /// - Parameter distribution:分布方式
+    /// - Returns:`Self`
     @discardableResult
     func set(distribution: UIStackView.Distribution) -> Self {
         self.distribution = distribution
@@ -150,8 +150,8 @@ public extension UIStackView {
     }
 
     /// 对齐模式
-    /// - Parameter alignment: 对齐模式
-    /// - Returns: `Self`
+    /// - Parameter alignment:对齐模式
+    /// - Returns:`Self`
     @discardableResult
     func set(alignment: UIStackView.Alignment) -> Self {
         self.alignment = alignment
@@ -159,8 +159,8 @@ public extension UIStackView {
     }
 
     /// 设置子控件间距
-    /// - Parameter spacing: 子控件间距
-    /// - Returns: `Self`
+    /// - Parameter spacing:子控件间距
+    /// - Returns:`Self`
     @discardableResult
     func set(spacing: CGFloat) -> Self {
         self.spacing = spacing
@@ -168,8 +168,8 @@ public extension UIStackView {
     }
 
     /// 添加排列子视图
-    /// - Parameter items: 子视图
-    /// - Returns: `Self`
+    /// - Parameter items:子视图
+    /// - Returns:`Self`
     @discardableResult
     func addArrangedSubviews(_ items: UIView...) -> Self {
         if items.isEmpty {

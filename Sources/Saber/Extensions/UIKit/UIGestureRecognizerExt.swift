@@ -14,7 +14,7 @@ public extension UIGestureRecognizer {
     }
 
     /// 添加手势响应回调
-    /// - Parameter closure: 响应回调
+    /// - Parameter closure:响应回调
     func addActionHandler(_ closure: @escaping Callbacks.RecognizerCallback) {
         addTarget(self, action: #selector(p_invoke))
         objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC)

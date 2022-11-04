@@ -7,11 +7,11 @@ public class QRCodeManager {}
 public extension QRCodeManager {
     /// 生成二维码图片
     /// - Parameters:
-    ///   - content: 二维码里面的内容
-    ///   - size: 二维码的大小
-    ///   - logoSize: logo的大小
-    ///   - logoImage: logo图片
-    /// - Returns: 返回生成二维码图片
+    ///   - content:二维码里面的内容
+    ///   - size:二维码的大小
+    ///   - logoSize:logo的大小
+    ///   - logoImage:logo图片
+    /// - Returns:返回生成二维码图片
     static func QRCodeImage(with content: String, size: CGSize, isLogo: Bool = true, logoSize: CGSize?, logoImage: UIImage? = nil, logoRoundCorner: CGFloat? = nil) -> UIImage? {
         // 创建名为"CIQRCodeGenerator"的CIFilter
         let filter = CIFilter(name: "CIQRCodeGenerator")
@@ -21,10 +21,10 @@ public extension QRCodeManager {
         let data = content.data(using: String.Encoding.utf8)
         filter?.setValue(data, forKey: "inputMessage")
         // 设置二维码的纠错水平,越高纠错水平越高,可以污损的范围越大
-        // L: 7%
-        // M: 15%
-        // Q: 25%
-        // H: 30%
+        // L:7%
+        // M:15%
+        // Q:25%
+        // H:30%
         filter?.setValue("H", forKey: "inputCorrectionLevel")
         // 拿到二维码图片,此时的图片不是很清晰,需要二次加工
         guard let outPutImage = filter?.outputImage else {
@@ -36,11 +36,11 @@ public extension QRCodeManager {
 
     /// 调整二维码清晰度,添加水印图片
     /// - Parameters:
-    ///   - image: 模糊的二维码图片
-    ///   - size: 二维码的宽高
-    ///   - logoSize: logo的大小
-    ///   - logoImage: logo图片
-    /// - Returns: 添加 logo 图片后,清晰的二维码图片
+    ///   - image:模糊的二维码图片
+    ///   - size:二维码的宽高
+    ///   - logoSize:logo的大小
+    ///   - logoImage:logo图片
+    /// - Returns:添加 logo 图片后,清晰的二维码图片
     private static func getHDImgWithCIImage(with image: CIImage, size: CGSize, isLogo: Bool = true, logoSize: CGSize?, logoImage: UIImage? = nil, logoRoundCorner: CGFloat? = nil) -> UIImage? {
         let extent = image.extent.integral
         let scale = min(size.width / extent.width, size.height / extent.height)
@@ -58,10 +58,10 @@ public extension QRCodeManager {
         // 创建一个DeviceGray颜色空间
         let cs = CGColorSpaceCreateDeviceGray()
         // CGBitmapContextCreate(void * _Nullable data, size_t width, size_t height, size_t bitsPerComponent, size_t bytesPerRow, CGColorSpaceRef  _Nullable space, uint32_t bitmapInfo)
-        // width: 图片宽度像素
-        // height: 图片高度像素
-        // bitsPerComponent: 每个颜色的比特值,例如在rgba-32模式下为8
-        // bitmapInfo: 指定的位图应该包含一个alpha通道
+        // width:图片宽度像素
+        // height:图片高度像素
+        // bitsPerComponent:每个颜色的比特值,例如在rgba-32模式下为8
+        // bitmapInfo:指定的位图应该包含一个alpha通道
         let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: cs, bitmapInfo: CGImageAlphaInfo.none.rawValue) // 图形上下文,画布
         bitmapRef?.interpolationQuality = CGInterpolationQuality.none // 写入质量
         bitmapRef?.scaleBy(x: scale, y: scale) // 调整“画布”的缩放
@@ -103,8 +103,8 @@ public extension QRCodeManager {
 // MARK: - 二维码解析
 public extension QRCodeManager {
     /// 获取图片中二维码数组
-    /// - Parameter qrcodeImg: 二维码图片
-    /// - Returns: 二维码信息数组
+    /// - Parameter qrcodeImg:二维码图片
+    /// - Returns:二维码信息数组
     static func getImageQRImage(_ qrcodeImg: UIImage) -> [CIQRCodeFeature] {
         let context = CIContext(options: nil)
         guard let ciImage = CIImage(image: qrcodeImg),
@@ -117,16 +117,16 @@ public extension QRCodeManager {
     }
 
     /// 获取图片每个二维码里面的信息数组
-    /// - Parameter qrcodeImg: 二维码图片
-    /// - Returns: 二维码信息数组
+    /// - Parameter qrcodeImg:二维码图片
+    /// - Returns:二维码信息数组
     static func getImageQRImageInfo(_ qrcodeImg: UIImage) -> [String] {
         // 遍历所有的二维码,并拿出二维码里面的信息
         return getImageQRImage(qrcodeImg).map { $0.messageString ?? "" }
     }
 
     /// 识别图片二维码
-    /// - Parameter qrcodeImg: 二维码图片
-    /// - Returns: 数据
+    /// - Parameter qrcodeImg:二维码图片
+    /// - Returns:数据
     static func recognizeQRCode(_ qrcodeImg: UIImage) -> String? {
         let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         let features = detector?.features(in: CoreImage.CIImage(cgImage: qrcodeImg.cgImage!))

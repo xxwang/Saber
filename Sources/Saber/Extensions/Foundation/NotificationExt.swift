@@ -4,8 +4,8 @@ import Foundation
 public extension Notification.Name {
     /// 发送通知
     /// - Parameters:
-    ///   - object: 对象
-    ///   - userInfo: 携带信息
+    ///   - object:对象
+    ///   - userInfo:携带信息
     func sendNotification(
         object: Any? = nil,
         userInfo: [AnyHashable: Any]? = nil
@@ -15,9 +15,9 @@ public extension Notification.Name {
 
     /// 添加通知监听(方法)
     /// - Parameters:
-    ///   - observer: 监听者
-    ///   - selector: 响应方法
-    ///   - object: 对象
+    ///   - observer:监听者
+    ///   - selector:响应方法
+    ///   - object:对象
     func receiveNotification(
         _ observer: Any,
         selector: Selector,
@@ -28,8 +28,8 @@ public extension Notification.Name {
 
     /// 移除监听者
     /// - Parameters:
-    ///   - observer: 要移除的监听者
-    ///   - object: 对象
+    ///   - observer:要移除的监听者
+    ///   - object:对象
     func removeObserver(
         _ observer: Any,
         object: Any? = nil

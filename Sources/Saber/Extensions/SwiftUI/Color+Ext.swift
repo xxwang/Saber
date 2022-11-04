@@ -15,10 +15,10 @@
     public extension Color {
         /// 0-255颜色值
         /// - Parameters:
-        ///   - r: 红色
-        ///   - g: 绿色
-        ///   - b: 蓝色
-        ///   - a: 不透明度
+        ///   - r:红色
+        ///   - g:绿色
+        ///   - b:蓝色
+        ///   - a:不透明度
         init(r: Double, g: Double, b: Double, a: Double = 1.0) {
             let red = r / 255.0
             let green = g / 255.0
@@ -28,8 +28,8 @@
 
         /// 十六进制字符串
         /// - Parameters:
-        ///   - hex: 颜色字符串
-        ///   - opacity: 不透明度
+        ///   - hex:颜色字符串
+        ///   - opacity:不透明度
         init(hex: String, opacity: Double = 1.0) {
             // 去除前后空格及换行符
             var hex = hex.trimmingCharacters(in: .whitespacesAndNewlines)

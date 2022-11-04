@@ -14,7 +14,7 @@ public extension UITableViewCell {
 // MARK: - 方法
 public extension UITableViewCell {
     /// `cell`所在`UITableView`
-    /// - Returns: `UITableView`, 未找到返回`nil`
+    /// - Returns:`UITableView`, 未找到返回`nil`
     func tableView() -> UITableView? {
         for view in sequence(first: superview, next: { $0?.superview }) {
             if let tableView = view as? UITableView {
@@ -28,8 +28,8 @@ public extension UITableViewCell {
 // MARK: - 链式语法
 public extension UITableViewCell {
     /// 设置`UITableViewCell`选中样式
-    /// - Parameter style: 样式
-    /// - Returns: `Self`
+    /// - Parameter style:样式
+    /// - Returns:`Self`
     @discardableResult
     func selectionStyle(_ style: UITableViewCell.SelectionStyle) -> Self {
         selectionStyle = style

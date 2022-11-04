@@ -86,9 +86,9 @@ public extension Bundle {
 public extension Bundle {
     /// 获取项目中文件的`path`
     /// - Parameters:
-    ///   - fileName: 文件名称
-    ///   - ext: 后缀名称
-    /// - Returns: 对应路径
+    ///   - fileName:文件名称
+    ///   - ext:后缀名称
+    /// - Returns:对应路径
     static func path(for fileName: String?, withExtension ext: String? = nil) -> String? {
         guard let path = Bundle.main.path(forResource: fileName, ofType: ext) else {
             return nil
@@ -98,9 +98,9 @@ public extension Bundle {
 
     /// 获取项目中文件的`URL`
     /// - Parameters:
-    ///   - fileName: 文件名称
-    ///   - ext: 后缀名称
-    /// - Returns: 对应路径
+    ///   - fileName:文件名称
+    ///   - ext:后缀名称
+    /// - Returns:对应路径
     static func url(for fileName: String?, withExtension ext: String? = nil) -> URL? {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: ext) else {
             return nil

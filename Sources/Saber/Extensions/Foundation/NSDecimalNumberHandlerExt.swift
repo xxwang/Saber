@@ -16,16 +16,16 @@ public enum DecimalNumberHandlerOperator: String {
 public extension NSDecimalNumberHandler {
     /// 数字计算操作
     /// - Parameters:
-    ///   - operator: 操作符
-    ///   - valueA: 要进入计算的数字
-    ///   - valueB: 要进入计算的数字
-    ///   - roundingMode: 传入模式
-    ///   - scale: 小数点后舍入值的位数
-    ///   - exact: 精度错误处理
-    ///   - overflow: 溢出错误处理
-    ///   - underflow: 下溢错误处理
-    ///   - divideByZero: 除以0的错误处理
-    /// - Returns: 计算结果`NSDecimalNumber`
+    ///   - operator:操作符
+    ///   - valueA:要进入计算的数字
+    ///   - valueB:要进入计算的数字
+    ///   - roundingMode:传入模式
+    ///   - scale:小数点后舍入值的位数
+    ///   - exact:精度错误处理
+    ///   - overflow:溢出错误处理
+    ///   - underflow:下溢错误处理
+    ///   - divideByZero:除以0的错误处理
+    /// - Returns:计算结果`NSDecimalNumber`
     static func decimalNumberCalculate(
         operator: DecimalNumberHandlerOperator,
         valueA: Any,
@@ -65,10 +65,10 @@ public extension NSDecimalNumberHandler {
 public extension NSDecimalNumberHandler {
     /// 简化数字计算操作
     /// - Parameters:
-    ///   - operator: 操作符
-    ///   - valueA: 要进入计算的数字
-    ///   - valueB: 要进入计算的数字
-    /// - Returns: 计算结果`NSDecimalNumber`
+    ///   - operator:操作符
+    ///   - valueA:要进入计算的数字
+    ///   - valueB:要进入计算的数字
+    /// - Returns:计算结果`NSDecimalNumber`
     static func calculation(
         operator: DecimalNumberHandlerOperator,
         valueA: Any,
@@ -85,18 +85,18 @@ public extension NSDecimalNumberHandler {
 
     /// 向下取整
     /// - Parameters:
-    ///   - valueA: 被除数
-    ///   - valueB: 除数
-    /// - Returns: `Int`类型值
+    ///   - valueA:被除数
+    ///   - valueB:除数
+    /// - Returns:`Int`类型值
     static func intFloor(valueA: Any, valueB: Any) -> Int {
         return decimalNumberCalculate(operator: .division, valueA: valueA, valueB: valueB, roundingMode: .down, scale: 0).intValue
     }
 
     /// 判断一个数字是否可以被另一个数字整除
     /// - Parameters:
-    ///   - valueA: 被除数
-    ///   - valueB: 除数
-    /// - Returns: `Bool`
+    ///   - valueA:被除数
+    ///   - valueB:除数
+    /// - Returns:`Bool`
     static func isDivisible(valueA: Any, valueB: Any) -> Bool {
         let value = decimalNumberCalculate(
             operator: .division,

@@ -12,14 +12,14 @@ public extension UIViewController {
 public extension UIViewController {
     /// 指定当前控制器为通知的监听者
     /// - Parameters:
-    ///   - name: 通知名称
-    ///   - selector: 接收到通知要运行的方法
+    ///   - name:通知名称
+    ///   - selector:接收到通知要运行的方法
     func addNotificationObserver(name: Notification.Name, selector: Selector) {
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 
     /// 把当前控制器从通知监听中移除
-    /// - Parameter name: 通知名称
+    /// - Parameter name:通知名称
     func removeNotificationObserver(name: Notification.Name) {
         NotificationCenter.default.removeObserver(self, name: name, object: nil)
     }
@@ -34,10 +34,10 @@ public extension UIViewController {
 public extension UIViewController {
     /// 从`UIStoryboard`中实例化`UIViewController`
     /// - Parameters:
-    ///   - storyboard: `UIViewController`所在的`UIStoryboard`的名称
-    ///   - bundle: 故事板所在的`Bundle`
-    ///   - identifier: `UIViewController`的`UIStoryboard`标识符
-    /// - Returns: 从`UIStoryboard`实例化的`UIViewController`实例
+    ///   - storyboard:`UIViewController`所在的`UIStoryboard`的名称
+    ///   - bundle:故事板所在的`Bundle`
+    ///   - identifier:`UIViewController`的`UIStoryboard`标识符
+    /// - Returns:从`UIStoryboard`实例化的`UIViewController`实例
     class func instantiateViewController(from storyboard: String = "Main", bundle: Bundle? = nil, identifier: String? = nil) -> Self {
         let viewControllerIdentifier = identifier ?? String(describing: self)
         let storyboard = UIStoryboard(name: storyboard, bundle: bundle)
@@ -55,8 +55,8 @@ public extension UIViewController {
 public extension UIViewController {
     /// 将UIViewController添加为当前控制器childViewController
     /// - Parameters:
-    ///   - child: 子控制器
-    ///   - containerView: 子控制器view要添加到的父view
+    ///   - child:子控制器
+    ///   - containerView:子控制器view要添加到的父view
     func addChildViewController(_ child: UIViewController, toContainerView containerView: UIView) {
         addChild(child)
         containerView.addSubview(child.view)
@@ -73,12 +73,12 @@ public extension UIViewController {
 
     /// 用于在做任意控制器上显示`UIAlertController`
     /// - Parameters:
-    ///   - title: 提示标题
-    ///   - message: 提示内容
-    ///   - btnTitles: 按钮标题数组
-    ///   - highlightedBtnIndex: 高亮按钮索引
-    ///   - completion: 完成回调
-    /// - Returns: `UIAlertController`实例
+    ///   - title:提示标题
+    ///   - message:提示内容
+    ///   - btnTitles:按钮标题数组
+    ///   - highlightedBtnIndex:高亮按钮索引
+    ///   - completion:完成回调
+    /// - Returns:`UIAlertController`实例
     @discardableResult
     func showAlertController(
         title: String?,
@@ -113,12 +113,12 @@ public extension UIViewController {
 
     /// 将`UIViewController`显示为弹出框(`Popover`样式显示)
     /// - Parameters:
-    ///   - contentVC: 要展示的内容控制器
-    ///   - sourcePoint: 箭头位置(从哪里显示出来)
-    ///   - contentSize: 内容大小
-    ///   - delegate: 代理
-    ///   - animated: 是否动画
-    ///   - completion: 完成回调
+    ///   - contentVC:要展示的内容控制器
+    ///   - sourcePoint:箭头位置(从哪里显示出来)
+    ///   - contentSize:内容大小
+    ///   - delegate:代理
+    ///   - animated:是否动画
+    ///   - completion:完成回调
     func presentPopover(
         _ contentVC: UIViewController,
         sourcePoint: CGPoint,
@@ -147,9 +147,9 @@ public extension UIViewController {
 public extension UIViewController {
     /// Modal显示控制器
     /// - Parameters:
-    ///   - viewController: 要显示的控制器
-    ///   - animated: 是否动画
-    ///   - completion: 完成回调
+    ///   - viewController:要显示的控制器
+    ///   - animated:是否动画
+    ///   - completion:完成回调
     func presentVC(_ viewController: UIViewController, fullScreen: Bool = true, animated: Bool = true, completion: (() -> Void)? = nil) {
         if fullScreen {
             viewController.modalPresentationStyle = .fullScreen
@@ -159,46 +159,46 @@ public extension UIViewController {
 
     /// 释放`Modal`显示控制器
     /// - Parameters:
-    ///   - animated: 是否动画
-    ///   - completion: 完成回调
+    ///   - animated:是否动画
+    ///   - completion:完成回调
     func dismissVC(_ animated: Bool = true, completion: (() -> Void)? = nil) {
         dismiss(animated: animated, completion: completion)
     }
 
     /// Push控制器
     /// - Parameters:
-    ///   - viewController: 要压入栈的控制器
-    ///   - animated: 是否动画
+    ///   - viewController:要压入栈的控制器
+    ///   - animated:是否动画
     func pushVC(_ viewController: UIViewController, animated: Bool = true) {
         navigationController?.pushViewController(viewController, animated: animated)
     }
 
     /// POP控制器
     /// - Parameters:
-    ///   - animated: 是否动画
+    ///   - animated:是否动画
     func popVC(_ animated: Bool = true) {
         navigationController?.popViewController(animated: animated)
     }
 
     /// POP到指定控制器
     /// - Parameters:
-    ///   - viewController: 指定的控制器
-    ///   - animated: 是否动画
+    ///   - viewController:指定的控制器
+    ///   - animated:是否动画
     func popTo(_ viewController: UIViewController, animated: Bool = true) {
         navigationController?.popToViewController(viewController, animated: animated)
     }
 
     /// POP到`navigationController`的根控制器
     /// - Parameters:
-    ///   - animated: 是否动画
+    ///   - animated:是否动画
     func popToRootVC(_ animated: Bool = true) {
         navigationController?.popToRootViewController(animated: animated)
     }
 
     /// 往前返回(POP)几个控制器
     /// - Parameters:
-    ///   - count: 返回(POP)几个控制器
-    ///   - animated: 是否有动画
+    ///   - count:返回(POP)几个控制器
+    ///   - animated:是否有动画
     func pop(count: Int, animated: Bool) {
         guard let navigationController = navigationController else {
             return
@@ -210,7 +210,7 @@ public extension UIViewController {
         }
         let viewControllerCount = self.navigationController?.viewControllers.count ?? 0
         if count >= viewControllerCount {
-            print("count: \(count), must less than viewControllers count: \(viewControllerCount); will pop to root now!")
+            print("count:\(count), must less than viewControllers count:\(viewControllerCount); will pop to root now!")
             navigationController.popToRootViewController(animated: animated)
             return
         }
@@ -221,8 +221,8 @@ public extension UIViewController {
 
     /// `pop`最后一个控制器然后`push`指定控制器
     /// - Parameters:
-    ///   - viewController: 要压入栈的控制器
-    ///   - animated: 是否要动画
+    ///   - viewController:要压入栈的控制器
+    ///   - animated:是否要动画
     func popLastAndPush(_ viewController: UIViewController, animated: Bool = true) {
         guard let navigationController = navigationController else {
             return
@@ -238,9 +238,9 @@ public extension UIViewController {
 
     /// 往前返回(POP)几个控制器 后`push`进某个控制器
     /// - Parameters:
-    ///   - count: 返回(POP)几个控制器
-    ///   - vc: 被push的控制器
-    ///   - animated: 是否要动画
+    ///   - count:返回(POP)几个控制器
+    ///   - vc:被push的控制器
+    ///   - animated:是否要动画
     func pop(count: Int, andPush viewController: UIViewController, animated: Bool = true) {
         guard let navigationController = navigationController else {
             return
@@ -253,7 +253,7 @@ public extension UIViewController {
 
         let viewControllerCount = navigationController.viewControllers.count
         if count >= viewControllerCount {
-            print("count: \(count), must less than viewControllers count: \(viewControllerCount); will pop to root now!")
+            print("count:\(count), must less than viewControllers count:\(viewControllerCount); will pop to root now!")
             if let first = navigationController.viewControllers.first {
                 navigationController.setViewControllers([first, viewController], animated: animated)
             }
@@ -269,9 +269,9 @@ public extension UIViewController {
 
     /// `POP`到指定类型控制器, 从栈顶逐个遍历
     /// - Parameters:
-    ///   - aClass: 要`POP`到的控制器类型
-    ///   - animated: 是否动画
-    /// - Returns: 是否成功
+    ///   - aClass:要`POP`到的控制器类型
+    ///   - animated:是否动画
+    /// - Returns:是否成功
     @discardableResult
     func popToViewController(as aClass: AnyClass, animated: Bool) -> Bool {
         guard let navigationController = navigationController else {
@@ -297,7 +297,7 @@ public extension UIViewController {
     }
 
     /// 关闭控制器
-    /// - Parameter animated: 是否动画
+    /// - Parameter animated:是否动画
     func closeVC(_ animated: Bool = true) {
         guard let navVC = navigationController else {
             dismiss(animated: animated, completion: nil)
@@ -312,7 +312,7 @@ public extension UIViewController {
     }
 
     /// 获取`push`进来的`UIViewController`
-    /// - Returns: `UIViewController`
+    /// - Returns:`UIViewController`
     func previousPushVc() -> UIViewController? {
         guard let nav = navigationController else { return nil }
         if nav.viewControllers.count <= 1 {
@@ -351,36 +351,36 @@ public extension UIViewController {
                 _ = hookInstanceMethod(of: oriSel2, with: repSel2)
 
                 // present
-                let oriSelPresent = #selector(present(_: animated: completion:))
-                let repSelPresent = #selector(hook_present(_: animated: completion:))
+                let oriSelPresent = #selector(present(_:animated:completion:))
+                let repSelPresent = #selector(hook_present(_:animated:completion:))
                 _ = hookInstanceMethod(of: oriSelPresent, with: repSelPresent)
             }
         } else if self == UINavigationController.self {
             let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
             DispatchQueue.once(token: onceToken) {
                 // pushViewController
-                let oriSel = #selector(UINavigationController.pushViewController(_: animated:))
-                let repSel = #selector(UINavigationController.hook_pushViewController(_: animated:))
+                let oriSel = #selector(UINavigationController.pushViewController(_:animated:))
+                let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:))
                 _ = hookInstanceMethod(of: oriSel, with: repSel)
             }
         }
     }
 
     /// hook`viewDidLoad`
-    /// - Parameter animated: 是否动画
+    /// - Parameter animated:是否动画
     private func hook_viewDidLoad(animated: Bool) {
         hook_viewDidLoad(animated: animated)
     }
 
     /// hook`viewWillAppear`
-    /// - Parameter animated: 是否动画
+    /// - Parameter animated:是否动画
     private func hook_viewWillAppear(animated: Bool) {
         // 需要注入的代码写在此处
         hook_viewWillAppear(animated: animated)
     }
 
     /// hook`viewWillDisappear`
-    /// - Parameter animated: 是否动画
+    /// - Parameter animated:是否动画
     private func hook_viewWillDisappear(animated: Bool) {
         // 需要注入的代码写在此处
         hook_viewWillDisappear(animated: animated)
@@ -388,9 +388,9 @@ public extension UIViewController {
 
     /// hook`present`
     /// - Parameters:
-    ///   - viewControllerToPresent: 要`modal`的控制器
-    ///   - flag: 是否动画
-    ///   - completion: 完成回调
+    ///   - viewControllerToPresent:要`modal`的控制器
+    ///   - flag:是否动画
+    ///   - completion:完成回调
     private func hook_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         if viewControllerToPresent.presentationController == nil {
             viewControllerToPresent.presentationController?.presentedViewController.dismiss(animated: false, completion: nil)
@@ -404,8 +404,8 @@ public extension UIViewController {
 @objc public extension UINavigationController {
     /// hook`pushViewController`
     /// - Parameters:
-    ///   - viewController: 要压入栈的控制器
-    ///   - animated: 是否动画
+    ///   - viewController:要压入栈的控制器
+    ///   - animated:是否动画
     func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
         // 判断是否是根控制器
         if viewControllers.count <= 1 {}

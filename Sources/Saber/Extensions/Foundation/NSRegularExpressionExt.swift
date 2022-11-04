@@ -4,10 +4,10 @@ import Foundation
 public extension NSRegularExpression {
     /// 为每个符合`正则表达式`的匹配项执行`block`闭包
     /// - Parameters:
-    ///   - string: 用于匹配的字符串
-    ///   - options: 的匹配选项
-    ///   - range: 字符串的搜索范围
-    ///   - block: 要执行的代码块
+    ///   - string:用于匹配的字符串
+    ///   - options:的匹配选项
+    ///   - range:字符串的搜索范围
+    ///   - block:要执行的代码块
     func enumerateMatches(
         in string: String,
         options: MatchingOptions = [],
@@ -29,10 +29,10 @@ public extension NSRegularExpression {
 
     /// 返回所有符合`正则表达式`的匹配项
     /// - Parameters:
-    ///   - string: 用于匹配的字符串
-    ///   - options: 匹配选项
-    ///   - range: 字符串的搜索范围
-    /// - Returns: 匹配项数组
+    ///   - string:用于匹配的字符串
+    ///   - options:匹配选项
+    ///   - range:字符串的搜索范围
+    /// - Returns:匹配项数组
     func matches(
         in string: String,
         options: MatchingOptions = [],
@@ -46,10 +46,10 @@ public extension NSRegularExpression {
     /// 获取指定范围内符合`正则表达式`的匹配项数量
     ///
     /// - Parameters:
-    ///   - string: 要搜索的字符串
-    ///   - options: 匹配选项
-    ///   - range: 字符串的搜索范围
-    /// - Returns: 正则表达式的匹配项数量
+    ///   - string:要搜索的字符串
+    ///   - options:匹配选项
+    ///   - range:字符串的搜索范围
+    /// - Returns:正则表达式的匹配项数量
     func numberOfMatches(
         in string: String,
         options: MatchingOptions = [],
@@ -62,10 +62,10 @@ public extension NSRegularExpression {
 
     /// 返回符合`正则表达式`的`第一个`匹配项
     /// - Parameters:
-    ///   - string: 要搜索的字符串
-    ///   - options: 匹配选项
-    ///   - range: 字符串的搜索范围
-    /// - Returns: `NSTextCheckingResult`
+    ///   - string:要搜索的字符串
+    ///   - options:匹配选项
+    ///   - range:字符串的搜索范围
+    /// - Returns:`NSTextCheckingResult`
     func firstMatch(
         in string: String,
         options: MatchingOptions = [],
@@ -78,10 +78,10 @@ public extension NSRegularExpression {
 
     /// 获取符合`正则表达式`的第一个匹配项的`Range`
     /// - Parameters:
-    ///   - string: 要搜索的字符串
-    ///   - options: 匹配选项
-    ///   - range: 字符串的搜索范围
-    /// - Returns: `Range`
+    ///   - string:要搜索的字符串
+    ///   - options:匹配选项
+    ///   - range:字符串的搜索范围
+    /// - Returns:`Range`
     func rangeOfFirstMatch(
         in string: String,
         options: MatchingOptions = [],
@@ -95,11 +95,11 @@ public extension NSRegularExpression {
 
     /// 使用`templ`替换符合`正则表达式`的匹配项
     /// - Parameters:
-    ///   - string: 要搜索的字符串
-    ///   - options: 匹配选项
-    ///   - range: 字符串的搜索范围
-    ///   - templ: 要替换的字符串
-    /// - Returns: 替换后的字符串
+    ///   - string:要搜索的字符串
+    ///   - options:匹配选项
+    ///   - range:字符串的搜索范围
+    ///   - templ:要替换的字符串
+    /// - Returns:替换后的字符串
     func stringByReplacingMatches(
         in string: String,
         options: MatchingOptions = [],
@@ -114,11 +114,11 @@ public extension NSRegularExpression {
 
     /// 使用`templ`替换符合`正则表达式`的匹配项,并返回匹配项数量
     /// - Parameters:
-    ///   - string: 要搜索的字符串
-    ///   - options: 匹配选项
-    ///   - range: 字符串的搜索范围
-    ///   - templ: 要替换的字符串
-    /// - Returns: 匹配项数量
+    ///   - string:要搜索的字符串
+    ///   - options:匹配选项
+    ///   - range:字符串的搜索范围
+    ///   - templ:要替换的字符串
+    /// - Returns:匹配项数量
     @discardableResult
     func replaceMatches(
         in string: inout String,

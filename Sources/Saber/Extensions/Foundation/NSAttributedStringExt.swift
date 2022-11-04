@@ -22,15 +22,15 @@ public extension NSAttributedString {
 // MARK: - 方法
 public extension NSAttributedString {
     /// 获取`subStr`在`self`中的`NSRange`
-    /// - Parameter subStr: 用于查找的字符串
-    /// - Returns: `NSRange`
+    /// - Parameter subStr:用于查找的字符串
+    /// - Returns:`NSRange`
     func subNSRange(_ subStr: String) -> NSRange {
         return string.subNSRange(subStr)
     }
 
     /// 获取`texts`在`self`中的`[NSRange]`
-    /// - Parameter texts: `[String]`
-    /// - Returns: `[NSRange]`
+    /// - Parameter texts:`[String]`
+    /// - Returns:`[NSRange]`
     func subNSRanges(with texts: [String]) -> [NSRange] {
         var ranges = [NSRange]()
         for str in texts {
@@ -53,8 +53,8 @@ public extension NSAttributedString {
     }
 
     /// 计算`NSAttributedString`的`CGSize`
-    /// - Parameter maxWidth: 最大宽度
-    /// - Returns: `CGSize`
+    /// - Parameter maxWidth:最大宽度
+    /// - Returns:`CGSize`
     func strSize(_ maxWidth: CGFloat = kSCREEN_WIDTH) -> CGSize {
         let result = boundingRect(
             with: CGSize(
@@ -72,11 +72,11 @@ public extension NSAttributedString {
     }
 }
 
-// MARK: - 方法(数组: Element: NSAttributedString)
+// MARK: - 方法(数组:Element:NSAttributedString)
 public extension Array where Element: NSAttributedString {
     /// `拼接``NSAttributedString数组`中的每个元素并使用`separator`分割
-    /// - Parameter separator: `NSAttributedString`类型分割符
-    /// - Returns: `NSAttributedString`
+    /// - Parameter separator:`NSAttributedString`类型分割符
+    /// - Returns:`NSAttributedString`
     func joined(separator: NSAttributedString) -> NSAttributedString {
         guard let firstElement = first else {
             return "".attributedString
@@ -89,8 +89,8 @@ public extension Array where Element: NSAttributedString {
     }
 
     /// `拼接``NSAttributedString数组`中的每个元素并使用`separator`分割
-    /// - Parameter separator: `String`类型分割符
-    /// - Returns: `NSAttributedString`
+    /// - Parameter separator:`String`类型分割符
+    /// - Returns:`NSAttributedString`
     func joined(separator: String) -> NSAttributedString {
         let separator = NSAttributedString(string: separator)
         return joined(separator: separator)
@@ -101,8 +101,8 @@ public extension Array where Element: NSAttributedString {
 public extension NSAttributedString {
     /// 将`NSAttributedString`追加到另一个`NSAttributedString`
     /// - Parameters:
-    ///   - lhs: 目标`NSAttributedString`
-    ///   - rhs: 待追加`NSAttributedString`
+    ///   - lhs:目标`NSAttributedString`
+    ///   - rhs:待追加`NSAttributedString`
     static func += (
         lhs: inout NSAttributedString,
         rhs: NSAttributedString
@@ -114,17 +114,17 @@ public extension NSAttributedString {
 
     /// 将`String`追加到`NSAttributedString`
     /// - Parameters:
-    ///   - lhs: 目标`NSAttributedString`
-    ///   - rhs: 要添加的`String`
+    ///   - lhs:目标`NSAttributedString`
+    ///   - rhs:要添加的`String`
     static func += (lhs: inout NSAttributedString, rhs: String) {
         lhs += NSAttributedString(string: rhs)
     }
 
     /// 合并两个`NSAttributedString`,生成新的`NSAttributedString`
     /// - Parameters:
-    ///   - lhs: 参与合并的第一个`NSAttributedString`
-    ///   - rhs: 参与合并的第二个`NSAttributedString`
-    /// - Returns: `NSAttributedString`
+    ///   - lhs:参与合并的第一个`NSAttributedString`
+    ///   - rhs:参与合并的第二个`NSAttributedString`
+    /// - Returns:`NSAttributedString`
     static func + (
         lhs: NSAttributedString,
         rhs: NSAttributedString
@@ -136,9 +136,9 @@ public extension NSAttributedString {
 
     /// 将`String`添加到`NSAttributedString`,返回新的`NSAttributedString`
     /// - Parameters:
-    ///   - lhs: 目标`NSAttributedString`
-    ///   - rhs: 要添加的`String`
-    /// - Returns: 新`NSAttributedString`
+    ///   - lhs:目标`NSAttributedString`
+    ///   - rhs:要添加的`String`
+    /// - Returns:新`NSAttributedString`
     static func + (lhs: NSAttributedString, rhs: String) -> NSAttributedString {
         return lhs + NSAttributedString(string: rhs)
     }
@@ -148,9 +148,9 @@ public extension NSAttributedString {
 public extension NSAttributedString {
     /// 设置指定`range`内的`字体`
     /// - Parameters:
-    ///   - font: 字体
-    ///   - range: 范围
-    /// - Returns: `NSAttributedString`
+    ///   - font:字体
+    ///   - range:范围
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setFont(
         _ font: UIFont,
@@ -162,9 +162,9 @@ public extension NSAttributedString {
 
     /// 设置指定`字符串`的`字体`
     /// - Parameters:
-    ///   - font: 字体
-    ///   - text: 特定文字
-    /// - Returns: `NSAttributedString`
+    ///   - font:字体
+    ///   - text:特定文字
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setFont(
         _ font: UIFont,
@@ -175,9 +175,9 @@ public extension NSAttributedString {
 
     /// 设置`文字`的`颜色`
     /// - Parameters:
-    ///   - color: 文字颜色
-    ///   - range: 范围
-    /// - Returns: `NSAttributedString`
+    ///   - color:文字颜色
+    ///   - range:范围
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setForegroundColor(
         _ color: UIColor,
@@ -189,9 +189,9 @@ public extension NSAttributedString {
 
     /// 设置指定`文字`的`颜色`
     /// - Parameters:
-    ///   - color: 文字颜色
-    ///   - range: 文字
-    /// - Returns: `NSAttributedString`
+    ///   - color:文字颜色
+    ///   - range:文字
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setForegroundColor(
         _ color: UIColor,
@@ -202,10 +202,10 @@ public extension NSAttributedString {
 
     /// 设置指定`range`内文字的`行间距`
     /// - Parameters:
-    ///   - lineSpacing: 行间距
-    ///   - alignment: 对齐方式
-    ///   - range: 范围
-    /// - Returns: `NSAttributedString`
+    ///   - lineSpacing:行间距
+    ///   - alignment:对齐方式
+    ///   - range:范围
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setLineSpacing(
         _ lineSpacing: CGFloat,
@@ -225,10 +225,10 @@ public extension NSAttributedString {
 
     /// 设置指定`文字`的`行间距`
     /// - Parameters:
-    ///   - lineSpacing: 行间距
-    ///   - alignment: 对齐方式
-    ///   - text: 文本
-    /// - Returns: `NSAttributedString`
+    ///   - lineSpacing:行间距
+    ///   - alignment:对齐方式
+    ///   - text:文本
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setLineSpacing(
         _ lineSpacing: CGFloat,
@@ -246,10 +246,10 @@ public extension NSAttributedString {
 
     /// 设置`range`内`文字`的`下划线`
     /// - Parameters:
-    ///   - color: 下划线颜色
-    ///   - stytle: 下划线样式
-    ///   - range: 范围
-    /// - Returns: `NSAttributedString`
+    ///   - color:下划线颜色
+    ///   - stytle:下划线样式
+    ///   - range:范围
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setUnderline(
         _ color: UIColor,
@@ -267,10 +267,10 @@ public extension NSAttributedString {
 
     /// 设置指定`文字`的`下划线`
     /// - Parameters:
-    ///   - color: 下划线颜色
-    ///   - stytle: 下划线样式
-    ///   - text: 文本
-    /// - Returns: `NSAttributedString`
+    ///   - color:下划线颜色
+    ///   - stytle:下划线样式
+    ///   - text:文本
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setUnderline(
         _ color: UIColor,
@@ -286,9 +286,9 @@ public extension NSAttributedString {
 
     /// 设置`range`内文字的`删除线`
     /// - Parameters:
-    ///   - color: 删除线颜色
-    ///   - range: 范围
-    /// - Returns: `NSAttributedString`
+    ///   - color:删除线颜色
+    ///   - range:范围
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setDeleteline(
         _ color: UIColor,
@@ -312,9 +312,9 @@ public extension NSAttributedString {
 
     /// 设置指定`文字`的`删除线`
     /// - Parameters:
-    ///   - color: 删除线颜色
-    ///   - text: 文本
-    /// - Returns: `NSAttributedString`
+    ///   - color:删除线颜色
+    ///   - text:文本
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setDeleteline(
         _ color: UIColor,
@@ -336,8 +336,8 @@ public extension NSAttributedString {
     }
 
     /// 添加`首行文字缩进`
-    /// - Parameter indent: 缩进宽度
-    /// - Returns: `NSAttributedString`
+    /// - Parameter indent:缩进宽度
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setFirstLineHeadIndent(_ indent: CGFloat) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -347,9 +347,9 @@ public extension NSAttributedString {
 
     /// 设置`range`范围内`文字`的`倾斜`
     /// - Parameters:
-    ///   - obliqueness: 倾斜
-    ///   - range: 范围
-    /// - Returns: `NSAttributedString`
+    ///   - obliqueness:倾斜
+    ///   - range:范围
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setObliqueness(
         _ obliqueness: Float = 0,
@@ -361,9 +361,9 @@ public extension NSAttributedString {
 
     /// 设置指定`文字`的`倾斜`
     /// - Parameters:
-    ///   - obliqueness: 倾斜
-    ///   - text: 文本
-    /// - Returns: `NSAttributedString`
+    ///   - obliqueness:倾斜
+    ///   - text:文本
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setObliqueness(
         _ obliqueness: Float = 0,
@@ -374,10 +374,10 @@ public extension NSAttributedString {
 
     /// 插入`图片附件`到指定字符`index`,
     /// - Parameters:
-    ///   - source: 资源类型可为(`图片名称`/`图片URL`/`图片路径`/`网络图片`)网络图片需指定`bounds`
-    ///   - bounds: 图片的大小,默认`.zero`(以底部基线为基准`y>0: 图片向上移动 y<0: 图片向下移动`)
-    ///   - index: 图片的位置,默认插入到开头
-    /// - Returns: `NSAttributedString`
+    ///   - source:资源类型可为(`图片名称`/`图片URL`/`图片路径`/`网络图片`)网络图片需指定`bounds`
+    ///   - bounds:图片的大小,默认`.zero`(以底部基线为基准`y>0:图片向上移动 y<0:图片向下移动`)
+    ///   - index:图片的位置,默认插入到开头
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func set(
         image source: String,
@@ -398,9 +398,9 @@ public extension NSAttributedString {
 
     /// 设置`range`内的`属性`
     /// - Parameters:
-    ///   - attributes: 属性
-    ///   - range: 范围
-    /// - Returns: `NSMutableAttributedString`
+    ///   - attributes:属性
+    ///   - range:范围
+    /// - Returns:`NSMutableAttributedString`
     @discardableResult
     func setAttributes(
         _ attributes: [NSAttributedString.Key: Any],
@@ -417,9 +417,9 @@ public extension NSAttributedString {
 
     /// 设置指定`文本`的`属性`
     /// - Parameters:
-    ///   - attributes: 属性
-    ///   - text: 文本
-    /// - Returns: `NSMutableAttributedString`
+    ///   - attributes:属性
+    ///   - text:文本
+    /// - Returns:`NSMutableAttributedString`
     @discardableResult
     func setAttributes(
         _ attributes: [NSAttributedString.Key: Any],
@@ -439,10 +439,10 @@ public extension NSAttributedString {
 
     /// 设置与`正则表达式`符合的`匹配项`的`属性`
     /// - Parameters:
-    ///   - attributes: 属性字典
-    ///   - pattern: 正则表达式
-    ///   - options: 匹配选项
-    /// - Returns: `NSAttributedString`
+    ///   - attributes:属性字典
+    ///   - pattern:正则表达式
+    ///   - options:匹配选项
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setAttributes(
         _ attributes: [Key: Any],
@@ -463,9 +463,9 @@ public extension NSAttributedString {
 
     /// 将`属性`设置到与`target`匹配的结果
     /// - Parameters:
-    ///   - attributes: 属性字典
-    ///   - target: 目标字符串
-    /// - Returns: `NSAttributedString`
+    ///   - attributes:属性字典
+    ///   - target:目标字符串
+    /// - Returns:`NSAttributedString`
     @discardableResult
     func setAttributes<T: StringProtocol>(
         attributes: [Key: Any],

@@ -173,8 +173,8 @@ public extension UIButton {
     /// 按枚举将 btn 的 image 和 title 之间位置处理
     ///  ⚠️ frame 大小必须已确定
     /// - Parameters:
-    ///   - padding: 间距
-    ///   - style: 布局样式
+    ///   - padding:间距
+    ///   - style:布局样式
     func changeLayout(_ padding: CGFloat, style: CMButtonLyoutStyle) {
         let imageRect: CGRect = imageView?.frame ?? .zero
         let titleRect: CGRect = titleLabel?.frame ?? .zero
@@ -250,9 +250,9 @@ public extension UIButton {
 public extension UIButton {
     /// `button`的事件
     /// - Parameters:
-    ///   - controlEvents: 事件类型,默认是 `touchUpInside`
-    ///   - buttonCallBack: 事件
-    /// - Returns: 闭包事件
+    ///   - controlEvents:事件类型,默认是 `touchUpInside`
+    ///   - buttonCallBack:事件
+    /// - Returns:闭包事件
     func addActionHandler(_ action: ((_ button: UIButton?) -> Void)?, controlEvent: UIControl.Event = .touchUpInside) {
         swiftCallback = action
         addTarget(self, action: #selector(swiftButtonAction), for: controlEvent)
@@ -275,7 +275,7 @@ extension UIButton: AssociateCompatible {
 // MARK: - Button扩大点击事件
 public extension UIButton {
     /// 扩大UIButton的点击区域,向四周扩展10像素的点击范围
-    /// - Parameter size: 向四周扩展像素的点击范围
+    /// - Parameter size:向四周扩展像素的点击范围
     func expandSize(size: CGFloat) {
         objc_setAssociatedObject(self, &AssociateKeys.expandSize, size, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY)
     }
@@ -309,27 +309,27 @@ public extension UIButton {
     }
 
     /// 为按钮的所有状态设置同样的图片
-    /// - Parameter image: 要设置的图片
+    /// - Parameter image:要设置的图片
     func setImageForAllStates(_ image: UIImage) {
         states.forEach { setImage(image, for: $0) }
     }
 
     /// 为按钮的所有状态设置同样的标题颜色
-    /// - Parameter color: 要设置的颜色
+    /// - Parameter color:要设置的颜色
     func setTitleColorForAllStates(_ color: UIColor) {
         states.forEach { setTitleColor(color, for: $0) }
     }
 
     /// 为按钮的所有状态设置同样的标题
-    /// - Parameter title: 标题文字
+    /// - Parameter title:标题文字
     func setTitleForAllStates(_ title: String) {
         states.forEach { setTitle(title, for: $0) }
     }
 
     /// 将标题文本和图像居中对齐
     /// - Parameters:
-    ///   - imageAboveText: 设置为true可使图像位于标题文本上方,默认值为false,图像位于文本左侧
-    ///   - spacing: 标题文本和图像之间的间距
+    ///   - imageAboveText:设置为true可使图像位于标题文本上方,默认值为false,图像位于文本左侧
+    ///   - spacing:标题文本和图像之间的间距
     func centerTextAndImage(imageAboveText: Bool = false, spacing: CGFloat) {
         if imageAboveText {
             guard
@@ -366,9 +366,9 @@ public extension UIButton {
 
     /// 设置`title`
     /// - Parameters:
-    ///   - text: 文字
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - text:文字
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func title(_ text: String, _ state: UIControl.State = .normal) -> Self {
         setTitle(text, for: state)
@@ -377,9 +377,9 @@ public extension UIButton {
 
     /// 设置属性文本标题
     /// - Parameters:
-    ///   - title: 属性文本标题
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - title:属性文本标题
+    ///   - state:状态
+    /// - Returns:`Self`
     func attributedTitle(_ title: NSAttributedString?, _ state: UIControl.State = .normal) -> Self {
         setAttributedTitle(title, for: state)
         return self
@@ -387,9 +387,9 @@ public extension UIButton {
 
     /// 设置文字颜色
     /// - Parameters:
-    ///   - color: 文字颜色
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - color:文字颜色
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func titleColor(_ color: UIColor, _ state: UIControl.State = .normal) -> Self {
         setTitleColor(color, for: state)
@@ -398,9 +398,9 @@ public extension UIButton {
 
     /// 设置文字颜色
     /// - Parameters:
-    ///   - hex: 文字颜色
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - hex:文字颜色
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func titleColor(_ hex: String, _ state: UIControl.State = .normal) -> Self {
         setTitleColor(UIColor(hex: hex), for: state)
@@ -408,8 +408,8 @@ public extension UIButton {
     }
 
     /// 设置字体
-    /// - Parameter font: 字体
-    /// - Returns: `Self`
+    /// - Parameter font:字体
+    /// - Returns:`Self`
     @discardableResult
     func font(_ font: UIFont) -> Self {
         titleLabel?.font = font
@@ -417,8 +417,8 @@ public extension UIButton {
     }
 
     /// 设置系统字体
-    /// - Parameter fontSize: 字体大小
-    /// - Returns: `Self`
+    /// - Parameter fontSize:字体大小
+    /// - Returns:`Self`
     @discardableResult
     func systemFont(_ fontSize: CGFloat) -> Self {
         titleLabel?.font = .systemFont(ofSize: fontSize)
@@ -426,8 +426,8 @@ public extension UIButton {
     }
 
     /// 设置系统粗体
-    /// - Parameter fontSize: 字体大小
-    /// - Returns: `Self`
+    /// - Parameter fontSize:字体大小
+    /// - Returns:`Self`
     @discardableResult
     func boldSystemFont(_ fontSize: CGFloat) -> Self {
         titleLabel?.font = UIFont.boldSystemFont(ofSize: fontSize)
@@ -436,9 +436,9 @@ public extension UIButton {
 
     /// 设置图片
     /// - Parameters:
-    ///   - image: 图片
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - image:图片
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func image(_ image: UIImage?, _ state: UIControl.State = .normal) -> Self {
         setImage(image, for: state)
@@ -447,10 +447,10 @@ public extension UIButton {
 
     /// 设置图片(通过Bundle加载)
     /// - Parameters:
-    ///   - bundle: Bundle
-    ///   - imageName: 图片名字
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - bundle:Bundle
+    ///   - imageName:图片名字
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func image(in bundle: Bundle? = nil, _ imageName: String, _ state: UIControl.State = .normal) -> Self {
         let image = UIImage(named: imageName, in: bundle, compatibleWith: nil)
@@ -460,11 +460,11 @@ public extension UIButton {
 
     /// 设置图片(通过`Bundle`加载)
     /// - Parameters:
-    ///   - aClass: `className` `bundle`所在的类的类名
-    ///   - bundleName: `bundle` 的名字
-    ///   - imageName: 图片的名字
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - aClass:`className` `bundle`所在的类的类名
+    ///   - bundleName:`bundle` 的名字
+    ///   - imageName:图片的名字
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func image(forParent aClass: AnyClass, bundleName: String, _ imageName: String, _ state: UIControl.State = .normal) -> Self {
         guard let path = Bundle(for: aClass).path(forResource: bundleName, ofType: "bundle") else {
@@ -477,9 +477,9 @@ public extension UIButton {
 
     /// 设置图片(纯颜色的图片)
     /// - Parameters:
-    ///   - color: 图片颜色
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - color:图片颜色
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func image(_ color: UIColor, _ size: CGSize = CGSize(width: 20.0, height: 20.0), _ state: UIControl.State = .normal) -> Self {
         let image = UIImage(color, size: size)
@@ -489,9 +489,9 @@ public extension UIButton {
 
     /// 设置背景图片
     /// - Parameters:
-    ///   - image: 图片
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - image:图片
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func backgroundImage(_ image: UIImage?, _ state: UIControl.State = .normal) -> Self {
         setBackgroundImage(image, for: state)
@@ -500,11 +500,11 @@ public extension UIButton {
 
     /// 设置背景图片(通过Bundle加载)
     /// - Parameters:
-    ///   - aClass: className bundle所在的类的类名
-    ///   - bundleName: bundle 的名字
-    ///   - imageName: 图片的名字
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - aClass:className bundle所在的类的类名
+    ///   - bundleName:bundle 的名字
+    ///   - imageName:图片的名字
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func backgroundImage(forParent aClass: AnyClass, bundleName: String, _ imageName: String, state: UIControl.State = .normal) -> Self {
         guard let path = Bundle(for: aClass).path(forResource: bundleName, ofType: "bundle") else {
@@ -517,10 +517,10 @@ public extension UIButton {
 
     /// 设置背景图片(通过Bundle加载)
     /// - Parameters:
-    ///   - bundle: Bundle
-    ///   - imageName: 图片的名字
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - bundle:Bundle
+    ///   - imageName:图片的名字
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func backgroundImage(in bundle: Bundle? = nil, _ imageName: String, _ state: UIControl.State = .normal) -> Self {
         let image = UIImage(named: imageName, in: bundle, compatibleWith: nil)
@@ -530,9 +530,9 @@ public extension UIButton {
 
     /// 设置背景图片(纯颜色的图片)
     /// - Parameters:
-    ///   - color: 背景色
-    ///   - state: 状态
-    /// - Returns: `Self`
+    ///   - color:背景色
+    ///   - state:状态
+    /// - Returns:`Self`
     @discardableResult
     func backgroundImage(_ color: UIColor, _ state: UIControl.State = .normal) -> Self {
         let image = UIImage(color)

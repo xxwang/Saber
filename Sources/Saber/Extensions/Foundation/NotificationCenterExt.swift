@@ -4,9 +4,9 @@ import Foundation
 public extension NotificationCenter {
     /// 发送通知
     /// - Parameters:
-    ///   - name: 通知名称
-    ///   - object: 对象
-    ///   - userInfo: 携带信息
+    ///   - name:通知名称
+    ///   - object:对象
+    ///   - userInfo:携带信息
     static func post(
         _ name: Notification.Name,
         object: Any? = nil,
@@ -19,10 +19,10 @@ public extension NotificationCenter {
 
     /// 添加通知监听(方法)
     /// - Parameters:
-    ///   - observer: 监听者
-    ///   - selector: 响应方法
-    ///   - name: 通知名称
-    ///   - object: 对象
+    ///   - observer:监听者
+    ///   - selector:响应方法
+    ///   - name:通知名称
+    ///   - object:对象
     static func addObserver(
         _ observer: Any,
         selector: Selector,
@@ -34,9 +34,9 @@ public extension NotificationCenter {
 
     /// 移除监听者
     /// - Parameters:
-    ///   - observer: 要移除的监听者
-    ///   - name: 通知名称
-    ///   - object: 对象
+    ///   - observer:要移除的监听者
+    ///   - name:通知名称
+    ///   - object:对象
     static func removeObserver(
         _ observer: Any,
         name: Notification.Name? = nil,

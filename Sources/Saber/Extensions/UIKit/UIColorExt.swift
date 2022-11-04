@@ -49,7 +49,7 @@ public extension UIColor {
         return "#\(chrs[0])\(chrs[2])\(chrs[4])"
     }
 
-    /// 把`UIColor`转成`(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)`元组
+    /// 把`UIColor`转成`(red:CGFloat, green:CGFloat, blue:CGFloat, alpha:CGFloat)`元组
     var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         let numberOfComponents = self.cgColor.numberOfComponents
         guard let components = self.cgColor.components else {
@@ -65,10 +65,10 @@ public extension UIColor {
     }
 
     /// 返回HSBA模式颜色
-    /// - hue: 色相
-    /// - saturation: 饱和度
-    /// - brightness: 亮度
-    /// - alpha: 透明度
+    /// - hue:色相
+    /// - saturation:饱和度
+    /// - brightness:亮度
+    /// - alpha:透明度
     var hsba: (hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
         var h: CGFloat = 0
         var s: CGFloat = 0
@@ -135,10 +135,10 @@ public extension UIColor {
     /// 使用`RGB值`创建`UIColor`(0-255)
     ///
     /// - Parameters:
-    ///   - red: 红色
-    ///   - green: 绿色
-    ///   - blue: 蓝色
-    ///   - transparency: 透明度
+    ///   - red:红色
+    ///   - green:绿色
+    ///   - blue:蓝色
+    ///   - transparency:透明度
     convenience init?(red: Int, green: Int, blue: Int, transparency: CGFloat = 1) {
         guard red >= 0, red <= 255 else { return nil }
         guard green >= 0, green <= 255 else { return nil }
@@ -153,8 +153,8 @@ public extension UIColor {
 
     /// 使用16进制`Int`值和透明度创建`UIColor`
     /// - Parameters:
-    ///   - int: 16进制`Int`值
-    ///   - alpha: 透明度
+    ///   - int:16进制`Int`值
+    ///   - alpha:透明度
     convenience init(hex int: Int, alpha: CGFloat = 1.0) {
         let red = CGFloat((int & 0xFF0000) >> 16)
         let green = CGFloat((int & 0xFF00) >> 8)
@@ -164,8 +164,8 @@ public extension UIColor {
 
     /// 使用`十六进制颜色字符串`创建`UIColor`
     /// - Parameters:
-    ///   - string: 十六进制颜色字符串
-    ///   - alpha: 透明度
+    ///   - string:十六进制颜色字符串
+    ///   - alpha:透明度
     convenience init(hex string: String, alpha: CGFloat = 1.0) {
         // 去除前后空格及换行符
         var hex = string.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -204,7 +204,7 @@ public extension UIColor {
 
     /// 使用`十六进制ARGB颜色字符串`创建`UIColor`
     /// - Parameters:
-    ///   - string: `十六进制ARGB`颜色字符串(例如: 7FEDE7F6、0x7FEDE7F6、#7FEDE7F6、#f0ff、0xFF0F)
+    ///   - string:`十六进制ARGB`颜色字符串(例如:7FEDE7F6、0x7FEDE7F6、#7FEDE7F6、#f0ff、0xFF0F)
     convenience init?(hexARGB string: String) {
         // 移除字符串中的"0x"和"#"
         var string = string.replacingOccurrences(of: "0x", with: "").replacingOccurrences(of: "#", with: "")
@@ -229,7 +229,7 @@ public extension UIColor {
     }
 
     /// 根据特定颜色创建该颜色的互补色
-    /// - Parameter color: 创建互补色的基准颜色
+    /// - Parameter color:创建互补色的基准颜色
     convenience init?(complementaryFor color: UIColor) {
         let colorSpaceRGB = CGColorSpaceCreateDeviceRGB()
         let convertColorToRGBSpace: ((_ color: UIColor) -> UIColor?) = { color -> UIColor? in
@@ -255,8 +255,8 @@ public extension UIColor {
 
     /// 为明暗模式创建不同颜色的UIColor
     /// - Parameters:
-    /// - light: 高亮颜色
-    /// - dark: 暗调颜色
+    /// - light:高亮颜色
+    /// - dark:暗调颜色
     convenience init(light: UIColor, dark: UIColor) {
         if #available(iOS 13.0, tvOS 13.0, *) {
             self.init(dynamicProvider: { $0.userInterfaceStyle == .dark ? dark : light })
@@ -267,11 +267,11 @@ public extension UIColor {
 
     /// 创建一个渐变颜色
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - colors: 颜色数组
-    ///   - locations: 位置数组
-    ///   - type: 渐变类型
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - colors:颜色数组
+    ///   - locations:位置数组
+    ///   - type:渐变类型
     convenience init?(
         _ size: CGSize,
         direction: CMGradientDirection,
@@ -422,8 +422,8 @@ public extension UIColor {
     }
 
     /// 比较两个颜色是否一样
-    /// - Parameter color: 要比较的颜色
-    /// - Returns: 是否一样
+    /// - Parameter color:要比较的颜色
+    /// - Returns:是否一样
     func isDistinct(from color: UIColor) -> Bool {
         let bg = rgbComponents()
         let fg = color.rgbComponents()
@@ -443,8 +443,8 @@ public extension UIColor {
     }
 
     /// 两个颜色是否不一样
-    /// - Parameter color: 要比较的颜色
-    /// - Returns: 是否不一样
+    /// - Parameter color:要比较的颜色
+    /// - Returns:是否不一样
     func isContrasting(with color: UIColor) -> Bool {
         let bg = rgbComponents()
         let fg = color.rgbComponents()
@@ -463,11 +463,11 @@ public extension UIColor {
 public extension UIColor {
     /// 混合特定的两个颜色
     /// - Parameters:
-    ///   - color1: 要混合的第一个颜色
-    ///   - intensity1: 第一个颜色的强度(默认值为0.5)
-    ///   - color2: 要混合的第二个颜色
-    ///   - intensity2: 第二个颜色的强度(默认值为0.5)
-    /// - Returns: 混合后的新颜色
+    ///   - color1:要混合的第一个颜色
+    ///   - intensity1:第一个颜色的强度(默认值为0.5)
+    ///   - color2:要混合的第二个颜色
+    ///   - intensity2:第二个颜色的强度(默认值为0.5)
+    /// - Returns:混合后的新颜色
     static func blend(
         _ color1: UIColor,
         intensity1: CGFloat = 0.5,
@@ -515,11 +515,11 @@ public extension UIColor {
 
     /// 以`HSB`模式混合颜色到当前颜色
     /// - Parameters:
-    ///   - hue: 色调
-    ///   - saturation: 饱和度
-    ///   - brightness: 亮度
-    ///   - alpha: 透明度
-    /// - Returns: `UIColor`
+    ///   - hue:色调
+    ///   - saturation:饱和度
+    ///   - brightness:亮度
+    ///   - alpha:透明度
+    /// - Returns:`UIColor`
     func add(hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) -> UIColor {
         var (oldHue, oldSat, oldBright, oldAlpha): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
         getHue(&oldHue, saturation: &oldSat, brightness: &oldBright, alpha: &oldAlpha)
@@ -538,11 +538,11 @@ public extension UIColor {
 
     /// 以`RGB`模式混合颜色到当前颜色
     /// - Parameters:
-    ///   - red: 红色
-    ///   - green: 绿色
-    ///   - blue: 蓝色
-    ///   - alpha: 透明度
-    /// - Returns: 混合后的新颜色
+    ///   - red:红色
+    ///   - green:绿色
+    ///   - blue:蓝色
+    ///   - alpha:透明度
+    /// - Returns:混合后的新颜色
     func add(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIColor {
         var (oldRed, oldGreen, oldBlue, oldAlpha): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
         getRed(&oldRed, green: &oldGreen, blue: &oldBlue, alpha: &oldAlpha)
@@ -555,8 +555,8 @@ public extension UIColor {
     }
 
     /// 以`HSB`模式混合一个`UIColor`对象到当前颜色
-    /// - Parameter color: 要混合的颜色
-    /// - Returns: `UIColor`
+    /// - Parameter color:要混合的颜色
+    /// - Returns:`UIColor`
     func add(hsb color: UIColor) -> UIColor {
         var (h, s, b, a): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
         color.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
@@ -564,15 +564,15 @@ public extension UIColor {
     }
 
     /// 以`RGB`模式混合一个`UIColor`对象到当前颜色
-    /// - Parameter color: 要混合的颜色
-    /// - Returns: `UIColor`
+    /// - Parameter color:要混合的颜色
+    /// - Returns:`UIColor`
     func add(rgb color: UIColor) -> UIColor {
         return add(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: 0)
     }
 
     /// 以`HSBA`模式混合一个`UIColor`对象到当前颜色
-    /// - Parameter color: 要混合的颜色
-    /// - Returns: `UIColor`
+    /// - Parameter color:要混合的颜色
+    /// - Returns:`UIColor`
     func add(hsba color: UIColor) -> UIColor {
         var (h, s, b, a): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
         color.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
@@ -580,15 +580,15 @@ public extension UIColor {
     }
 
     /// 以`RGBA`模式混合一个`UIColor`对象到当前颜色
-    /// - Parameter color: 要混合的颜色
-    /// - Returns: `UIColor`
+    /// - Parameter color:要混合的颜色
+    /// - Returns:`UIColor`
     func add(rgba color: UIColor) -> UIColor {
         return add(red: color.redComponent, green: color.greenComponent, blue: color.blueComponent, alpha: color.alphaComponent)
     }
 
     /// 根据`最小饱和度`调整颜色
-    /// - Parameter minSaturation: 最小饱和度
-    /// - Returns: `UIColor`
+    /// - Parameter minSaturation:最小饱和度
+    /// - Returns:`UIColor`
     func color(minSaturation: CGFloat) -> UIColor {
         var (hue, saturation, brightness, alpha): (CGFloat, CGFloat, CGFloat, CGFloat) = (0.0, 0.0, 0.0, 0.0)
         getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
@@ -600,11 +600,11 @@ public extension UIColor {
 
     /// 增加颜色对象的亮度
     ///
-    ///     let color = Color(red: r, green: g, blue: b, alpha: a)
-    ///     let lighterColor: Color = color.lighten(by: 0.2)
+    ///     let color = Color(red:r, green:g, blue:b, alpha:a)
+    ///     let lighterColor:Color = color.lighten(by:0.2)
     ///
-    /// - Parameter percentage: 增加亮度的值(0-1)
-    /// - Returns: 一个新的颜色对象
+    /// - Parameter percentage:增加亮度的值(0-1)
+    /// - Returns:一个新的颜色对象
     func lighten(by percentage: CGFloat = 0.2) -> UIColor {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         getRed(&red, green: &green, blue: &blue, alpha: &alpha)
@@ -616,11 +616,11 @@ public extension UIColor {
 
     /// 减少颜色对象的亮度(让颜色变暗)
     ///
-    ///     let color = Color(red: r, green: g, blue: b, alpha: a)
-    ///     let darkerColor: Color = color.darken(by: 0.2)
+    ///     let color = Color(red:r, green:g, blue:b, alpha:a)
+    ///     let darkerColor:Color = color.darken(by:0.2)
     ///
-    /// - Parameter percentage: 减少亮度的值(0-1)
-    /// - Returns: 一个新的颜色对象
+    /// - Parameter percentage:减少亮度的值(0-1)
+    /// - Returns:一个新的颜色对象
     func darken(by percentage: CGFloat = 0.2) -> UIColor {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         getRed(&red, green: &green, blue: &blue, alpha: &alpha)
@@ -635,11 +635,11 @@ public extension UIColor {
 public extension UIColor {
     /// 生成一个线性渐变颜色`UIColor`
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - colors: 颜色数组
-    ///   - locations: 位置数组
-    /// - Returns: `UIColor?`
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - colors:颜色数组
+    ///   - locations:位置数组
+    /// - Returns:`UIColor?`
     static func linearGradientColor(
         _ size: CGSize,
         direction: CMGradientDirection,
@@ -657,11 +657,11 @@ public extension UIColor {
 
     /// 生成一个线性渐变图层`CAGradientLayer`
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - colors: 颜色数组
-    ///   - locations: 位置数组
-    /// - Returns: `CAGradientLayer`
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - colors:颜色数组
+    ///   - locations:位置数组
+    /// - Returns:`CAGradientLayer`
     static func linearGradientLayer(
         _ size: CGSize,
         direction: CMGradientDirection,
@@ -679,11 +679,11 @@ public extension UIColor {
 
     /// 生成一个线性渐变图片`UIImage`
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - colors: 颜色数组
-    ///   - locations: 位置数组
-    /// - Returns: `UIImage`
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - colors:颜色数组
+    ///   - locations:位置数组
+    /// - Returns:`UIImage`
     static func linearGradientImage(
         _ size: CGSize,
         direction: CMGradientDirection,
@@ -710,10 +710,10 @@ public extension UIColor {
 public extension Array where Element == UIColor {
     /// 根据`UIColor`数组生成一个渐变颜色`UIColor`
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - locations: 位置数组
-    /// - Returns: `UIColor?`
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - locations:位置数组
+    /// - Returns:`UIColor?`
     func linearGradientColor(
         _ size: CGSize,
         direction: CMGradientDirection,
@@ -729,10 +729,10 @@ public extension Array where Element == UIColor {
 
     /// 根据`UIColor`数组生成一个渐变图层`CAGradientLayer`
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - locations: 位置数组
-    /// - Returns: `CAGradientLayer`
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - locations:位置数组
+    /// - Returns:`CAGradientLayer`
     func linearGradientLayer(
         _ size: CGSize,
         direction: CMGradientDirection,
@@ -748,10 +748,10 @@ public extension Array where Element == UIColor {
 
     /// 根据`UIColor`数组生成一个渐变图片`UIImage`
     /// - Parameters:
-    ///   - size: 渐变大小
-    ///   - direction: 渐变方向
-    ///   - locations: 位置数组
-    /// - Returns: `UIImage`
+    ///   - size:渐变大小
+    ///   - direction:渐变方向
+    ///   - locations:位置数组
+    /// - Returns:`UIImage`
     func linearGradientImage(
         _ size: CGSize,
         direction: CMGradientDirection,
@@ -769,15 +769,15 @@ public extension Array where Element == UIColor {
 // MARK: - 方法
 public extension UIColor {
     /// 设置颜色透明度
-    /// - Parameter value: 要设置的透明度
-    /// - Returns: `UIColor`
+    /// - Parameter value:要设置的透明度
+    /// - Returns:`UIColor`
     func alpha(_ value: CGFloat) -> UIColor {
         return withAlphaComponent(value)
     }
 
     /// 返回十六进制(长)颜色值字符串
-    /// - Parameter hashPrefix: 是否添加前缀
-    /// - Returns: `String`
+    /// - Parameter hashPrefix:是否添加前缀
+    /// - Returns:`String`
     func hexString(_ hashPrefix: Bool = true) -> String {
         var (r, g, b, a): (CGFloat, CGFloat, CGFloat, CGFloat) = (0.0, 0.0, 0.0, 0.0)
         getRed(&r, green: &g, blue: &b, alpha: &a)
@@ -786,8 +786,8 @@ public extension UIColor {
     }
 
     /// 颜色转图片
-    /// - Parameter size: 图片尺寸
-    /// - Returns: `UIImage`
+    /// - Parameter size:图片尺寸
+    /// - Returns:`UIImage`
     func image(by size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContext(rect.size)
@@ -806,9 +806,9 @@ public extension UIColor {
 public extension UIColor {
     /// 从字符串中提取十六进制颜色值创建`UIColor`
     /// - Parameters:
-    ///   - hex: 十六进制颜色字符串
-    ///   - alpha: 透明度
-    /// - Returns: `UIColor`
+    ///   - hex:十六进制颜色字符串
+    ///   - alpha:透明度
+    /// - Returns:`UIColor`
     static func proceesHex(hex: String, alpha: CGFloat) -> UIColor {
         /** 如果传入的字符串为空 */
         if hex.isEmpty {
@@ -869,33 +869,33 @@ public extension UIColor {
 // MARK: - 动态颜色
 public extension UIColor {
     /// 动态颜色为同一种颜色
-    /// - Parameter hex: 十六进制颜色字符串
-    /// - Returns: 颜色对象
+    /// - Parameter hex:十六进制颜色字符串
+    /// - Returns:颜色对象
     static func darkModeColor(hex: String) -> UIColor {
         return darkModeColor(lightColor: hex, darkColor: hex)
     }
 
     /// 生成一个动态颜色(十六进制 字符串格式)
     /// - Parameters:
-    ///   - lightColor: 高亮颜色(默认颜色)
-    ///   - darkColor: 暗调颜色
-    /// - Returns: 动态颜色
+    ///   - lightColor:高亮颜色(默认颜色)
+    ///   - darkColor:暗调颜色
+    /// - Returns:动态颜色
     static func darkModeColor(lightColor: String, darkColor: String) -> UIColor {
         return darkModeColor(lightColor: UIColor(hex: lightColor), darkColor: UIColor(hex: darkColor))
     }
 
     /// 动态颜色为同一种颜色
-    /// - Parameter hex: 十六进制颜色字符串
-    /// - Returns: 颜色对象
+    /// - Parameter hex:十六进制颜色字符串
+    /// - Returns:颜色对象
     static func darkModeColor(color: UIColor) -> UIColor {
         return darkModeColor(lightColor: color, darkColor: color)
     }
 
     /// 深色模式和浅色模式颜色设置,非layer颜色设置
     /// - Parameters:
-    ///   - lightColor: 浅色模式的颜色
-    ///   - darkColor: 深色模式的颜色
-    /// - Returns: 返回一个颜色(UIColor)
+    ///   - lightColor:浅色模式的颜色
+    ///   - darkColor:深色模式的颜色
+    /// - Returns:返回一个颜色(UIColor)
     static func darkModeColor(lightColor: UIColor, darkColor: UIColor) -> UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { traitCollection -> UIColor in

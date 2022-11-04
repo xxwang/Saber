@@ -44,9 +44,9 @@ public extension NSObject {
 @objc public extension NSObject {
     /// 交换类的两个方法(方法前需要`@objc dynamic`修饰)
     /// - Parameters:
-    ///   - originalSelector: 原始方法
-    ///   - newSelector: 新方法
-    /// - Returns: 是否交换成功
+    ///   - originalSelector:原始方法
+    ///   - newSelector:新方法
+    /// - Returns:是否交换成功
     class func hookClassMethod(
         of originalSelector: Selector,
         with newSelector: Selector
@@ -56,9 +56,9 @@ public extension NSObject {
 
     /// 交换对象的两个方法(方法前需要`@objc dynamic`修饰)
     /// - Parameters:
-    ///   - originalSelector: 原始方法
-    ///   - newSelector: 新方法
-    /// - Returns: 是否交换成功
+    ///   - originalSelector:原始方法
+    ///   - newSelector:新方法
+    /// - Returns:是否交换成功
     class func hookInstanceMethod(
         of originalSelector: Selector,
         with newSelector: Selector
@@ -68,10 +68,10 @@ public extension NSObject {
 
     /// 交换类的两个方法(方法前需要`@objc dynamic`修饰)
     /// - Parameters:
-    ///   - originalSelector: 原始方法
-    ///   - newSelector: 新方法
-    ///   - isClassMethod: 是否是类的方法
-    /// - Returns: 是否交换成功
+    ///   - originalSelector:原始方法
+    ///   - newSelector:新方法
+    ///   - isClassMethod:是否是类的方法
+    /// - Returns:是否交换成功
     class func hookMethod(
         of originalSelector: Selector,
         with newSelector: Selector,
@@ -134,8 +134,8 @@ public extension NSObject {
     private class func hook_setValues() {
         let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.once(token: onceToken) {
-            let oriSel = #selector(self.setValue(_: forUndefinedKey:))
-            let repSel = #selector(self.hook_setValue(_: forUndefinedKey:))
+            let oriSel = #selector(self.setValue(_:forUndefinedKey:))
+            let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
             _ = hookInstanceMethod(of: oriSel, with: repSel)
 
             let oriSel0 = #selector(self.value(forUndefinedKey:))
@@ -154,18 +154,18 @@ public extension NSObject {
 
     /// 如果键不存在会调用这个方法
     private func hook_setValue(_ value: Any?, forUndefinedKey key: String) {
-        Log.warning("setValue(_: forUndefinedKey:), 未知键Key: \(key) 值: \(value ?? "")")
+        Log.warning("setValue(_:forUndefinedKey:), 未知键Key:\(key) 值:\(value ?? "")")
     }
 
     /// 如果键不存在会调用这个方法
     private func hook_value(forUndefinedKey key: String) -> Any? {
-        Log.warning("value(forUndefinedKey:), 未知键: \(key)")
+        Log.warning("value(forUndefinedKey:), 未知键:\(key)")
         return nil
     }
 
     /// 给一个非指针对象(如`NSInteger`)赋值 `nil`, 直接忽略
     private func hook_setNilValueForKey(_ key: String) {
-        Log.info("setNilValueForKey(_:), 不能给非指针对象(如NSInteger)赋值 nil 键: \(key)")
+        Log.info("setNilValueForKey(_:), 不能给非指针对象(如NSInteger)赋值 nil 键:\(key)")
     }
 
     /// 用于替换`setValuesForKeys(_:)`
