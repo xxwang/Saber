@@ -286,7 +286,7 @@ public extension UIView {
     }
 
     /// 以bounds为基准的中心点
-    var thisMid: CGPoint {
+    var middle: CGPoint {
         get {
             return CGPoint(x: self.width / 2, y: self.height / 2)
         }
