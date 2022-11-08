@@ -245,6 +245,26 @@ public extension UIView {
         }
     }
 
+    /// 控件的宽度
+    var width: CGFloat {
+        get { return frame.width }
+        set {
+            var temp: CGRect = frame
+            temp.size.width = newValue
+            frame = temp
+        }
+    }
+
+    /// 控件的高度
+    var height: CGFloat {
+        get { return frame.height }
+        set {
+            var temp: CGRect = frame
+            temp.size.height = newValue
+            frame = temp
+        }
+    }
+
     /// 控件中心点X
     var centerX: CGFloat {
         get { return center.x }
@@ -265,23 +285,16 @@ public extension UIView {
         }
     }
 
-    /// 控件的宽度
-    var width: CGFloat {
-        get { return frame.width }
-        set {
-            var temp: CGRect = frame
-            temp.size.width = newValue
-            frame = temp
+    /// 以bounds为基准的中心点
+    var thisMid: CGPoint {
+        get {
+            return CGPoint(x: self.width / 2, y: self.height / 2)
         }
-    }
-
-    /// 控件的高度
-    var height: CGFloat {
-        get { return frame.height }
         set {
-            var temp: CGRect = frame
-            temp.size.height = newValue
-            frame = temp
+            self.origin = CGPoint(
+                x: newValue.x - self.width / 2,
+                y: newValue.y - self.height / 2
+            )
         }
     }
 
