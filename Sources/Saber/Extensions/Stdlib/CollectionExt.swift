@@ -12,6 +12,7 @@ public extension Collection {
 // MARK: - 下标
 public extension Collection {
     /// 从集合中安全的读取数据(下标不存在返回`nil`)
+    ///
     ///     let arr = [1, 2, 3, 4, 5]
     ///     arr[safe:1] -> 2
     ///     arr[safe:10] -> nil
@@ -53,11 +54,11 @@ public extension Collection {
         return slices
     }
 
-    /// 获取满足条件的元素索引
-    ///
-    ///     [1, 7, 1, 2, 4, 1, 8].indices(where:{ $0 == 1 }) -> [0, 2, 5]
-    /// - Parameters condition:条件闭包
-    /// - Returns:索引数组(如果没有返回nil)
+        /// 获取满足条件的元素索引
+        ///
+        ///     [1, 7, 1, 2, 4, 1, 8].indices(where:{ $0 == 1 }) -> [0, 2, 5]
+        /// - Parameter condition: 条件闭包
+        /// - Returns: 索引数组(如果没有返回`nil`)
     func indices(where condition: (Element) throws -> Bool) rethrows -> [Index]? {
         let indices = try self.indices.filter { try condition(self[$0]) }
         return indices.isEmpty ? nil : indices
@@ -111,7 +112,6 @@ public extension Collection where Element: FloatingPoint {
     /// 计算集合中元素的平均值
     ///
     ///     [1.2, 2.3, 4.5, 3.4, 4.5].average() = 3.18
-    ///
     /// - Returns:平均值
     func average() -> Element {
         guard !isEmpty else { return .zero }

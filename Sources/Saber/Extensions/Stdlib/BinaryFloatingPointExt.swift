@@ -3,72 +3,72 @@ import Foundation
 
 // MARK: - 属性
 public extension BinaryFloatingPoint {
-    /// 转Int
+    /// 转`Int`
     var int: Int {
         return Int(self)
     }
 
-    /// 转UInt
+    /// 转`UInt`
     var uInt: UInt {
         return UInt(self)
     }
 
-    /// 转Int64
+    /// 转`Int64`
     var int64: Int64 {
         return Int64(self)
     }
 
-    /// 转UInt64
+    /// 转`UInt64`
     var uInt64: UInt64 {
         return UInt64(self)
     }
 
-    /// 转Float
+    /// 转`Float`
     var float: Float {
         return Float(self)
     }
 
-    /// 转Double
+    /// 转`Double`
     var double: Double {
         return Double(self)
     }
 
-    /// 转CGFloat
+    /// 转`CGFloat`
     var cgFloat: CGFloat {
         return CGFloat(self)
     }
 
-    /// 四舍五入转Int
+    /// 四舍五入转`Int`
     var lround: Int {
         return Darwin.lround(Double(self))
     }
 
-    /// 转NSNumber
+    /// 转`NSNumber`
     var nsNumber: NSNumber {
         return NSNumber(value: double)
     }
 
-    /// 转NSDecimalNumber
+    /// 转`NSDecimalNumber`
     var decimalNumber: NSDecimalNumber {
         return NSDecimalNumber(value: double)
     }
 
-    /// 转Decimal
+    /// 转`Decimal`
     var decimal: Decimal {
         return decimalNumber.decimalValue
     }
 
-    /// 转String
+    /// 转`String`
     var string: String {
         return String(double)
     }
 
-    /// 生成宽高相同的CGSize
+    /// 生成宽高相同的`CGSize`
     var size: CGSize {
         return CGSize(width: cgFloat, height: cgFloat)
     }
 
-    /// 生成(x,y)相同的CGPoint
+    /// 生成`(x,y)`相同的`CGPoint`
     var point: CGPoint {
         return CGPoint(x: cgFloat, y: cgFloat)
     }
@@ -137,7 +137,7 @@ public extension BinaryFloatingPoint {
         return (self * factor).rounded(rule) / factor
     }
 
-    /// 转时间长度字符串(单位:秒)长度转换成00'00"格式(分'秒")
+    /// 转时间长度字符串(单位:`秒`)长度转换成`00'00`格式(`分'秒"`)
     func duration() -> String {
         let minute = int / 60
         let second = int % 60

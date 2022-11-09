@@ -3,7 +3,7 @@ import UIKit
 
 // MARK: - 属性
 public extension CGColor {
-    /// UIColor
+    /// `CGColor`转`UIColor`
     var uiColor: UIColor? {
         return UIColor(cgColor: self)
     }

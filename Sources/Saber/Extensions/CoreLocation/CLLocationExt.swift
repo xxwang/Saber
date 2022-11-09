@@ -3,7 +3,7 @@ import Foundation
 
 // MARK: - 静态方法
 public extension CLLocation {
-    /// 两个`CLLocation`之间的距离(米)
+    /// 两个`CLLocation`之间的距离(`米`)
     /// - Parameters:
     ///   - start:开始位置
     ///   - end:结束位置
@@ -34,17 +34,18 @@ public extension CLLocation {
 
 // MARK: - 方法
 public extension CLLocation {
-    /// 计算self和另一个点之间的大圆路径的中间点
-    /// - Parameters point:结束位置
-    /// - Returns:表示中间点的位置
+
+        /// 计算`self`和另一个点之间的大圆路径的中间点
+        /// - Parameter point: 结束位置
+        /// - Returns: 表示中间点的位置
     func midLocation(to point: CLLocation) -> CLLocation {
         return CLLocation.midLocation(self, point)
     }
 
-    /// 计算到另一个 CLLocation 的方位角
+    /// 计算到另一个`CLLocation` 的方位角
     /// - Parameters:
     ///   - destination:计算方位的位置
-    /// - Returns:在 0°... 360° 范围内计算出的方位角
+    /// - Returns:在 `0°... 360° `范围内计算出的方位角
     func bearing(to destination: CLLocation) -> Double {
         let lat1 = Double.pi * coordinate.latitude / 180.0
         let long1 = Double.pi * coordinate.longitude / 180.0

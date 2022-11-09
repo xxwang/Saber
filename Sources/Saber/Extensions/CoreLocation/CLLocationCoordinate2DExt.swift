@@ -11,9 +11,9 @@ public extension CLLocationCoordinate2D {
 
 // MARK: - 方法
 public extension CLLocationCoordinate2D {
-    /// 两个`CLLocationCoordinate2D`之间的距离(单位米)
+    /// 两个`CLLocationCoordinate2D`之间的距离(单位:`米`)
     /// - Parameter second:`CLLocationCoordinate2D`
-    /// - Returns:距离
+    /// - Returns:`距离`
     func distance(with second: CLLocationCoordinate2D) -> Double {
         return location.distance(from: second.location)
     }

@@ -3,44 +3,34 @@ import Foundation
 
 // MARK: - 属性
 public extension CGFloat {
-    /// Int
+    /// `CGFloat`转`Int`
     var int: Int {
         return Int(self)
     }
 
-    /// Int64
+    /// `CGFloat`转`Int64`
     var int64: Int64 {
         return Int64(self)
     }
 
-    /// Float
+    /// `CGFloat`转`Float`
     var float: Float {
         return Float(self)
     }
 
-    /// Double
+    /// `CGFloat`转`Double`
     var double: Double {
         return Double(self)
     }
 
-    /// NSNumber
+    /// `CGFloat`转`NSNumber`
     var nsNumber: NSNumber {
         return NSNumber(value: double)
     }
 
-    /// String
+    /// `CGFloat`转`String`
     var string: String {
         return String(double)
-    }
-
-    /// 角转弧度
-    var degreesAsRadians: CGFloat {
-        return (Double.pi * self) / 180.0
-    }
-
-    /// 弧度转角
-    var radiansAsDegrees: CGFloat {
-        return (self * 180.0) / Double.pi
     }
 
     /// 绝对值
@@ -68,12 +58,12 @@ public extension CGFloat {
         return self < 0
     }
 
-    /// 宽高相同的CGSize
+    /// 宽高相同的`CGSize`
     var cgSize: CGSize {
         return CGSize(width: self, height: self)
     }
 
-    /// 宽高相同的CGPoint
+    /// 宽高相同的`CGPoint`
     var cgPoint: CGPoint {
         return CGPoint(x: self, y: self)
     }
@@ -81,10 +71,20 @@ public extension CGFloat {
 
 // MARK: - 方法
 public extension CGFloat {
+    /// 角度转弧度
+    func angle2radian() -> Self {
+        return self * .pi / 180.0
+    }
+
+    /// 弧度转角度
+    func radian2angle() -> Self {
+        return self * 180.0 / Double.pi
+    }
+
     /// 四舍五入到小数点后某一位
     /// - Parameter places:指定位数
     /// - Returns:四舍五入后的结果
-    func roundTo(_ places: Int) -> Double {
+    func round(_ places: Int) -> Self {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
     }

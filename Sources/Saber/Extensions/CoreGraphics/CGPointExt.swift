@@ -3,8 +3,8 @@ import Foundation
 
 // MARK: - 构造方法
 public extension CGPoint {
-    /// 构造一个`x,y`一致的CGPoint
-    /// - Parameter size:宽/高
+    /// 构造一个`x,y`一致的`CGPoint`
+    /// - Parameter value: 宽和高
     init(value: CGFloat) {
         self.init(x: value, y: value)
     }
@@ -58,7 +58,7 @@ public extension CGPoint {
         return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
     }
 
-    /// 向self添加另一个点
+    /// 向`self`添加另一个点
     ///
     ///     let point1 = CGPoint(x:10, y:10)
     ///     let point2 = CGPoint(x:30, y:30)
@@ -86,7 +86,7 @@ public extension CGPoint {
         return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
     }
 
-    /// 从self减去一个点
+    /// 从`self`减去一个点
     ///
     ///     let point1 = CGPoint(x:10, y:10)
     ///     let point2 = CGPoint(x:30, y:30)

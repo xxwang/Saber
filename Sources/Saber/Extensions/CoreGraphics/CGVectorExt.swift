@@ -3,12 +3,12 @@ import Foundation
 
 // MARK: - 属性
 public extension CGVector {
-    /// 向量的旋转角度(弧度).角度的范围是-π到π；向右0点的角度.
+    /// 向量的旋转角度(`弧度`).角度的范围是`-π`到`π`；向右`0点`的角度.
     var angle: CGFloat {
         return atan2(dy, dx)
     }
 
-    /// 向量的大小(长度)
+    /// 向量的大小(`长度`)
     var magnitude: CGFloat {
         return sqrt((dx * dx) + (dy * dy))
     }
@@ -16,13 +16,13 @@ public extension CGVector {
 
 // MARK: - 构造方法
 public extension CGVector {
-    /// 创建具有给定大小和角度的向量
-    ///
-    ///     let vector = CGVector(angle:.pi, magnitude:1)
-    /// - Parameters:
-    ///     - angle:从正x轴逆时针旋转的角度(弧度)
-    ///     - magnitude:向量的长度
-    ///
+
+        /// 创建具有给定大小和角度的向量
+        ///
+        ///     let vector = CGVector(angle:.pi, magnitude:1)
+        /// - Parameters:
+        ///   - angle: 从正`x`轴逆时针旋转的角度(弧度)
+        ///   - magnitude: 向量的长度
     init(angle: CGFloat, magnitude: CGFloat) {
         self.init(dx: magnitude * cos(angle), dy: magnitude * sin(angle))
     }
