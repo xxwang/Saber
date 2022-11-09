@@ -288,12 +288,12 @@ public extension UIView {
     /// 以bounds为基准的中心点
     var middle: CGPoint {
         get {
-            return CGPoint(x: self.width / 2, y: self.height / 2)
+            return CGPoint(x: width / 2, y: height / 2)
         }
         set {
-            self.origin = CGPoint(
-                x: newValue.x - self.width / 2,
-                y: newValue.y - self.height / 2
+            origin = CGPoint(
+                x: newValue.x - width / 2,
+                y: newValue.y - height / 2
             )
         }
     }

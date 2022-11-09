@@ -3,14 +3,6 @@ import Foundation
 private let calendar = Calendar.current
 private let dateFormatter = DateFormatter()
 
-// MARK: - 时间戳的类型枚举
-public enum CMTimestampType: Int {
-    /// 秒
-    case second
-    /// 毫秒
-    case millisecond
-}
-
 // MARK: - 时间条的显示格式枚举
 public enum CMTimeBarType {
     case normal
@@ -683,11 +675,11 @@ public extension Date {
 
     /// 带格式的时间转 时间戳,支持返回 13位 和 10位的时间戳,时间字符串和时间格式必须保持一致
     /// - Parameters:
-    ///   - timeString:时间字符串,如:2020-10-26 16:52:41
-    ///   - formatter:时间格式,如:yyyy-MM-dd HH:mm:ss
-    ///   - timestampType:返回的时间戳类型,默认是秒 10 为的时间戳字符串
-    /// - Returns:返回转化后的时间戳
-    static func dateStringAsTimestamp(timesString: String, formatter: String, timestampType: CMTimestampType = .second) -> String {
+    ///   - timeString:时间字符串,如:`2020-10-26 16:52:41`
+    ///   - formatter:时间格式,如:`yyyy-MM-dd HH:mm:ss`
+    ///   - isUnix: 是否是`Unix`时间戳
+    /// - Returns:时间戳字符串
+    static func dateStringAsTimestamp(timesString: String, formatter: String, isUnix: Bool = true) -> String {
         guard let date = dateFormatter.date(from: timesString) else {
             #if DEBUG
                 fatalError("时间有问题")
@@ -695,13 +687,13 @@ public extension Date {
                 return ""
             #endif
         }
-        if timestampType == .second {
+        if isUnix {
             return "\(Int(date.timeIntervalSince1970))"
         }
         return "\(Int(date.timeIntervalSince1970 * 1000))"
     }
 
-    /// 带格式的时间转 Date
+    /// 带格式的时间转 `Date`
     /// - Parameters:
     ///   - timesString:时间字符串
     ///   - formatter:格式
@@ -783,19 +775,18 @@ public extension Date {
                 return Date()
             #endif
         }
-        let timestampInt = timestamp.int ?? 0
-        let timestampValue = timestamp.count == 10 ? timestampInt : timestampInt / 1000
+        let timestampValue = timestamp.count == 10 ? timestamp.int : timestamp.int / 1000
         // 时间戳转为Date
         let date = Date(timeIntervalSince1970: TimeInterval(timestampValue))
         return date
     }
 
     /// `Date`转`时间戳`
-    /// - Parameter timestampType:返回的时间戳类型,默认是秒 10 为的时间戳字符串
+    /// - Parameter isUnix:是否是`Unix`格式时间戳
     /// - Returns:时间戳
-    func dateAsTimestamp(timestampType: CMTimestampType = .second) -> String {
+    func dateAsTimestamp(isUnix: Bool = true) -> String {
         // 10位数时间戳 和 13位数时间戳
-        let interval = timestampType == .second ? CLongLong(Int(timeIntervalSince1970)) : CLongLong(round(timeIntervalSince1970 * 1000))
+        let interval = isUnix ? CLongLong(Int(timeIntervalSince1970)) : CLongLong(round(timeIntervalSince1970 * 1000))
         return "\(interval)"
     }
 }

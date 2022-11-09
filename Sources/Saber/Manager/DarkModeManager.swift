@@ -216,8 +216,8 @@ public extension DarkModeManager {
         let currentDate = Date()
         let currentTimeStamp = Int(currentDate.dateAsTimestamp())!
         let dateString = currentDate.format("yyyy-MM-dd", isGMT: false)
-        let startTimeStamp = Int(Date.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[0], formatter: "yyyy-MM-dd HH:mm", timestampType: .second))!
-        var endTimeStamp = Int(Date.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[1], formatter: "yyyy-MM-dd HH:mm", timestampType: .second))!
+        let startTimeStamp = Int(Date.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[0], formatter: "yyyy-MM-dd HH:mm", isUnix: true))!
+        var endTimeStamp = Int(Date.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[1], formatter: "yyyy-MM-dd HH:mm", isUnix: true))!
         if startTimeStamp > endTimeStamp {
             endTimeStamp = endTimeStamp + 884_600
         }

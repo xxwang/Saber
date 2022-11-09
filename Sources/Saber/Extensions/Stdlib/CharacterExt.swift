@@ -15,19 +15,9 @@ public extension Character {
     var string: String {
         return String(self)
     }
-
-    /// 转换成小写字符
-    var lowercase: Character {
-        return String(self).lowercased().first!
-    }
-
-    /// 转换成大写字符
-    var uppercase: Character {
-        return String(self).uppercased().first!
-    }
 }
 
-// MARK: - emoji
+// MARK: - Emoji
 public extension Character {
     /// 简单的`emoji`是一个`标量`，以`emoji`的形式呈现给用户
     private var isSimpleEmoji: Bool {
@@ -37,13 +27,13 @@ public extension Character {
         return unicodeScalars.count > 1 && (firstProperties.isEmojiPresentation || firstProperties.generalCategory == .otherSymbol)
     }
 
-    /// 检查标量是否将合并到`emoji`中
+    /// 检查`标量`是否将合并到`emoji`中
     private var isCombinedIntoEmoji: Bool {
         return unicodeScalars.count > 1 &&
             unicodeScalars.contains { $0.properties.isJoinControl || $0.properties.isVariationSelector }
     }
 
-    /// 是否为`emoji`表情
+    /// 是否是表情字符
     /// - Note:http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
     var isEmoji: Bool {
         isSimpleEmoji || isCombinedIntoEmoji
@@ -52,7 +42,7 @@ public extension Character {
 
 // MARK: - 静态属性
 public extension Character {
-    /// 产生随机一个字符`(a-z A-Z 0-9)`
+    /// 随机产生一个字符`(a-z A-Z 0-9)`
     static var random: Character {
         return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()!
     }
@@ -60,7 +50,17 @@ public extension Character {
 
 // MARK: - 方法
 public extension Character {
-    /// 生成重复字符字符串
+    /// 转换成小写字符
+    func lowercase() -> Character {
+        return String(self).lowercased().first!
+    }
+
+    /// 转换成大写字符
+    func uppercase() -> Character {
+        return String(self).uppercased().first!
+    }
+
+    /// 生成重复`字符`字符串
     /// - Parameter count:字符个数
     /// - Returns:字符串
     func `repeat`(_ count: Int) -> String {
