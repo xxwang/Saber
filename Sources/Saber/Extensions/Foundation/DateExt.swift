@@ -3,16 +3,8 @@ import Foundation
 private let calendar = Calendar.current
 private let dateFormatter = DateFormatter()
 
-// MARK: - 时间条的显示格式枚举
-public enum CMTimeBarType {
-    case normal
-    case second
-    case minute
-    case hour
-}
-
 // MARK: - 日期名称格式枚举
-public enum CMDayNameStyle {
+public enum SBDayNameStyle {
     /// 日期名称的 3 个字母日期缩写
     case threeLetters
     /// 日期名称的 1 个字母日期缩写
@@ -22,7 +14,7 @@ public enum CMDayNameStyle {
 }
 
 // MARK: - 月份名称格式枚举
-public enum CMMonthNameStyle {
+public enum SBMonthNameStyle {
     /// 3 个字母月份的月份名称缩写
     case threeLetters
     /// 月份名称的 1 个字母月份缩写
@@ -673,7 +665,7 @@ public extension Date {
         return destinationDateNow
     }
 
-    /// 带格式的时间转 时间戳,支持返回 13位 和 10位的时间戳,时间字符串和时间格式必须保持一致
+    /// 带格式的时间转 时间戳,支持返回 `13位` 和 `10位`的时间戳,时间字符串和时间格式必须保持一致
     /// - Parameters:
     ///   - timeString:时间字符串,如:`2020-10-26 16:52:41`
     ///   - formatter:时间格式,如:`yyyy-MM-dd HH:mm:ss`
@@ -712,12 +704,13 @@ public extension Date {
     /// 秒转换成播放时间条的格式
     /// - Parameters:
     ///   - secounds:秒数
-    ///   - type:格式类型
+    ///   - type:格式类型`nil`为默认类型
     /// - Returns:返回时间条
-    static func formatPlayTime(seconds: Int, type: CMTimeBarType = .normal) -> String {
+    static func formatPlayTime(seconds: Int, type: Calendar.Component? = nil) -> String {
         if seconds <= 0 {
             return "00:00"
         }
+        
         // 秒
         let second = seconds % 60
         if type == .second {
@@ -873,21 +866,22 @@ public extension Date {
         return addingTimeInterval(secondFromGMT)
     }
 
-    /// 是否为  同一年  同一月 同一天
-    /// - Returns:bool
+    /// 是否为  `同一年`  `同一月` `同一天`
+    /// - Returns:`Bool`
     func isSameDay(date: Date) -> Bool {
         return Calendar.current.isDate(self, inSameDayAs: date)
     }
 
-    /// 日期的加减操作
+    /// 日期的`加减`操作
     /// - Parameter day:天数变化
-    /// - Returns:date
+    /// - Returns:`date`
     func adding(day: Int) -> Date? {
         return Calendar.current.date(byAdding: DateComponents(day: day), to: self)
     }
 
-    /// - Parameter date:date
-    /// - Returns:返回bool
+        /// 是否为  `同一年`  `同一月` `同一天`
+        /// - Parameter date: `date`
+        /// - Returns: `Bool`
     func isSameYeaerMountDay(_ date: Date) -> Bool {
         let com = Calendar.current.dateComponents([.year, .month, .day], from: self)
         let comToday = Calendar.current.dateComponents([.year, .month, .day], from: date)
@@ -935,7 +929,7 @@ public extension Date {
         return componentCompare(from: date, unit: [.second]).second
     }
 
-    /// 添加指定日历组件的值到Date
+    /// 添加指定日历组件的值到`Date`
     ///
     ///     let date = Date() // "Jan 12, 2017, 7:07 PM"
     ///     let date2 = date.adding(.minute, value:-10) // "Jan 12, 2017, 6:57 PM"
@@ -951,7 +945,7 @@ public extension Date {
         return calendar.date(byAdding: component, value: value, to: self)!
     }
 
-    /// 添加指定日历组件的值到Date
+    /// 添加指定日历组件的值到`Date`
     ///
     ///     var date = Date() // "Jan 12, 2017, 7:07 PM"
     ///     date.add(.minute, value:-10) // "Jan 12, 2017, 6:57 PM"
@@ -961,7 +955,7 @@ public extension Date {
     ///
     /// - Parameters:
     ///   - component:组件类型
-    ///   - value:要添加到Date的组件的值
+    ///   - value:要添加到`Date`的组件的值
     mutating func add(_ component: Calendar.Component, value: Int) {
         if let date = calendar.date(byAdding: component, value: value, to: self) {
             self = date
@@ -1155,7 +1149,7 @@ public extension Date {
     ///     Date().isInCurrent(.year) -> true
     ///
     /// - Parameter component:要检查的日历组件
-    /// - Returns:如果日期在当前给定的日历组件中,则返回 true
+    /// - Returns:如果日期在当前给定的日历组件中,则返回 `true`
     func isInCurrent(_ component: Calendar.Component) -> Bool {
         return calendar.isDate(self, equalTo: Date(), toGranularity: component)
     }
@@ -1167,7 +1161,7 @@ public extension Date {
     ///     Date().dateString(ofStyle:.long) -> "January 12, 2017"
     ///     Date().dateString(ofStyle:.full) -> "Thursday, January 12, 2017"
     ///
-    /// - Parameter style:日期格式的样式(默认 .medium).
+    /// - Parameter style:日期格式的样式(默认 `.medium`)
     /// - Returns:日期字符串
     func dateString(ofStyle style: DateFormatter.Style = .medium) -> String {
         let dateFormatter = DateFormatter()
@@ -1183,7 +1177,7 @@ public extension Date {
     ///     Date().dateTimeString(ofStyle:.long) -> "January 12, 2017 at 7:32:00 PM GMT+3"
     ///     Date().dateTimeString(ofStyle:.full) -> "Thursday, January 12, 2017 at 7:32:00 PM GMT+03:00"
     ///
-    /// - Parameter style:日期格式的样式(默认 .medium).
+    /// - Parameter style:日期格式的样式(默认 `.medium`)
     /// - Returns:日期和时间字符串
     func dateTimeString(ofStyle style: DateFormatter.Style = .medium) -> String {
         let dateFormatter = DateFormatter()
@@ -1199,7 +1193,7 @@ public extension Date {
     ///     Date().timeString(ofStyle:.long) -> "7:37:02 PM GMT+3"
     ///     Date().timeString(ofStyle:.full) -> "7:37:02 PM GMT+03:00"
     ///
-    /// - Parameter style:日期格式的样式(默认 .medium).
+    /// - Parameter style:日期格式的样式(默认 `.medium`)
     /// - Returns:时间字符串
     func timeString(ofStyle style: DateFormatter.Style = .medium) -> String {
         let dateFormatter = DateFormatter()
@@ -1214,9 +1208,9 @@ public extension Date {
     ///     Date().dayName(ofStyle:.threeLetters) -> "Thu"
     ///     Date().dayName(ofStyle:.full) -> "Thursday"
     ///
-    /// - Parameter Style:日期名称的样式(默认 DayNameStyle.full)
-    /// - Returns:日期名称字符串(例如:W、Wed、Wednesday)
-    func dayName(ofStyle style: CMDayNameStyle = .full) -> String {
+    /// - Parameter Style:日期名称的样式(默认 `DayNameStyle.full`)
+    /// - Returns:日期名称字符串(例如:`W、Wed、Wednesday`)
+    func dayName(ofStyle style: SBDayNameStyle = .full) -> String {
         let dateFormatter = DateFormatter()
         var format: String {
             switch style {
@@ -1238,9 +1232,9 @@ public extension Date {
     ///     Date().monthName(ofStyle:.threeLetters) -> "Jan"
     ///     Date().monthName(ofStyle:.full) -> "January"
     ///
-    /// - Parameter Style:月份名称的样式(默认 MonthNameStyle.full)
-    /// - Returns:月份名称字符串(例如:D、Dec、December)
-    func monthName(ofStyle style: CMMonthNameStyle = .full) -> String {
+    /// - Parameter Style:月份名称的样式(默认 `MonthNameStyle.full`)
+    /// - Returns:月份名称字符串(例如:`D、Dec、December`)
+    func monthName(ofStyle style: SBMonthNameStyle = .full) -> String {
         let dateFormatter = DateFormatter()
         var format: String {
             switch style {
@@ -1305,9 +1299,9 @@ public extension Date {
     ///
     /// - Parameters:
     ///   - value:要判断的值
-    ///   - component:Calendar.Component(要比较的组件)
+    ///   - component:`Calendar.Component`(要比较的组件)
     ///   - date:结束日期
-    /// - Returns:如果value在当前日期和指定日期的指定组件之中,则返回true
+    /// - Returns:如果`value`在当前日期和指定日期的指定组件之中,则返回`true`
     func isWithin(_ value: UInt, _ component: Calendar.Component, of date: Date) -> Bool {
         let components = calendar.dateComponents([component], from: self, to: date)
         let componentValue = components.value(for: component)!
