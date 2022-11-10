@@ -445,12 +445,12 @@ public extension String {
 
     /// 包含`emoji`表情
     var containsEmoji: Bool {
-        return contains { $0.isEmoji }
+        return contains { $0.sb.isEmoji() }
     }
 
     /// 只包含`emoji`表情
     var containsOnlyEmoji: Bool {
-        return !isEmpty && !contains { !$0.isEmoji }
+        return !isEmpty && !contains { !$0.sb.isEmoji() }
     }
 
     /// 提取`emoji`表情字符串
@@ -460,19 +460,19 @@ public extension String {
 
     /// 提取`emoji`表情数组
     var emojis: [Character] {
-        return filter { $0.isEmoji }
+        return filter { $0.sb.isEmoji() }
     }
 
     /// 提取单元编码标量
     var emojiScalars: [UnicodeScalar] {
-        return filter { $0.isEmoji }.flatMap { $0.unicodeScalars }
+        return filter { $0.sb.isEmoji() }.flatMap { $0.unicodeScalars }
     }
 
     /// 移除字符串中的`emoji`表情
     var noneEmoji: String {
         var chars: [Character] = []
         forEach { char in
-            if !char.isEmoji {
+            if !char.sb.isEmoji() {
                 chars.append(char)
             }
         }

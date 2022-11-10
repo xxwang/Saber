@@ -162,3 +162,22 @@ public extension Optional {
         }
     }
 }
+
+//public extension SaberExt where Base == Optional<Any>, Base.Type == Optional {
+//        /// 可选值为空的时候返回 `true`
+//    var isNone: Bool {
+//        switch self {
+//            case .none:
+//                return true
+//            case .some:
+//                return false
+//        }
+//    }
+//    
+//        /// 可选值有值的时候返回 `true`
+//    var isSome: Bool {
+//        return !isNone
+//    }
+//}
+//
+//extension Optional: Saberable {}
