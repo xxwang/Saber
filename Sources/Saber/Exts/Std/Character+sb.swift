@@ -5,40 +5,48 @@ extension Character: Saberable {}
 // MARK: - 类型转换
 public extension SaberExt where Base == Character {
     /// `Character`转`Int`
+    /// - Returns: `Int`
     func toInt() -> Int {
         var intValue = 0
-        for scalar in String(self.base).unicodeScalars {
+        for scalar in String(base).unicodeScalars {
             intValue = Int(scalar.value)
         }
         return intValue
     }
 
     /// `Character`转`String`
+    /// - Returns: `String`
     func toString() -> String {
-        return String(self.base)
+        return String(base)
     }
+}
 
+// MARK: - 方法
+public extension SaberExt where Base == Character {
     /// 转换成小写字符
-    func lowercased() -> Character {
-        return String(self.base).lowercased().first!
+    /// - Returns: 小写`Character`
+    func toLower() -> Character {
+        return String(base).lowercased().first!
     }
 
     /// 转换成大写字符
-    func uppercased() -> Character {
-        return String(self.base).uppercased().first!
+    /// - Returns: 大写`Character`
+    func toUpper() -> Character {
+        return String(base).uppercased().first!
     }
 
     /// 生成重复`字符`字符串
     /// - Parameter count:字符个数
     /// - Returns:字符串
     func `repeat`(_ count: Int) -> String {
-        return self.base * count
+        return base * count
     }
 }
 
 // MARK: - 静态方法
 public extension SaberExt where Base == Character {
     /// 随机产生一个字符`(a-z A-Z 0-9)`
+    /// - Returns: 随机`Character`
     static func random() -> Character {
         return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()!
     }
@@ -47,27 +55,31 @@ public extension SaberExt where Base == Character {
 // MARK: - Emoji
 public extension SaberExt where Base == Character {
     /// 简单的`emoji`是一个`标量`，以`emoji`的形式呈现给用户
+    /// - Returns: `Bool`
     private func isSimpleEmoji() -> Bool {
-        guard let firstProperties = self.base.unicodeScalars.first?.properties else {
+        guard let firstProperties = base.unicodeScalars.first?.properties else {
             return false
         }
-        
-        return self.base.unicodeScalars.count > 1 && (firstProperties.isEmojiPresentation || firstProperties.generalCategory == .otherSymbol)
+
+        return base.unicodeScalars.count > 1
+            && (firstProperties.isEmojiPresentation
+                || firstProperties.generalCategory == .otherSymbol)
     }
 
     /// 检查`标量`是否将合并到`emoji`中
+    /// - Returns: `Bool`
     private func isCombinedIntoEmoji() -> Bool {
-        return self.base.unicodeScalars.count > 1
-        && self.base.unicodeScalars.contains {
-            $0.properties.isJoinControl || $0.properties.isVariationSelector
-        }
+        return base.unicodeScalars.count > 1
+            && base.unicodeScalars.contains {
+                $0.properties.isJoinControl || $0.properties.isVariationSelector
+            }
     }
 
     /// 是否是表情字符
     /// - Note:http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
     /// - Returns: `Bool`
     func isEmoji() -> Bool {
-        return self.isSimpleEmoji() || self.isCombinedIntoEmoji()
+        return isSimpleEmoji() || isCombinedIntoEmoji()
     }
 }
 

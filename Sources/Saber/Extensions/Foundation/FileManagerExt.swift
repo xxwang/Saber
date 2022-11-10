@@ -220,7 +220,7 @@ public extension FileManager {
         } catch {
             fileSize += self.fileSize(path)
         }
-        return fileSize.storeUnit
+        return fileSize.sb.toStoreUnit()
     }
 
     /// 判断`path1`与`path2`所指`文件`或`文件夹`是否一致

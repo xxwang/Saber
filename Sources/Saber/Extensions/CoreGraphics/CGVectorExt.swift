@@ -16,13 +16,12 @@ public extension CGVector {
 
 // MARK: - 构造方法
 public extension CGVector {
-
-        /// 创建具有给定大小和角度的向量
-        ///
-        ///     let vector = CGVector(angle:.pi, magnitude:1)
-        /// - Parameters:
-        ///   - angle: 从正`x`轴逆时针旋转的角度(弧度)
-        ///   - magnitude: 向量的长度
+    /// 创建具有给定大小和角度的向量
+    ///
+    ///     let vector = CGVector(angle:.pi, magnitude:1)
+    /// - Parameters:
+    ///   - angle: 从正`x`轴逆时针旋转的角度(弧度)
+    ///   - magnitude: 向量的长度
     init(angle: CGFloat, magnitude: CGFloat) {
         self.init(dx: magnitude * cos(angle), dy: magnitude * sin(angle))
     }

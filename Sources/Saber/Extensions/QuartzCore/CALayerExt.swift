@@ -283,9 +283,9 @@ public extension CALayer {
     ///   - option:动画选项
     func addKeyframeAnimationRotation(
         values: [Any] = [
-            -5.cgFloat.angle2radian(),
-            5.cgFloat.angle2radian(),
-            -5.cgFloat.angle2radian(),
+            -5.sb.toCGFloat().sb.toRadian(),
+            5.sb.toCGFloat().sb.toRadian(),
+            -5.sb.toCGFloat().sb.toRadian(),
         ],
         keyTimes: [NSNumber]?,
         duration: TimeInterval = 1.0,

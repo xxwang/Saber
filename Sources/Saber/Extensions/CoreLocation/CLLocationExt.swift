@@ -34,10 +34,9 @@ public extension CLLocation {
 
 // MARK: - 方法
 public extension CLLocation {
-
-        /// 计算`self`和另一个点之间的大圆路径的中间点
-        /// - Parameter point: 结束位置
-        /// - Returns: 表示中间点的位置
+    /// 计算`self`和另一个点之间的大圆路径的中间点
+    /// - Parameter point: 结束位置
+    /// - Returns: 表示中间点的位置
     func midLocation(to point: CLLocation) -> CLLocation {
         return CLLocation.midLocation(self, point)
     }

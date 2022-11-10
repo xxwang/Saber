@@ -710,7 +710,7 @@ public extension Date {
         if seconds <= 0 {
             return "00:00"
         }
-        
+
         // 秒
         let second = seconds % 60
         if type == .second {
@@ -879,9 +879,9 @@ public extension Date {
         return Calendar.current.date(byAdding: DateComponents(day: day), to: self)
     }
 
-        /// 是否为  `同一年`  `同一月` `同一天`
-        /// - Parameter date: `date`
-        /// - Returns: `Bool`
+    /// 是否为  `同一年`  `同一月` `同一天`
+    /// - Parameter date: `date`
+    /// - Returns: `Bool`
     func isSameYeaerMountDay(_ date: Date) -> Bool {
         let com = Calendar.current.dateComponents([.year, .month, .day], from: self)
         let comToday = Calendar.current.dateComponents([.year, .month, .day], from: date)

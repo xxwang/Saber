@@ -31,14 +31,14 @@ public extension CGSize {
 
 // MARK: - 方法
 public extension CGSize {
-        /// 按`boundingSize`最小宽高比缩放`CGSize`(不超过边界)
-        ///
-        ///     let rect = CGSize(width:120, height:80)
-        ///     let parentRect  = CGSize(width:100, height:50)
-        ///     let newRect = rect.aspectFit(to:parentRect)
-        ///     // newRect.width = 75 , newRect = 50
-        /// - Parameter boundingSize: 边界`CGSize`
-        /// - Returns: 缩放后的`CGSize`
+    /// 按`boundingSize`最小宽高比缩放`CGSize`(不超过边界)
+    ///
+    ///     let rect = CGSize(width:120, height:80)
+    ///     let parentRect  = CGSize(width:100, height:50)
+    ///     let newRect = rect.aspectFit(to:parentRect)
+    ///     // newRect.width = 75 , newRect = 50
+    /// - Parameter boundingSize: 边界`CGSize`
+    /// - Returns: 缩放后的`CGSize`
     func aspectFit(to boundingSize: CGSize) -> CGSize {
         let minRatio = min(boundingSize.width / width, boundingSize.height / height)
         return CGSize(width: width * minRatio, height: height * minRatio)
