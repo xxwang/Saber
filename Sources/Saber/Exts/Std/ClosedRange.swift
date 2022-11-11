@@ -1,7 +1,5 @@
 import Foundation
 
-extension ClosedRange<Int>: Saberable {}
-
 // MARK: - ClosedRange<Int>
 public extension SaberExt where Base == ClosedRange<Int> {
     /// 转换为索引数组

@@ -1,13 +1,6 @@
 import CoreGraphics
 import Foundation
 
-// MARK: - 属性
-public extension BinaryInteger {
-    var sb: SaberExt<Self> {
-        SaberExt(self)
-    }
-}
-
 // MARK: - 类型转换
 public extension SaberExt where Base: BinaryInteger {
     /// 转`Int`

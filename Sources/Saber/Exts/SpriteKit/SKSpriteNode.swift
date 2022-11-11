@@ -1,7 +1,5 @@
 import SpriteKit
 
-extension SKSpriteNode: Saberable {}
-
 // MARK: - 方法
 public extension SaberExt where Base: SKSpriteNode {
     /// 等比例填充

@@ -19,3 +19,14 @@ public extension Saberable {
     var sb: SaberExt<Self> { SaberExt(self) }
     static var sb: SaberExt<Self>.Type { SaberExt<Self>.self }
 }
+
+// MARK: - 实现扩展的对象列表
+extension NSObject: Saberable {}
+extension Bool: Saberable {}
+extension Character: Saberable {}
+extension ClosedRange<Int>: Saberable {}
+extension Range<String.Index>: Saberable {}
+
+// MARK: - 实现扩展的协议列表
+public extension BinaryFloatingPoint { var sb: SaberExt<Self> { SaberExt(self) }}
+public extension BinaryInteger { var sb: SaberExt<Self> { SaberExt(self) }}

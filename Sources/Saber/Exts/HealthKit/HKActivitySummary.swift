@@ -1,7 +1,5 @@
 import HealthKit
 
-extension HKActivitySummary: Saberable {}
-
 // MARK: - 判断
 public extension SaberExt where Base: HKActivitySummary {
     /// 检查是否达到设定的站立小时数

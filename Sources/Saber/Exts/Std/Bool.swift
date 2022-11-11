@@ -1,7 +1,5 @@
 import Foundation
 
-extension Bool: Saberable {}
-
 // MARK: - 类型转换
 public extension SaberExt where Base == Bool {
     /// `Bool`转`Int`

@@ -1,6 +1,5 @@
 import SpriteKit
 
-extension SKNode: Saberable {}
 // MARK: - 属性
 public extension SaberExt where Base: SKNode {
     /// `SKNode`在父节点中的中心点坐标

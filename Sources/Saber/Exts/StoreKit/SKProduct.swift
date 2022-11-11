@@ -1,7 +1,5 @@
 import StoreKit
 
-extension SKProduct: Saberable {}
-
 // MARK: - 方法
 public extension SaberExt where Base: SKProduct {
     /// 价格本地化
