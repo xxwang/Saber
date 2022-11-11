@@ -9,8 +9,8 @@ public extension SaberExt where Base: SKProduct {
     func priceLocale() -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = self.base.priceLocale
+        formatter.locale = base.priceLocale
 
-        return formatter.string(from: self.base.price)
+        return formatter.string(from: base.price)
     }
 }
