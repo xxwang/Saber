@@ -605,7 +605,11 @@ public extension Date {
 
     /// 获取`当前`的`Date`
     static var nowDate: Date {
-        return Date.now
+        if #available(iOS 15, *) {
+            return Date.now
+        } else {
+            return Date()
+        }
     }
 }
 

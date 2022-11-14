@@ -4,10 +4,10 @@ import PackageDescription
 let package = Package(
     name: "Saber",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v13),
         .macOS(.v12),
-        .tvOS(.v14),
-        .watchOS(.v7),
+        .tvOS(.v12),
+        .watchOS(.v5),
     ],
     products: [
         .library(
