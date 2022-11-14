@@ -1,3 +1,4 @@
+import SceneKit
 import UIKit
 
 // MARK: - 包装类型
@@ -26,6 +27,7 @@ extension Bool: Saberable {}
 extension Character: Saberable {}
 extension ClosedRange<Int>: Saberable {}
 extension Range<String.Index>: Saberable {}
+extension SCNVector3: Saberable {}
 
 // MARK: - 实现扩展的协议列表
 public extension BinaryFloatingPoint { var sb: SaberExt<Self> { SaberExt(self) }}
