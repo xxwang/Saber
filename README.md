@@ -4,18 +4,17 @@
 ```
 Saber(日常开发工具包)
 ```
-#### 安装
+#### SPM方式安装
 ```
 .package(url:"git@gitee.com:zenwb/Saber.git", from:"x.x.x")
 ```
 
-### 指定文件
+### 导入方式
 ```
+// 单文件引入
 import Saber
-```
 
-### 全局导入
-```
+// 全局引入
 @_exported import Saber
 ```
 
