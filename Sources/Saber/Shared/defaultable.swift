@@ -1,7 +1,7 @@
 import UIKit
 
 // MARK: - 为类型扩展`default`方法
-protocol defaultable: NSObjectProtocol where Self: NSObject {
+public protocol Defaultable: NSObjectProtocol where Self: NSObject {
     /// 关联类型
     associatedtype Associatedtype
 

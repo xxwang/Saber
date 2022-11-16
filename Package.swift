@@ -17,16 +17,41 @@ let package = Package(
     ],
     dependencies: [],
     targets: [
+        // Saber
         .target(
             name: "Saber",
-            path: "Sources/Saber",
-            dependencies: ["Exts"]
+            dependencies: [],
+            path: "Sources/Saber"
         ),
-        .target(
-            name: "Exts",
-            path: "Sources/Exts",
-            dependencies: []
-        ),
+//        // Saber
+//        .target(
+//            name: "Saber",
+//            dependencies: ["Extensions", "Utils"],
+//            path: "Sources/Saber"
+//        ),
+//
+//        // Extensions
+//        .target(
+//            name: "Extensions",
+//            dependencies: ["Utils"],
+//            path: "Sources/Extensions"
+//        ),
+//
+//        // Shared
+//        .target(
+//            name: "Shared",
+//            dependencies: [],
+//            path: "Sources/Shared"
+//        ),
+//
+//        // Utils
+//        .target(
+//            name: "Utils",
+//            dependencies: ["Shared", "Extensions"],
+//            path: "Sources/Utils"
+//        ),
+//
+        // SaberTests
         .testTarget(
             name: "SaberTests",
             dependencies: ["Saber"]

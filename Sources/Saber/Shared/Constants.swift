@@ -1,46 +1,166 @@
-import Foundation
+import UIKit
 
-// MARK: - 常用扩展(基于Saber类)
-public extension Saber {
-    // MARK: - 系统类型
-    enum OS {
-        case macOS
-        case iOS
-        case tvOS
-        case watchOS
-        case Linux
-    }
+// MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ AppDelegate ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+public let kAppDelegate = UIApplication.shared.delegate
+public let kSceneDelegate = UIApplication.shared.delegate
+// MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ AppDelegate ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
-    /// 系统类型
-    static var os: Saber.OS {
-        #if os(macOS)
-            return .macOS
-        #elseif os(iOS)
-            return .iOS
-        #elseif os(tvOS)
-            return .tvOS
-        #elseif os(watchOS)
-            return .watchOS
-        #elseif os(Linux)
-            return .Linux
-        #endif
-    }
-
-    /// 是否是模拟器
-    static var isSimulator: Bool {
-        #if targetEnvironment(simulator)
-            return true
-        #else
-            return false
-        #endif
-    }
-
-    /// 是否是调试模式
-    static var isDebug: Bool {
-        #if DEBUG
-            return true
-        #else
-            return false
-        #endif
+// MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ UIWindow ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+/// 屏幕上所有的`UIWindow`
+public var kAllWindows: [UIWindow] {
+    if #available(iOS 13.0, *) {
+        let connectedScenes = UIApplication.shared.connectedScenes
+        var connectedWindows: [UIWindow] = []
+        connectedScenes.forEach { connectedScene in
+            if let windowScene = connectedScene as? UIWindowScene,
+               let windowSceneDelegate = windowScene.delegate as? UIWindowSceneDelegate,
+               let sceneWindow = windowSceneDelegate.window as? UIWindow
+            {
+                connectedWindows.append(sceneWindow)
+            }
+        }
+        return connectedWindows
+    } else {
+        let windows = UIApplication.shared.windows
+        return windows
     }
 }
+
+/// 应用当前的`keyWindow`
+public var kKeyWindow: UIWindow? {
+    if #available(iOS 13.0, *) {
+        for window in kAllWindows {
+            if window.isKeyWindow { return window }
+        }
+    } else {
+        if let window = UIApplication.shared.keyWindow { return window }
+    }
+    return nil
+}
+
+/// 获取`AppDelegate`的`window`属性(iOS13之后非自定义项目框架, 该属性为`nil`)
+public var kDelegateWindow: UIWindow? {
+    guard let delegateWindow = UIApplication.shared.delegate?.window,
+          let window = delegateWindow
+    else {
+        return nil
+    }
+    return window
+}
+
+/// 获取一个可用的`UIWindow`
+public var kWindow: UIWindow? {
+    var usableWindow: UIWindow?
+    if let window = kAllWindows.last {
+        usableWindow = window
+    }
+
+    if let window = kKeyWindow {
+        usableWindow = window
+    }
+
+    if let window = kDelegateWindow {
+        usableWindow = window
+    }
+
+    if usableWindow?.windowLevel == .normal {
+        return usableWindow
+    }
+
+    kAllWindows.forEach { window in
+        if window.windowLevel == .normal {
+            usableWindow = window
+        }
+    }
+    return usableWindow
+}
+
+// MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ UIWindow ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 常用判断 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+/// 是否是`iPhoneX`系列
+public var isIphoneXLast: Bool {
+    var flag = false
+    if #available(iOS 11, *), let window = kWindow {
+        if window.safeAreaInsets.bottom > CGFloat(0) {
+            flag = true
+        }
+    }
+    return flag
+}
+
+/// 是否是模拟器
+public var isSimulator: Bool {
+    #if targetEnvironment(simulator)
+        return true
+    #else
+        return false
+    #endif
+}
+
+/// 是否是调试模式
+public var isDebug: Bool {
+    #if DEBUG
+        return true
+    #else
+        return false
+    #endif
+}
+
+// MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 常用判断 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ AppOS ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// MARK: - 系统类型枚举
+public enum AppOS {
+    case macOS
+    case iOS
+    case tvOS
+    case watchOS
+    case Linux
+}
+
+/// 系统类型
+public var appOS: AppOS {
+    #if os(macOS)
+        return .macOS
+    #elseif os(iOS)
+        return .iOS
+    #elseif os(tvOS)
+        return .tvOS
+    #elseif os(watchOS)
+        return .watchOS
+    #elseif os(Linux)
+        return .Linux
+    #endif
+}
+
+// MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ AppOS ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 屏幕尺寸 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+/// 屏幕`bounds`
+public let kScreenBounds = UIScreen.main.bounds
+/// 屏幕大小
+public let kScreenSize = kScreenBounds.size
+/// 屏幕宽度
+public let kScreenWidth = min(kScreenSize.width, kScreenSize.height)
+/// 屏幕高度
+public let kScreenHeight = max(kScreenSize.width, kScreenSize.height)
+/// 状态栏高度
+public let kStatusBarHeight: CGFloat = isIphoneXLast ? 44 : 20
+/// 导航栏高度
+public let kNavBarHeight: CGFloat = 44
+/// 导航整体高度
+public let kNavAllHeight = kStatusBarHeight + kNavBarHeight
+/// 标签栏高度
+public let kTabBarHeight: CGFloat = 49
+/// 标签栏与底部的间距
+public let kBottomIndent: CGFloat = isIphoneXLast ? 34 : 0
+/// 标签栏整体高度
+public let kTabAllHeight: CGFloat = kTabBarHeight + kBottomIndent
+/// 安全区域
+public var kSafeAreaInsets: UIEdgeInsets {
+    if #available(iOS 11.0, *) { return kWindow?.safeAreaInsets ?? .zero }
+    return .zero
+}
+
+// MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 屏幕尺寸 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑

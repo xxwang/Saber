@@ -63,7 +63,7 @@ extension Log {
             content += "\(item)"
         }
         // 当时时间
-        let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
+        let dateStr = "" // Date().format("HH:mm:ss.SSS", isGMT: false)
         // 文件名称
         let fileName = (file as NSString).lastPathComponent
 
