@@ -1,35 +1,8 @@
 import Dispatch
 import Foundation
 
-// MARK: - 静态属性
-public extension DispatchQueue {
-    /// 判断当前`DispatchQueue`是否是`主DispatchQueue`
-    static var isMainQueue: Bool {
-        enum Static {
-            static var key: DispatchSpecificKey<Void> = {
-                let key = DispatchSpecificKey<Void>()
-                DispatchQueue.main.setSpecific(key: key, value: ())
-                return key
-            }()
-        }
-        return DispatchQueue.getSpecific(key: Static.key) != nil
-    }
-}
 
-// MARK: - 线程比较
-public extension DispatchQueue {
-    /// 判断当前`DispatchQueue`是否是指定的`DispatchQueue`
-    /// - Parameters queue:要判断的`DispatchQueue`
-    /// - Returns:比较结果
-    static func isCurrent(_ queue: DispatchQueue) -> Bool {
-        let key = DispatchSpecificKey<Void>()
-        queue.setSpecific(key: key, value: ())
 
-        defer { queue.setSpecific(key: key, value: nil) }
-
-        return DispatchQueue.getSpecific(key: key) != nil
-    }
-}
 
 // MARK: - 指定线程执行
 public extension DispatchQueue {
