@@ -27,6 +27,7 @@ public extension Saber {
     }
 }
 
+// MARK: - 常用判断
 public extension Saber {
     /// 是否是模拟器
     static var isSimulator: Bool {
