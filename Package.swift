@@ -20,12 +20,10 @@ let package = Package(
         .target(
             name: "Saber",
             dependencies: ["Exts"],
-            path: "Sources/Saber"
         ),
         .target(
             name: "Exts",
-            dependencies: [],
-            path: "Sources/Exts"
+            dependencies: []
         ),
         .testTarget(
             name: "SaberTests",
