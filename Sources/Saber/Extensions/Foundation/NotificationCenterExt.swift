@@ -12,7 +12,7 @@ public extension NotificationCenter {
         object: Any? = nil,
         userInfo: [AnyHashable: Any]? = nil
     ) {
-        DispatchQueue.mainAsync {
+        DispatchQueue.sb.mainAsync {
             NotificationCenter.default.post(name: name, object: object, userInfo: userInfo)
         }
     }

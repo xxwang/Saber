@@ -334,7 +334,7 @@ public extension UIViewController {
 
         if self == UIViewController.self {
             let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
-            DispatchQueue.once(token: onceToken) {
+            DispatchQueue.sb.once(token: onceToken) {
                 // viewDidLoad
                 let oriSel = #selector(viewDidLoad)
                 let repSel = #selector(hook_viewDidLoad)
@@ -357,7 +357,7 @@ public extension UIViewController {
             }
         } else if self == UINavigationController.self {
             let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
-            DispatchQueue.once(token: onceToken) {
+            DispatchQueue.sb.once(token: onceToken) {
                 // pushViewController
                 let oriSel = #selector(UINavigationController.pushViewController(_:animated:))
                 let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:))

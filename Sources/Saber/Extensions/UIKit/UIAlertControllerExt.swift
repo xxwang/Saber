@@ -51,7 +51,7 @@ public extension UIAlertController {
         guard let deadline = deadline else {
             return
         }
-        DispatchQueue.after(deadline) { [weak self] in
+        DispatchQueue.sb.after(deadline) { [weak self] in
             guard let self = self else {
                 return
             }

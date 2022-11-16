@@ -2,8 +2,8 @@ import UIKit
 
 // MARK: - Callbacks(回调闭包别名)
 public enum Callbacks {
-    /// `DispatchQueue`任务闭包
-    public typealias TaskCallback = () -> Void
+    /// `DispatchQueue`任务代码块
+    public typealias DispatchQueueTask = () -> Void
 
     /// 完成回调(带`Bool`参数)
     public typealias CompleteBoolCallback = (Bool) -> Void

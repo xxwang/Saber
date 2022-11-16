@@ -56,8 +56,8 @@ private extension UIControl {
     /// - Parameter sender:被点击的`UIControl`
     @objc func c_preventDoubleHit(_ sender: UIControl) {
         isUserInteractionEnabled = false
-        DispatchQueue.asyncDelay(hitTime ?? 1.0) { [weak self] in
-            guard let self = self else {
+        DispatchQueue.sb.delay_main_task(hitTime ?? 1.0) { [weak self] in
+            guard let self else {
                 return
             }
             self.isUserInteractionEnabled = true

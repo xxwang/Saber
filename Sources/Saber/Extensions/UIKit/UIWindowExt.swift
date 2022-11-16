@@ -126,7 +126,7 @@ public extension UIWindow {
         animated: Bool = true,
         duration: TimeInterval = 0.25,
         options: UIView.AnimationOptions = .transitionFlipFromRight,
-        competion: Callbacks.TaskCallback?
+        competion: Callbacks.DispatchQueueTask?
     ) {
         guard animated else {
             rootViewController = viewController

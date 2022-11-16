@@ -1365,7 +1365,7 @@ public extension UIImage {
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
 
         // 回调
-        DispatchQueue.main.safeAsync {
+        DispatchQueue.sb.safeAsync(.main) {
             completion?(resultImage)
         }
 

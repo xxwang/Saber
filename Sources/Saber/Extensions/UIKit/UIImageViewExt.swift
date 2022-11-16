@@ -68,7 +68,7 @@ public extension UIImageView {
                 return
             }
 
-            DispatchQueue.mainAsync {
+            DispatchQueue.sb.mainAsync {
                 self.image = image
                 completionHandler?(image)
             }
@@ -151,9 +151,9 @@ public extension UIImageView {
     /// 加载本地`Gif`图片的名称
     /// - Parameter name:图片名称
     func loadGif(imageNamed: String) {
-        DispatchQueue.globalAsync {
+        DispatchQueue.sb.globalAsync {
             let image = UIImage.gif(name: imageNamed)
-            DispatchQueue.mainAsync {
+            DispatchQueue.sb.mainAsync {
                 self.image = image
             }
         }
@@ -162,9 +162,9 @@ public extension UIImageView {
     /// 加载`Asset`中的`Gif`图片
     /// - Parameter asset:`asset`中的图片名称
     func loadGif(asset: String) {
-        DispatchQueue.globalAsync {
+        DispatchQueue.sb.globalAsync {
             let image = UIImage.gif(asset: asset)
-            DispatchQueue.mainAsync {
+            DispatchQueue.sb.mainAsync {
                 self.image = image
             }
         }
@@ -174,9 +174,9 @@ public extension UIImageView {
     /// - Parameter url:`Gif`图片URL地址
     @available(iOS 9.0, *)
     func loadGif(url: String) {
-        DispatchQueue.globalAsync {
+        DispatchQueue.sb.globalAsync {
             let image = UIImage.gif(url: url)
-            DispatchQueue.mainAsync {
+            DispatchQueue.sb.mainAsync {
                 self.image = image
             }
         }

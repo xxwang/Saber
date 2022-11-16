@@ -133,7 +133,7 @@ public extension NSObject {
     /// 交换设值方法
     private class func hook_setValues() {
         let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
-        DispatchQueue.once(token: onceToken) {
+        DispatchQueue.sb.once(token: onceToken) {
             let oriSel = #selector(self.setValue(_:forUndefinedKey:))
             let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
             _ = hookInstanceMethod(of: oriSel, with: repSel)
