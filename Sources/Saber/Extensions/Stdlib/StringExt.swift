@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 #if canImport(UIKit)
     import UIKit
@@ -2601,5 +2602,14 @@ public extension String {
             print("😭出错啦! \(error.localizedDescription)")
         }
         return returnStr.replacingOccurrences(of: "\\r\\n", with: "\n")
+    }
+}
+
+// MARK: - 位置
+public extension SaberExt where Base == String {
+    /// 地理编码(`地址转坐标`)
+    /// - Parameter completionHandler: 回调函数
+    func locationEncode(completionHandler: @escaping CLGeocodeCompletionHandler) {
+        CLGeocoder().geocodeAddressString(base, completionHandler: completionHandler)
     }
 }
