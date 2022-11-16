@@ -104,7 +104,9 @@ public extension CAGradientLayer {
         startPoint = direction.point.start
         endPoint = direction.point.end
         self.colors = colors.map(\.cgColor)
-        self.locations = locations.map(\.nsNumber)
+        self.locations = locations.map { location in
+            location.sb.toNSNumber()
+        }
         return self
     }
 }

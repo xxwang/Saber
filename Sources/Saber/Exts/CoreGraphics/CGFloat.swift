@@ -1,8 +1,21 @@
 import CoreGraphics
 import Foundation
 
+// MARK: - 判断
+public extension SaberExt where Base == CGFloat {
+    /// 是否为正数
+    var isPositive: Bool {
+        return base > 0
+    }
+
+    /// 是否为负数
+    var isNegative: Bool {
+        return base < 0
+    }
+}
+
 // MARK: - 类型转换
-public extension SaberExt where Base: BinaryFloatingPoint {
+public extension SaberExt where Base == CGFloat {
     /// 转`Int`
     /// - Returns: `Int`
     func toInt() -> Int {
@@ -37,12 +50,6 @@ public extension SaberExt where Base: BinaryFloatingPoint {
     /// - Returns: `Double`
     func toDouble() -> Double {
         return Double(base)
-    }
-
-    /// 转`CGFloat`
-    /// - Returns: `CGFloat`
-    func toCGFloat() -> CGFloat {
-        return CGFloat(base)
     }
 
     /// 转`NSNumber`
@@ -83,7 +90,7 @@ public extension SaberExt where Base: BinaryFloatingPoint {
 }
 
 // MARK: - 方法
-public extension SaberExt where Base: BinaryFloatingPoint {
+public extension SaberExt where Base == CGFloat {
     /// `角度`转`弧度`(`假设当前值为角度`)
     /// - Returns: `Double`弧度
     func toRadian() -> Double {
@@ -144,26 +151,5 @@ public extension SaberExt where Base: BinaryFloatingPoint {
     func rounded(_ places: Int, rule: FloatingPointRoundingRule) -> Base {
         let factor = Base(pow(10.0, Double(max(0, places))))
         return (base * factor).rounded(rule) / factor
-    }
-
-    /// 转时间长度字符串(单位:`秒`)长度转换成`00'00`格式(`分'秒"`)
-    /// - Returns: 时长的`String`表示
-    func duration() -> String {
-        let minute = toInt() / 60
-        let second = toInt() % 60
-        return "\(String(format: "%02d", minute))'\(String(format: "%02d", second))\""
-    }
-}
-
-// MARK: - 判断
-public extension SaberExt where Base: BinaryFloatingPoint {
-    /// 是否为正数
-    var isPositive: Bool {
-        return base > 0
-    }
-
-    /// 是否为负数
-    var isNegative: Bool {
-        return base < 0
     }
 }

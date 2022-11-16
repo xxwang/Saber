@@ -28,6 +28,13 @@ extension Character: Saberable {}
 extension ClosedRange<Int>: Saberable {}
 extension Range<String.Index>: Saberable {}
 extension SCNVector3: Saberable {}
+extension CGAffineTransform: Saberable {}
+extension CGColor: Saberable {}
+extension CGImage: Saberable {}
+extension CGPoint: Saberable {}
+extension CGSize: Saberable {}
+extension CGRect: Saberable {}
+extension CGVector: Saberable {}
 
 // MARK: - 实现扩展的协议列表
 public extension BinaryFloatingPoint { var sb: SaberExt<Self> { SaberExt(self) }}

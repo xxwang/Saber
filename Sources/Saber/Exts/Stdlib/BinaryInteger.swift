@@ -84,13 +84,13 @@ public extension SaberExt where Base: BinaryInteger {
 
 // MARK: - 方法
 public extension SaberExt where Base: BinaryInteger {
-    /// 角度转弧度(`假设当前值为角度`)
+    /// `角度`转`弧度`(`假设当前值为角度`)
     /// - Returns: `Double`弧度
     func toRadian() -> Double {
         return toDouble() * .pi / 180.0
     }
 
-    /// 弧度转角度(`假设当前值为弧度`)
+    /// `弧度`转`角度`(`假设当前值为弧度`)
     /// - Returns: `Double`角度
     func toAngle() -> Double {
         return toDouble() * 180.0 / .pi
