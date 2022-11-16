@@ -1,16 +1,13 @@
 import QuartzCore
 import UIKit
 
-/*
- CATextLayer使用CoreText进行绘制,
- 渲染速度比使用WebKit的UILabl快很多.
- 而且UILabl主要是管理内容, 而CATextLayer则是绘制内容
- */
-
 // MARK: - 链式语法
 public extension CATextLayer {
+    /// 关联类型
+    typealias Associatedtype = CATextLayer
+
     /// 创建默认`CATextLayer`
-    static var defaultTextLayer: CATextLayer {
+    override class func `default`() -> Associatedtype {
         let layer = CATextLayer()
         return layer
     }
@@ -24,16 +21,7 @@ public extension CATextLayer {
         return self
     }
 
-    /// 设置 `NSAttributedString` 文字
-    /// - Parameter attributedString:`NSAttributedString`文字
-    /// - Returns:`Self`
-    @discardableResult
-    func attributedString(_ attributedString: NSAttributedString) -> Self {
-        string = attributedString
-        return self
-    }
-
-    /// 自动换行,默认NO
+    /// 自动换行,默认`NO`
     /// - Parameter isWrapped:是否自动换行
     /// - Returns:`Self`
     @discardableResult
@@ -42,22 +30,18 @@ public extension CATextLayer {
         return self
     }
 
-    /// 当文本显示不全时的裁剪方式
-    /// - Parameter truncationMode:裁剪方式
-    /// none 不剪裁,默认
-    /// start 剪裁开始部分
-    /// end 剪裁结束部分
-    /// middle 剪裁中间部分
-    /// - Returns:`Self`
+    /// 当文本过长时的裁剪方式
+    /// - Parameter truncationMode: 截断方式
+    /// - Returns: `Self`
     @discardableResult
     func truncationMode(_ truncationMode: CATextLayerTruncationMode) -> Self {
         self.truncationMode = truncationMode
         return self
     }
 
-    /// 文本显示模式
-    /// - Parameter alignmentMode:文本显示模式
-    /// - Returns:ccc
+    /// 文本对齐模式
+    /// - Parameter alignmentMode:对齐模式
+    /// - Returns:`Self`
     @discardableResult
     func alignmentMode(_ alignmentMode: CATextLayerAlignmentMode) -> Self {
         self.alignmentMode = alignmentMode
@@ -91,41 +75,12 @@ public extension CATextLayer {
         return self
     }
 
-    /// 设置字体的大小
-    /// - Parameter fontSize:字体的大小
-    /// - Returns:`Self`
-    @discardableResult
-    func fontSize(_ fontSize: CGFloat) -> Self {
-        self.fontSize = fontSize
-        if #available(iOS 9.0, *) {
-            self.font = CTFontCreateWithName("PingFangSC-Regular" as CFString, fontSize, nil)
-        }
-        contentsScale = UIScreen.main.scale
-        return self
-    }
-
     /// 设置字体
     /// - Parameter font:字体
     /// - Returns:`Self`
     @discardableResult
     func font(_ font: UIFont) -> Self {
         self.font = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
-        contentsScale = UIScreen.main.scale
-        return self
-    }
-
-    /// 设置字体粗体
-    /// - Parameter boldfontSize:粗体字体大小
-    /// - Returns:`Self`
-    @discardableResult
-    func boldFont(_ boldfontSize: CGFloat) -> Self {
-        fontSize = boldfontSize
-        if #available(iOS 9.0, *) {
-            self.font = CTFontCreateWithName("PingFangSC-Medium" as CFString, boldfontSize, nil)
-        } else {
-            font = CTFontCreateWithName("Helvetica-bold" as CFString, boldfontSize, nil)
-        }
-        contentsScale = UIScreen.main.scale
         return self
     }
 }

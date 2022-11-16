@@ -1441,7 +1441,7 @@ public extension UIView {
     ///   - cornerRadii:圆角大小
     func setupLinearGradientBorder(
         _ size: CGSize,
-        direction: CMGradientDirection = .horizontal,
+        direction: SBGradientDirection = .horizontal,
         locations: [CGFloat] = [0, 1],
         colors: [UIColor],
         lineWidth: CGFloat = 1.0,
@@ -1474,7 +1474,7 @@ public extension UIView {
     ///   - colors:渐变的颜色数组
     func setupLinearGradientBackgroundLayer(
         _ size: CGSize,
-        direction: CMGradientDirection = .horizontal,
+        direction: SBGradientDirection = .horizontal,
         locations: [CGFloat] = [0, 1],
         colors: [UIColor]
     ) {
@@ -1495,7 +1495,7 @@ public extension UIView {
     ///   - colors:渐变的颜色数组
     func setupLinearGradientBackgroundColor(
         _ size: CGSize,
-        direction: CMGradientDirection = .horizontal,
+        direction: SBGradientDirection = .horizontal,
         locations: [CGFloat] = [0, 1],
         colors: [UIColor]
     ) {
@@ -1517,7 +1517,7 @@ public extension UIView {
     ///   - duration:动画时长
     func linearGradientColorAnimation(
         _ size: CGSize,
-        direction: CMGradientDirection = .horizontal,
+        direction: SBGradientDirection = .horizontal,
         startColors: [UIColor],
         endColors: [UIColor],
         locations: [CGFloat],

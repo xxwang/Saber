@@ -12,7 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "Saber",
-            targets: ["Saber"]
+            targets: ["Saber", "Exts"]
         ),
     ],
     dependencies: [],
@@ -21,6 +21,11 @@ let package = Package(
             name: "Saber",
             dependencies: [],
             path: "Sources/Saber"
+        ),
+        .target(
+            name: "Exts",
+            dependencies: [],
+            path: "Sources/Exts"
         ),
         .testTarget(
             name: "SaberTests",

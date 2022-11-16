@@ -274,7 +274,7 @@ public extension UIColor {
     ///   - type:渐变类型
     convenience init?(
         _ size: CGSize,
-        direction: CMGradientDirection,
+        direction: SBGradientDirection,
         colors: [UIColor],
         locations: [CGFloat] = [0, 1],
         type: CAGradientLayerType = .axial
@@ -642,7 +642,7 @@ public extension UIColor {
     /// - Returns:`UIColor?`
     static func linearGradientColor(
         _ size: CGSize,
-        direction: CMGradientDirection,
+        direction: SBGradientDirection,
         colors: [UIColor],
         locations: [CGFloat] = [0, 1]
     ) -> UIColor? {
@@ -664,7 +664,7 @@ public extension UIColor {
     /// - Returns:`CAGradientLayer`
     static func linearGradientLayer(
         _ size: CGSize,
-        direction: CMGradientDirection,
+        direction: SBGradientDirection,
         colors: [UIColor],
         locations: [CGFloat] = [0, 1]
     ) -> CAGradientLayer {
@@ -686,7 +686,7 @@ public extension UIColor {
     /// - Returns:`UIImage`
     static func linearGradientImage(
         _ size: CGSize,
-        direction: CMGradientDirection,
+        direction: SBGradientDirection,
         colors: [UIColor],
         locations: [CGFloat] = [0, 1]
     ) -> UIImage? {
@@ -716,7 +716,7 @@ public extension Array where Element == UIColor {
     /// - Returns:`UIColor?`
     func linearGradientColor(
         _ size: CGSize,
-        direction: CMGradientDirection,
+        direction: SBGradientDirection,
         locations: [CGFloat] = [0, 1]
     ) -> UIColor? {
         return UIColor.linearGradientColor(
@@ -735,7 +735,7 @@ public extension Array where Element == UIColor {
     /// - Returns:`CAGradientLayer`
     func linearGradientLayer(
         _ size: CGSize,
-        direction: CMGradientDirection,
+        direction: SBGradientDirection,
         locations: [CGFloat] = [0, 1]
     ) -> CAGradientLayer {
         return UIColor.linearGradientLayer(
@@ -754,7 +754,7 @@ public extension Array where Element == UIColor {
     /// - Returns:`UIImage`
     func linearGradientImage(
         _ size: CGSize,
-        direction: CMGradientDirection,
+        direction: SBGradientDirection,
         locations: [CGFloat] = [0, 1]
     ) -> UIImage? {
         return UIColor.linearGradientImage(

@@ -237,7 +237,7 @@ public extension UITabBar {
     ///   - direction:渐变方向
     /// - Returns:`Self`
     @discardableResult
-    func gradient(_ colors: [UIColor], direction: CMGradientDirection) -> Self {
+    func gradient(_ colors: [UIColor], direction: SBGradientDirection) -> Self {
         guard let backgroundColor = colors.linearGradientColor(size, direction: direction) else {
             return self
         }

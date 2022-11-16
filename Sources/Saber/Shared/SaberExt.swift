@@ -38,6 +38,7 @@ extension CGSize: Saberable {}
 extension CGRect: Saberable {}
 extension CGVector: Saberable {}
 extension CLLocationCoordinate2D: Saberable {}
+extension CATransform3D: Saberable {}
 
 // MARK: - 给`协议`添加`.sb`属性
 public extension BinaryFloatingPoint { var sb: SaberExt<Self> { SaberExt(self) }}
