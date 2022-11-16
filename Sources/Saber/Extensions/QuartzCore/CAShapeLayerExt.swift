@@ -3,8 +3,11 @@ import UIKit
 
 // MARK: - 链式语法
 public extension CAShapeLayer {
+    /// 关联类型
+    typealias Associatedtype = CAShapeLayer
+
     /// 创建默认`CAShapeLayer`
-    static var defaultShapeLayer: CAShapeLayer {
+    override class func `default`() -> Associatedtype {
         let layer = CAShapeLayer()
         return layer
     }

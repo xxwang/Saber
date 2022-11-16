@@ -586,10 +586,15 @@ public extension CALayer {
     }
 }
 
+extension CALayer: defaultable {}
+
 // MARK: - 链式语法
 public extension CALayer {
+    /// 关联类型
+    typealias Associatedtype = CALayer
+
     /// 创建默认`CALayer`
-    static var defaultLayer: CALayer {
+    @objc class func `default`() -> Associatedtype {
         let layer = CALayer()
         return layer
     }
