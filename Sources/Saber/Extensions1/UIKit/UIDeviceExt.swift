@@ -40,58 +40,13 @@ public extension UIDevice {
     static var isPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == .phone
     }
-
-    /// 是否是`iPhoneX`系列
-    static var isIphoneXLast: Bool {
-        if UIDevice.current.userInterfaceIdiom != .phone { return false }
-        if #available(iOS 11, *) {
-            if UIWindow.sb.window!.safeAreaInsets.left > 0
-                || UIWindow.sb.window!.safeAreaInsets.bottom > 0
-            {
-                return true
-            }
-        }
-        return false
-    }
-
-    /// 是否是横屏
-    static var isLandscape: Bool {
-        if #available(iOS 13, *) {
-            if UIDevice.current.orientation == .landscapeLeft
-                || UIDevice.current.orientation == .landscapeRight
-            {
-                return true
-            }
-            return false
-        } else {
-            return UIApplication.shared.statusBarOrientation.isLandscape
-        }
-    }
-
-    /// 是否是模拟器
-    static var isSimulator: Bool {
-        #if targetEnvironment(simulator)
-            return true
-        #else
-            return false
-        #endif
-    }
-
-    /// 是否是调试模式
-    static var isDebug: Bool {
-        #if DEBUG
-            return true
-        #else
-            return false
-        #endif
-    }
 }
 
 // MARK: - 设备区分
 public extension UIDevice {
     /// 当前设备是否越狱
     static var isBreak: Bool {
-        if isSimulator {
+        if Saber.isSimulator {
             return false
         }
         let paths = ["/Applications/Cydia.app", "/private/var/lib/apt/",
@@ -174,7 +129,7 @@ public extension UIDevice {
     /// 数据业务对应的通信技术
     /// - Returns:通信技术
     static func currentRadioAccessTechnologys() -> [String]? {
-        guard !isSimulator else {
+        guard !Saber.isSimulator else {
             return nil
         }
         // 获取并输出运营商信息
@@ -255,7 +210,7 @@ public extension UIDevice {
     /// 获取并输出运营商信息
     /// - Returns:运营商信息
     private static func getCarriers() -> [CTCarrier]? {
-        guard !isSimulator else {
+        guard !Saber.isSimulator else {
             return nil
         }
         // 获取并输出运营商信息

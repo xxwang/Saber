@@ -43,7 +43,7 @@ public extension ScreenAdaptor {
     /// 适配宽度
     var autoWidth: CGFloat {
         var scale: CGFloat = kScreenWidth / screenSize.width
-        if UIDevice.isLandscape {
+        if Saber.isLandscape {
             scale = kScreenWidth / screenSize.height
         }
         return scale * sizeValue
@@ -53,7 +53,7 @@ public extension ScreenAdaptor {
     var autoHeight: CGFloat {
         let appSize = ScreenManager.shared.screenSize
         var scale: CGFloat = kScreenHeight / appSize.height
-        if UIDevice.isLandscape {
+        if Saber.isLandscape {
             scale = kScreenHeight / appSize.width
         }
         return scale * sizeValue

@@ -26,3 +26,48 @@ public extension Saber {
         #endif
     }
 }
+
+public extension Saber {
+    /// 是否是模拟器
+    static var isSimulator: Bool {
+        #if targetEnvironment(simulator)
+            return true
+        #else
+            return false
+        #endif
+    }
+
+    /// 是否是调试模式
+    static var isDebug: Bool {
+        #if DEBUG
+            return true
+        #else
+            return false
+        #endif
+    }
+
+    /// 是否是`iPhoneX`系列
+    static var isXSeries: Bool {
+        if #available(iOS 11, *) {
+            if UIWindow.sb.window!.safeAreaInsets.left > 0
+                || UIWindow.sb.window!.safeAreaInsets.bottom > 0
+            {
+                return true
+            }
+        }
+        return false
+    }
+
+    /// 是否是横屏
+    static var isLandscape: Bool {
+        if #available(iOS 13, *) {
+            let orientation = UIDevice.current.orientation
+            if orientation == .landscapeLeft || orientation == .landscapeRight {
+                return true
+            }
+            return false
+        } else {
+            return UIApplication.shared.statusBarOrientation.isLandscape
+        }
+    }
+}
