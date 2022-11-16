@@ -1,61 +1,57 @@
 import UIKit
 
-// MARK: - 设计图尺寸
+// MARK: - ScreenManager
 public class ScreenManager {
-    /// 设计图尺寸(设计图的屏幕尺寸)
-    private var screenSize = CGSize(width: 375, height: 812)
+    /// 设计屏幕尺寸
+    fileprivate var screenSize = CGSize(width: 375, height: 812)
     /// 单例
     public static let shared = ScreenManager()
     private init() {}
-}
 
-public extension ScreenManager {
-    /// 设计图尺寸
-    var uiSize: CGSize {
-        get {
-            return screenSize
-        }
-        set {
-            screenSize = newValue
-        }
+    /// 设置设计图尺寸
+    func setup(size: CGSize) {
+        screenSize = size
     }
 }
 
-// MARK: - 尺寸适配
-public protocol AutoScreenable {}
-public extension AutoScreenable {
+// MARK: - ScreenAdaptor
+public protocol ScreenAdaptor {}
+public extension ScreenAdaptor {
     /// 获取尺寸值
     private var sizeValue: CGFloat {
-        if let res = self as? CGFloat {
-            return res
+        if let value = self as? CGFloat {
+            return value
         }
 
-        if let res = self as? Double {
-            return CGFloat(res)
+        if let value = self as? Double {
+            return CGFloat(value)
         }
 
-        if let res = self as? Float {
-            return CGFloat(res)
+        if let value = self as? Float {
+            return CGFloat(value)
         }
-        if let res = self as? Int {
-            return CGFloat(res)
+
+        if let value = self as? Int {
+            return CGFloat(value)
         }
         return 0
     }
 
+    /// 设计图屏幕尺寸
+    private var screenSize: CGSize { ScreenManager.shared.screenSize }
+
     /// 适配宽度
     var autoWidth: CGFloat {
-        let appSize = ScreenManager.shared.uiSize
-        var scale: CGFloat = kScreenWidth / appSize.width
+        var scale: CGFloat = kScreenWidth / screenSize.width
         if UIDevice.isLandscape {
-            scale = kScreenWidth / appSize.height
+            scale = kScreenWidth / screenSize.height
         }
         return scale * sizeValue
     }
 
     /// 适配高度
     var autoHeight: CGFloat {
-        let appSize = ScreenManager.shared.uiSize
+        let appSize = ScreenManager.shared.screenSize
         var scale: CGFloat = kScreenHeight / appSize.height
         if UIDevice.isLandscape {
             scale = kScreenHeight / appSize.width
@@ -88,7 +84,7 @@ public extension AutoScreenable {
 }
 
 // MARK: - 为数字类型提供适配方法
-extension Int: AutoScreenable {}
-extension Float: AutoScreenable {}
-extension Double: AutoScreenable {}
-extension CGFloat: AutoScreenable {}
+extension Int: ScreenAdaptor {}
+extension Float: ScreenAdaptor {}
+extension Double: ScreenAdaptor {}
+extension CGFloat: ScreenAdaptor {}

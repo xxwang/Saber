@@ -7,6 +7,7 @@ public enum Callbacks {
 
     /// 完成回调(带`Bool`参数)
     public typealias CompleteBoolCallback = (Bool) -> Void
+    BoolResult
 
     /// `UIView`的`UITapGestureRecognizer`回调闭包
     public typealias TapViewCallback = (UITapGestureRecognizer?, UIView, Int) -> Void

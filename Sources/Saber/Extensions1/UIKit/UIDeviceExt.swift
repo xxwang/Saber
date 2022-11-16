@@ -29,31 +29,41 @@ public extension UIDevice {
     }
 }
 
-// MARK: - 设备区分
+// MARK: - 常用判断
 public extension UIDevice {
-    /// 是否是平板
+    /// 是否是`iPad`
     static var isPad: Bool {
         return UIDevice.current.userInterfaceIdiom == .pad
     }
 
-    /// 是否是iPhone
+    /// 是否是`iPhone`
     static var isPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == .phone
     }
 
-    /// 是否是iPhoneX
-    static var isIphoneX: Bool {
-        var iPhonex = false
-        if UIDevice.current.userInterfaceIdiom != .phone {
-            return iPhonex
-        }
-
+    /// 是否是`iPhoneX`系列
+    static var isIphoneXLast: Bool {
+        if UIDevice.current.userInterfaceIdiom != .phone { return false }
         if #available(iOS 11, *) {
             if kWindow!.safeAreaInsets.left > 0 || kWindow!.safeAreaInsets.bottom > 0 {
-                iPhonex = true
+                return true
             }
         }
-        return iPhonex
+        return false
+    }
+
+    /// 是否是横屏
+    static var isLandscape: Bool {
+        if #available(iOS 13, *) {
+            if UIDevice.current.orientation == .landscapeLeft
+                || UIDevice.current.orientation == .landscapeRight
+            {
+                return true
+            }
+            return false
+        } else {
+            return UIApplication.shared.statusBarOrientation.isLandscape
+        }
     }
 
     /// 是否是模拟器
@@ -65,31 +75,18 @@ public extension UIDevice {
         #endif
     }
 
-    /// 是否是真机
-    static var isRealMachine: Bool {
-        return !isSimulator
+    /// 是否是调试模式
+    static var isDebug: Bool {
+        #if DEBUG
+            return true
+        #else
+            return false
+        #endif
     }
+}
 
-    /// 是否是横屏
-    static var isLandscape: Bool {
-        if #available(iOS 13, *) {
-            if UIDevice.current.orientation == .landscapeLeft
-                || UIDevice.current.orientation == .landscapeRight
-            {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return UIApplication.shared.statusBarOrientation.isLandscape
-        }
-    }
-
-    /// 是否是竖屏
-    static var isPortrait: Bool {
-        return !isLandscape
-    }
-
+// MARK: - 设备区分
+public extension UIDevice {
     /// 当前设备是否越狱
     static var isBreak: Bool {
         if isSimulator {

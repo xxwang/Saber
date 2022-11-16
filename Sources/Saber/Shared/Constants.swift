@@ -78,63 +78,8 @@ public var kWindow: UIWindow? {
 // MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ UIWindow ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 // MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 常用判断 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-/// 是否是`iPhoneX`系列
-public var isIphoneXLast: Bool {
-    var flag = false
-    if #available(iOS 11, *), let window = kWindow {
-        if window.safeAreaInsets.bottom > CGFloat(0) {
-            flag = true
-        }
-    }
-    return flag
-}
-
-/// 是否是模拟器
-public var isSimulator: Bool {
-    #if targetEnvironment(simulator)
-        return true
-    #else
-        return false
-    #endif
-}
-
-/// 是否是调试模式
-public var isDebug: Bool {
-    #if DEBUG
-        return true
-    #else
-        return false
-    #endif
-}
 
 // MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 常用判断 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-
-// MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ AppOS ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-// MARK: - 系统类型枚举
-public enum AppOS {
-    case macOS
-    case iOS
-    case tvOS
-    case watchOS
-    case Linux
-}
-
-/// 系统类型
-public var appOS: AppOS {
-    #if os(macOS)
-        return .macOS
-    #elseif os(iOS)
-        return .iOS
-    #elseif os(tvOS)
-        return .tvOS
-    #elseif os(watchOS)
-        return .watchOS
-    #elseif os(Linux)
-        return .Linux
-    #endif
-}
-
-// MARK: - ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ AppOS ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 // MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 屏幕尺寸 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 /// 屏幕`bounds`
@@ -146,7 +91,7 @@ public let kScreenWidth = min(kScreenSize.width, kScreenSize.height)
 /// 屏幕高度
 public let kScreenHeight = max(kScreenSize.width, kScreenSize.height)
 /// 状态栏高度
-public let kStatusBarHeight: CGFloat = isIphoneXLast ? 44 : 20
+public let kStatusBarHeight: CGFloat = UIDevice.isIphoneXLast ? 44 : 20
 /// 导航栏高度
 public let kNavBarHeight: CGFloat = 44
 /// 导航整体高度
@@ -154,7 +99,7 @@ public let kNavAllHeight = kStatusBarHeight + kNavBarHeight
 /// 标签栏高度
 public let kTabBarHeight: CGFloat = 49
 /// 标签栏与底部的间距
-public let kBottomIndent: CGFloat = isIphoneXLast ? 34 : 0
+public let kBottomIndent: CGFloat = UIDevice.isIphoneXLast ? 34 : 0
 /// 标签栏整体高度
 public let kTabAllHeight: CGFloat = kTabBarHeight + kBottomIndent
 /// 安全区域

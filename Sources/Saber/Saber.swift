@@ -3,7 +3,7 @@ public struct Saber {
 }
 
 public extension Saber {
-    /// Hello, Saber!
+    /// "Hello, Saber!"
     static func sayHello() {
         Log.info(Saber().text)
     }
