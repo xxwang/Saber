@@ -157,31 +157,6 @@ public extension SaberExt where Base: DispatchQueue {
     }
 }
 
-// MARK: - 私有扩展
-private extension DispatchQueue {
-    /// 函数`token`数组
-    static var _onceTracker = [String]()
-
-    /// `延时`执行指定任务
-    /// - Parameters:
-    ///   - seconds: `延迟时间`
-    ///   - asyncTask: `异步执行`的`任务`
-    ///   - mainTask: `异步任务`完成之后执行的`主线程任务`
-    /// - Returns:`DispatchWorkItem`
-    static func _delay_async(
-        delay seconds: TimeInterval,
-        async asyncTask: Callbacks.DispatchQueueTask? = nil,
-        main mainTask: Callbacks.DispatchQueueTask? = nil
-    ) -> DispatchWorkItem {
-        let item = DispatchWorkItem(block: asyncTask ?? {})
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + seconds, execute: item)
-        if let main = mainTask {
-            item.notify(queue: DispatchQueue.main, execute: main)
-        }
-        return item
-    }
-}
-
 // MARK: - GCD定时器
 public extension SaberExt where Base: DispatchQueue {
     /// `GCD延时`操作
@@ -246,5 +221,30 @@ public extension SaberExt where Base: DispatchQueue {
         }
         timer.resume()
         return timer
+    }
+}
+
+// MARK: - 私有扩展
+private extension DispatchQueue {
+    /// 函数`token`数组
+    static var _onceTracker = [String]()
+
+    /// `延时`执行指定任务
+    /// - Parameters:
+    ///   - seconds: `延迟时间`
+    ///   - asyncTask: `异步执行`的`任务`
+    ///   - mainTask: `异步任务`完成之后执行的`主线程任务`
+    /// - Returns:`DispatchWorkItem`
+    static func _delay_async(
+        delay seconds: TimeInterval,
+        async asyncTask: Callbacks.DispatchQueueTask? = nil,
+        main mainTask: Callbacks.DispatchQueueTask? = nil
+    ) -> DispatchWorkItem {
+        let item = DispatchWorkItem(block: asyncTask ?? {})
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + seconds, execute: item)
+        if let main = mainTask {
+            item.notify(queue: DispatchQueue.main, execute: main)
+        }
+        return item
     }
 }
