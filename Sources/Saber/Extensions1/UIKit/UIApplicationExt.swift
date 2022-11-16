@@ -257,7 +257,7 @@ public extension UIApplication {
 
         // 打开评分页面
         openURL(url) { isSuccess in
-            isSuccess ? Log.info("打开应用商店评分页成功!") : Log.error("打开应用商店评分页失败!")
+            isSuccess ? Debug.info("打开应用商店评分页成功!") : Debug.error("打开应用商店评分页失败!")
         }
     }
 
@@ -293,7 +293,7 @@ public extension UIApplication {
         productVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appID]) { isSuccess, error in
             productVC.dismiss(animated: true)
             if !isSuccess {
-                Log.error(error?.localizedDescription ?? "")
+                Debug.error(error?.localizedDescription ?? "")
                 return
             }
         }
@@ -304,7 +304,7 @@ public extension UIApplication {
     /// - Parameters:
     ///   - app:系统App枚举
     ///   - completion:完成回调
-    static func openSystemApp(_ app: CMSystemApp, completion: @escaping Callbacks.CompleteBoolCallback) {
+    static func openSystemApp(_ app: CMSystemApp, completion: @escaping Callbacks.BoolTask) {
         openURL(app.url, completion: completion)
     }
 
@@ -312,7 +312,7 @@ public extension UIApplication {
     /// - Parameters:
     ///   - app:第三方app枚举
     ///   - completion:完成回调
-    static func openOtherApp(_ app: CMOtherApp, completion: @escaping Callbacks.CompleteBoolCallback) {
+    static func openOtherApp(_ app: CMOtherApp, completion: @escaping Callbacks.BoolTask) {
         openURL(app.url, completion: completion)
     }
 
@@ -320,7 +320,7 @@ public extension UIApplication {
     /// - Parameters:
     ///   - phoneNumber:要拨打的电话号码
     ///   - completion:完成回调
-    static func call(with phoneNumber: String, completion: @escaping Callbacks.CompleteBoolCallback) {
+    static func call(with phoneNumber: String, completion: @escaping Callbacks.BoolTask) {
         // 判断是否有效
         guard let phoneNumberEncoding = ("tel://" + phoneNumber)
             .addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed),
@@ -337,15 +337,15 @@ public extension UIApplication {
     /// - Parameters:
     ///   - url:要打开的URL地址
     ///   - complete:完成回调
-    static func openURL(_ url: URL, completion: @escaping Callbacks.CompleteBoolCallback) {
+    static func openURL(_ url: URL, completion: @escaping Callbacks.BoolTask) {
         // iOS 10.0 以前
         guard #available(iOS 10.0, *) else {
             let success = UIApplication.shared.openURL(url)
             if success {
-                Log.info("10以前可以跳转")
+                Debug.info("10以前可以跳转")
                 completion(true)
             } else {
-                Log.info("10以前不能完成跳转")
+                Debug.info("10以前不能完成跳转")
                 completion(false)
             }
             return
@@ -353,10 +353,10 @@ public extension UIApplication {
         // iOS 10.0 以后
         UIApplication.shared.open(url, options: [:]) { success in
             if success {
-                Log.info("10以后可以跳转url")
+                Debug.info("10以后可以跳转url")
                 completion(true)
             } else {
-                Log.info("10以后不能完成跳转")
+                Debug.info("10以后不能完成跳转")
                 completion(false)
             }
         }
@@ -466,7 +466,7 @@ public extension UIApplication {
             center.delegate = (delegate as! UNUserNotificationCenterDelegate)
             center.requestAuthorization(options: options) { (granted: Bool, error: Error?) in
                 if granted {
-                    Log.info("远程推送注册成功!")
+                    Debug.info("远程推送注册成功!")
                 }
             }
             self.shared.registerForRemoteNotifications()
@@ -521,7 +521,7 @@ public extension UIApplication {
             if error == nil {
                 return
             }
-            Log.info("通知添加成功!")
+            Debug.info("通知添加成功!")
         }
     }
 }

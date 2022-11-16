@@ -45,7 +45,9 @@ public extension UIDevice {
     static var isIphoneXLast: Bool {
         if UIDevice.current.userInterfaceIdiom != .phone { return false }
         if #available(iOS 11, *) {
-            if kWindow!.safeAreaInsets.left > 0 || kWindow!.safeAreaInsets.bottom > 0 {
+            if UIWindow.sb.window!.safeAreaInsets.left > 0
+                || UIWindow.sb.window!.safeAreaInsets.bottom > 0
+            {
                 return true
             }
         }
@@ -130,7 +132,7 @@ public extension UIDevice {
     /// 闪光灯是否打开
     static var flashIsOn: Bool {
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
-            Log.info("camera invalid, please check")
+            Debug.info("camera invalid, please check")
             return false
         }
         return device.torchMode == .on ? true : false
@@ -141,7 +143,7 @@ public extension UIDevice {
     static func flash(on: Bool) {
         // 获取摄像设备
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
-            Log.info("camera invalid, please check")
+            Debug.info("camera invalid, please check")
             return
         }
 
@@ -156,7 +158,7 @@ public extension UIDevice {
                 }
                 device.unlockForConfiguration()
             } catch {
-                Log.info(error.localizedDescription)
+                Debug.info(error.localizedDescription)
             }
         }
     }

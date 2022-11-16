@@ -42,7 +42,7 @@ public extension UIAlertController {
         deadline: TimeInterval? = nil,
         completion: (() -> Void)? = nil
     ) {
-        kWindow?.rootViewController?.present(self, animated: animated, completion: completion)
+        UIWindow.sb.window?.rootViewController?.present(self, animated: animated, completion: completion)
         if shake {
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         }

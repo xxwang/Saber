@@ -14,7 +14,7 @@ public extension UITabBarController {
 
     /// 当前有效的`UITabBarController`
     static var availableTabBarController: UITabBarController? {
-        guard let rootViewController = kWindow?.rootViewController as? UITabBarController else {
+        guard let rootViewController = UIWindow.sb.window?.rootViewController as? UITabBarController else {
             return nil
         }
         return rootViewController

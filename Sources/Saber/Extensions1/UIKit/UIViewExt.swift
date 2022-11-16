@@ -1234,7 +1234,7 @@ public extension UIView {
 
     /// 通用事件处理回调
     /// - Parameter action:事件回调
-    func addActionHandler(_ action: @escaping Callbacks.TapViewCallback) {
+    func addActionHandler(_ action: @escaping (UITapGestureRecognizer?, UIView, Int) -> Void) {
         if let sender = self as? UIButton {
             sender.addActionHandler({ button in
                 action(nil, button, button.tag)
@@ -1256,7 +1256,7 @@ public extension UIView {
     /// - Parameter action:事件处理
     /// - Returns:`UITapGestureRecognizer`
     @discardableResult
-    func addTapGestureRecognizer(_ action: @escaping Callbacks.RecognizerCallback) -> UITapGestureRecognizer {
+    func addTapGestureRecognizer(_ action: @escaping Callbacks.GestureTask) -> UITapGestureRecognizer {
         let obj = UITapGestureRecognizer(target: nil, action: nil)
         // 轻点次数
         obj.numberOfTapsRequired = 1
@@ -1278,7 +1278,7 @@ public extension UIView {
     /// - Returns:`UILongPressGestureRecognizer`
     @discardableResult
     func addLongPressGestureRecognizer(
-        _ action: @escaping Callbacks.RecognizerCallback,
+        _ action: @escaping Callbacks.GestureTask,
         for minimumPressDuration: TimeInterval
     ) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: nil, action: nil)
@@ -1295,7 +1295,7 @@ public extension UIView {
     /// - Parameter action:事件处理
     /// - Returns:`UIPanGestureRecognizer`
     @discardableResult
-    func addPanGestureRecognizer(_ action: @escaping Callbacks.RecognizerCallback) -> UIPanGestureRecognizer {
+    func addPanGestureRecognizer(_ action: @escaping Callbacks.GestureTask) -> UIPanGestureRecognizer {
         let obj = UIPanGestureRecognizer(target: nil, action: nil)
         obj.minimumNumberOfTouches = 1
         obj.maximumNumberOfTouches = 3
@@ -1337,7 +1337,7 @@ public extension UIView {
     /// - Returns:`UIScreenEdgePanGestureRecognizer`
     @discardableResult
     func addScreenEdgePanGestureRecognizer(
-        action: @escaping Callbacks.RecognizerCallback,
+        action: @escaping Callbacks.GestureTask,
         for edgs: UIRectEdge
     ) -> UIScreenEdgePanGestureRecognizer {
         let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
@@ -1373,7 +1373,7 @@ public extension UIView {
     ///   - direction:轻扫方向
     /// - Returns:`UISwipeGestureRecognizer`
     func addSwipeGestureRecognizer(
-        _ action: @escaping Callbacks.RecognizerCallback,
+        _ action: @escaping Callbacks.GestureTask,
         for direction: UISwipeGestureRecognizer.Direction
     ) -> UISwipeGestureRecognizer {
         let obj = UISwipeGestureRecognizer(target: nil, action: nil)
@@ -1388,7 +1388,7 @@ public extension UIView {
     /// 添加`UIPinchGestureRecognizer`(捏合)
     /// - Parameter action:事件处理
     /// - Returns:`UIPinchGestureRecognizer`
-    func addPinchGestureRecognizer(_ action: @escaping Callbacks.RecognizerCallback) -> UIPinchGestureRecognizer {
+    func addPinchGestureRecognizer(_ action: @escaping Callbacks.GestureTask) -> UIPinchGestureRecognizer {
         let obj = UIPinchGestureRecognizer(target: nil, action: nil)
         addCommonGestureRecognizer(obj)
         obj.addActionHandler { recognizer in
@@ -1407,7 +1407,7 @@ public extension UIView {
     /// - Parameter action:事件处理
     /// - Returns:`UIRotationGestureRecognizer`
     @discardableResult
-    func addRotationGestureRecognizer(action: @escaping Callbacks.RecognizerCallback) -> UIRotationGestureRecognizer {
+    func addRotationGestureRecognizer(action: @escaping Callbacks.GestureTask) -> UIRotationGestureRecognizer {
         let obj = UIRotationGestureRecognizer(target: nil, action: nil)
         addCommonGestureRecognizer(obj)
         obj.addActionHandler { recognizer in

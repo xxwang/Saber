@@ -4,7 +4,7 @@ import UIKit
 public extension UIWindow {
     /// 获取可用窗口的根控制器
     static var windowRootViewController: UIViewController? {
-        return kWindow?.rootViewController
+        return UIWindow.sb.window?.rootViewController
     }
 
     /// 递归找当前控制器最顶层的`UIViewController`
@@ -106,5 +106,75 @@ public extension UIWindow {
             let orientationTarget = NSNumber(integerLiteral: UIInterfaceOrientation.portrait.rawValue)
             UIDevice.current.setValue(orientationTarget, forKey: "orientation")
         }
+    }
+}
+
+public extension SaberExt where Base: UIWindow {
+    /// 获取一个可用的`UIWindow`
+    static var window: UIWindow? {
+        var usableWindow: UIWindow?
+        if let window = windows.last {
+            usableWindow = window
+        }
+
+        if let window = keyWindow {
+            usableWindow = window
+        }
+
+        if let window = delegateWindow {
+            usableWindow = window
+        }
+
+        if usableWindow?.windowLevel == .normal {
+            return usableWindow
+        }
+
+        windows.forEach { window in
+            if window.windowLevel == .normal {
+                usableWindow = window
+            }
+        }
+        return usableWindow
+    }
+
+    /// 应用当前的`keyWindow`
+    static var keyWindow: UIWindow? {
+        if #available(iOS 13.0, *) {
+            for window in windows {
+                if window.isKeyWindow { return window }
+            }
+        } else {
+            if let window = UIApplication.shared.keyWindow { return window }
+        }
+        return nil
+    }
+
+    /// 获取`AppDelegate`的`window`(`iOS13`之后`非自定义项目框架`, 该属性为`nil`)
+    static var delegateWindow: UIWindow? {
+        guard let delegateWindow = UIApplication.shared.delegate?.window,
+              let window = delegateWindow
+        else {
+            return nil
+        }
+        return window
+    }
+
+    /// 屏幕上所有的`UIWindow`
+    static var windows: [UIWindow] {
+        var windows = [UIWindow]()
+        if #available(iOS 13.0, *) {
+            UIApplication.shared.connectedScenes
+                .forEach { connectedScene in
+                    if let windowScene = connectedScene as? UIWindowScene,
+                       let windowSceneDelegate = windowScene.delegate as? UIWindowSceneDelegate,
+                       let sceneWindow = windowSceneDelegate.window as? UIWindow
+                    {
+                        windows.append(sceneWindow)
+                    }
+                }
+        } else {
+            windows = UIApplication.shared.windows
+        }
+        return windows
     }
 }

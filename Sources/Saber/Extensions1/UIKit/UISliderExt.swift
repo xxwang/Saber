@@ -41,8 +41,8 @@ public extension UISlider {
     }
 }
 
-// MARK: - AssociateCompatible
-extension UISlider: AssociateCompatible {
+// MARK: - AssociatedAttributes
+extension UISlider: AssociatedAttributes {
     internal typealias T = Float
     internal var swiftCallback: SwiftCallback? {
         get {

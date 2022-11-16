@@ -1,9 +1,9 @@
 import Foundation
 
-public enum Log {}
+public enum Debug {}
 
 // MARK: - 公开方法
-public extension Log {
+public extension Debug {
     /// 调试
     static func debug(_ message: Any...,
                       file: String = #file,
@@ -42,7 +42,7 @@ public extension Log {
 }
 
 // MARK: - 私有方法
-extension Log {
+private extension Debug {
     /// 输出方法
     /// - Parameters:
     ///   - level:等级
@@ -51,7 +51,7 @@ extension Log {
     ///   - line:行
     ///   - function:方法
     private static func log(
-        level: Log.Level,
+        level: Debug.Level,
         message: Any...,
         file: String,
         line: Int,
@@ -73,7 +73,7 @@ extension Log {
 }
 
 // MARK: - 日志等级
-private extension Log {
+private extension Debug {
     /// 日志等级
     enum Level {
         /// 调试

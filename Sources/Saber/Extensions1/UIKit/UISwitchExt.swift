@@ -24,8 +24,8 @@ public extension UISwitch {
     }
 }
 
-// MARK: - AssociateCompatible
-extension UISwitch: AssociateCompatible {
+// MARK: - AssociatedAttributes
+extension UISwitch: AssociatedAttributes {
     internal typealias T = Bool
     internal var swiftCallback: SwiftCallback? {
         get {

@@ -93,7 +93,7 @@ public extension NSObject {
                 ? class_getClassMethod(selfClass, newSelector)
                 : class_getInstanceMethod(selfClass, newSelector))
         else {
-            Log.info("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Debug.info("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
             return false
         }
 
@@ -156,24 +156,24 @@ public extension NSObject {
 
     /// 如果键不存在会调用这个方法
     private func hook_setValue(_ value: Any?, forUndefinedKey key: String) {
-        Log.warning("setValue(_:forUndefinedKey:), 未知键Key:\(key) 值:\(value ?? "")")
+        Debug.warning("setValue(_:forUndefinedKey:), 未知键Key:\(key) 值:\(value ?? "")")
     }
 
     /// 如果键不存在会调用这个方法
     private func hook_value(forUndefinedKey key: String) -> Any? {
-        Log.warning("value(forUndefinedKey:), 未知键:\(key)")
+        Debug.warning("value(forUndefinedKey:), 未知键:\(key)")
         return nil
     }
 
     /// 给一个非指针对象(如`NSInteger`)赋值 `nil`, 直接忽略
     private func hook_setNilValueForKey(_ key: String) {
-        Log.info("setNilValueForKey(_:), 不能给非指针对象(如NSInteger)赋值 nil 键:\(key)")
+        Debug.info("setNilValueForKey(_:), 不能给非指针对象(如NSInteger)赋值 nil 键:\(key)")
     }
 
     /// 用于替换`setValuesForKeys(_:)`
     private func hook_setValuesForKeys(_ keyedValues: [String: Any]) {
         for (key, value) in keyedValues {
-            Log.debug("\(key) -- \(value)")
+            Debug.debug("\(key) -- \(value)")
             if value is Int || value is CGFloat || value is Double {
                 setValue("\(value)", forKey: key)
             } else {

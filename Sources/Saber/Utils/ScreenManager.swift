@@ -9,7 +9,7 @@ public class ScreenManager {
     private init() {}
 
     /// 设置设计图尺寸
-    func setup(size: CGSize) {
+    func setup(uiSize size: CGSize) {
         screenSize = size
     }
 }

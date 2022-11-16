@@ -104,8 +104,8 @@ public extension UIBarButtonItem {
     }
 }
 
-// MARK: - AssociateCompatible
-extension UIBarButtonItem: AssociateCompatible {
+// MARK: - AssociatedAttributes
+extension UIBarButtonItem: AssociatedAttributes {
     internal typealias T = UIBarButtonItem
     internal var swiftCallback: SwiftCallback? {
         get {

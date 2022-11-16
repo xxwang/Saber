@@ -251,7 +251,7 @@ public extension UIButton {
     /// `button`的事件
     /// - Parameters:
     ///   - controlEvents:事件类型,默认是 `touchUpInside`
-    ///   - buttonCallBack:事件
+    ///   - ButtonTask:事件
     /// - Returns:闭包事件
     func addActionHandler(_ action: ((_ button: UIButton?) -> Void)?, controlEvent: UIControl.Event = .touchUpInside) {
         swiftCallback = action
@@ -259,8 +259,8 @@ public extension UIButton {
     }
 }
 
-// MARK: - AssociateCompatible
-extension UIButton: AssociateCompatible {
+// MARK: - AssociatedAttributes
+extension UIButton: AssociatedAttributes {
     internal typealias T = UIButton
     internal var swiftCallback: SwiftCallback? {
         get { return AssociatedObject.object(self, &AssociateKeys.closure) }
