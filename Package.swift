@@ -19,7 +19,7 @@ let package = Package(
     targets: [
         .target(
             name: "Saber",
-            dependencies: ["Exts"],
+            dependencies: ["Exts"]
         ),
         .target(
             name: "Exts",
