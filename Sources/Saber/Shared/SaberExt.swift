@@ -21,7 +21,7 @@ public extension Saberable {
     static var sb: SaberExt<Self>.Type { SaberExt<Self>.self }
 }
 
-// MARK: - 实现扩展的对象列表
+// MARK: - 给`对象`添加`.sb`属性
 extension NSObject: Saberable {}
 extension Bool: Saberable {}
 extension Character: Saberable {}
@@ -36,6 +36,6 @@ extension CGSize: Saberable {}
 extension CGRect: Saberable {}
 extension CGVector: Saberable {}
 
-// MARK: - 实现扩展的协议列表
+// MARK: - 给`协议`添加`.sb`属性
 public extension BinaryFloatingPoint { var sb: SaberExt<Self> { SaberExt(self) }}
 public extension BinaryInteger { var sb: SaberExt<Self> { SaberExt(self) }}
