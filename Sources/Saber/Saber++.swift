@@ -50,11 +50,7 @@ public extension Saber {
     /// 是否是`iPhoneX`系列
     static var isXSeries: Bool {
         if #available(iOS 11, *) {
-            if UIWindow.sb.window!.safeAreaInsets.left > 0
-                || UIWindow.sb.window!.safeAreaInsets.bottom > 0
-            {
-                return true
-            }
+            return max(kSafeAreaInsets.left, kSafeAreaInsets.bottom) > 0
         }
         return false
     }
@@ -62,11 +58,7 @@ public extension Saber {
     /// 是否是横屏
     static var isLandscape: Bool {
         if #available(iOS 13, *) {
-            let orientation = UIDevice.current.orientation
-            if orientation == .landscapeLeft || orientation == .landscapeRight {
-                return true
-            }
-            return false
+            return [.landscapeLeft, .landscapeRight].contains(UIDevice.current.orientation)
         } else {
             return UIApplication.shared.statusBarOrientation.isLandscape
         }
