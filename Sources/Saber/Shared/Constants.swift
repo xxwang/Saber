@@ -1,7 +1,7 @@
 import UIKit
 
 // MARK: - ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 屏幕尺寸 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-/// 屏幕`bounds`
+/// 屏幕尺寸信息
 public let kScreenBounds = UIScreen.main.bounds
 /// 屏幕大小
 public let kScreenSize = kScreenBounds.size

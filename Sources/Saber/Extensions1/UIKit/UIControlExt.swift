@@ -18,7 +18,7 @@ public extension UIControl {
     /// - Parameters:
     ///   - action:事件回调
     ///   - controlEvent:事件类型
-    func addActionHandler(_ action: @escaping Callbacks.ControlTask, for controlEvent: UIControl.Event = .touchUpInside) {
+    func addActionHandler(_ action: @escaping Callbacks.ControlCallback, for controlEvent: UIControl.Event = .touchUpInside) {
         addTarget(self, action: #selector(controlEventHandler(_:)), for: controlEvent)
         swiftCallback = action
     }
@@ -36,7 +36,7 @@ private extension UIControl {
     }
 
     /// 点击回调
-    var swiftCallback: Callbacks.ControlTask? {
+    var swiftCallback: Callbacks.ControlCallback? {
         get {
             return AssociatedObject.object(self, &AssociateKeys.closure)
         }

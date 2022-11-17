@@ -79,7 +79,7 @@ public extension SaberExt where Base: DispatchQueue {
     @discardableResult
     static func delay_main_task(
         _ seconds: Double = 0,
-        task mainTask: @escaping Callbacks.DispatchQueueTask
+        task mainTask: @escaping Callbacks.TaskCallback
     ) -> DispatchWorkItem {
         return DispatchQueue._delay_async(delay: seconds, main: mainTask)
     }
@@ -92,7 +92,7 @@ public extension SaberExt where Base: DispatchQueue {
     @discardableResult
     static func delay_async_task(
         _ seconds: Double = 0,
-        task asyncTask: @escaping Callbacks.DispatchQueueTask
+        task asyncTask: @escaping Callbacks.TaskCallback
     ) -> DispatchWorkItem {
         return DispatchQueue._delay_async(delay: seconds, async: asyncTask)
     }
@@ -104,8 +104,8 @@ public extension SaberExt where Base: DispatchQueue {
     @discardableResult
     static func delay_async(
         _ seconds: Double = 0,
-        async asyncTask: @escaping Callbacks.DispatchQueueTask,
-        main mainTask: @escaping Callbacks.DispatchQueueTask
+        async asyncTask: @escaping Callbacks.TaskCallback,
+        main mainTask: @escaping Callbacks.TaskCallback
     ) -> DispatchWorkItem {
         DispatchQueue._delay_async(delay: seconds, async: asyncTask, main: mainTask)
     }
@@ -237,8 +237,8 @@ private extension DispatchQueue {
     /// - Returns:`DispatchWorkItem`
     static func _delay_async(
         delay seconds: TimeInterval,
-        async asyncTask: Callbacks.DispatchQueueTask? = nil,
-        main mainTask: Callbacks.DispatchQueueTask? = nil
+        async asyncTask: Callbacks.TaskCallback? = nil,
+        main mainTask: Callbacks.TaskCallback? = nil
     ) -> DispatchWorkItem {
         let item = DispatchWorkItem(block: asyncTask ?? {})
         DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + seconds, execute: item)

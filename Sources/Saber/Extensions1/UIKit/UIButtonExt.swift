@@ -251,7 +251,7 @@ public extension UIButton {
     /// `button`的事件
     /// - Parameters:
     ///   - controlEvents:事件类型,默认是 `touchUpInside`
-    ///   - ButtonTask:事件
+    ///   - ButtonCallback:事件
     /// - Returns:闭包事件
     func addActionHandler(_ action: ((_ button: UIButton?) -> Void)?, controlEvent: UIControl.Event = .touchUpInside) {
         swiftCallback = action

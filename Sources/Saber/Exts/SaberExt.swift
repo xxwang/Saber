@@ -1,8 +1,8 @@
 import UIKit
 
-// MARK: - 包装类型
+// MARK: - SaberExt
 public class SaberExt<Base> {
-    let base: Base
+    var base: Base
     init(_ base: Base) { self.base = base }
 }
 
@@ -13,8 +13,10 @@ public extension SaberExt {
     static func rawBase() -> Base.Type { Base.self }
 }
 
-// MARK: - .sb.扩展协议
+// MARK: - Saberable
 public protocol Saberable {}
+
+// MARK: - Saberable属性
 public extension Saberable {
     var sb: SaberExt<Self> { SaberExt(self) }
     static var sb: SaberExt<Self>.Type { SaberExt<Self>.self }
