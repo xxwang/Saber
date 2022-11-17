@@ -24,7 +24,7 @@ public class DarkModeManager: NSObject {
         if isSmartPeeling {
             return isSmartPeelingTime() ? false : true
         }
-        if let value = UserDefaults.value(for: CMLightDarkKey) as? Bool {
+        if let value = UserDefaults.sb.fetch(for: CMLightDarkKey) as? Bool {
             return value
         }
         UserDefaults.resetStandardUserDefaults()
@@ -34,7 +34,7 @@ public class DarkModeManager: NSObject {
     /// 是否跟随系统
     public static var isFollowSystem: Bool {
         if #available(iOS 13, *) {
-            if let value = UserDefaults.value(for: CMDarkToSystemKey) as? Bool {
+            if let value = UserDefaults.sb.fetch(for: CMDarkToSystemKey) as? Bool {
                 return value
             }
             return true
@@ -44,7 +44,7 @@ public class DarkModeManager: NSObject {
 
     /// 默认不是智能换肤
     public static var isSmartPeeling: Bool {
-        if let value = UserDefaults.value(for: CMSmartPeelingKey) as? Bool {
+        if let value = UserDefaults.sb.fetch(for: CMSmartPeelingKey) as? Bool {
             return value
         }
         return false
@@ -53,13 +53,13 @@ public class DarkModeManager: NSObject {
     /// 智能换肤的时间段:默认是:21:00~8:00
     public static var SmartPeelingTimeIntervalValue: String {
         get {
-            if let value = UserDefaults.value(for: CMSmartPeelingTimeIntervalKey) as? String {
+            if let value = UserDefaults.sb.fetch(for: CMSmartPeelingTimeIntervalKey) as? String {
                 return value
             }
             return "21:00~8:00"
         }
         set {
-            UserDefaults.setValue(newValue, for: CMSmartPeelingTimeIntervalKey)
+            UserDefaults.sb.save(newValue, for: CMSmartPeelingTimeIntervalKey)
         }
     }
 }
@@ -86,10 +86,10 @@ public extension DarkModeManager {
     static func setDarkModeFollowSystem(isFollowSystem: Bool) {
         if #available(iOS 13.0, *) {
             // 设置是否跟随系统
-            UserDefaults.setValue(isFollowSystem, for: CMDarkToSystemKey)
+            UserDefaults.sb.save(isFollowSystem, for: CMDarkToSystemKey)
             let result = UITraitCollection.current.userInterfaceStyle == .light ? true : false
-            UserDefaults.setValue(result, for: CMLightDarkKey)
-            UserDefaults.setValue(false, for: CMSmartPeelingKey)
+            UserDefaults.sb.save(result, for: CMLightDarkKey)
+            UserDefaults.sb.save(false, for: CMSmartPeelingKey)
             // 设置模式的保存
             if isFollowSystem {
                 UIWindow.sb.window?.overrideUserInterfaceStyle = .unspecified
@@ -105,14 +105,14 @@ public extension DarkModeManager {
             // 只要设置了模式:就是黑或者白
             UIWindow.sb.window?.overrideUserInterfaceStyle = isLight ? .light : .dark
             // 设置跟随系统和智能换肤:否
-            UserDefaults.setValue(false, for: CMDarkToSystemKey)
-            UserDefaults.setValue(false, for: CMSmartPeelingKey)
+            UserDefaults.sb.save(false, for: CMDarkToSystemKey)
+            UserDefaults.sb.save(false, for: CMSmartPeelingKey)
             // 黑白模式的设置
-            UserDefaults.setValue(isLight, for: CMLightDarkKey)
+            UserDefaults.sb.save(isLight, for: CMLightDarkKey)
         } else {
-            UserDefaults.setValue(false, for: CMSmartPeelingKey)
+            UserDefaults.sb.save(false, for: CMSmartPeelingKey)
             // 模式存储
-            UserDefaults.setValue(isLight, for: CMLightDarkKey)
+            UserDefaults.sb.save(isLight, for: CMLightDarkKey)
             // 通知模式更新
             SkinManager.shared.updateSkin()
         }
@@ -123,18 +123,18 @@ public extension DarkModeManager {
     static func setSmartPeelingDarkMode(isSmartPeeling: Bool) {
         if #available(iOS 13.0, *) {
             // 设置智能换肤
-            UserDefaults.setValue(isSmartPeeling, for: CMSmartPeelingKey)
+            UserDefaults.sb.save(isSmartPeeling, for: CMSmartPeelingKey)
             // 智能换肤根据时间段来设置:黑或者白
             UIWindow.sb.window?.overrideUserInterfaceStyle = isLight ? .light : .dark
             // 设置跟随系统:否
-            UserDefaults.setValue(false, for: CMDarkToSystemKey)
-            UserDefaults.setValue(isLight, for: CMLightDarkKey)
+            UserDefaults.sb.save(false, for: CMDarkToSystemKey)
+            UserDefaults.sb.save(isLight, for: CMLightDarkKey)
         } else {
             // 模式存储
             // 设置智能换肤
-            UserDefaults.setValue(isSmartPeeling, for: CMSmartPeelingKey)
+            UserDefaults.sb.save(isSmartPeeling, for: CMSmartPeelingKey)
             // 设置跟随系统:否
-            UserDefaults.setValue(isLight, for: CMLightDarkKey)
+            UserDefaults.sb.save(isLight, for: CMLightDarkKey)
             // 通知模式更新
             SkinManager.shared.updateSkin()
         }
@@ -160,10 +160,10 @@ public extension DarkModeManager {
             // 只要设置了模式:就是黑或者白
             UIWindow.sb.window?.overrideUserInterfaceStyle = light ? .light : .dark
             // 黑白模式的设置
-            UserDefaults.setValue(light, for: CMLightDarkKey)
+            UserDefaults.sb.save(light, for: CMLightDarkKey)
         } else {
             // 模式存储
-            UserDefaults.setValue(light, for: CMLightDarkKey)
+            UserDefaults.sb.save(light, for: CMLightDarkKey)
             // 通知模式更新
             SkinManager.shared.updateSkin()
         }
