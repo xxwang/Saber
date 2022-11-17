@@ -2,20 +2,12 @@ import Foundation
 
 extension Calendar: Saberable {}
 
-// MARK: - 属性
-public extension SaberExt where Base == Calendar {
-    /// 当月天数
-    var daysInMonth: Int {
-        return self.daysInMonth(for: Date.nowDate)
-    }
-}
-
 // MARK: - 方法
 public extension SaberExt where Base == Calendar {
-    /// 指定`Date``当月`的`天数`
-    /// - Parameter date: 日期
+    /// 指定`Date`月份的`天数`
+    /// - Parameter date: 日期 (默认:`Date.nowDate`)
     /// - Returns: 当月天数
-    func daysInMonth(for date: Date) -> Int {
+    func daysInMonth(for date: Date = .nowDate) -> Int {
         return base.range(of: .day, in: .month, for: date)!.count
     }
 }
