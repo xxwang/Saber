@@ -2,21 +2,21 @@ import MapKit
 
 // MARK: - 方法
 public extension SaberExt where Base: MKMapView {
-    /// 注册继承自`MKAnnotationView`的大头针视图
+    /// 注册大头针
     /// - Parameter name: 继承自`MKAnnotationView`的类型
     @available(iOS 11.0, tvOS 11.0, macOS 10.13, *)
     func register<T: MKAnnotationView>(annotationViewWithClass name: T.Type) {
         base.register(T.self, forAnnotationViewWithReuseIdentifier: String(describing: name))
     }
 
-    /// 获取`已被注册`的`可重用`的继承自`MKAnnotationView`的大头针视图
+    /// 获取`可重用`的大头针
     /// - Parameter name: 继承自`MKAnnotationView`的类型
     /// - Returns: 继承自`MKAnnotationView`的对象
     func dequeueReusableAnnotationView<T: MKAnnotationView>(withClass name: T.Type) -> T? {
         return base.dequeueReusableAnnotationView(withIdentifier: String(describing: name)) as? T
     }
 
-    /// 获取`已被注册`的`可重用`的继承自`MKAnnotationView`的大头针视图
+    /// 获取`可重用`的大头针
     /// - Parameters:
     ///   - name: 继承自`MKAnnotationView`的类型
     ///   - annotation: 大头针对象
