@@ -159,7 +159,7 @@ public extension SaberExt where Base: UIWindow {
         return window
     }
 
-    /// 屏幕上所有的`UIWindow`
+    /// 所有`connectedScenes`的`UIWindow`
     static var windows: [UIWindow] {
         var windows = [UIWindow]()
         if #available(iOS 13.0, *) {

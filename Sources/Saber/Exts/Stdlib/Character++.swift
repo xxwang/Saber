@@ -1,6 +1,7 @@
 import Foundation
 
-extension Character: Saberable {}
+//Comparable协议中已添加.sb属性
+//extension Character: Saberable {}
 
 // MARK: - 类型转换
 public extension SaberExt where Base == Character {
