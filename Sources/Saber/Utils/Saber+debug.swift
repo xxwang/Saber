@@ -1,41 +1,71 @@
 import Foundation
 
-    // MARK: - debug控制台输出方法
-public extension Saber {
+// MARK: - 日志等级
+private extension Saber {
+    /// 日志等级
+    enum Level: String {
         /// 调试
-    static func debug(_ message: Any...,
-                      file: String = #file,
-                      line: Int = #line,
-                      function: String = #function)
-    {
-    log(level: .debug, message: message, file: file, line: line, function: function)
-    }
-    
+        case debug = "[调试]"
         /// 信息
+        case info = "[信息]"
+        /// 警告
+        case warning = "[警告]"
+        /// 错误
+        case error = "[错误]"
+
+        /// 图标
+        var icon: String {
+            switch self {
+                case .debug:
+                    return "👻"
+                case .info:
+                    return "🌸"
+                case .warning:
+                    return "⚠️"
+                case .error:
+                    return "❌"
+            }
+        }
+    }
+}
+
+// MARK: - 输出调试
+public extension Saber {
+    /// 调试
+    static func debug(
+        _ message: Any...,
+        file: String = #file,
+        line: Int = #line,
+        function: String = #function
+    ) {
+        log(level: .debug, message: message, file: file, line: line, function: function)
+    }
+
+    /// 信息
     static func info(_ message: Any...,
                      file: String = #file,
                      line: Int = #line,
                      function: String = #function)
     {
-    log(level: .info, message: message, file: file, line: line, function: function)
+        log(level: .info, message: message, file: file, line: line, function: function)
     }
-    
-        /// 警告
+
+    /// 警告
     static func warning(_ message: Any...,
                         file: String = #file,
                         line: Int = #line,
                         function: String = #function)
     {
-    log(level: .warning, message: message, file: file, line: line, function: function)
+        log(level: .warning, message: message, file: file, line: line, function: function)
     }
-    
-        /// 错误
+
+    /// 错误
     static func error(_ message: Any...,
                       file: String = #file,
                       line: Int = #line,
                       function: String = #function)
     {
-    log(level: .error, message: message, file: file, line: line, function: function)
+        log(level: .error, message: message, file: file, line: line, function: function)
     }
 }
 
@@ -55,60 +85,12 @@ private extension Saber {
         line: Int,
         function: String
     ) {
-        // 输出内容
-        var content = ""
-        for item in message {
-            content += "\(item)"
-        }
-        // 当时时间
-        let dateStr = "" // Date().format("HH:mm:ss.SSS", isGMT: false)
-        // 文件名称
-        let fileName = (file as NSString).lastPathComponent
+        var content = message.map { "\($0)" }.joined(separator: "")
 
-        content = "\(level.levelIcon)\(level.levelName)[\(dateStr)][\(fileName) => \(function)]\(line):" + content
+        let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
+        let fileName = (file as NSString).lastPathComponent.removingSuffix(".swift")
+
+        content = "\(level.icon)\(level.rawValue)[\(dateStr)][\(fileName)[\(line)] => \(function)]:" + content
         print(content)
-    }
-}
-
-// MARK: - 日志等级
-private extension Saber {
-    /// 日志等级
-    enum Level {
-        /// 调试
-        case debug
-        /// 信息
-        case info
-        /// 警告
-        case warning
-        /// 错误
-        case error
-
-        /// 图标
-        var levelIcon: String {
-            switch self {
-            case .debug:
-                return "👻"
-            case .info:
-                return "🌸"
-            case .warning:
-                return "⚠️"
-            case .error:
-                return "❌"
-            }
-        }
-
-        /// 级别名称
-        var levelName: String {
-            switch self {
-            case .debug:
-                return "[调试]"
-            case .info:
-                return "[信息]"
-            case .warning:
-                return "[警告]"
-            case .error:
-                return "[错误]"
-            }
-        }
     }
 }

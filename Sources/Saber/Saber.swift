@@ -8,4 +8,3 @@ public extension Saber {
         info(Saber().text)
     }
 }
-
