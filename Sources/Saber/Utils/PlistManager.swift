@@ -1,12 +1,12 @@
 import UIKit
 
-public class PlistManager<T> {
+public class PlistManager {
     /// 解析`.plist`文件到`T.Type`(使用:`plist文件名称`)
     /// - Parameters:
     ///   - plistName: `.plist`文件名称
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    static func analysis(with plistName: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
+    static func analysis<T>(with plistName: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
         guard let plistName,
               let plistPath = Bundle.path(for: plistName)
         else {
@@ -21,7 +21,7 @@ public class PlistManager<T> {
     ///   - plistPath: 文件路径
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    static func analysis(from plistPath: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
+    static func analysis<T>(from plistPath: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
         guard let plistPath,
               let plistData = FileManager.default.contents(atPath: plistPath)
         else {
