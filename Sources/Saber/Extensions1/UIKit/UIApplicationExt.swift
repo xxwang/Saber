@@ -257,7 +257,7 @@ public extension UIApplication {
 
         // 打开评分页面
         openURL(url) { isSuccess in
-            isSuccess ? Debug.info("打开应用商店评分页成功!") : Debug.error("打开应用商店评分页失败!")
+            isSuccess ? Saber.info("打开应用商店评分页成功!") : Saber.error("打开应用商店评分页失败!")
         }
     }
 
@@ -293,7 +293,7 @@ public extension UIApplication {
         productVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appID]) { isSuccess, error in
             productVC.dismiss(animated: true)
             if !isSuccess {
-                Debug.error(error?.localizedDescription ?? "")
+                Saber.error(error?.localizedDescription ?? "")
                 return
             }
         }
@@ -342,10 +342,10 @@ public extension UIApplication {
         guard #available(iOS 10.0, *) else {
             let success = UIApplication.shared.openURL(url)
             if success {
-                Debug.info("10以前可以跳转")
+                Saber.info("10以前可以跳转")
                 completion(true)
             } else {
-                Debug.info("10以前不能完成跳转")
+                Saber.info("10以前不能完成跳转")
                 completion(false)
             }
             return
@@ -353,10 +353,10 @@ public extension UIApplication {
         // iOS 10.0 以后
         UIApplication.shared.open(url, options: [:]) { success in
             if success {
-                Debug.info("10以后可以跳转url")
+                Saber.info("10以后可以跳转url")
                 completion(true)
             } else {
-                Debug.info("10以后不能完成跳转")
+                Saber.info("10以后不能完成跳转")
                 completion(false)
             }
         }
@@ -466,7 +466,7 @@ public extension UIApplication {
             center.delegate = (delegate as! UNUserNotificationCenterDelegate)
             center.requestAuthorization(options: options) { (granted: Bool, error: Error?) in
                 if granted {
-                    Debug.info("远程推送注册成功!")
+                    Saber.info("远程推送注册成功!")
                 }
             }
             self.shared.registerForRemoteNotifications()
@@ -521,7 +521,7 @@ public extension UIApplication {
             if error == nil {
                 return
             }
-            Debug.info("通知添加成功!")
+            Saber.info("通知添加成功!")
         }
     }
 }

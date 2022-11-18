@@ -38,7 +38,7 @@ public extension AudioSoundManager {
 
             return player
         } catch {
-            Debug.debug(error.localizedDescription)
+            Saber.debug(error.localizedDescription)
             return nil
         }
     }

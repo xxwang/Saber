@@ -5,6 +5,7 @@ public struct Saber {
 public extension Saber {
     /// "Hello, Saber!"
     static func sayHello() {
-        Debug.info(Saber().text)
+        info(Saber().text)
     }
 }
+

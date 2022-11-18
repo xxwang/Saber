@@ -394,7 +394,7 @@ public extension UIViewController {
     private func hook_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         if viewControllerToPresent.presentationController == nil {
             viewControllerToPresent.presentationController?.presentedViewController.dismiss(animated: false, completion: nil)
-            Debug.error("viewControllerToPresent.presentationController 不能为 nil")
+            Saber.error("viewControllerToPresent.presentationController 不能为 nil")
             return
         }
         hook_present(viewControllerToPresent, animated: flag, completion: completion)

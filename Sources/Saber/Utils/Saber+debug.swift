@@ -1,48 +1,46 @@
 import Foundation
 
-public enum Debug {}
-
-// MARK: - 公开方法
-public extension Debug {
-    /// 调试
+    // MARK: - debug控制台输出方法
+public extension Saber {
+        /// 调试
     static func debug(_ message: Any...,
                       file: String = #file,
                       line: Int = #line,
                       function: String = #function)
     {
-        log(level: .debug, message: message, file: file, line: line, function: function)
+    log(level: .debug, message: message, file: file, line: line, function: function)
     }
-
-    /// 信息
+    
+        /// 信息
     static func info(_ message: Any...,
                      file: String = #file,
                      line: Int = #line,
                      function: String = #function)
     {
-        log(level: .info, message: message, file: file, line: line, function: function)
+    log(level: .info, message: message, file: file, line: line, function: function)
     }
-
-    /// 警告
+    
+        /// 警告
     static func warning(_ message: Any...,
                         file: String = #file,
                         line: Int = #line,
                         function: String = #function)
     {
-        log(level: .warning, message: message, file: file, line: line, function: function)
+    log(level: .warning, message: message, file: file, line: line, function: function)
     }
-
-    /// 错误
+    
+        /// 错误
     static func error(_ message: Any...,
                       file: String = #file,
                       line: Int = #line,
                       function: String = #function)
     {
-        log(level: .error, message: message, file: file, line: line, function: function)
+    log(level: .error, message: message, file: file, line: line, function: function)
     }
 }
 
 // MARK: - 私有方法
-private extension Debug {
+private extension Saber {
     /// 输出方法
     /// - Parameters:
     ///   - level:等级
@@ -51,7 +49,7 @@ private extension Debug {
     ///   - line:行
     ///   - function:方法
     private static func log(
-        level: Debug.Level,
+        level: Saber.Level,
         message: Any...,
         file: String,
         line: Int,
@@ -73,7 +71,7 @@ private extension Debug {
 }
 
 // MARK: - 日志等级
-private extension Debug {
+private extension Saber {
     /// 日志等级
     enum Level {
         /// 调试

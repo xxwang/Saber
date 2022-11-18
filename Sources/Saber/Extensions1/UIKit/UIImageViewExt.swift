@@ -137,10 +137,10 @@ public extension UIImageView {
 //            switch result {
 //            //                  case let .success:(value):
 //            case .success:
-//                //                  Debug.info("图片加载成功!\(value)")
+//                //                  Saber.info("图片加载成功!\(value)")
 //                break
 //            case let .failure(error):
-//                Debug.error("图片加载失败!\n地址:\(imageURL.absoluteString)\n错误:\(error.localizedDescription)")
+//                Saber.error("图片加载失败!\n地址:\(imageURL.absoluteString)\n错误:\(error.localizedDescription)")
 //            }
 //        }
 //    }

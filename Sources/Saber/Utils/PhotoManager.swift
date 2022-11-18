@@ -138,7 +138,7 @@ public extension PhotoManager {
                     if isSuccess {
                         self.saveImage2Album(image, albumName: albumName, completion: completion)
                     } else {
-                        Debug.info(error?.localizedDescription ?? "")
+                        Saber.info(error?.localizedDescription ?? "")
                     }
                 }
                 return
@@ -158,7 +158,7 @@ public extension PhotoManager {
                 if isSuccess {
                     completion?(.success)
                 } else {
-                    Debug.info(error?.localizedDescription ?? "")
+                    Saber.info(error?.localizedDescription ?? "")
                     completion?(.error)
                 }
             }
