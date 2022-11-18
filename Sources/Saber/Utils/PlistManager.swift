@@ -6,7 +6,7 @@ public class PlistManager {
     ///   - plistName: `.plist`文件名称
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    static func analysis<T>(with plistName: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
+    public static func analysis<T>(with plistName: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
         guard let plistName,
               let plistPath = Bundle.path(for: plistName)
         else {
@@ -21,7 +21,7 @@ public class PlistManager {
     ///   - plistPath: 文件路径
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    static func analysis<T>(from plistPath: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
+    public static func analysis<T>(from plistPath: String?, resultType: T.Type = [String: Any].self, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
         guard let plistPath,
               let plistData = FileManager.default.contents(atPath: plistPath)
         else {
