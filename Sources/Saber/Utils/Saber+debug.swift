@@ -16,14 +16,14 @@ private extension Saber {
         /// 图标
         var icon: String {
             switch self {
-                case .debug:
-                    return "👻"
-                case .info:
-                    return "🌸"
-                case .warning:
-                    return "⚠️"
-                case .error:
-                    return "❌"
+            case .debug:
+                return "👻"
+            case .info:
+                return "🌸"
+            case .warning:
+                return "⚠️"
+            case .error:
+                return "❌"
             }
         }
     }
@@ -85,12 +85,10 @@ private extension Saber {
         line: Int,
         function: String
     ) {
-        var content = message.map { "\($0)" }.joined(separator: "")
-
         let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
         let fileName = (file as NSString).lastPathComponent.removingSuffix(".swift")
 
-        content = "\(level.icon)\(level.rawValue)[\(dateStr)][\(fileName).\(line) => \(function)]:" + content
-        print(content)
+        var content = message.map { "\($0)" }.joined(separator: "")
+        print("\(level.icon)\(level.rawValue)[\(dateStr)][\(fileName).\(line) => \(function)]: " + content)
     }
 }

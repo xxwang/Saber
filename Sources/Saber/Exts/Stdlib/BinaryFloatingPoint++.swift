@@ -171,3 +171,21 @@ public extension SaberExt where Base: BinaryFloatingPoint {
         return base < 0
     }
 }
+
+// MARK: - 屏幕适配
+public extension SaberExt where Base: BinaryFloatingPoint {
+    /// 适配宽度
+    var w: CGFloat { return SizeAdapter.shared.adaptingWidth(value: self) }
+
+    /// 适配高度
+    var h: CGFloat { return SizeAdapter.shared.adaptingHeight(value: self) }
+
+    /// 最大适配(特殊情况)
+    var max: CGFloat { return SizeAdapter.shared.adaptingMax(value: self) }
+
+    /// 最小适配(特殊情况)
+    var min: CGFloat { return SizeAdapter.shared.adaptingMin(value: self) }
+
+    /// 字体大小配置
+    var font: CGFloat { return SizeAdapter.shared.adaptingFont(value: self) }
+}

@@ -22,7 +22,7 @@ public extension Saber {
         else {
             return nil
         }
-        
+
         do {
             var format = PropertyListSerialization.PropertyListFormat.xml
             return try PropertyListSerialization.propertyList(
