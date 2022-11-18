@@ -90,7 +90,7 @@ private extension Saber {
         let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
         let fileName = (file as NSString).lastPathComponent.removingSuffix(".swift")
 
-        content = "\(level.icon)\(level.rawValue)[\(dateStr)][\(fileName)[\(line)] => \(function)]:" + content
+        content = "\(level.icon)\(level.rawValue)[\(dateStr)][\(fileName).\(line) => \(function)]:" + content
         print(content)
     }
 }
