@@ -1,12 +1,12 @@
 import UIKit
 
-public class PlistManager {
+public extension Saber {
     /// 解析`.plist`文件到`T.Type`(使用:`plist文件名称`)
     /// - Parameters:
     ///   - plistName: `.plist`文件名称
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    public static func parsePlist<T>(with plistName: String?) -> (Bool, T?) where T: Sequence {
+    static func parsePlist<T>(with plistName: String?) -> (Bool, T?) where T: Sequence {
         guard let plistName,
               let plistPath = Bundle.path(for: plistName)
         else {
@@ -20,7 +20,7 @@ public class PlistManager {
     ///   - plistPath: 文件路径
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    public static func parsePlist<T>(from plistPath: String?) -> (Bool, T?) where T: Sequence {
+    static func parsePlist<T>(from plistPath: String?) -> (Bool, T?) where T: Sequence {
         guard let plistPath,
               let plistData = FileManager.default.contents(atPath: plistPath)
         else {
