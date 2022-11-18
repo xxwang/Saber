@@ -6,14 +6,13 @@ public class PlistManager {
     ///   - plistName: `.plist`文件名称
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    public static func parsePlist<T>(with plistName: String?, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
+    public static func parsePlist<T>(with plistName: String?) -> (Bool, T?) where T: Sequence {
         guard let plistName,
               let plistPath = Bundle.path(for: plistName)
         else {
-            completion(false, nil)
-            return
+            return (false, nil)
         }
-        self.parsePlist(from: plistPath, completion: completion)
+        return self.parsePlist(from: plistPath)
     }
 
     /// 解析`.plist`文件到`T.Type`(使用:`plist文件路径`)
@@ -21,12 +20,11 @@ public class PlistManager {
     ///   - plistPath: 文件路径
     ///   - resultType: 结果类型默认`[String: Any]`
     ///   - completion: 完成回调
-    public static func parsePlist<T>(from plistPath: String?, completion: (_ isOK: Bool, _ result: T?) -> Void) where T: Sequence {
+    public static func parsePlist<T>(from plistPath: String?) -> (Bool, T?) where T: Sequence {
         guard let plistPath,
               let plistData = FileManager.default.contents(atPath: plistPath)
         else {
-            completion(false, nil)
-            return
+            return (false, nil)
         }
         var format = PropertyListSerialization.PropertyListFormat.xml
         do {
@@ -36,12 +34,11 @@ public class PlistManager {
                 format: &format
             )
             guard let result = anyResult as? T else {
-                completion(false, nil)
-                return
+                return (false, nil)
             }
-            completion(true, result)
+            return (true, result)
         } catch {
-            completion(false, nil)
+            return (false, nil)
         }
     }
 }
