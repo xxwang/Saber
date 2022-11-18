@@ -1,6 +1,6 @@
 import UIKit
 
-class PlistManager<T: Sequence> {
+public class PlistManager<T: Sequence> {
     /// 解析`.plist`文件到`T.Type`(使用:`plist文件名称`)
     /// - Parameters:
     ///   - plistName: `.plist`文件名称
