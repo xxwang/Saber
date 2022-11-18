@@ -15,7 +15,7 @@ public extension UIGestureRecognizer {
 
     /// 添加手势响应回调
     /// - Parameter closure:响应回调
-    func addActionHandler(_ closure: @escaping Callbacks.GestureCallback) {
+    func addActionHandler(_ closure: @escaping Callbacks.GestureResult) {
         addTarget(self, action: #selector(p_invoke))
         objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
@@ -39,7 +39,7 @@ public extension UIGestureRecognizer {
 
     /// 手势响应方法
     private func p_invoke() {
-        if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? Callbacks.GestureCallback {
+        if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? Callbacks.GestureResult {
             closure(self)
         }
     }
