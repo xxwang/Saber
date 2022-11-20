@@ -6,12 +6,12 @@ public let kScreenSize = kScreenBounds.size
 public let kScreenWidth = min(kScreenSize.width, kScreenSize.height)
 public let kScreenHeight = max(kScreenSize.width, kScreenSize.height)
 
-public let kStatusBarHeight: CGFloat = Saber.isXSeries ? 44 : 20
+public let kStatusBarHeight: CGFloat = Saber.isIphoneXSeries ? 44 : 20
 public let kNavBarHeight: CGFloat = 44
 public let kNavAllHeight = kStatusBarHeight + kNavBarHeight
 
 public let kTabBarHeight: CGFloat = 49
-public let kBottomIndent: CGFloat = Saber.isXSeries ? 34 : 0
+public let kBottomIndent: CGFloat = Saber.isIphoneXSeries ? 34 : 0
 public let kTabAllHeight: CGFloat = kTabBarHeight + kBottomIndent
 
 public var kSafeAreaInsets: UIEdgeInsets {

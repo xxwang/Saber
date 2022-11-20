@@ -48,7 +48,7 @@ public extension Saber {
     }
 
     /// 是否是`iPhoneX`系列
-    static var isXSeries: Bool {
+    static var isIphoneXSeries: Bool {
         if #available(iOS 11, *) {
             return max(kSafeAreaInsets.left, kSafeAreaInsets.bottom) > 0
         }
