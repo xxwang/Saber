@@ -11,7 +11,9 @@ Saber(日常开发工具包)
 ```
 #### SPM方式安装
 ```
-.package(url: "github.com/xxwang/Saber.git", branch: "master")
+dependencies: [
+    .package(url: "github.com/xxwang/Saber.git", branch: "master")
+]
 ```
 
 ### 导入方式
