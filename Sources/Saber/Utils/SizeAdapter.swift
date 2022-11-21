@@ -47,7 +47,7 @@ public extension SizeAdapter {
 
 // MARK: - 私有方法
 private extension SizeAdapter {
-    /// 设备屏幕与设计图屏幕的`宽度比`
+    /// 设备屏幕尺寸与设计图屏幕尺寸的`宽度比`
     /// - Returns: `CGFloat`
     func ratioToSketchWidth() -> CGFloat {
         var scale: CGFloat = kScreenWidth / sketchSize.width
@@ -57,7 +57,7 @@ private extension SizeAdapter {
         return scale
     }
 
-    /// 设备屏幕与设计图屏幕的`高度比`
+    /// 设备屏幕尺寸与设计图屏幕尺寸的`高度比`
     /// - Returns: `CGFloat`
     func ratioToSketchHeight() -> CGFloat {
         var scale: CGFloat = kScreenHeight / sketchSize.height
@@ -86,7 +86,6 @@ private extension SizeAdapter {
         if let value = value as? Int {
             return value.sb.toCGFloat()
         }
-
         return 0
     }
 }
