@@ -10,7 +10,7 @@ public class SizeAdapter {
     private var sketchSize = CGSize(width: 375, height: 812)
 
     /// 设置设计图尺寸
-    func setupSketch(size: CGSize) {
+    public func setupSketch(size: CGSize) {
         sketchSize = size
     }
 }
