@@ -53,7 +53,7 @@ public extension SaberExt where Base: NotificationCenter {
         let nBlock = NotificationBlock()
         nBlock.block = block
         NotificationCenter.default.addObserver(
-            nBlock,
+            self,
             selector: #selector(NotificationBlock.receive(n:)),
             name: name,
             object: nil
