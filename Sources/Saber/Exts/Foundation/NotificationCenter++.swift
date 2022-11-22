@@ -12,7 +12,9 @@ public extension SaberExt where Base: NotificationCenter {
         object: Any? = nil,
         userInfo: [AnyHashable: Any]? = nil
     ) {
-        NotificationCenter.default.post(name: name, object: object, userInfo: userInfo)
+        DispatchQueue.sb.mainAsync {
+            NotificationCenter.default.post(name: name, object: object, userInfo: userInfo)
+        }
     }
 
     /// 添加通知监听(方法)
@@ -34,11 +36,13 @@ public extension SaberExt where Base: NotificationCenter {
     /// - Parameters:
     ///   - name: 通知名称
     ///   - block: 接收到通知的回调
-    static func receive(name: Notification.Name, block: (Notification) -> Void) {
-        NotificationCenter.default.addObserver(self, selector: #selector(NotificationCenter.receive(n:)), name: name, object: nil)
+    static func receive(
+        name: Notification.Name,
+        block: (Notification) -> Void
+    ) {//#selector(receive(n:)
+        NotificationCenter.default.addObserver(self, selector: "receive(n:)", name: name, object: nil)
     }
 
-    
     /// 移除监听者
     /// - Parameters:
     ///   - observer:要移除的监听者
@@ -58,8 +62,9 @@ public extension SaberExt where Base: NotificationCenter {
     }
 }
 
-private extension NotificationCenter {
-    @objc func receive(n: Notification) {
+// private extension NotificationCenter {
+private extension SaberExt where Base: NotificationCenter {
+    func receive(n: Notification) {
         Saber.debug(n)
     }
 }
