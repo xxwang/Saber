@@ -12,9 +12,7 @@ public extension SaberExt where Base: NotificationCenter {
         object: Any? = nil,
         userInfo: [AnyHashable: Any]? = nil
     ) {
-        DispatchQueue.sb.mainAsync {
-            NotificationCenter.default.post(name: name, object: object, userInfo: userInfo)
-        }
+        NotificationCenter.default.post(name: name, object: object, userInfo: userInfo)
     }
 
     /// 添加通知监听(方法)
