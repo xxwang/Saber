@@ -1,9 +1,9 @@
 import UIKit
 
 // MARK: - 静态属性
-public extension Bundle {
+public extension SaberExt where Base: Bundle {
     /// `Info.plist`
-    static var infoDict: [String: Any]? {
+    static var infoDic: [String: Any]? {
         return Bundle.main.infoDictionary
     }
 
@@ -18,32 +18,32 @@ public extension Bundle {
     }
 
     /// 获取app的 `bundleIdentifier`
-    static var appBundleIdentifier: String? {
+    static var bundleIdentifier: String? {
         return Bundle.main.bundleIdentifier
     }
 
     /// 使用反射时的命名空间(app工程名称)`CFBundleExecutable`
     static var namespace: String? {
-        return infoDict?["CFBundleExecutable"] as? String
+        return infoDic?["CFBundleExecutable"] as? String
     }
 
     /// 可执行文件名称`kCFBundleExecutableKey`
-    static var executable: String? {
+    static var executableName: String? {
         let name = kCFBundleExecutableKey as String
-        return infoDict?[name] as? String
+        return infoDic?[name] as? String
     }
 
     /// App 名称`CFBundleDisplayName`/`CFBundleExecutable`/`CFBundleName`
-    static var appDisplayName: String? {
-        if let appName = infoDict?["CFBundleDisplayName"] as? String {
+    static var displayName: String? {
+        if let appName = infoDic?["CFBundleDisplayName"] as? String {
             return appName
         }
 
-        if let appName = infoDict?["CFBundleExecutable"] as? String {
+        if let appName = infoDic?["CFBundleExecutable"] as? String {
             return appName
         }
 
-        if let appName = infoDict?["CFBundleName"] as? String {
+        if let appName = infoDic?["CFBundleName"] as? String {
             return appName
         }
 
@@ -53,9 +53,9 @@ public extension Bundle {
     /// 设备信息的获取
     static var userAgent: String {
         // 可执行程序名称
-        let executable = self.executable ?? "Unknown"
+        let executable = executableName ?? "Unknown"
         // 应用标识
-        let bundleID = appBundleIdentifier ?? "Unknown"
+        let bundleID = bundleIdentifier ?? "Unknown"
         // 应用版本
         let version = buildVersion ?? "Unknown"
 
@@ -70,20 +70,20 @@ public extension Bundle {
 
     /// 本地化`kCFBundleLocalizationsKey`
     static var localization: String? {
-        guard let content = infoDict?[String(kCFBundleLocalizationsKey)] else {
+        guard let content = infoDic?[String(kCFBundleLocalizationsKey)] else {
             return nil
         }
         return (content as! String)
     }
 
-    /// 应用商店收据URL(appStoreReceiptURL)
+    /// 应用商店`收据URL`(`appStoreReceiptURL`)
     static var storeReceiptURL: URL? {
         return Bundle.main.appStoreReceiptURL
     }
 }
 
 // MARK: - 方法
-public extension Bundle {
+public extension SaberExt where Base: Bundle {
     /// 获取项目中文件的`path`
     /// - Parameters:
     ///   - fileName:文件名称

@@ -1,24 +1,27 @@
 import AVFoundation
 import UIKit
 
+extension URL: Saberable {}
 // MARK: - 属性
-public extension URL {
+public extension SaberExt where Base == URL {
     /// 检测应用是否能打开这个`URL`
     var canOpen: Bool {
-        return UIApplication.shared.canOpenURL(self)
+        return UIApplication.shared.canOpenURL(base)
     }
 
     /// 以字典形式返回`URL`的`参数`
-    var queryParameters: [String: String]? {
-        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false),
-              let queryItems = components.queryItems else { return nil }
+    var parameters: [String: String]? {
+        guard
+            let components = URLComponents(url: base, resolvingAgainstBaseURL: false),
+            let queryItems = components.queryItems
+        else {
+            return nil
+        }
 
         var items: [String: String] = [:]
-
         for queryItem in queryItems {
             items[queryItem.name] = queryItem.value
         }
-
         return items
     }
 }
@@ -27,39 +30,40 @@ public extension URL {
 public extension URL {
     /// 使用基础`URL`和`路径字符串`初始化`URL`对象
     /// - Parameters:
-    ///   - string:`URL`路径
-    ///   - baseURL:基础`URL`
-    init?(string: String?, baseURL: URL? = nil) {
+    ///   - string: `URL`路径
+    ///   - url: 基础`URL`
+    init?(path string: String?, base url: URL? = nil) {
         guard let string = string else { return nil }
-        self.init(string: string, relativeTo: baseURL)
+        self.init(string: string, relativeTo: url)
     }
 
     /// 使用基础`URL字符串`和`路径字符串`初始化`URL`对象
     /// - Parameters:
-    ///   - string:`URL`路径
-    ///   - baseString:基础`URL字符串`
-    init?(string: String?, baseString: String? = nil) {
+    ///   - string: `URL`路径
+    ///   - urlString: 基础`URL字符串`
+    init?(path string: String?, base urlString: String? = nil) {
         guard let string = string else { return nil }
-        guard let baseString = baseString else { return nil }
-        guard let baseURL = baseString.url else { return nil }
+        guard let urlString = urlString else { return nil }
+        guard let baseURL = urlString.url else { return nil }
         self.init(string: string, relativeTo: baseURL)
     }
 }
 
 // MARK: - 方法
-public extension URL {
+public extension SaberExt where Base == URL {
     /// 给`URL`添加查询参数并返回携带查询参数的 `URL`
     ///
     ///     let url = URL(string:"https://google.com")!
     ///     let param = ["q":"Swifter Swift"]
-    ///     url.appendingQueryParameters(params) -> "https://google.com?q=Swifter%20Swift"
+    ///     url.appendParameters(params) -> "https://google.com?q=Swifter%20Swift"
     ///
-    /// - Parameter parameters:参数字典
-    /// - Returns:附加查询参数的`URL`
-    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
-        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)!
-        urlComponents.queryItems = (urlComponents.queryItems ?? []) + parameters
-            .map { URLQueryItem(name: $0, value: $1) }
+    /// - Parameter parameters: 参数字典
+    /// - Returns: 附加查询参数的`URL`
+    func appendParameters(_ parameters: [String: String]) -> URL {
+        var urlComponents = URLComponents(url: base, resolvingAgainstBaseURL: true)!
+        urlComponents.queryItems = (urlComponents.queryItems ?? []) + parameters.map {
+            URLQueryItem(name: $0, value: $1)
+        }
         return urlComponents.url!
     }
 
@@ -71,8 +75,8 @@ public extension URL {
     ///     print(url) // prints "https://google.com?q=Swifter%20Swift"
     ///
     /// - Parameter parameters:参数字典
-    mutating func appendQueryParameters(_ parameters: [String: String]) {
-        self = appendingQueryParameters(parameters)
+    func appendParameters(_ parameters: [String: String]) {
+        base = appendParameters(parameters)
     }
 
     /// 获取查询参数中键对应的值
@@ -82,7 +86,7 @@ public extension URL {
     ///
     /// - Parameter key:键
     func queryValue(for key: String) -> String? {
-        return URLComponents(string: absoluteString)?
+        return URLComponents(string: base.absoluteString)?
             .queryItems?
             .first(where: { $0.name == key })?
             .value
@@ -95,8 +99,8 @@ public extension URL {
     ///
     /// - Returns:`URL`
     func deletingAllPathComponents() -> URL {
-        var url: URL = self
-        for _ in 0 ..< pathComponents.count - 1 {
+        var url: URL = base
+        for _ in 0 ..< base.pathComponents.count - 1 {
             url.deleteLastPathComponent()
         }
         return url
@@ -107,9 +111,10 @@ public extension URL {
     ///     var url = URL(string:"https://domain.com/path/other")!
     ///     url.deleteAllPathComponents()
     ///     print(url) // prints "https://domain.com/"
-    mutating func deleteAllPathComponents() {
-        for _ in 0 ..< pathComponents.count - 1 {
-            deleteLastPathComponent()
+    ///
+    func deleteAllPathComponents() {
+        for _ in 0 ..< base.pathComponents.count - 1 {
+            base.deleteLastPathComponent()
         }
     }
 
@@ -117,15 +122,14 @@ public extension URL {
     ///
     ///     let url = URL(string:"https://domain.com")!
     ///     print(url.droppedScheme()) // prints "domain.com"
+    ///
     func droppedScheme() -> URL? {
-        if let scheme = scheme {
-            let droppedScheme = String(absoluteString.dropFirst(scheme.count + 3))
+        if let scheme = base.scheme {
+            let droppedScheme = String(base.absoluteString.dropFirst(scheme.count + 3))
             return URL(string: droppedScheme)
         }
-
-        guard host != nil else { return self }
-
-        let droppedScheme = String(absoluteString.dropFirst(2))
+        guard base.host != nil else { return base }
+        let droppedScheme = String(base.absoluteString.dropFirst(2))
         return URL(string: droppedScheme)
     }
 
@@ -142,7 +146,7 @@ public extension URL {
     /// - Parameter time:需要生成图片的视频的时间`秒`
     /// - Returns:`UIImage`
     func thumbnail(fromTime time: Float64 = 0) -> UIImage? {
-        let imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: self))
+        let imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: base))
         let time = CMTimeMakeWithSeconds(time, preferredTimescale: 1)
         var actualTime = CMTimeMake(value: 0, timescale: 0)
 

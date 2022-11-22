@@ -368,7 +368,7 @@ public extension UIApplication {
     /// 判断当前版本是否为新版本
     static var isNewVersion: Bool {
         // 当前应用版本
-        let currentVersion = Bundle.appVersion ?? "0.0.0"
+        let currentVersion = Bundle.sb.appVersion ?? "0.0.0"
         // 获取存储的版本
         let sandboxVersion = UserDefaults.sb.fetch(for: "appVersion") as? String ?? ""
         // 存储当前版本
@@ -389,7 +389,7 @@ public extension UIApplication {
         }
 
         // 获取当前应用的(主版本号、次版本号、补丁版本号)
-        let currentVersion = Bundle.appVersion ?? "0.0.0"
+        let currentVersion = Bundle.sb.appVersion ?? "0.0.0"
         let currentVersionResult = appVersion(version: currentVersion)
         guard currentVersionResult.isSuccess else {
             return false

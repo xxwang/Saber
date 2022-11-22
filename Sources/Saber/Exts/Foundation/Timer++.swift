@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - 构造方法
 public extension Timer {
-    /// 使用构造方法创建定时器(需要调用`fire()`,需要加入`RunLoop`)
+    /// 使用构造方法创建定时器(需要调用`fire()`)
     /// - Parameters:
     ///   - timeInterval:时间间隔
     ///   - repeats:是否重复执行
@@ -32,7 +32,7 @@ public extension Timer {
         RunLoop.current.add(self, forMode: mode)
     }
 
-    /// 使用构造方法创建带`延时`的定时器(不需要调用`fire()`,需要加入`RunLoop`)
+    /// 使用构造方法创建带`延时`的定时器(不需要调用`fire()`)
     /// - Parameters:
     ///   - date:开始时间
     ///   - timeInterval:时间间隔
@@ -68,7 +68,7 @@ public extension Timer {
 }
 
 // MARK: - 静态方法
-public extension Timer {
+public extension SaberExt where Base: Timer {
     /// 创建定时器(不需要调用`fire()`,不需要加入`RunLoop`)
     /// - Parameters:
     ///   - timeInterval:时间间隔

@@ -6,7 +6,7 @@ public extension Saber {
     /// - Returns: 解析结果
     static func parse(plistName: String?) -> Any? {
         guard let plistName,
-              let plistPath = Bundle.path(for: plistName)
+              let plistPath = Bundle.sb.path(for: plistName)
         else {
             return nil
         }

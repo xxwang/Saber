@@ -38,7 +38,7 @@ public extension SaberExt where Base: UserDefaults {
     /// - Returns: 是否成功
     @discardableResult
     static func clear() -> Bool {
-        guard let bundleID = Bundle.appBundleIdentifier else {
+        guard let bundleID = Bundle.sb.bundleIdentifier else {
             return false
         }
         Base.standard.removePersistentDomain(forName: bundleID)

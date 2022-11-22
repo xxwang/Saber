@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - 方法
-public extension NSNumber {
+public extension SaberExt where Base: NSNumber {
     /// 格式化数字
     /// - Parameters:
     ///   - mode:舍入模式
@@ -29,6 +29,6 @@ public extension NSNumber {
         // 舍入模式
         formater.roundingMode = mode
 
-        return formater.string(from: self)
+        return formater.string(from: base)
     }
 }
