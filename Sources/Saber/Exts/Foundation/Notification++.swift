@@ -21,7 +21,7 @@ public extension SaberExt where Base == Notification.Name {
         ///   - observer:监听者
         ///   - selector:响应方法
         ///   - object:对象
-    func receive(
+    func add(
         _ observer: Any,
         selector: Selector,
         object: Any? = nil
@@ -37,6 +37,6 @@ public extension SaberExt where Base == Notification.Name {
         _ observer: Any,
         object: Any? = nil
     ) {
-        NotificationCenter.sb.remove(observer, object: object)
+        NotificationCenter.sb.remove(observer, name: self.base, object: object)
     }
 }

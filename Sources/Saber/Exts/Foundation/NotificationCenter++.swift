@@ -41,25 +41,6 @@ public extension SaberExt where Base: NotificationCenter {
         )
     }
 
-    
-    /// 接收通知
-    /// - Parameters:
-    ///   - name: 通知名称
-    ///   - block: 接收到通知的回调
-    static func receive(
-        name: Notification.Name,
-        block: @escaping (Notification) -> Void
-    ) {
-        
-        nBlock.block = block
-        NotificationCenter.default.addObserver(
-            nBlock,
-            selector: #selector(NotificationBlock.receive(n:)),
-            name: name,
-            object: nil
-        )
-    }
-
     /// 移除监听者
     /// - Parameters:
     ///   - observer:要移除的监听者
@@ -80,19 +61,5 @@ public extension SaberExt where Base: NotificationCenter {
             name: name,
             object: object
         )
-    }
-}
-
-private extension NotificationCenter {
-    @objc class func receive(n: Notification) {
-        Saber.debug(n)
-    }
-}
-
-private var nBlock = NotificationBlock()
-class NotificationBlock: NSObject {
-    var block: ((Notification) -> Void)?
-    @objc func receive(n: Notification) {
-        block?(n)
     }
 }
