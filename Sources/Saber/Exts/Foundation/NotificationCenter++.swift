@@ -41,6 +41,7 @@ public extension SaberExt where Base: NotificationCenter {
         )
     }
 
+    
     /// 接收通知
     /// - Parameters:
     ///   - name: 通知名称
@@ -50,10 +51,9 @@ public extension SaberExt where Base: NotificationCenter {
         block: @escaping (Notification) -> Void
     ) {
         
-        let nBlock = NotificationBlock()
         nBlock.block = block
         NotificationCenter.default.addObserver(
-            self,
+            nBlock,
             selector: #selector(NotificationBlock.receive(n:)),
             name: name,
             object: nil
@@ -89,7 +89,7 @@ private extension NotificationCenter {
     }
 }
 
-
+private var nBlock = NotificationBlock()
 class NotificationBlock: NSObject {
     var block: ((Notification) -> Void)?
     @objc func receive(n: Notification) {
