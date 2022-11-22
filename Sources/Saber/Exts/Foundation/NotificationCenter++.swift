@@ -13,7 +13,11 @@ public extension SaberExt where Base: NotificationCenter {
         userInfo: [AnyHashable: Any]? = nil
     ) {
         DispatchQueue.sb.mainAsync {
-            NotificationCenter.default.post(name: name, object: object, userInfo: userInfo)
+            NotificationCenter.default.post(
+                name: name,
+                object: object,
+                userInfo: userInfo
+            )
         }
     }
 
@@ -29,7 +33,12 @@ public extension SaberExt where Base: NotificationCenter {
         name: Notification.Name,
         object: Any? = nil
     ) {
-        NotificationCenter.default.addObserver(observer, selector: selector, name: name, object: object)
+        NotificationCenter.default.addObserver(
+            observer,
+            selector: selector,
+            name: name,
+            object: object
+        )
     }
 
     /// 接收通知
@@ -40,7 +49,12 @@ public extension SaberExt where Base: NotificationCenter {
         name: Notification.Name,
         block: (Notification) -> Void
     ) {
-        NotificationCenter.default.addObserver(Base.self, selector: #selector(NotificationCenter.receive(n:)), name: name, object: nil)
+        NotificationCenter.default.addObserver(
+            Base.self,
+            selector: #selector(NotificationCenter.receive(n:)),
+            name: name,
+            object: "nil123123"
+        )
     }
 
     /// 移除监听者
@@ -58,7 +72,11 @@ public extension SaberExt where Base: NotificationCenter {
             return
         }
         // 移除指定通知监听者
-        NotificationCenter.default.removeObserver(observer, name: name, object: object)
+        NotificationCenter.default.removeObserver(
+            observer,
+            name: name,
+            object: object
+        )
     }
 }
 
