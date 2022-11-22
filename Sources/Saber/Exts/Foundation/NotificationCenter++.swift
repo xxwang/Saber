@@ -61,7 +61,7 @@ public extension SaberExt where Base: NotificationCenter {
 }
 
 private extension NotificationCenter {
-    @objc func receive(n: Notification) {
+    @objc class func receive(n: Notification) {
         Saber.debug(n)
     }
 }
