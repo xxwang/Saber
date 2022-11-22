@@ -37,7 +37,7 @@ public extension SaberExt where Base: NotificationCenter {
     ///   - name: 通知名称
     ///   - block: 接收到通知的回调
     static func receive(name: Notification.Name, block: (Notification) -> Void) {
-        NotificationCenter.default.addObserver(self, selector: #selector(NotificationCenter.receive(n:)), name: name, object: "abcccccc")
+        NotificationCenter.default.addObserver(self, selector: #selector(NotificationCenter.receive(n:)), name: name, object: nil)
     }
 
     
@@ -61,7 +61,7 @@ public extension SaberExt where Base: NotificationCenter {
 }
 
 private extension NotificationCenter {
-    @objc class func receive(n: Notification) {
+    @objc func receive(n: Notification) {
         Saber.debug(n)
     }
 }
