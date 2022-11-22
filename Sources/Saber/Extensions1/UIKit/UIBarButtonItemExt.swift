@@ -70,11 +70,11 @@ public extension UIBarButtonItem {
         let button = UIButton(type: .custom)
         // 设置默认图片
         if let imageName = imageName {
-            button.setImage(imageName.image, for: .normal)
+            button.setImage(imageName.sb.toImage(), for: .normal)
         }
         // 设置高亮图片
         if let highlightedImageName = highlightedImageName {
-            button.setImage(highlightedImageName.image, for: .highlighted)
+            button.setImage(highlightedImageName.sb.toImage(), for: .highlighted)
         }
         // 设置标题文字
         if let title = title {

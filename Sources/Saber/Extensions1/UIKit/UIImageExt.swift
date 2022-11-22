@@ -82,7 +82,7 @@ public extension UIImage {
     ///   - lightImageName:高亮图片名称
     ///   - darkImageName:暗调图片名称
     convenience init(_ lightImageName: String, darkImageName: String) {
-        self.init(lightImageName.image, darkImage: darkImageName.image)
+        self.init(lightImageName.sb.toImage(), darkImage: darkImageName.sb.toImage())
     }
 
     /// 用不同的图片创建动态图片

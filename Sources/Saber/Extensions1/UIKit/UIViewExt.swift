@@ -940,7 +940,7 @@ public extension UIView {
         textColor: UIColor = UIColor.black,
         font: UIFont = UIFont.systemFont(ofSize: 12)
     ) {
-        let waterMark: NSString = markText.nsString
+        let waterMark: NSString = markText.sb.toNSString()
         let textSize: CGSize = waterMark.size(withAttributes: [NSAttributedString.Key.font: font])
         // 多少行
         let rowNum = NSInteger(bounds.height * 3.5 / 80)
@@ -1596,7 +1596,7 @@ public extension UIView {
                 .addTo(self)
         }
 
-        badgeLabel?.text((number.int ?? 0) > 99 ? "99+" : number)
+        badgeLabel?.text((number.sb.toInt() ?? 0) > 99 ? "99+" : number)
         badgeLabel?.translatesAutoresizingMaskIntoConstraints = false
         if number.isEmpty {
             badgeLabel?.cornerRadius(2.5).masksToBounds(true)

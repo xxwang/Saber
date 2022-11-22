@@ -772,7 +772,7 @@ public extension Date {
                 return Date()
             #endif
         }
-        let timestampValue = timestamp.count == 10 ? timestamp.int : timestamp.int / 1000
+        let timestampValue = timestamp.count == 10 ? timestamp.sb.toInt() : timestamp.sb.toInt() / 1000
         // 时间戳转为Date
         let date = Date(timeIntervalSince1970: TimeInterval(timestampValue))
         return date

@@ -441,15 +441,15 @@ public extension UIApplication {
 
         // 主版本号
         let majorString = versionNumbers[0]
-        let majorNumber = majorString.int ?? 0
+        let majorNumber = majorString.sb.toInt()
 
         // 次版本号
         let minorString = versionNumbers[1]
-        let minorNumber = minorString.int ?? 0
+        let minorNumber = minorString.sb.toInt()
 
         // 补丁版本号
         let patchString = versionNumbers[2]
-        let patchNumber = patchString.int ?? 0
+        let patchNumber = patchString.sb.toInt()
 
         return (isSuccess: true, versions: (major: majorNumber, minor: minorNumber, patch: patchNumber))
     }

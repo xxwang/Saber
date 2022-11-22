@@ -63,7 +63,7 @@ public extension UITextView {
                 return oldContent.count + 1 <= maxCharacters
             } else {
                 // 正则的判断
-                if let weakRegex = regex, !text.isMatchRegexp(weakRegex) {
+                if let weakRegex = regex, !text.sb.isMatchRegexp(weakRegex) {
                     return false
                 }
 
@@ -76,11 +76,11 @@ public extension UITextView {
                 }
             }
         } else {
-            guard !text.isNineKeyBoard else {
+            guard !text.sb.isNineKeyBoard() else {
                 return true
             }
             // 正则的判断
-            if let weakRegex = regex, !text.isMatchRegexp(weakRegex) {
+            if let weakRegex = regex, !text.sb.isMatchRegexp(weakRegex) {
                 return false
             }
             // 如果数字大于指定位数,不能输入
@@ -133,7 +133,7 @@ public extension UITextView {
 
         for sentence in sentences {
             // 如果是url链接则跳过
-            if !sentence.isValidURL {
+            if !sentence.sb.isURL() {
                 // 再按特殊符号拆分
                 let words: [String] = sentence.components(separatedBy: charactersSet)
                 var bookmark2 = bookmark

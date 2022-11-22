@@ -295,7 +295,7 @@ public extension UILabel {
             }
             // 创建属性字符串
             let mAttributedString = NSMutableAttributedString(string: text)
-            mAttributedString.addAttributes(attributes, for: text.fullNSRange)
+            mAttributedString.addAttributes(attributes, for: text.sb.fullNSRange())
             attributedText = mAttributedString
             sizeToFit()
             return
@@ -305,7 +305,7 @@ public extension UILabel {
         style.lineSpacing = lineSpacing
         // 创建属性字符串
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.paragraphStyle, value: style, range: text.fullNSRange)
+        attributedString.addAttribute(.paragraphStyle, value: style, range: text.sb.fullNSRange())
         attributedText = attributedString
 
         sizeToFit()
@@ -324,7 +324,7 @@ public extension UILabel {
 
             // 创建属性字符串
             let mAttributedString = NSMutableAttributedString(string: text)
-            mAttributedString.addAttributes(attributes, for: text.fullNSRange)
+            mAttributedString.addAttributes(attributes, for: text.sb.fullNSRange())
             attributedText = mAttributedString
             sizeToFit()
             return
@@ -361,7 +361,7 @@ public extension UILabel {
 
             // 创建属性字符串
             let mAttributedString = NSMutableAttributedString(string: text)
-            mAttributedString.addAttributes(attributes, for: text.fullNSRange)
+            mAttributedString.addAttributes(attributes, for: text.sb.fullNSRange())
             attributedText = mAttributedString
             sizeToFit()
             return
@@ -562,7 +562,7 @@ public extension UILabel {
     /// - Returns:`Self`
     @discardableResult
     func setAttributedLineSpacing(_ spacing: CGFloat) -> Self {
-        let attributedString = attributedText?.setLineSpacing(spacing, for: (text ?? "").fullNSRange)
+        let attributedString = attributedText?.setLineSpacing(spacing, for: (text ?? "").sb.fullNSRange())
         attributedText = attributedString
         return self
     }

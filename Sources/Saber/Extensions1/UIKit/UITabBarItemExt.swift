@@ -25,7 +25,7 @@ public extension UITabBarItem {
     /// - Returns:`Self`
     @discardableResult
     func image(_ imageName: String) -> Self {
-        image = imageName.image?.withRenderingMode(.alwaysOriginal)
+        image = imageName.sb.toImage()?.withRenderingMode(.alwaysOriginal)
         return self
     }
 
@@ -43,7 +43,7 @@ public extension UITabBarItem {
     /// - Returns:`Self`
     @discardableResult
     func selectedImage(_ imageName: String) -> Self {
-        selectedImage = imageName.image?.withRenderingMode(.alwaysOriginal)
+        selectedImage = imageName.sb.toImage()?.withRenderingMode(.alwaysOriginal)
         return self
     }
 

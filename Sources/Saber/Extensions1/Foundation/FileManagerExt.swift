@@ -307,7 +307,7 @@ public extension FileManager {
             if let url = address as? URL {
                 fileURL = url
             } else if let path = address as? String {
-                fileURL = path.url
+                fileURL = path.sb.toUrl()
             }
 
             guard let fileURL = fileURL else {
@@ -318,7 +318,7 @@ public extension FileManager {
             let content = "\n" + "\(Date().string):" + string
 
             fileHandle.seekToEndOfFile()
-            fileHandle.write(content.data!)
+            fileHandle.write(content.sb.toData()!)
 
             return true
         } catch let error as NSError {
@@ -342,7 +342,7 @@ public extension FileManager {
             return (false, "写入数据不能为空!")
         }
 
-        guard let url = path.url, path.isValidURL else {
+        guard let url = path.sb.toUrl(), path.sb.isURL() else {
             return (false, "写入路径错误!")
         }
 

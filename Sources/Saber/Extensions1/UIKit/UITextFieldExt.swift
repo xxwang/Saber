@@ -105,7 +105,7 @@ public extension UITextField {
                 return oldContent.count + 1 <= maxCharacters
             } else {
                 // 正则的判断
-                if let weakRegex = regex, !text.isMatchRegexp(weakRegex) {
+                if let weakRegex = regex, !text.sb.isMatchRegexp(weakRegex) {
                     return false
                 }
 
@@ -118,11 +118,11 @@ public extension UITextField {
                 }
             }
         } else {
-            guard !text.isNineKeyBoard else {
+            guard !text.sb.isNineKeyBoard() else {
                 return true
             }
             // 正则的判断
-            if let weakRegex = regex, !text.isMatchRegexp(weakRegex) {
+            if let weakRegex = regex, !text.sb.isMatchRegexp(weakRegex) {
                 return false
             }
             // 如果数字大于指定位数,不能输入
@@ -188,7 +188,7 @@ public extension UITextField {
             attributedPlaceholder = holder.setAttributes(attributes, for: holder.fullNSRange)
         } else if let holder = placeholder {
             let attributedPlaceholder = NSMutableAttributedString(string: holder)
-            attributedPlaceholder.addAttributes([.foregroundColor: color], for: holder.fullNSRange)
+            attributedPlaceholder.addAttributes([.foregroundColor: color], for: holder.sb.fullNSRange())
             self.attributedPlaceholder = attributedPlaceholder
         }
         return self
@@ -201,10 +201,10 @@ public extension UITextField {
         if let holder = attributedPlaceholder, !holder.string.isEmpty {
             var attributes = holder.attributes
             attributes[.font] = font
-            attributedPlaceholder = holder.setAttributes(attributes, for: holder.fullNSRange)
+            attributedPlaceholder = holder.setAttributes(attributes, for: holder.string.sb.fullNSRange())
         } else if let holder = placeholder {
             let attributedPlaceholder = NSMutableAttributedString(string: holder)
-            attributedPlaceholder.addAttributes([.font: font], for: holder.fullNSRange)
+            attributedPlaceholder.addAttributes([.font: font], for: holder.sb.fullNSRange())
             self.attributedPlaceholder = attributedPlaceholder
         }
         return self
@@ -223,7 +223,7 @@ public extension UITextField {
             attributedPlaceholder = holder.setAttributes(attributes, for: holder.fullNSRange)
         } else if let holder = placeholder {
             let attributedPlaceholder = NSMutableAttributedString(string: holder)
-            attributedPlaceholder.addAttributes([.font: font, .foregroundColor: color], for: holder.fullNSRange)
+            attributedPlaceholder.addAttributes([.font: font, .foregroundColor: color], for: holder.sb.fullNSRange())
             self.attributedPlaceholder = attributedPlaceholder
         }
         return self

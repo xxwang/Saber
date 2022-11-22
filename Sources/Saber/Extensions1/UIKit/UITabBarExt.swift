@@ -144,7 +144,7 @@ public extension UITabBar {
     /// - Returns:`Self`
     @discardableResult
     func backgroundImage(_ imageName: String) -> Self {
-        if let image = imageName.image {
+        if let image = imageName.sb.toImage() {
             return backgroundImage(image)
         }
         return self
@@ -192,7 +192,7 @@ public extension UITabBar {
     /// - Returns:`Self`
     @discardableResult
     func shadowImage(_ imageName: String) -> Self {
-        if let image = imageName.image {
+        if let image = imageName.sb.toImage() {
             return shadowImage(image)
         }
         return self

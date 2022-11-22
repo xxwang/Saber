@@ -25,7 +25,7 @@ public extension NSAttributedString {
     /// - Parameter subStr:用于查找的字符串
     /// - Returns:`NSRange`
     func subNSRange(_ subStr: String) -> NSRange {
-        return string.subNSRange(subStr)
+        return string.sb.subNSRange(subStr)
     }
 
     /// 获取`texts`在`self`中的`[NSRange]`
@@ -79,7 +79,7 @@ public extension Array where Element: NSAttributedString {
     /// - Returns:`NSAttributedString`
     func joined(separator: NSAttributedString) -> NSAttributedString {
         guard let firstElement = first else {
-            return "".attributedString
+            return "".sb.toAttributedString()
         }
         return dropFirst()
             .reduce(into: NSMutableAttributedString(attributedString: firstElement)) { result, element in

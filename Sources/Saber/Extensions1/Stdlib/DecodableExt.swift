@@ -21,7 +21,7 @@ public extension Decodable {
     /// - Parameter string:`JSON`字符串
     /// - Returns:Self
     static func model(_ string: String?) -> Self? where Self: Decodable {
-        guard let data = string?.data else {
+        guard let data = string?.sb.toData() else {
             return nil
         }
         return model(data)
