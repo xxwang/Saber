@@ -133,9 +133,10 @@ public extension SaberExt where Base: NSObject {
     }
 }
 
-@objc public extension NSObject {
+// MARK: - 私有方法
+@objc private extension NSObject {
     /// 交换设值方法
-    fileprivate class func hook_setValues() {
+    class func hook_setValues() {
         let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.sb.once(token: onceToken) {
             let oriSel = #selector(self.setValue(_:forUndefinedKey:))
