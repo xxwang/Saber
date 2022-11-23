@@ -127,7 +127,7 @@ public extension UILabel {
         isOrgin: Bool = false
     ) -> NSMutableAttributedString {
         // 头部字符串
-        let headString = text?.subString(to: insertIndex) ?? ""
+        let headString = text?.sb.subString(to: insertIndex) ?? ""
         let attributedString = NSMutableAttributedString(string: headString)
 
         for image in images {
@@ -154,7 +154,7 @@ public extension UILabel {
         }
 
         // 尾部字符串
-        let tailString = text?.subString(from: insertIndex) ?? ""
+        let tailString = text?.sb.subString(from: insertIndex) ?? ""
         attributedString.append(NSAttributedString(string: tailString))
 
         // 图文间距需要减去默认的空格宽度
@@ -264,7 +264,7 @@ public extension UILabel {
         // 获取每行内容
         for line in lines {
             let lineRange = CTLineGetStringRange(line as! CTLine)
-            let lineString = text.subString(from: lineRange.location, length: lineRange.length)
+            let lineString = text.sb.subString(from: lineRange.location, length: lineRange.length)
             lineArr.append(lineString as String)
         }
         return (lineArr.count, lineArr)

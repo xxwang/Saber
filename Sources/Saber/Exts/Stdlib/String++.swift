@@ -593,6 +593,20 @@ public extension SaberExt where Base == String {
         base = String(chars)
         return base
     }
+    
+        /// 校验`字符串位置`是否有效,并返回`String.Index`
+        /// - Parameter original:位置
+        /// - Returns:`String.Index`
+    func validIndex(original: Int) -> String.Index {
+        switch original {
+            case ...base.startIndex.utf16Offset(in: base):
+                return base.startIndex
+            case base.endIndex.utf16Offset(in: base)...:
+                return base.endIndex
+            default:
+                return base.index(base.startIndex, offsetBy: original)
+        }
+    }
 }
 
 // MARK: - 字符串截取
@@ -722,6 +736,14 @@ public extension SaberExt where Base == String {
         let subString = base[range]
         return String(subString)
     }
+    
+        /// 获取某个位置的字符串
+        /// - Parameter index:位置
+        /// - Returns:`String`
+    func indexString(index: Int) -> String {
+        return slice(index ..< index + 1)
+    }
+
 }
 
 // MARK: - 判断
@@ -984,7 +1006,7 @@ public extension SaberExt where Base == String {
         }
         // 省份代码
         let areaArray = ["11", "12", "13", "14", "15", "21", "22", "23", "31", "32", "33", "34", "35", "36", "37", "41", "42", "43", "44", "45", "46", "50", "51", "52", "53", "54", "61", "62", "63", "64", "65", "71", "81", "82", "91"]
-        if !areaArray.contains(str.subString(to: 2)) {
+        if !areaArray.contains(str.sb.subString(to: 2)) {
             return false
         }
         var regex = NSRegularExpression()
@@ -994,7 +1016,7 @@ public extension SaberExt where Base == String {
         case 15:
             // 15位身份证
             // 这里年份只有两位,00被处理为闰年了,对2000年是正确的,对1900年是错误的,不过身份证是1900年的应该很少了
-            year = Int(str.subString(from: 6, length: 2))!
+                year = Int(str.sb.subString(from: 6, length: 2))!
             if isLeapYear(year: year) { // 闰年
                 do {
                     // 检测出生日期的合法性
@@ -1015,7 +1037,7 @@ public extension SaberExt where Base == String {
             }
         case 18:
             // 18位身份证
-            year = Int(str.subString(from: 6, length: 4))!
+                year = Int(str.sb.subString(from: 6, length: 4))!
             if isLeapYear(year: year) {
                 // 闰年
                 do {
@@ -1033,7 +1055,7 @@ public extension SaberExt where Base == String {
                 var s = 0
                 let jiaoYan = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3]
                 for i in 0 ..< 17 {
-                    if let d = Int(str.slice(i ..< (i + 1))) {
+                    if let d = Int(str.sb.slice(i ..< (i + 1))) {
                         s += d * jiaoYan[i % 10]
                     } else {
                         return false
@@ -1041,8 +1063,8 @@ public extension SaberExt where Base == String {
                 }
                 let Y = s % 11
                 let JYM = "10X98765432"
-                let M = JYM.subString(from: Y, length: 1)
-                if M == str.subString(from: 17, length: 1) {
+                let M = JYM.sb.subString(from: Y, length: 1)
+                if M == str.sb.subString(from: 17, length: 1) {
                     return true
                 } else {
                     return false

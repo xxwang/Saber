@@ -110,9 +110,9 @@ public extension UITextField {
                 }
 
                 // 联想选中键盘
-                let allContent = oldContent.subString(to: range.location) + text
+                let allContent = oldContent.sb.subString(to: range.location) + text
                 if allContent.count > maxCharacters {
-                    let newContent = allContent.subString(to: maxCharacters)
+                    let newContent = allContent.sb.subString(to: maxCharacters)
                     self.text = newContent
                     return false
                 }

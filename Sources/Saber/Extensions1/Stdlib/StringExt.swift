@@ -44,13 +44,7 @@ public extension String {
 
 // MARK: - 方法(mutating)
 public extension String {
-    /// 获取某个位置的字符串
-    /// - Parameter index:位置
-    /// - Returns:某个位置的字符串
-    func indexString(index: Int) -> String {
-        return slice(index ..< index + 1)
-    }
-
+    
     /// 截断字符串(限于给定数量的字符)
     ///
     ///     "This is a very long sentence".truncated(toLength:14) -> "This is a very..."
@@ -386,8 +380,8 @@ public extension String {
         guard locat < count else {
             return self
         }
-        let str1 = subString(to: locat)
-        let str2 = subString(from: locat + 1)
+        let str1 = self.sb.subString(to: locat)
+        let str2 = self.sb.subString(from: locat + 1)
         return str1 + content + str2
     }
 
@@ -424,19 +418,7 @@ public extension String {
         return String(repeating: self, count: count)
     }
 
-    /// 校验`字符串位置`是否有效,并返回`String.Index`
-    /// - Parameter original:位置
-    /// - Returns:`String.Index`
-    func validIndex(original: Int) -> String.Index {
-        switch original {
-        case ...startIndex.utf16Offset(in: self):
-            return startIndex
-        case endIndex.utf16Offset(in: self)...:
-            return endIndex
-        default:
-            return index(startIndex, offsetBy: original)
-        }
-    }
+    
 
     /// 移除`self`中指定字符串,并用指定字符串来进行替换
     /// - Parameters:
