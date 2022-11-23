@@ -13,7 +13,7 @@ public enum DecimalNumberHandlerOperator: String {
 }
 
 // MARK: - 静态方法
-public extension NSDecimalNumberHandler {
+public extension SaberExt where Base: NSDecimalNumberHandler {
     /// 数字计算操作
     /// - Parameters:
     ///   - operator:操作符
@@ -62,7 +62,7 @@ public extension NSDecimalNumberHandler {
 }
 
 // MARK: - 静态方法
-public extension NSDecimalNumberHandler {
+public extension SaberExt where Base: NSDecimalNumberHandler {
     /// 简化数字计算操作
     /// - Parameters:
     ///   - operator:操作符

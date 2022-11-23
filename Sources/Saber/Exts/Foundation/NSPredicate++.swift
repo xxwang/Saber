@@ -1,21 +1,19 @@
 import Foundation
 
-// MARK: - 属性
-public extension NSPredicate {
-    /// 返回一个新的谓词,该谓词由不匹配谓词而形成
-    var not: NSCompoundPredicate {
-        return NSCompoundPredicate(notPredicateWithSubpredicate: self)
-    }
-}
-
 // MARK: - 方法
-public extension NSPredicate {
+public extension SaberExt where Base: NSPredicate {
+    /// 谓词取反
+    /// - Returns: `NSCompoundPredicate`
+    func not() -> NSCompoundPredicate {
+        return NSCompoundPredicate(notPredicateWithSubpredicate: base)
+    }
+
     /// 返回一个新的谓词,该谓词由参数构成,并将参数赋给谓词
     ///
     /// - Parameter predicate:`NSPredicate`.
     /// - Returns:`NSCompoundPredicate`.
     func and(_ predicate: NSPredicate) -> NSCompoundPredicate {
-        return NSCompoundPredicate(andPredicateWithSubpredicates: [self, predicate])
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [base, predicate])
     }
 
     /// 返回一个新的谓词,该谓词由参数或将参数赋给谓词构成
@@ -23,7 +21,7 @@ public extension NSPredicate {
     /// - Parameter predicate:`NSPredicate`.
     /// - Returns:`NSCompoundPredicate`.
     func or(_ predicate: NSPredicate) -> NSCompoundPredicate {
-        return NSCompoundPredicate(orPredicateWithSubpredicates: [self, predicate])
+        return NSCompoundPredicate(orPredicateWithSubpredicates: [base, predicate])
     }
 }
 
@@ -33,7 +31,7 @@ public extension NSPredicate {
     /// - Parameters:rhs:`NSPredicate`
     /// - Returns:`NSCompoundPredicate`
     static prefix func ! (rhs: NSPredicate) -> NSCompoundPredicate {
-        return rhs.not
+        return rhs.sb.not()
     }
 
     /// 返回一个新的谓词,该谓词由并将参数赋给谓词构成
@@ -43,7 +41,7 @@ public extension NSPredicate {
     ///   - rhs:`NSPredicate`.
     /// - Returns:`NSCompoundPredicate`
     static func + (lhs: NSPredicate, rhs: NSPredicate) -> NSCompoundPredicate {
-        return lhs.and(rhs)
+        return lhs.sb.and(rhs)
     }
 
     /// 返回一个新的谓词,该谓词由参数构成,或将参数赋给谓词
@@ -53,7 +51,7 @@ public extension NSPredicate {
     ///   - rhs:`NSPredicate`.
     /// - Returns:`NSCompoundPredicate`
     static func | (lhs: NSPredicate, rhs: NSPredicate) -> NSCompoundPredicate {
-        return lhs.or(rhs)
+        return lhs.sb.or(rhs)
     }
 
     /// 返回一个新的谓词,该谓词是通过将参数移除到谓词而形成的
