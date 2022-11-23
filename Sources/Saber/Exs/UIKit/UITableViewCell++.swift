@@ -1,27 +1,39 @@
 import UIKit
 
 // MARK: - 属性
-public extension UITableViewCell {
+public extension SaberEx where Base: UITableViewCell {
     /// 标识符
     var identifier: String {
         // 获取完整类名
-        let classNameString = NSStringFromClass(Self.self)
+        let classNameString = NSStringFromClass(Base.self)
         // 获取类名
         return classNameString.components(separatedBy: ".").last!
     }
 }
 
 // MARK: - 方法
-public extension UITableViewCell {
+public extension SaberEx where Base: UITableViewCell {
     /// `cell`所在`UITableView`
     /// - Returns:`UITableView`, 未找到返回`nil`
     func tableView() -> UITableView? {
-        for view in sequence(first: superview, next: { $0?.superview }) {
+        for view in sequence(first: base.superview, next: { $0?.superview }) {
             if let tableView = view as? UITableView {
                 return tableView
             }
         }
         return nil
+    }
+}
+
+extension UITableViewCell: Defaultable {}
+public extension UITableViewCell {
+    /// 关联类型
+    typealias Associatedtype = UITableViewCell
+
+    /// 创建默认`UITableViewCell`
+    static func `default`() -> Associatedtype {
+        let cell = UITableViewCell()
+        return cell
     }
 }
 

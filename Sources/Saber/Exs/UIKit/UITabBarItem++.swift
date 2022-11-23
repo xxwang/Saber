@@ -1,5 +1,17 @@
 import UIKit
 
+extension UITabBarItem: Defaultable {}
+public extension UITabBarItem {
+    /// 关联类型
+    typealias Associatedtype = UITabBarItem
+
+    /// 创建默认`UITabBarItem`
+    static func `default`() -> Associatedtype {
+        let item = UITabBarItem()
+        return item
+    }
+}
+
 // MARK: - 链式语法
 public extension UITabBarItem {
     /// 设置标题

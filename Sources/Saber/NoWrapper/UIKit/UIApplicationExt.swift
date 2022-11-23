@@ -230,7 +230,7 @@ public extension UIApplication {
             root.present(alert, animated: true)
             return
         }
-        if let root = UIWindow.windowRootViewController {
+        if let root = UIWindow.sb.rootViewController() {
             root.present(alert, animated: true)
         }
     }

@@ -1,17 +1,6 @@
 import UIKit
 
-// MARK: - 属性
-public extension UIEdgeInsets {
-    /// 返回水平方向`edges`
-    var horizontal: CGFloat {
-        return left + right
-    }
-
-    /// 返回垂直方向`edges`
-    var vertical: CGFloat {
-        return top + bottom
-    }
-}
+extension UIEdgeInsets: Saberable {}
 
 // MARK: - 构造方法
 public extension UIEdgeInsets {
@@ -30,15 +19,28 @@ public extension UIEdgeInsets {
     }
 }
 
+// MARK: - 属性
+public extension SaberEx where Base == UIEdgeInsets {
+    /// 返回水平方向`edges`
+    var horizontal: CGFloat {
+        return base.left + base.right
+    }
+
+    /// 返回垂直方向`edges`
+    var vertical: CGFloat {
+        return base.top + base.bottom
+    }
+}
+
 // MARK: - 方法
-public extension UIEdgeInsets {
+public extension SaberEx where Base == UIEdgeInsets {
     /// 基于当前值和顶部偏移创建`UIEdgeInsets`
     ///
     /// - Parameters:
     ///   - top:顶部偏移值
     /// - Returns:偏移之后的`UIEdgeInsets`
     func insetBy(top: CGFloat) -> UIEdgeInsets {
-        return UIEdgeInsets(top: self.top + top, left: left, bottom: bottom, right: right)
+        return UIEdgeInsets(top: base.top + top, left: base.left, bottom: base.bottom, right: base.right)
     }
 
     /// 基于当前值和左侧偏移创建`UIEdgeInsets`
@@ -47,7 +49,7 @@ public extension UIEdgeInsets {
     ///   - left:左侧偏移值
     /// - Returns:偏移之后的`UIEdgeInsets`
     func insetBy(left: CGFloat) -> UIEdgeInsets {
-        return UIEdgeInsets(top: top, left: self.left + left, bottom: bottom, right: right)
+        return UIEdgeInsets(top: base.top, left: base.left + left, bottom: base.bottom, right: base.right)
     }
 
     /// 基于当前值和底部偏移创建`UIEdgeInsets`
@@ -56,7 +58,7 @@ public extension UIEdgeInsets {
     ///   - bottom:底部偏移值
     /// - Returns:偏移之后的`UIEdgeInsets`
     func insetBy(bottom: CGFloat) -> UIEdgeInsets {
-        return UIEdgeInsets(top: top, left: left, bottom: self.bottom + bottom, right: right)
+        return UIEdgeInsets(top: base.top, left: base.left, bottom: base.bottom + bottom, right: base.right)
     }
 
     /// 基于当前值和右侧偏移创建`UIEdgeInsets`
@@ -65,7 +67,7 @@ public extension UIEdgeInsets {
     ///   - right:右侧偏移值
     /// - Returns:偏移之后的`UIEdgeInsets`
     func insetBy(right: CGFloat) -> UIEdgeInsets {
-        return UIEdgeInsets(top: top, left: left, bottom: bottom, right: self.right + right)
+        return UIEdgeInsets(top: base.top, left: base.left, bottom: base.bottom, right: base.right + right)
     }
 
     /// 基于当前值和水平值等分并应用于右偏移和左偏移,创建`UIEdgeInsets`
@@ -74,7 +76,7 @@ public extension UIEdgeInsets {
     ///   - horizontal:要应用于左侧和右侧的偏移
     /// - Returns:偏移之后的`UIEdgeInsets`
     func insetBy(horizontal: CGFloat) -> UIEdgeInsets {
-        return UIEdgeInsets(top: top, left: left + horizontal / 2, bottom: bottom, right: right + horizontal / 2)
+        return UIEdgeInsets(top: base.top, left: base.left + horizontal / 2, bottom: base.bottom, right: base.right + horizontal / 2)
     }
 
     /// 基于当前值和垂直值等分并应用于顶部和底部,创建`UIEdgeInsets`
@@ -83,7 +85,7 @@ public extension UIEdgeInsets {
     ///   - vertical:要应用于顶部和底部的偏移
     /// - Returns:偏移之后的`UIEdgeInsets`
     func insetBy(vertical: CGFloat) -> UIEdgeInsets {
-        return UIEdgeInsets(top: top + vertical / 2, left: left, bottom: bottom + vertical / 2, right: right)
+        return UIEdgeInsets(top: base.top + vertical / 2, left: base.left, bottom: base.bottom + vertical / 2, right: base.right)
     }
 }
 

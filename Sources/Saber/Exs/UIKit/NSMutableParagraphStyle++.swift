@@ -1,9 +1,14 @@
 import UIKit
 
+extension NSMutableParagraphStyle: Defaultable {}
+
 // MARK: - 链式语法
 public extension NSMutableParagraphStyle {
+    /// 关联类型
+    typealias Associatedtype = NSMutableParagraphStyle
+
     /// 创建默认`NSMutableParagraphStyle`
-    static var defaultStyle: NSMutableParagraphStyle {
+    @objc class func `default`() -> Associatedtype {
         let style = NSMutableParagraphStyle()
         style.hyphenationFactor = 1.0
         style.firstLineHeadIndent = 0.0

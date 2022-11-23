@@ -1,6 +1,6 @@
 import UIKit
 
-public extension UIPageControl {
+public extension SaberEx where Base: UIPageControl {
     /// 创建`UIPageControl`
     /// - Parameters:
     ///   - frame:坐标及大小
@@ -24,5 +24,17 @@ public extension UIPageControl {
         control.currentPage = currentIndex
         control.numberOfPages = count
         return control
+    }
+}
+
+extension UIPageControl: Defaultable {}
+public extension UIPageControl {
+    /// 关联类型
+    typealias Associatedtype = UIPageControl
+
+    /// 创建默认`UIPageControl`
+    @objc class func `default`() -> Associatedtype {
+        let pageControl = UIPageControl()
+        return pageControl
     }
 }

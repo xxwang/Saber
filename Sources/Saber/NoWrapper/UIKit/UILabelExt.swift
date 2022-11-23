@@ -287,7 +287,7 @@ public extension UILabel {
                 return
             } else {
                 // 无段落样式
-                let style = NSMutableParagraphStyle.defaultStyle
+                let style = NSMutableParagraphStyle.default()
                 // 设置行间距
                 style.lineSpacing = lineSpacing
                 // 向属性列表中设置段落样式
@@ -396,7 +396,7 @@ private extension UILabel {
         wordSpacing: CGFloat,
         paragraphSpacing: CGFloat
     ) -> [NSAttributedString.Key: Any] {
-        let style = NSMutableParagraphStyle.defaultStyle
+        let style = NSMutableParagraphStyle.default()
             .lineBreakMode(lineBreakMode)
             .alignment(textAlignment)
             .lineSpacing(lineSpacing)

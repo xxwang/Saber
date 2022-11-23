@@ -37,7 +37,7 @@ public extension DocumentManager {
         let documentVC = UIDocumentPickerViewController(documentTypes: types, in: mode)
         documentVC.delegate = self
         documentVC.modalPresentationStyle = .fullScreen
-        UIWindow.topViewController?.presentVC(documentVC)
+        UIWindow.sb.topViewController()?.presentVC(documentVC)
     }
 }
 
@@ -53,7 +53,7 @@ extension DocumentManager: UIDocumentPickerDelegate {
                 self.completion?(true, fileData, fileName)
             }
         } else {
-            if let parent = UIWindow.windowRootViewController {
+            if let parent = UIWindow.sb.rootViewController() {
                 UIApplication.openSettings("请允许使用【iCloud】云盘", message: nil, cancel: "取消", confirm: "确认", parent: parent)
             }
         }

@@ -1,26 +1,32 @@
 import UIKit
 
 // MARK: - 属性
-public extension UIDatePicker {
+public extension SaberEx where Base: UIDatePicker {
     /// `UIDatePicker`的文本颜色
     var textColor: UIColor? {
         get {
-            return value(forKeyPath: "textColor") as? UIColor
+            return base.value(forKeyPath: "textColor") as? UIColor
         }
         set {
-            setValue(newValue, forKeyPath: "textColor")
+            base.setValue(newValue, forKeyPath: "textColor")
         }
+    }
+}
+
+extension UIDatePicker: Defaultable {}
+public extension UIDatePicker {
+    /// 关联类型
+    typealias Associatedtype = UIDatePicker
+
+    /// 创建默认`UIDatePicker`
+    static func `default`() -> UIDatePicker {
+        let datePicker = UIDatePicker()
+        return datePicker
     }
 }
 
 // MARK: - 链式语法
 public extension UIDatePicker {
-    /// 创建默认`UIDatePicker`
-    static var defaultDatePicker: UIDatePicker {
-        let datePicker = UIDatePicker()
-        return datePicker
-    }
-
     /// 设置时区
     /// - Parameter timeZone:时区
     /// - Returns:`Self`

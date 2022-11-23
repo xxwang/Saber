@@ -1,14 +1,28 @@
 import UIKit
 
 // MARK: - 方法
-public extension UINavigationItem {
+public extension SaberEx where Base: UINavigationItem {
     /// 设置导航栏`titleView`为图片
-    /// - Parameter image:要设置的图片
-    func setupTitleView(with image: UIImage, size: CGSize = CGSize(width: 100, height: 30)) {
+    /// - Parameters:
+    ///   - image: 要设置的图片
+    ///   - size: 大小
+    func titleView(with image: UIImage, size: CGSize = CGSize(width: 100, height: 30)) {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: size))
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
-        titleView = imageView
+        base.titleView = imageView
+    }
+}
+
+extension UINavigationItem: Defaultable {}
+public extension UINavigationItem {
+    /// 关联类型
+    typealias Associatedtype = UINavigationItem
+
+    /// 创建默认`UINavigationItem`
+    static func `default`() -> UINavigationItem {
+        let item = UINavigationItem()
+        return item
     }
 }
 
