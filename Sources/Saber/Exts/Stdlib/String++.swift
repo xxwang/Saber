@@ -210,6 +210,41 @@ public extension SaberExt where Base == String {
         return NSString(string: base)
     }
 
+    /// 将`16进制字符串`转为`Int`
+    /// - Returns: `Int`
+    func toHexInt() -> Int {
+        return Int(base, radix: 16) ?? 0
+    }
+
+    /// 转换成小写字符串
+    /// - Returns: 小写`String`
+    func toLower() -> String {
+        return base.lowercased()
+    }
+
+    /// 转换成大写字符串
+    /// - Returns: 大写`String`
+    func toUpper() -> String {
+        return base.uppercased()
+    }
+
+    /// 字符串转换成驼峰命名法(并移除空字符串)
+    ///
+    ///     "sOme vAriable naMe".camelCased -> "someVariableName"
+    /// - Returns: `String`
+    func toCamelCase() -> String {
+        let source = toLower()
+        let first = source[..<source.index(after: source.startIndex)]
+        if source.contains(" ") {
+            let connected = source.capitalized.replacingOccurrences(of: " ", with: "")
+            let camel = connected.replacingOccurrences(of: "\n", with: "")
+            let rest = String(camel.dropFirst())
+            return first + rest
+        }
+        let rest = String(source.dropFirst())
+        return first + rest
+    }
+
     /// 字符串转属性字符串
     /// - Returns: `NSMutableAttributedString`
     func toAttributedString() -> NSMutableAttributedString {
@@ -252,39 +287,58 @@ public extension SaberExt where Base == String {
         return UIColor(hex: base)
     }
 
-    /// 将`16进制字符串`转为`Int`
-    /// - Returns: `Int`
-    func toHexInt() -> Int {
-        return Int(base, radix: 16) ?? 0
-    }
+    /// `汉字字符串`转成`拼音字符串`
+    /// - Parameter isLatin:`true:带声调`,`false:不带声调`,`默认 false`
+    /// - Returns:拼音字符串
+    func toPinYin(_ isTone: Bool = false) -> String {
+        let mutableString = NSMutableString(string: base) as CFMutableString
 
-    /// 转换成小写字符串
-    /// - Returns: 小写`String`
-    func toLower() -> String {
-        return base.lowercased()
-    }
-
-    /// 转换成大写字符串
-    /// - Returns: 大写`String`
-    func toUpper() -> String {
-        return base.uppercased()
-    }
-
-    /// 字符串转换成驼峰命名法(并移除空字符串)
-    ///
-    ///     "sOme vAriable naMe".camelCased -> "someVariableName"
-    /// - Returns: `String`
-    func toCamelCase() -> String {
-        let source = toLower()
-        let first = source[..<source.index(after: source.startIndex)]
-        if source.contains(" ") {
-            let connected = source.capitalized.replacingOccurrences(of: " ", with: "")
-            let camel = connected.replacingOccurrences(of: "\n", with: "")
-            let rest = String(camel.dropFirst())
-            return first + rest
+        // 将汉字转换为拼音(带音标)
+        CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
+        if !isTone {
+            // 去掉拼音的音标
+            CFStringTransform(mutableString, nil, kCFStringTransformStripDiacritics, false)
         }
-        let rest = String(source.dropFirst())
-        return first + rest
+        return (mutableString as String)
+    }
+
+    /// 提取汉字拼音首字母(每个汉字)
+    ///
+    ///     "爱国" --> AG
+    /// - Parameter isUpper:`true:大写首字母`,`false:小写首字母`,`默认true`
+    /// - Returns:字符串的拼音首字母字符串
+    func toPinYinInitials(_ isUpper: Bool = true) -> String {
+        let pinYin = toPinYin(false).components(separatedBy: " ")
+        let initials = pinYin.compactMap { String(format: "%c", $0.cString(using: .utf8)![0]) }
+        let result = isUpper ? initials.joined().uppercased() : initials.joined()
+
+        return result
+    }
+
+    /// `字符串`转指定类类型默认:`AnyClass`
+    /// - Parameter name:指定的目标类类型
+    /// - Returns:T.Type
+    func toClass<T>(for name: T.Type = AnyClass.self) -> T.Type? {
+        guard let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String else {
+            return nil
+        }
+
+        let classNameString = "\(namespace.removeSomeStringUseSomeString(removeString: " ", replacingString: "_")).\(self)"
+        guard let nameClass = NSClassFromString(classNameString) as? T.Type else {
+            return nil
+        }
+        return nameClass
+    }
+
+    /// `类名字符串`转`类实例`(类需要是继承自`NSObject`)
+    /// - Parameter name: 指定的目标类类型
+    /// - Returns:指定类型对象
+    func toObject<T>(for name: T.Type = NSObject.self) -> T? where T: NSObject {
+        guard let nameClass = toClass(for: name) else {
+            return nil
+        }
+        let object = nameClass.init()
+        return object
     }
 }
 
@@ -519,6 +573,154 @@ public extension SaberExt where Base == String {
             $0[$1] = count + 1
         }.max { $0.1 < $1.1 }?.key
         return mostCommon
+    }
+
+    /// 字符串的首字符大写,其它字符保持原样
+    ///
+    ///     "hello world".firstCharacterUppercased() -> "Hello world"
+    ///     "".firstCharacterUppercased() -> ""
+    ///
+    /// - Returns: `String`
+    func firstCharacterUppercased() -> String? {
+        guard let first = base.first else { return nil }
+        return String(first).uppercased() + base.dropFirst()
+    }
+
+    /// 翻转字符串
+    /// - Returns: `String`
+    func reverse() -> String {
+        let chars: [Character] = base.reversed()
+        base = String(chars)
+        return base
+    }
+}
+
+// MARK: - 字符串截取
+public extension SaberExt where Base == String {
+    /// 使用指定开始索引和长度切片字符串并赋值给`self`
+    /// - Parameters:
+    ///   - index:给定索引后要切片的字符数
+    ///   - length:给定索引后要切片的字符数
+    /// - Returns: `String`
+    @discardableResult
+    func slice(from index: Int, length: Int) -> String {
+        if let str = slicing(from: index, length: length) {
+            base = String(str)
+        }
+        return base
+    }
+
+    /// 将给定的字符串从开始索引切片到结束索引(如果适用)
+    /// - Parameters:
+    ///   - start:切片应该从的字符串索引
+    ///   - end:切片应该结束的字符串索引
+    /// - Returns: `String`
+    @discardableResult
+    func slice(from start: Int, to end: Int) -> String {
+        guard end >= start else { return base }
+        if let str = base[safe: start ..< end] {
+            base = str
+        }
+        return base
+    }
+
+    /// 从指定起始索引切片到字符串结束
+    /// - Parameter index: 切片应该开始的字符串索引
+    /// - Returns: `String`
+    @discardableResult
+    func slice(at index: Int) -> String {
+        guard index < base.count else { return base }
+        if let str = base[safe: index ..< base.count] {
+            base = str
+        }
+        return base
+    }
+
+    /// 从字符串中获取指定开始位置到指定长度的子字符串
+    /// - Parameters:
+    ///   - index:字符串索引开始
+    ///   - length:给定索引后要切片的字符数
+    /// - Returns: `String?`
+    func slicing(from index: Int, length: Int) -> String? {
+        guard length >= 0, index >= 0, index < base.count else { return nil }
+        guard index.advanced(by: length) <= base.count else {
+            return base[safe: index ..< base.count]
+        }
+        guard length > 0 else { return "" }
+        return base[safe: index ..< index.advanced(by: length)]
+    }
+
+    /// 切割字符串(区间范围 前闭后开)
+    ///
+    ///     CountableClosedRange:可数的闭区间,如 0...2
+    ///     CountableRange:可数的开区间,如 0..<2
+    ///     ClosedRange:不可数的闭区间,如 0.1...2.1
+    ///     Range:不可数的开居间,如 0.1..<2.1
+    /// - Parameter range:范围
+    /// - Returns:切割后的字符串
+    func slice(_ range: CountableRange<Int>) -> String {
+        let startIndex = validIndex(original: range.lowerBound)
+        let endIndex = validIndex(original: range.upperBound)
+        guard startIndex < endIndex else {
+            return ""
+        }
+        return String(base[startIndex ..< endIndex])
+    }
+
+    /// 截取子字符串(从`from`开始到`字符串结尾`)
+    /// - Parameter from:开始位置
+    /// - Returns: `String`
+    func subString(from: Int) -> String {
+        let end = base.count
+        return base[from ..< end]
+    }
+
+    /// 截取子字符串(从`开头`到`to`)
+    /// - Parameter to:停止位置
+    /// - Returns: `String`
+    func subString(to: Int) -> String {
+        return base[0 ..< to]
+    }
+
+    /// 截取子字符串(从`from`开始截取`length`个字符)
+    /// - Parameters:
+    ///   - from:开始截取位置
+    ///   - length:长度
+    /// - Returns: `String`
+    func subString(from: Int, length: Int) -> String {
+        let end = from + length
+        return base[from ..< end]
+    }
+
+    /// 截取子字符串(从`from`开始截取到`to`)
+    /// - Parameters:
+    ///   - from:开始位置
+    ///   - to:结束位置
+    /// - Returns: `String`
+    func subString(from: Int, to: Int) -> String {
+        return base[from ..< to]
+    }
+
+    /// 根据`NSRange`截取子字符串
+    /// - Parameter range:`NSRange`
+    /// - Returns: `String`
+    func subString(range: NSRange) -> String {
+        return toNSString().substring(with: range)
+    }
+
+    /// 根据`Range`截取子字符串
+    /// - Parameter range:`Range<Int>`
+    /// - Returns: `String`
+    func subString(range: Range<Int>) -> String {
+        return base[range]
+    }
+
+    /// 根据`Range`截取子字符串
+    /// - Parameter range:`Range<String.Index>`
+    /// - Returns: `String`
+    func subString(range: Range<String.Index>) -> String {
+        let subString = base[range]
+        return String(subString)
     }
 }
 
@@ -1190,6 +1392,28 @@ public extension SaberExt where Base == String {
     /// 通知名称
     var toNotificationName: Notification.Name {
         return Notification.Name(base)
+    }
+}
+
+// MARK: - Date
+public extension SaberExt where Base == String {
+    /// `格式日期字符串`成`日期对象`
+    /// - Parameters format:日期格式
+    /// - Returns:`Date?`
+    func date(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = format
+        return dateFormatter.date(from: base)
+    }
+
+    /// `日期格式字符串`转`时间戳(秒)`
+    /// - Parameter format:日期格式
+    /// - Returns:`Double`(秒)
+    func unix_timestamp(withFormat format: String = "yyyy-MM-dd HH:mm:ss") -> Double {
+        let date = self.date(withFormat: format)
+        return date?.timeIntervalSince1970 ?? 0
     }
 }
 

@@ -81,12 +81,12 @@ public extension Date {
     }
 
     /// 当前时间戳(单位`秒`)
-    var unixTimestamp: Double {
+    var unix_timestamp: Double {
         return timeIntervalSince1970
     }
 
     /// 格林尼治时间戳(单位`秒`)
-    var timestampGMT: Int {
+    var gmt_timestamp: Int {
         let offset = TimeZone.current.secondsFromGMT(for: self)
         return Int(timeIntervalSince1970) - offset
     }
