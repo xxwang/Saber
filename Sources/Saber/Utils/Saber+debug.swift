@@ -85,7 +85,7 @@ private extension Saber {
         line: Int,
         function: String
     ) {
-        let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
+        let dateStr = Date.sb.nowDate().sb.format("HH:mm:ss.SSS", isGMT: false)
         let fileName = file.sb.toNSString().lastPathComponent.sb.removingSuffix(".swift")
 
         let content = message.map { "\($0)" }.joined(separator: "")

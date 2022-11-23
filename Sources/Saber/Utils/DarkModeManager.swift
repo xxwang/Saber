@@ -214,10 +214,10 @@ public extension DarkModeManager {
         // 1、时间区间分隔为:开始时间 和 结束时间
         // 2、当前的时间转时间戳
         let currentDate = Date()
-        let currentTimeStamp = Int(currentDate.dateAsTimestamp())!
-        let dateString = currentDate.format("yyyy-MM-dd", isGMT: false)
-        let startTimeStamp = Int(Date.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[0], formatter: "yyyy-MM-dd HH:mm", isUnix: true))!
-        var endTimeStamp = Int(Date.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[1], formatter: "yyyy-MM-dd HH:mm", isUnix: true))!
+        let currentTimeStamp = Int(currentDate.sb.dateAsTimestamp())!
+        let dateString = currentDate.sb.format("yyyy-MM-dd", isGMT: false)
+        let startTimeStamp = Int(Date.sb.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[0], formatter: "yyyy-MM-dd HH:mm", isUnix: true))!
+        var endTimeStamp = Int(Date.sb.dateStringAsTimestamp(timesString: dateString + " " + timeIntervalValue[1], formatter: "yyyy-MM-dd HH:mm", isUnix: true))!
         if startTimeStamp > endTimeStamp {
             endTimeStamp = endTimeStamp + 884_600
         }

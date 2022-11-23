@@ -1,9 +1,29 @@
 import Foundation
 
+// MARK: - 日期名称格式枚举
+public enum SBDayNameStyle {
+    /// 日期名称的 3 个字母日期缩写
+    case threeLetters
+    /// 日期名称的 1 个字母日期缩写
+    case oneLetter
+    /// 完整的天名称
+    case full
+}
+
+// MARK: - 月份名称格式枚举
+public enum SBMonthNameStyle {
+    /// 3 个字母月份的月份名称缩写
+    case threeLetters
+    /// 月份名称的 1 个字母月份缩写
+    case oneLetter
+    /// 完整的月份名称
+    case full
+}
+
 private let calendar = Calendar.current
 private let dateFormatter = DateFormatter()
 
-extension Date: Saberable {}
+// extension Date: Saberable {}
 
 // MARK: - 属性
 public extension SaberEx where Base == Date {
@@ -592,41 +612,39 @@ public extension SaberEx where Base == Date {
             var date = adding(.minute, value: 1)
             let after = calendar.date(from:
                 calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date))!
-            date = after.adding(.second, value: -1)
+            date = after.sb.adding(.second, value: -1)
             return date
 
         case .hour:
             var date = adding(.hour, value: 1)
             let after = calendar.date(from:
                 calendar.dateComponents([.year, .month, .day, .hour], from: date))!
-            date = after.adding(.second, value: -1)
+            date = after.sb.adding(.second, value: -1)
             return date
 
         case .day:
             var date = adding(.day, value: 1)
             date = calendar.startOfDay(for: date)
-            date.add(.second, value: -1)
-            return date
-
+            return date.sb.add(.second, value: -1)
         case .weekOfYear, .weekOfMonth:
-            var date = self
+            var date = base
             let beginningOfWeek = calendar.date(from:
                 calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
-            date = beginningOfWeek.adding(.day, value: 7).adding(.second, value: -1)
+            date = beginningOfWeek.sb.adding(.day, value: 7).sb.adding(.second, value: -1)
             return date
 
         case .month:
             var date = adding(.month, value: 1)
             let after = calendar.date(from:
                 calendar.dateComponents([.year, .month], from: date))!
-            date = after.adding(.second, value: -1)
+            date = after.sb.adding(.second, value: -1)
             return date
 
         case .year:
             var date = adding(.year, value: 1)
             let after = calendar.date(from:
                 calendar.dateComponents([.year], from: date))!
-            date = after.adding(.second, value: -1)
+            date = after.sb.adding(.second, value: -1)
             return date
 
         default:

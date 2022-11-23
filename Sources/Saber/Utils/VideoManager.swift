@@ -104,7 +104,7 @@ public extension VideoManager {
         guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality) else {
             return
         }
-        let output = "\(Date().timestamp).mp4".sb.urlByCache()
+        let output = "\(Date().sb.timestamp).mp4".sb.urlByCache()
         exportSession.shouldOptimizeForNetworkUse = true
         exportSession.outputURL = output
         exportSession.outputFileType = .mp4
