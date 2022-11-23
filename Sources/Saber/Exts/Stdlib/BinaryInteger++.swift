@@ -3,6 +3,7 @@ import Foundation
 
 public extension BinaryInteger {
     var sb: SaberExt<Self> { SaberExt(self) }
+    static var sb: SaberExt<Self>.Type { SaberExt<Self>.self }
 }
 
 // MARK: - 类型转换

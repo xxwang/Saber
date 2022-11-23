@@ -8,189 +8,8 @@ import Foundation
     import AppKit
 #endif
 
-// MARK: - 静态方法
-public extension String {
-    /// 给定长度的`乱数假文`字符串
-    /// - Parameters length:限制`乱数假文`字符数(默认为` 445 - 完整`的`乱数假文`)
-    /// - Returns:指定长度的`乱数假文`字符串
-    static func loremIpsum(ofLength length: Int = 445) -> String {
-        guard length > 0 else { return "" }
-
-        // https://www.lipsum.com/
-        let loremIpsum = """
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        """
-        if loremIpsum.count > length {
-            return String(loremIpsum[loremIpsum.startIndex ..< loremIpsum.index(loremIpsum.startIndex, offsetBy: length)])
-        }
-        return loremIpsum
-    }
-
-    /// 给定长度的随机字符串
-    ///
-    ///     String.random(ofLength:18) -> "u7MMZYvGo9obcOcPj8"
-    /// - Parameters length:字符串中的字符数
-    /// - Returns:给定长度的随机字符串
-    static func random(ofLength length: Int) -> String {
-        guard length > 0 else { return "" }
-        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        var randomString = ""
-        for _ in 1 ... length {
-            randomString.append(base.randomElement()!)
-        }
-        return randomString
-    }
-}
-
 // MARK: - 方法(mutating)
-public extension String {
-    
-    /// 截断字符串(限于给定数量的字符)
-    ///
-    ///     "This is a very long sentence".truncated(toLength:14) -> "This is a very..."
-    ///     "Short sentence".truncated(toLength:14) -> "Short sentence"
-    /// - Parameters:
-    ///   - toLength:切割前的最大字符数(从字符开头要保留的字符数量)
-    ///   - trailing:要添加到截断字符串末尾的字符串(默认为“...”)
-    /// - Returns:截断的字符串+尾巴
-    func truncated(toLength length: Int, trailing: String? = "...") -> String {
-        guard 0 ..< count ~= length else { return self }
-        return self[startIndex ..< index(startIndex, offsetBy: length)] + (trailing ?? "")
-    }
-
-    /// 省略字符串
-    /// - Parameters:
-    ///   - length:开始省略长度(保留长度)
-    ///   - suffix:后缀
-    func truncate(_ length: Int, suffix: String = "...") -> String {
-        return count > length ? self[0 ..< length] + suffix : self
-    }
-
-    /// 分割字符串
-    /// - Parameters:
-    ///   - length:每段长度
-    ///   - separator:分隔符
-    func truncate(_ length: Int, separator: String = "-") -> String {
-        var newValue = ""
-        for (i, char) in enumerated() {
-            if i > (count - length) {
-                newValue += "\(char)"
-            } else {
-                newValue += (((i % length) == (length - 1)) ? "\(char)\(separator)" : "\(char)")
-            }
-        }
-        return newValue
-    }
-
-    /// 删除字符串开头和结尾的空格和换行符
-    ///
-    ///     var str = "  \n Hello World \n\n\n"
-    ///     str.trim()
-    ///     print(str) // prints "Hello World"
-    ///
-    @discardableResult
-    mutating func trim() -> String {
-        self = trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        return self
-    }
-
-    /// 截断字符串(将其剪切为给定数量的字符)
-    ///
-    ///     var str = "This is a very long sentence"
-    ///     str.truncate(toLength:14)
-    ///     print(str) // prints "This is a very..."
-    /// - Parameters:
-    ///   - toLength:切割前的最大字符数(从字符开头要保留的字符数量)
-    ///   - trailing:要添加到截断字符串末尾的字符串(默认为“...”)
-    @discardableResult
-    mutating func truncate(toLength length: Int, trailing: String? = "...") -> String {
-        guard length > 0 else { return self }
-        if count > length {
-            self = self[startIndex ..< index(startIndex, offsetBy: length)] + (trailing ?? "")
-        }
-        return self
-    }
-
-    /// 分割字符串
-    /// - Parameter delimiter:分割根据
-    /// - Returns:分割结果数组
-    func split(with char: String) -> [String] {
-        let components = self.components(separatedBy: char)
-        return components != [""] ? components : []
-    }
-
-    /// 在开始时用另一个字符串填充字符串以适应长度参数大小
-    ///
-    ///     "hue".padStart(10) -> "       hue"
-    ///     "hue".padStart(10, with:"br") -> "brbrbrbhue"
-    /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
-    @discardableResult
-    mutating func padStart(_ length: Int, with string: String = " ") -> String {
-        self = paddingStart(length, with: string)
-        return self
-    }
-
-    /// 在开始时用另一个字符串填充字符串以适应长度参数大小
-    ///
-    ///     "hue".padEnd(10) -> "hue       "
-    ///     "hue".padEnd(10, with:"br") -> "huebrbrbrb"
-    /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
-    @discardableResult
-    mutating func padEnd(_ length: Int, with string: String = " ") -> String {
-        self = paddingEnd(length, with: string)
-        return self
-    }
-
-    /// 通过填充返回一个字符串,以适应长度参数大小,并在开始时使用另一个字符串
-    ///
-    ///     "hue".paddingStart(10) -> "       hue"
-    ///     "hue".paddingStart(10, with:"br") -> "brbrbrbhue"
-    /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
-    /// - Returns:开头有填充的字符串
-    func paddingStart(_ length: Int, with string: String = " ") -> String {
-        guard count < length else { return self }
-
-        let padLength = length - count
-        if padLength < string.count {
-            return string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)] + self
-        } else {
-            var padding = string
-            while padding.count < padLength {
-                padding.append(string)
-            }
-            return padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)] + self
-        }
-    }
-
-    /// 通过填充返回一个字符串,以使长度参数大小与最后的另一个字符串相匹配
-    ///
-    ///     "hue".paddingEnd(10) -> "hue       "
-    ///     "hue".paddingEnd(10, with:"br") -> "huebrbrbrb"
-    /// - Parameters:
-    ///   - length:要填充的目标长度
-    ///   - string:填充字符串. 默认为`“ ”`
-    /// - Returns:末尾有填充的字符串
-    func paddingEnd(_ length: Int, with string: String = " ") -> String {
-        guard count < length else { return self }
-
-        let padLength = length - count
-        if padLength < string.count {
-            return self + string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)]
-        } else {
-            var padding = string
-            while padding.count < padLength {
-                padding.append(string)
-            }
-            return self + padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)]
-        }
-    }
-}
+public extension String {}
 
 // MARK: - 方法
 public extension String {
@@ -380,8 +199,8 @@ public extension String {
         guard locat < count else {
             return self
         }
-        let str1 = self.sb.subString(to: locat)
-        let str2 = self.sb.subString(from: locat + 1)
+        let str1 = sb.subString(to: locat)
+        let str2 = sb.subString(from: locat + 1)
         return str1 + content + str2
     }
 
@@ -417,8 +236,6 @@ public extension String {
     func `repeat`(_ count: Int) -> String {
         return String(repeating: self, count: count)
     }
-
-    
 
     /// 移除`self`中指定字符串,并用指定字符串来进行替换
     /// - Parameters:

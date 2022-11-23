@@ -25,7 +25,7 @@ public extension String {
             self.init()
             return
         }
-        self = Self.random(ofLength: length)
+        self = Self.sb.random(ofLength: length)
     }
 }
 
@@ -593,18 +593,169 @@ public extension SaberExt where Base == String {
         base = String(chars)
         return base
     }
-    
-        /// 校验`字符串位置`是否有效,并返回`String.Index`
-        /// - Parameter original:位置
-        /// - Returns:`String.Index`
+
+    /// 校验`字符串位置`是否有效,并返回`String.Index`
+    /// - Parameter original:位置
+    /// - Returns:`String.Index`
     func validIndex(original: Int) -> String.Index {
         switch original {
-            case ...base.startIndex.utf16Offset(in: base):
-                return base.startIndex
-            case base.endIndex.utf16Offset(in: base)...:
-                return base.endIndex
-            default:
-                return base.index(base.startIndex, offsetBy: original)
+        case ...base.startIndex.utf16Offset(in: base):
+            return base.startIndex
+        case base.endIndex.utf16Offset(in: base)...:
+            return base.endIndex
+        default:
+            return base.index(base.startIndex, offsetBy: original)
+        }
+    }
+
+    /// 截断字符串(限于给定数量的字符)
+    ///
+    ///     "This is a very long sentence".truncated(toLength:14) -> "This is a very..."
+    ///     "Short sentence".truncated(toLength:14) -> "Short sentence"
+    /// - Parameters:
+    ///   - toLength:切割前的最大字符数(从字符开头要保留的字符数量)
+    ///   - trailing:要添加到截断字符串末尾的字符串(默认为“...”)
+    /// - Returns:截断的字符串+尾巴
+    func truncated(toLength length: Int, trailing: String? = "...") -> String {
+        guard 0 ..< base.count ~= length else { return base }
+        return base[base.startIndex ..< base.index(base.startIndex, offsetBy: length)] + (trailing ?? "")
+    }
+
+    /// 省略字符串
+    /// - Parameters:
+    ///   - length:开始省略长度(保留长度)
+    ///   - suffix:后缀
+    /// - Returns: `String`
+    func truncate(_ length: Int, suffix: String = "...") -> String {
+        return base.count > length ? base[0 ..< length] + suffix : base
+    }
+
+    /// 分割字符串
+    /// - Parameters:
+    ///   - length:每段长度
+    ///   - separator:分隔符
+    /// - Returns: `String`
+    func truncate(_ length: Int, separator: String = "-") -> String {
+        var newValue = ""
+        for (i, char) in base.enumerated() {
+            if i > (base.count - length) {
+                newValue += "\(char)"
+            } else {
+                newValue += (((i % length) == (length - 1)) ? "\(char)\(separator)" : "\(char)")
+            }
+        }
+        return newValue
+    }
+
+    /// 删除字符串开头和结尾的空格和换行符
+    ///
+    ///     var str = "  \n Hello World \n\n\n"
+    ///     str.trim()
+    ///     print(str) // prints "Hello World"
+    ///
+    /// - Returns: `String`
+    @discardableResult
+    func trim() -> String {
+        let trim = base.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        return trim
+    }
+
+    /// 截断字符串(将其剪切为给定数量的字符)
+    ///
+    ///     var str = "This is a very long sentence"
+    ///     str.truncate(toLength:14)
+    ///     print(str) // prints "This is a very..."
+    /// - Parameters:
+    ///   - toLength:切割前的最大字符数(从字符开头要保留的字符数量)
+    ///   - trailing:要添加到截断字符串末尾的字符串(默认为“...”)
+    /// - Returns: `String`
+    @discardableResult
+    func truncate(toLength length: Int, trailing: String? = "...") -> String {
+        guard length > 0 else { return base }
+        if base.count > length {
+            return base[base.startIndex ..< base.index(base.startIndex, offsetBy: length)] + (trailing ?? "")
+        }
+        return base
+    }
+
+    /// 分割字符串
+    /// - Parameter delimiter:分割根据
+    /// - Returns:分割结果数组
+    /// - Returns: `String`
+    func split(with char: String) -> [String] {
+        let components = base.components(separatedBy: char)
+        return components != [""] ? components : []
+    }
+
+    /// 在开始时用另一个字符串填充字符串以适应长度参数大小
+    ///
+    ///     "hue".padStart(10) -> "       hue"
+    ///     "hue".padStart(10, with:"br") -> "brbrbrbhue"
+    /// - Parameters:
+    ///   - length:要填充的目标长度
+    ///   - string:填充字符串. 默认为`“ ”`
+    /// - Returns: `String`
+    @discardableResult
+    func padStart(_ length: Int, with string: String = " ") -> String {
+        return paddingStart(length, with: string)
+    }
+
+    /// 在开始时用另一个字符串填充字符串以适应长度参数大小
+    ///
+    ///     "hue".padEnd(10) -> "hue       "
+    ///     "hue".padEnd(10, with:"br") -> "huebrbrbrb"
+    /// - Parameters:
+    ///   - length:要填充的目标长度
+    ///   - string:填充字符串. 默认为`“ ”`
+    /// - Returns: `String`
+    @discardableResult
+    func padEnd(_ length: Int, with string: String = " ") -> String {
+        return paddingEnd(length, with: string)
+    }
+
+    /// 通过填充返回一个字符串,以适应长度参数大小,并在开始时使用另一个字符串
+    ///
+    ///     "hue".paddingStart(10) -> "       hue"
+    ///     "hue".paddingStart(10, with:"br") -> "brbrbrbhue"
+    /// - Parameters:
+    ///   - length:要填充的目标长度
+    ///   - string:填充字符串. 默认为`“ ”`
+    /// - Returns: `String`
+    func paddingStart(_ length: Int, with string: String = " ") -> String {
+        guard base.count < length else { return base }
+
+        let padLength = length - base.count
+        if padLength < string.count {
+            return string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)] + base
+        } else {
+            var padding = string
+            while padding.count < padLength {
+                padding.append(string)
+            }
+            return padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)] + base
+        }
+    }
+
+    /// 通过填充返回一个字符串,以使长度参数大小与最后的另一个字符串相匹配
+    ///
+    ///     "hue".paddingEnd(10) -> "hue       "
+    ///     "hue".paddingEnd(10, with:"br") -> "huebrbrbrb"
+    /// - Parameters:
+    ///   - length:要填充的目标长度
+    ///   - string:填充字符串. 默认为`“ ”`
+    /// - Returns:末尾有填充的字符串
+    func paddingEnd(_ length: Int, with string: String = " ") -> String {
+        guard base.count < length else { return base }
+
+        let padLength = length - base.count
+        if padLength < string.count {
+            return base + string[string.startIndex ..< string.index(string.startIndex, offsetBy: padLength)]
+        } else {
+            var padding = string
+            while padding.count < padLength {
+                padding.append(string)
+            }
+            return base + padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)]
         }
     }
 }
@@ -736,14 +887,13 @@ public extension SaberExt where Base == String {
         let subString = base[range]
         return String(subString)
     }
-    
-        /// 获取某个位置的字符串
-        /// - Parameter index:位置
-        /// - Returns:`String`
+
+    /// 获取某个位置的字符串
+    /// - Parameter index:位置
+    /// - Returns:`String`
     func indexString(index: Int) -> String {
         return slice(index ..< index + 1)
     }
-
 }
 
 // MARK: - 判断
@@ -1016,7 +1166,7 @@ public extension SaberExt where Base == String {
         case 15:
             // 15位身份证
             // 这里年份只有两位,00被处理为闰年了,对2000年是正确的,对1900年是错误的,不过身份证是1900年的应该很少了
-                year = Int(str.sb.subString(from: 6, length: 2))!
+            year = Int(str.sb.subString(from: 6, length: 2))!
             if isLeapYear(year: year) { // 闰年
                 do {
                     // 检测出生日期的合法性
@@ -1037,7 +1187,7 @@ public extension SaberExt where Base == String {
             }
         case 18:
             // 18位身份证
-                year = Int(str.sb.subString(from: 6, length: 4))!
+            year = Int(str.sb.subString(from: 6, length: 4))!
             if isLeapYear(year: year) {
                 // 闰年
                 do {
@@ -1674,6 +1824,40 @@ public extension String {
                 print(error)
             }
         }
+    }
+}
+
+// MARK: - 静态方法
+public extension SaberExt where Base == String {
+    /// 给定长度的`乱数假文`字符串
+    /// - Parameters length:限制`乱数假文`字符数(默认为` 445 - 完整`的`乱数假文`)
+    /// - Returns:指定长度的`乱数假文`字符串
+    static func loremIpsum(ofLength length: Int = 445) -> String {
+        guard length > 0 else { return "" }
+
+        // https://www.lipsum.com/
+        let loremIpsum = """
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        """
+        if loremIpsum.count > length {
+            return String(loremIpsum[loremIpsum.startIndex ..< loremIpsum.index(loremIpsum.startIndex, offsetBy: length)])
+        }
+        return loremIpsum
+    }
+
+    /// 给定长度的随机字符串
+    ///
+    ///     String.random(ofLength:18) -> "u7MMZYvGo9obcOcPj8"
+    /// - Parameters length:字符串中的字符数
+    /// - Returns:给定长度的随机字符串
+    static func random(ofLength length: Int) -> String {
+        guard length > 0 else { return "" }
+        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var randomString = ""
+        for _ in 1 ... length {
+            randomString.append(base.randomElement()!)
+        }
+        return randomString
     }
 }
 

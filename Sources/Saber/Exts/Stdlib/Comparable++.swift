@@ -2,6 +2,7 @@ import Foundation
 
 public extension Comparable {
     var sb: SaberExt<Self> { SaberExt(self) }
+    static var sb: SaberExt<Self>.Type { SaberExt<Self>.self }
 }
 
 // MARK: - 方法
@@ -17,6 +18,6 @@ public extension SaberExt where Base: Comparable {
     /// - Parameter range: 值允许的范围
     /// - Returns: `>`返回`range.upperBound`, `<`返回`range.lowerBound`,`==`返回`self
     func clamped(to range: ClosedRange<Base>) -> Base {
-        return max(range.lowerBound, min(base, range.upperBound))
+        return Swift.max(range.lowerBound, Swift.min(base, range.upperBound))
     }
 }
