@@ -265,7 +265,7 @@ public extension SaberExt where Base == String {
 
     /// 把字符串转为`URL`(失败返回`nil`)
     /// - Returns: `URL?`
-    func toUrl() -> URL? {
+    func toURL() -> URL? {
         if base.hasPrefix("http://") || base.hasPrefix("https://") {
             return URL(string: base)
         }
@@ -275,7 +275,7 @@ public extension SaberExt where Base == String {
     /// 字符串转`URLRequest`
     /// - Returns: `URLRequest?`
     func toURLRequest() -> URLRequest? {
-        guard let url = toUrl() else {
+        guard let url = toURL() else {
             return nil
         }
         return URLRequest(url: url)
@@ -323,7 +323,7 @@ public extension SaberExt where Base == String {
             return nil
         }
 
-        let classNameString = "\(namespace.removeSomeStringUseSomeString(removeString: " ", replacingString: "_")).\(self)"
+        let classNameString = "\(namespace.sb.removeSomeStringUseSomeString(removeString: " ", replacingString: "_")).\(self)"
         guard let nameClass = NSClassFromString(classNameString) as? T.Type else {
             return nil
         }
@@ -511,6 +511,38 @@ public extension SaberExt where Base == String {
     }
 }
 
+// MARK: - 位置相关
+public extension SaberExt where Base == String {
+    /// `子字符串``第一次`出现的位置
+    /// - Parameter sub:子字符串
+    /// - Returns:返回字符串的位置(如果不存在该字符串则返回 `-1`)
+    func positionFirst(of sub: String) -> Int {
+        return position(of: sub)
+    }
+
+    /// `子字符串``最后一次`出现的位置
+    /// - Parameter sub:子字符串
+    /// - Returns:返回字符串的位置(如果不存在该字符串则返回 `-1`)
+    func positionLast(of sub: String) -> Int {
+        return position(of: sub, backwards: true)
+    }
+
+    /// 返回字符串`第一次/最后一次`出现的`位置索引`,不存在返回`-1`
+    /// - Parameters:
+    ///   - sub:子字符串
+    ///   - backwards:如果`backwards`参数设置为`true`,则返回最后一次出现的位置
+    /// - Returns: `Int`
+    func position(of sub: String, backwards: Bool = false) -> Int {
+        var pos = -1
+        if let range = base.range(of: sub, options: backwards ? .backwards : .literal) {
+            if !range.isEmpty {
+                pos = base.distance(from: base.startIndex, to: range.lowerBound)
+            }
+        }
+        return pos
+    }
+}
+
 // MARK: - 常用方法
 public extension SaberExt where Base == String {
     ///  字符串的第一个字符
@@ -527,6 +559,157 @@ public extension SaberExt where Base == String {
         return last
     }
 
+    /// 由换行符分隔的字符串数组(获取字符串行数, `\n`分割)
+    ///
+    ///     "Hello\ntest".lines() -> ["Hello", "test"]
+    ///
+    /// - Returns:分割后的字符串数组
+    func lines() -> [String] {
+        var result = [String]()
+        base.enumerateLines { line, _ in
+            result.append(line)
+        }
+        return result
+    }
+
+    /// 字符串中的字数(`word`)
+    ///
+    ///     "Swift is amazing".wordsCount() -> 3
+    ///
+    /// - Returns:字符串中包含的单词数
+    func wordCount() -> Int {
+        let chararacterSet = CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters)
+        let comps = base.components(separatedBy: chararacterSet)
+        let words = comps.filter { !$0.isEmpty }
+        return words.count
+    }
+
+    /// 字符串中的数字个数
+    func numericCount() -> Int {
+        var count = 0
+        for c in base where ("0" ... "9").contains(c) {
+            count += 1
+        }
+        return count
+    }
+
+    /// 计算字符个数(`英文 = 1`,`数字 = 1`,`汉语 = 2`)
+    var countOfChars: Int {
+        var count = 0
+        guard !base.isEmpty else {
+            return 0
+        }
+        for i in 0 ... base.count - 1 {
+            let c: unichar = toNSString().character(at: i)
+            if c >= 0x4E00 {
+                count += 2
+            } else {
+                count += 1
+            }
+        }
+        return count
+    }
+
+    /// 字符串中所有字符的`unicode`数组
+    ///
+    ///     "SwifterSwift".unicodeArray() -> [83, 119, 105, 102, 116, 101, 114, 83, 119, 105, 102, 116]
+    ///
+    /// - Returns:字符串中所有字符的 unicode
+    func unicodeArray() -> [Int] {
+        return base.unicodeScalars.map { Int($0.value) }
+    }
+
+    /// 字符串中所有单词的数组
+    ///
+    ///     "Swift is amazing".words() -> ["Swift", "is", "amazing"]
+    ///
+    /// - Returns:字符串中包含的单词
+    func words() -> [String] {
+        let chararacterSet = CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters)
+        let comps = base.components(separatedBy: chararacterSet)
+        return comps.filter { !$0.isEmpty }
+    }
+
+    /// 从字符串中提取链接和文本
+    /// - Returns: `(link: String, text: String)?`
+    func hrefText() -> (link: String, text: String)? {
+        let pattern = "<a href=\"(.*?)\"(.*?)>(.*?)</a>"
+
+        guard let regx = try? NSRegularExpression(pattern: pattern, options: []),
+              let result = regx.firstMatch(in: base, options: [], range: NSRange(location: 0, length: base.count))
+        else {
+            return nil
+        }
+        let link = toNSString().substring(with: result.range(at: 1))
+        let text = toNSString().substring(with: result.range(at: 3))
+        return (link, text)
+    }
+
+    /// 返回当前字符窜中的 `link range`数组
+    /// - Returns: `[NSRange]?`
+    func linkRanges() -> [NSRange]? {
+        // url, ##, 中文字母数字
+        let patterns = ["[a-zA-Z]*://[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
+        // 遍历数组,生成range的数组
+        var ranges = [NSRange]()
+
+        for pattern in patterns {
+            guard let regx = try? NSRegularExpression(pattern: pattern, options: [.dotMatchesLineSeparators]) else {
+                return nil
+            }
+            let matches = regx.matches(in: base, options: [], range: NSRange(location: 0, length: base.count))
+            for m in matches {
+                ranges.append(m.range(at: 0))
+            }
+        }
+        return ranges
+    }
+
+    /// 字符串中的子字符串个数
+    ///
+    ///     "Hello World!".count(of:"o") -> 2
+    ///     "Hello World!".count(of:"L", caseSensitive:false) -> 3
+    /// - Parameters:
+    ///   - string:要搜索的子字符串
+    ///   - caseSensitive:是否区分大小写(默认为`true`)
+    /// - Returns:子字符串在字符串中出现的计数
+    func count(of string: String, caseSensitive: Bool = true) -> Int {
+        if !caseSensitive {
+            return base.lowercased().components(separatedBy: string.lowercased()).count - 1
+        }
+        return base.components(separatedBy: string).count - 1
+    }
+
+    /// 查找字符串中出现最频繁的字符
+    ///
+    ///     "This is a test, since e is appearing everywhere e should be the common character".mostCommonCharacter() -> "e"
+    ///
+    /// - Returns:出现最频繁的字符
+    func mostCommonCharacter() -> Character? {
+        let mostCommon = withoutSpacesAndNewLines().reduce(into: [Character: Int]()) {
+            let count = $0[$1] ?? 0
+            $0[$1] = count + 1
+        }.max { $0.1 < $1.1 }?.key
+        return mostCommon
+    }
+
+    /// 校验`字符串位置`是否有效,并返回`String.Index`
+    /// - Parameter original:位置
+    /// - Returns:`String.Index`
+    func validIndex(original: Int) -> String.Index {
+        switch original {
+        case ...base.startIndex.utf16Offset(in: base):
+            return base.startIndex
+        case base.endIndex.utf16Offset(in: base)...:
+            return base.endIndex
+        default:
+            return base.index(base.startIndex, offsetBy: original)
+        }
+    }
+}
+
+// MARK: - 字符串处理
+public extension SaberExt where Base == String {
     /// 返回一个本地化的字符串,带有可选的翻译注释
     /// - Parameter comment: 注释
     /// - Returns: `String`
@@ -562,17 +745,57 @@ public extension SaberExt where Base == String {
         return filtered.replacingOccurrences(of: "--", with: "-")
     }
 
-    /// 查找字符串中出现最频繁的字符
+    /// 去除字符串前后的空格
+    /// - Returns: `String`
+    func trimmedSpace() -> String {
+        let resultString = base.trimmingCharacters(in: CharacterSet.whitespaces)
+        return resultString
+    }
+
+    /// 去除字符串前后的换行
+    /// - Returns: `String`
+    func trimmedNewLines() -> String {
+        let resultString = base.trimmingCharacters(in: CharacterSet.newlines)
+        return resultString
+    }
+
+    /// 移除字符串开头和结尾处的空格及换行符
     ///
-    ///     "This is a test, since e is appearing everywhere e should be the common character".mostCommonCharacter() -> "e"
+    ///     "   hello  \n".trimmed -> "hello"
     ///
-    /// - Returns:出现最频繁的字符
-    func mostCommonCharacter() -> Character? {
-        let mostCommon = withoutSpacesAndNewLines().reduce(into: [Character: Int]()) {
-            let count = $0[$1] ?? 0
-            $0[$1] = count + 1
-        }.max { $0.1 < $1.1 }?.key
-        return mostCommon
+    /// - Returns: `String`
+    func trimmed() -> String {
+        return base.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// 移除字符串中的空格
+    /// - Returns: `String`
+    func withoutSpaces() -> String {
+        return base.replacingOccurrences(of: " ", with: "")
+    }
+
+    /// 移除字符串中的换行符
+    /// - Returns: `String`
+    func withoutNewLines() -> String {
+        return base.replacingOccurrences(of: "\n", with: "")
+    }
+
+    /// 移除字符串中的空格及换行符
+    ///
+    ///     "   \n Swifter   \n  Swift  ".withoutSpacesAndNewLines -> "SwifterSwift"
+    ///
+    /// - Returns: `String`
+    func withoutSpacesAndNewLines() -> String {
+        return base.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
+    }
+
+    /// 将正则表达式加上`"\"`进行保护,将元字符转化成字面值
+    ///
+    ///     "hello ^$ there" -> "hello \\^\\$ there"
+    ///
+    /// - Returns: `String`
+    func regexEscaped() -> String {
+        return NSRegularExpression.escapedPattern(for: base)
     }
 
     /// 字符串的首字符大写,其它字符保持原样
@@ -592,20 +815,6 @@ public extension SaberExt where Base == String {
         let chars: [Character] = base.reversed()
         base = String(chars)
         return base
-    }
-
-    /// 校验`字符串位置`是否有效,并返回`String.Index`
-    /// - Parameter original:位置
-    /// - Returns:`String.Index`
-    func validIndex(original: Int) -> String.Index {
-        switch original {
-        case ...base.startIndex.utf16Offset(in: base):
-            return base.startIndex
-        case base.endIndex.utf16Offset(in: base)...:
-            return base.endIndex
-        default:
-            return base.index(base.startIndex, offsetBy: original)
-        }
     }
 
     /// 截断字符串(限于给定数量的字符)
@@ -757,6 +966,147 @@ public extension SaberExt where Base == String {
             }
             return base + padding[padding.startIndex ..< padding.index(padding.startIndex, offsetBy: padLength)]
         }
+    }
+
+    /// 在指定`searchRange`中使用`template`替换与`regex`匹配的内容
+    /// - Parameters:
+    ///   - regex:进行替换的正则表达式
+    ///   - template:替换正则表达式的模板
+    ///   - options:要使用的匹配选项
+    ///   - searchRange:要搜索的范围
+    /// - Returns:一个新字符串,其中接收者的 `searchRange` 中所有出现的正则表达式都被模板替换
+    func replacingOccurrences(
+        of regex: NSRegularExpression,
+        with template: String,
+        options: NSRegularExpression.MatchingOptions = [],
+        range searchRange: Range<String.Index>? = nil
+    ) -> String {
+        let range = NSRange(searchRange ?? base.startIndex ..< base.endIndex, in: base)
+        return regex.stringByReplacingMatches(in: base, options: options, range: range, withTemplate: template)
+    }
+
+    /// 使用正则表达式替换
+    /// - Parameters:
+    ///   - pattern:正则
+    ///   - with:用来替换的字符串
+    ///   - options:选项
+    /// - Returns:返回替换后的字符串
+    func pregReplace(pattern: String, with: String,
+                     options: NSRegularExpression.Options = []) -> String
+    {
+        let regex = try! NSRegularExpression(pattern: pattern, options: options)
+        return regex.stringByReplacingMatches(in: base, options: [],
+                                              range: NSRange(location: 0, length: base.count),
+                                              withTemplate: with)
+    }
+
+    /// 从字符串中删除指定的前缀
+    ///
+    ///     "Hello, World!".removingPrefix("Hello, ") -> "World!"
+    /// - Parameters prefix:要从字符串中删除的前缀
+    /// - Returns:去除前缀后的字符串
+    func removingPrefix(_ prefix: String) -> String {
+        guard base.hasPrefix(prefix) else { return base }
+        return String(base.dropFirst(prefix.count))
+    }
+
+    /// 从字符串中删除给定的后缀
+    ///
+    ///     "Hello, World!".removingSuffix(", World!") -> "Hello"
+    /// - Parameters suffix:要从字符串中删除的后缀
+    /// - Returns:删除后缀后的字符串
+    func removingSuffix(_ suffix: String) -> String {
+        guard base.hasSuffix(suffix) else { return base }
+        return String(base.dropLast(suffix.count))
+    }
+
+    /// 为字符串添加前缀
+    ///
+    ///     "www.apple.com".withPrefix("https://") -> "https://www.apple.com"
+    /// - Parameters prefix:添加到字符串的前缀
+    /// - Returns:带有前缀的字符串
+    func withPrefix(_ prefix: String) -> String {
+        guard !base.hasPrefix(prefix) else { return base }
+        return prefix + base
+    }
+
+    /// 在任意位置插入字符串
+    /// - Parameters:
+    ///   - content:插入内容
+    ///   - locat:插入的位置
+    /// - Returns:添加后的字符串
+    func insertString(content: String, locat: Int) -> String {
+        guard locat < base.count else {
+            return base
+        }
+        let str1 = subString(to: locat)
+        let str2 = subString(from: locat + 1)
+        return str1 + content + str2
+    }
+
+    /// 替换字符串
+    /// - Parameters:
+    ///   - string:要替换的字符串
+    ///   - withString:要替换成的字符串
+    /// - Returns:替换完成的字符串
+    func replace(_ string: String, with withString: String) -> String {
+        return base.replacingOccurrences(of: string, with: withString)
+    }
+
+    /// 隐藏敏感信息
+    ///
+    ///     "012345678912".HideSensitiveContent(range:3..<8, replace:"*****") -> "012*****912"
+    /// - Parameters:
+    ///   - range:要隐藏的内容范围
+    ///   - replace:用来替换敏感内容的字符串
+    /// - Returns:隐藏敏感信息后的字符串
+    func hideSensitiveContent(range: Range<Int>, replace: String = "****") -> String {
+        if base.count < range.upperBound {
+            return base
+        }
+        guard let subStr = base[safe: range] else {
+            return base
+        }
+        return self.replace(subStr, with: replace)
+    }
+
+    /// 生成指定数量的重复字符串
+    /// - Parameter count:要重复的字符串个数
+    /// - Returns:拼接后的字符串
+    func `repeat`(_ count: Int) -> String {
+        return String(repeating: base, count: count)
+    }
+
+    /// 移除`self`中指定字符串,并用指定字符串来进行替换
+    /// - Parameters:
+    ///   - removeString:要移除的字符串
+    ///   - replacingString:替换的字符串
+    /// - Returns:替换后的整体字符串
+    func removeSomeStringUseSomeString(removeString: String, replacingString: String = "") -> String {
+        return base.replacingOccurrences(of: removeString, with: replacingString)
+    }
+
+    /// 删除指定的字符
+    /// - Parameter characterString:指定的字符
+    /// - Returns:返回删除后的字符
+    func removeCharacter(characterString: String) -> String {
+        let characterSet = CharacterSet(charactersIn: characterString)
+        return base.trimmingCharacters(in: characterSet)
+    }
+
+    /// 获取最长相同后缀
+    /// - Parameters:
+    ///   - aString:用于与`self`比较的对象
+    ///   - options:选项
+    /// - Returns:最长相同后缀
+    func commonSuffix(with aString: String, options: String.CompareOptions = []) -> String {
+        return String(zip(base.reversed(), aString.reversed())
+            .lazy
+            .prefix(while: { (lhs: Character, rhs: Character) in
+                String(lhs).compare(String(rhs), options: options) == .orderedSame
+            })
+            .map { (lhs: Character, _: Character) in lhs }
+            .reversed())
     }
 }
 
@@ -1336,94 +1686,356 @@ public extension SaberExt where Base == String {
     }
 }
 
-// MARK: - 字符串处理
+// MARK: - 剪切板
 public extension SaberExt where Base == String {
-    /// 从字符串中提取链接和文本
-    /// - Returns: `(link: String, text: String)?`
-    func hrefText() -> (link: String, text: String)? {
-        let pattern = "<a href=\"(.*?)\"(.*?)>(.*?)</a>"
+    /// 将字符串复制到全局粘贴板
+    ///
+    ///     "SomeText".copyToPasteboard() // copies "SomeText" to pasteboard
+    ///
+    func copyToPasteboard() {
+        #if os(iOS)
+            UIPasteboard.general.string = base
+        #elseif os(macOS)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(base, forType: .string)
+        #endif
+    }
+}
 
-        guard let regx = try? NSRegularExpression(pattern: pattern, options: []),
-              let result = regx.firstMatch(in: base, options: [], range: NSRange(location: 0, length: base.count))
+// MARK: - HTML字符引用
+public extension SaberExt where Base == String {
+    /// `字符串`转为`HTML字符引用`
+    /// - Returns:字符引用
+    func stringAsHtmlCharacterEntityReferences() -> String {
+        var result = ""
+        for scalar in base.utf16 {
+            // 将十进制转成十六进制,不足4位前面补0
+            let tem = String().appendingFormat("%04x", scalar)
+            result += "&#x\(tem);"
+        }
+        return result
+    }
+
+    /// `HTML字符引用`转`字符串`
+    /// - Returns:普通字符串
+    func htmlCharacterEntityReferencesAsString() -> String? {
+        let attributedOptions: [NSAttributedString.DocumentReadingOptionKey: Any] = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+                                                                                     NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue]
+        guard
+            let encodedData = base.data(using: String.Encoding.utf8),
+            let attributedString = try? NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
         else {
             return nil
         }
-        let link = toNSString().substring(with: result.range(at: 1))
-        let text = toNSString().substring(with: result.range(at: 3))
-        return (link, text)
+        return attributedString.string
+    }
+}
+
+// MARK: - 属性字符串相关
+public extension SaberExt where Base == String {
+    /// `HTML源码`转`属性字符串`
+    /// - Parameters:
+    ///   - font:字体
+    ///   - lineSpacing:行间距
+    /// - Returns:属性字符串
+    func htmlCodeToAttributedString(
+        font: UIFont? = UIFont.systemFont(ofSize: 12),
+        lineSpacing: CGFloat? = 10
+    ) -> NSMutableAttributedString {
+        var htmlString: NSMutableAttributedString?
+        do {
+            if let data = base.replacingOccurrences(of: "\n", with: "<br/>").data(using: .utf8) {
+                htmlString = try NSMutableAttributedString(data: data, options: [
+                    NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+                    NSAttributedString.DocumentReadingOptionKey.characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue),
+                ], documentAttributes: nil)
+                let wrapHtmlString = NSMutableAttributedString(string: "\n")
+                // 判断尾部是否是换行符
+                if let weakHtmlString = htmlString, weakHtmlString.string.hasSuffix("\n") {
+                    htmlString?.deleteCharacters(in: NSRange(location: weakHtmlString.length - wrapHtmlString.length, length: wrapHtmlString.length))
+                }
+            }
+        } catch {}
+        // 设置属性字符串字体的大小
+        if let font = font {
+            htmlString?.addAttributes([
+                NSAttributedString.Key.font: font,
+            ], range: NSRange(location: 0, length: htmlString?.length ?? 0))
+        }
+
+        // 设置行间距
+        if let weakLineSpacing = lineSpacing {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = weakLineSpacing
+            htmlString?.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: htmlString?.length ?? 0))
+        }
+        return htmlString ?? NSMutableAttributedString(string: base)
     }
 
-    /// 返回当前字符窜中的 `link range`数组
-    /// - Returns: `[NSRange]?`
-    func linkRanges() -> [NSRange]? {
-        // url, ##, 中文字母数字
-        let patterns = ["[a-zA-Z]*://[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
-        // 遍历数组,生成range的数组
-        var ranges = [NSRange]()
+    /// 高亮显示关键字(返回属性字符串)
+    /// - Parameters:
+    ///   - keyword:要高亮的关键词
+    ///   - keywordCololor:关键高亮字颜色
+    ///   - otherColor:非高亮文字颜色
+    ///   - options:匹配选项
+    /// - Returns:返回匹配后的属性字符串
+    func highlightSubString(
+        keyword: String,
+        keywordCololor: UIColor,
+        otherColor: UIColor,
+        options: NSRegularExpression.Options = []
+    ) -> NSMutableAttributedString {
+        // 整体字符串
+        let fullString = base
+        // 整体属性字符串
+        let attributedString = NSMutableAttributedString(string: fullString)
+        // 整体颜色
+        attributedString.addAttributes([NSAttributedString.Key.foregroundColor: otherColor], range: fullString.sb.fullNSRange())
 
-        for pattern in patterns {
-            guard let regx = try? NSRegularExpression(pattern: pattern, options: [.dotMatchesLineSeparators]) else {
-                return nil
+        // 与关键词匹配的range数组
+        let ranges = fullString.sb.matchRange(keyword)
+
+        // 设置高亮颜色
+        for range in ranges {
+            attributedString.addAttributes([.foregroundColor: keywordCololor], range: range)
+        }
+        return attributedString
+    }
+}
+
+// MARK: - 字符串尺寸计算
+public extension SaberExt where Base == String {
+    /// 计算字符串大小
+    /// - Parameters:
+    ///   - maxWidth:最大宽度
+    ///   - font:文字字体
+    /// - Returns:结果`CGSize`
+    func strSize(
+        _ maxWidth: CGFloat = UIScreen.main.bounds.width,
+        font: UIFont
+    ) -> CGSize {
+        let constraint = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+        let rect = toNSString().boundingRect(with: constraint,
+                                             options: [
+                                                 .usesLineFragmentOrigin,
+                                                 .usesFontLeading,
+                                                 .truncatesLastVisibleLine,
+                                             ],
+                                             attributes: [
+                                                 .font: font,
+                                             ],
+                                             context: nil)
+
+        return CGSize(width: Foundation.ceil(rect.width), height: Foundation.ceil(rect.height))
+    }
+
+    /// 以属性字符串的方式计算字符串大小
+    /// - Parameters:
+    ///   - maxWidth:最大宽度
+    ///   - font:字体
+    ///   - lineSpaceing:行间距
+    ///   - wordSpacing:字间距
+    /// - Returns:结果`CGSize`
+    func attributeSize(
+        _ maxWidth: CGFloat = UIScreen.main.bounds.width,
+        font: UIFont,
+        lineSpacing: CGFloat = 0,
+        wordSpacing: CGFloat = 0
+    ) -> CGSize {
+        // 段落样式
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byCharWrapping
+        paragraphStyle.alignment = .left
+        paragraphStyle.lineSpacing = lineSpacing
+
+        // 设置行间距
+        paragraphStyle.hyphenationFactor = 1.0
+        paragraphStyle.firstLineHeadIndent = 0.0
+        paragraphStyle.paragraphSpacingBefore = 0.0
+        paragraphStyle.headIndent = 0
+        paragraphStyle.tailIndent = 0
+
+        // 属性字符串
+        let attString = NSMutableAttributedString(string: base)
+        attString.addAttributes([
+            .font: font,
+            .kern: wordSpacing,
+            .paragraphStyle: paragraphStyle,
+        ], range: NSRange(location: 0, length: base.count))
+
+        let constraint = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+        let textSize = attString.boundingRect(with: constraint,
+                                              options: [
+                                                  .usesLineFragmentOrigin,
+                                                  .usesFontLeading,
+                                                  .truncatesLastVisibleLine,
+                                              ],
+                                              context: nil).size
+
+        // 向上取整(由于计算结果小数问题, 导致界面字符串显示不完整)
+        return CGSize(width: Foundation.ceil(textSize.width), height: Foundation.ceil(textSize.height))
+    }
+}
+
+// MARK: - `NSDecimalNumber`苹果针对浮点类型计算精度问题提供出来的计算类 四则运算
+public extension SaberExt where Base == String {
+    /// `＋` 加法运算
+    /// - Parameter strNumber:加数字符串
+    /// - Returns:结果数字串
+    func adding(_ strNumber: String?) -> String {
+        var ln = NSDecimalNumber(string: base)
+        var rn = NSDecimalNumber(string: strNumber)
+        if ln.doubleValue.isNaN {
+            ln = NSDecimalNumber.zero
+        }
+        if rn.doubleValue.isNaN {
+            rn = NSDecimalNumber.zero
+        }
+        let final = ln.adding(rn)
+        return final.stringValue
+    }
+
+    /// `－` 减法运算
+    /// - Parameter strNumber:减数字符串
+    /// - Returns:结果
+    func subtracting(_ strNumber: String?) -> String {
+        var ln = NSDecimalNumber(string: base)
+        var rn = NSDecimalNumber(string: strNumber)
+        if ln.doubleValue.isNaN {
+            ln = NSDecimalNumber.zero
+        }
+        if rn.doubleValue.isNaN {
+            rn = NSDecimalNumber.zero
+        }
+        let final = ln.subtracting(rn)
+        return final.stringValue
+    }
+
+    /// `*` 乘法运算
+    /// - Parameter strNumber:乘数字符串
+    /// - Returns:结果
+    func multiplying(_ strNumber: String?) -> String {
+        var ln = NSDecimalNumber(string: base)
+        var rn = NSDecimalNumber(string: strNumber)
+        if ln.doubleValue.isNaN {
+            ln = NSDecimalNumber.zero
+        }
+        if rn.doubleValue.isNaN {
+            rn = NSDecimalNumber.zero
+        }
+        let final = ln.multiplying(by: rn)
+        return final.stringValue
+    }
+
+    /// `/`除法运算
+    /// - Parameter strNumber:除数
+    /// - Returns:结果
+    func dividing(_ strNumber: String?) -> String {
+        var ln = NSDecimalNumber(string: base)
+        var rn = NSDecimalNumber(string: strNumber)
+        if ln.doubleValue.isNaN {
+            ln = NSDecimalNumber.zero
+        }
+        if rn.doubleValue.isNaN {
+            rn = NSDecimalNumber.one
+        }
+        if rn.doubleValue == 0 {
+            rn = NSDecimalNumber.one
+        }
+        let final = ln.dividing(by: rn)
+        return final.stringValue
+    }
+}
+
+// MARK: - 数字字符串
+public extension SaberExt where Base == String {
+    /// 金额字符串转化为带逗号的金额, 按照千分位表示
+    ///
+    ///     "1234567" => 1,234,567
+    ///     "1234567.56" => 1,234,567.56
+    /// - Returns:千分位表示字符串
+    func amountAsThousands() -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.roundingMode = .floor
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
+        if contains(".") {
+            formatter.maximumFractionDigits = 2
+            formatter.minimumFractionDigits = 2
+            formatter.minimumIntegerDigits = 1
+        }
+        var num = NSDecimalNumber(string: base)
+        if num.doubleValue.isNaN {
+            num = NSDecimalNumber(string: "0")
+        }
+        let result = formatter.string(from: num)
+        return result
+    }
+
+    /// 删除小数点后面多余的0
+    /// - Returns:删除小数点后多余0的数字字符串
+    func deleteMoreThanZeroFromAfterDecimalPoint() -> String {
+        var rst = base
+        var i = 1
+        if contains(".") {
+            while i < base.count {
+                if rst.hasSuffix("0") {
+                    rst.removeLast()
+                    i = i + 1
+                } else {
+                    break
+                }
             }
-            let matches = regx.matches(in: base, options: [], range: NSRange(location: 0, length: base.count))
-            for m in matches {
-                ranges.append(m.range(at: 0))
+            if rst.hasSuffix(".") {
+                rst.removeLast()
+            }
+            return rst
+        } else {
+            return base
+        }
+    }
+
+    /// 保留小数点后面指定位数
+    /// - Parameters:
+    ///   - numberDecimal:保留几位小数
+    ///   - mode:模式
+    /// - Returns:返回保留后的小数(非数字字符串,返回0或0.0)
+    func keepDecimalPlaces(decimalPlaces: Int = 0, mode: NumberFormatter.RoundingMode = .floor) -> String {
+        // 转为小数对象
+        var decimalNumber = NSDecimalNumber(string: base)
+
+        // 如果不是数字,设置为0值
+        if decimalNumber.doubleValue.isNaN {
+            decimalNumber = NSDecimalNumber.zero
+        }
+        // 数字格式化对象
+        let formatter = NumberFormatter()
+        // 模式
+        formatter.roundingMode = mode
+        // 小数位最多位数
+        formatter.maximumFractionDigits = decimalPlaces
+        // 小数位最少位数
+        formatter.minimumFractionDigits = decimalPlaces
+        // 整数位最少位数
+        formatter.minimumIntegerDigits = 1
+        // 整数位最多位数
+        formatter.maximumIntegerDigits = 100
+
+        // 获取结果
+        guard let result = formatter.string(from: decimalNumber) else {
+            // 异常处理
+            if decimalPlaces == 0 {
+                return "0"
+            } else {
+                var zero = ""
+                for _ in 0 ..< decimalPlaces {
+                    zero += zero
+                }
+                return "0." + zero
             }
         }
-        return ranges
-    }
-
-    /// 去除字符串前后的空格
-    /// - Returns: `String`
-    func trimmedSpace() -> String {
-        let resultString = base.trimmingCharacters(in: CharacterSet.whitespaces)
-        return resultString
-    }
-
-    /// 去除字符串前后的换行
-    /// - Returns: `String`
-    func trimmedNewLines() -> String {
-        let resultString = base.trimmingCharacters(in: CharacterSet.newlines)
-        return resultString
-    }
-
-    /// 移除字符串开头和结尾处的空格及换行符
-    ///
-    ///     "   hello  \n".trimmed -> "hello"
-    ///
-    /// - Returns: `String`
-    func trimmed() -> String {
-        return base.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-
-    /// 移除字符串中的空格
-    /// - Returns: `String`
-    func withoutSpaces() -> String {
-        return base.replacingOccurrences(of: " ", with: "")
-    }
-
-    /// 移除字符串中的换行符
-    /// - Returns: `String`
-    func withoutNewLines() -> String {
-        return base.replacingOccurrences(of: "\n", with: "")
-    }
-
-    /// 移除字符串中的空格及换行符
-    ///
-    ///     "   \n Swifter   \n  Swift  ".withoutSpacesAndNewLines -> "SwifterSwift"
-    ///
-    /// - Returns: `String`
-    func withoutSpacesAndNewLines() -> String {
-        return base.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
-    }
-
-    /// 将正则表达式加上`"\"`进行保护,将元字符转化成字面值
-    ///
-    ///     "hello ^$ there" -> "hello \\^\\$ there"
-    ///
-    /// - Returns: `String`
-    func regexEscaped() -> String {
-        return NSRegularExpression.escapedPattern(for: base)
+        return result
     }
 }
 
@@ -1698,35 +2310,35 @@ public extension SaberExt where Base == String {
 }
 
 // MARK: - Path
-public extension String {
+public extension SaberExt where Base == String {
     /// 路径字符串的最后一个路径组件
     /// - Returns: `String`
     func lastPathComponent() -> String {
-        return (self as NSString).lastPathComponent
+        return toNSString().lastPathComponent
     }
 
     /// 路径的扩展名
     /// - Returns: `String`
     func pathExtension() -> String {
-        return (self as NSString).pathExtension
+        return toNSString().pathExtension
     }
 
     /// 返回删除了最后一个路径组件之后的字符串
     /// - Returns: `String`
     func deletingLastPathComponent() -> String {
-        return (self as NSString).deletingLastPathComponent
+        return toNSString().deletingLastPathComponent
     }
 
     /// 返回删除了路径扩展之后的字符串
     /// - Returns: `String`
     func deletingPathExtension() -> String {
-        return (self as NSString).deletingPathExtension
+        return toNSString().deletingPathExtension
     }
 
     /// 获取路径组件数组
     /// - Returns: `[String]`
     func pathComponents() -> [String] {
-        return (self as NSString).pathComponents
+        return toNSString().pathComponents
     }
 
     /// 添加路径组件类似`NSString=>appendingPathComponent(str:String)`
@@ -1735,76 +2347,76 @@ public extension String {
     /// - Parameter str:要添加的路径组件(如果需要可以在前面添加分隔符`/`)
     /// - Returns:添加路径组件后而生成的新字符串
     func appendingPathComponent(_ str: String) -> String {
-        return (self as NSString).appendingPathComponent(str)
+        return toNSString().appendingPathComponent(str)
     }
 
     /// 添加路径扩展类似`NSString=>appendingPathExtension(str:String)`
     /// - Parameters str:要添加的扩展
     /// - Returns:添加路径扩展后而生成的新字符串
     func appendingPathExtension(_ str: String) -> String? {
-        return (self as NSString).appendingPathExtension(str)
+        return toNSString().appendingPathExtension(str)
     }
 }
 
 // MARK: - 沙盒
-public extension String {
+public extension SaberExt where Base == String {
     /// `Support` 追加后的`目录 / 文件地址` `备份在 iCloud`
-    var appendBySupport: String {
+    func appendBySupport() -> String {
         let directory = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)[0]
         createDirs(directory)
-        return directory + "/\(self)"
+        return directory + "/\(base)"
     }
 
     /// `Documents` 追加后的`目录／文件地址`
-    var appendByDocument: String {
+    func appendByDocument() -> String {
         let directory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         createDirs(directory)
-        return directory + "/\(self)"
+        return directory + "/\(base)"
     }
 
     /// `Cachees` 追加后的`目录／文件地址`
-    var appendByCache: String {
+    func appendByCache() -> String {
         let directory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
         createDirs(directory)
-        return directory + "/\(self)"
+        return directory + "/\(base)"
     }
 
     /// `tmp` 追加后的`目录／文件地址`
-    var appendByTemp: String {
+    func appendByTemp() -> String {
         let directory = NSTemporaryDirectory()
         createDirs(directory)
-        return directory + "/\(self)"
+        return directory + "/\(base)"
     }
 
     /// `Support` 追加后的`目录／文件地址` `备份在 iCloud`
-    var urlBySupport: URL {
+    func urlBySupport() -> URL {
         var fileURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         _ = appendByDocument
-        fileURL = fileURL.appendingPathComponent(self)
+        fileURL = fileURL.appendingPathComponent(base)
         return fileURL
     }
 
     /// `Documents` 追加后的`目录／文件地址`
-    var urlByDocument: URL {
+    func urlByDocument() -> URL {
         var fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         _ = appendByDocument
-        fileURL = fileURL.appendingPathComponent(self)
+        fileURL = fileURL.appendingPathComponent(base)
         return fileURL
     }
 
     /// `Cachees` 追加后的`目录／文件地址`
-    var urlByCache: URL {
+    func urlByCache() -> URL {
         var fileURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         _ = appendByCache
-        fileURL = fileURL.appendingPathComponent(self)
+        fileURL = fileURL.appendingPathComponent(base)
         return fileURL
     }
 
     /// 删除文件
     func removeFile() {
-        if FileManager.default.fileExists(atPath: self) {
+        if FileManager.default.fileExists(atPath: base) {
             do {
-                try FileManager.default.removeItem(atPath: self)
+                try FileManager.default.removeItem(atPath: base)
             } catch {
                 debugPrint("文件删除失败!")
             }
@@ -1814,7 +2426,7 @@ public extension String {
     /// 创建目录
     /// 如 `cache/`；以`/`结束代表是`目录`
     func createDirs(_ directory: String = NSHomeDirectory()) {
-        let path = contains(NSHomeDirectory()) ? self : "\(directory)/\(self)"
+        let path = contains(NSHomeDirectory()) ? base : "\(directory)/\(base)"
         let dirs = path.components(separatedBy: "/")
         let dir = dirs[0 ..< dirs.count - 1].joined(separator: "/")
         if !FileManager.default.fileExists(atPath: dir) {

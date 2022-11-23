@@ -86,9 +86,9 @@ private extension Saber {
         function: String
     ) {
         let dateStr = Date().format("HH:mm:ss.SSS", isGMT: false)
-        let fileName = (file as NSString).lastPathComponent.removingSuffix(".swift")
+        let fileName = file.sb.toNSString().lastPathComponent.sb.removingSuffix(".swift")
 
-        var content = message.map { "\($0)" }.joined(separator: "")
+        let content = message.map { "\($0)" }.joined(separator: "")
         print("\(level.icon)\(level.rawValue)[\(dateStr)][\(fileName).\(line) => \(function)]: " + content)
     }
 }

@@ -307,7 +307,7 @@ public extension FileManager {
             if let url = address as? URL {
                 fileURL = url
             } else if let path = address as? String {
-                fileURL = path.sb.toUrl()
+                fileURL = path.sb.toURL()
             }
 
             guard let fileURL = fileURL else {
@@ -342,7 +342,7 @@ public extension FileManager {
             return (false, "写入数据不能为空!")
         }
 
-        guard let url = path.sb.toUrl(), path.sb.isURL() else {
+        guard let url = path.sb.toURL(), path.sb.isURL() else {
             return (false, "写入路径错误!")
         }
 

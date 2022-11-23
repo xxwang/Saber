@@ -434,7 +434,7 @@ public extension UIApplication {
     /// - Returns:(isSuccess:是否成功, versions:(major:主版本号, minor:次版本号, patch:补丁版本号))
     static func appVersion(version: String) -> (isSuccess: Bool, versions: (major: Int, minor: Int, patch: Int)) {
         // 获取(主版本号、次版本号、补丁版本号)字符串数组
-        let versionNumbers = version.split(with: ".")
+        let versionNumbers = version.sb.split(with: ".")
         if versionNumbers.count != 3 {
             return (isSuccess: false, versions: (major: 0, minor: 0, patch: 0))
         }

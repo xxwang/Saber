@@ -44,7 +44,7 @@ public extension URL {
     init?(path string: String?, base urlString: String? = nil) {
         guard let string = string else { return nil }
         guard let urlString = urlString else { return nil }
-        guard let baseURL = urlString.sb.toUrl() else { return nil }
+        guard let baseURL = urlString.sb.toURL() else { return nil }
         self.init(string: string, relativeTo: baseURL)
     }
 }

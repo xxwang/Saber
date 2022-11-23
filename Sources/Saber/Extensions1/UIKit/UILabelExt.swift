@@ -97,7 +97,7 @@ public extension UILabel {
     /// - Parameter maxWidth:最大宽度
     /// - Returns:`CGSize`
     func textSize(_ maxWidth: CGFloat = kScreenWidth) -> CGSize {
-        return text?.strSize(maxWidth, font: font) ?? .zero
+        return text?.sb.strSize(maxWidth, font: font) ?? .zero
     }
 
     /// 获取`UILabel`中`属性字符串`的大小
@@ -158,7 +158,7 @@ public extension UILabel {
         attributedString.append(NSAttributedString(string: tailString))
 
         // 图文间距需要减去默认的空格宽度
-        let spaceW = " ".strSize(.greatestFiniteMagnitude, font: font).width
+        let spaceW = " ".sb.strSize(.greatestFiniteMagnitude, font: font).width
         let range = NSRange(location: 0, length: images.count * 2)
         attributedString.addAttribute(.kern, value: spacing - spaceW, range: range)
 

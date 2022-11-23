@@ -105,7 +105,7 @@ public extension NSDecimalNumberHandler {
             roundingMode: .down,
             scale: 3
         ).stringValue
-        let values = value.split(with: ".")
+        let values = value.sb.split(with: ".")
         guard values.count > 1 else {
             return true
         }

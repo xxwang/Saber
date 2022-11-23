@@ -209,7 +209,7 @@ public extension DarkModeManager {
         if startTime != nil, endTime != nil {
             timeIntervalValue = [startTime!, endTime!]
         } else {
-            timeIntervalValue = DarkModeManager.SmartPeelingTimeIntervalValue.split(with: "~")
+            timeIntervalValue = DarkModeManager.SmartPeelingTimeIntervalValue.sb.split(with: "~")
         }
         // 1、时间区间分隔为:开始时间 和 结束时间
         // 2、当前的时间转时间戳
