@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - 静态方法
-public extension NumberFormatter {
+public extension SaberExt where Base: NumberFormatter {
     /// `Float`格式化为本地字符串
     /// - Parameters:
     ///   - value:`Float`数值

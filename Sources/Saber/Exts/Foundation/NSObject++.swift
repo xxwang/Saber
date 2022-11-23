@@ -3,11 +3,11 @@ import Foundation
 
 extension NSObject: Saberable {}
 
-// MARK: - 属性
-public extension NSObject {
+// MARK: - 方法
+public extension SaberExt where Base: NSObject {
     /// 获取`对象`的`类名字符串`(类需要继承自`NSObject`)
-    var className: String {
-        let name = type(of: self).description()
+    func className() -> String {
+        let name = type(of: base).description()
         if name.contains(".") {
             return name.components(separatedBy: ".").last ?? ""
         } else {
@@ -16,18 +16,18 @@ public extension NSObject {
     }
 }
 
-// MARK: - 静态属性
-public extension NSObject {
+// MARK: - 静态方法
+public extension SaberExt where Base: NSObject {
     /// 获取`类`的`类名字符串`
-    static var className: String {
-        return String(describing: self)
+    static func className() -> String {
+        return String(describing: Base.self)
     }
 
     /// 获取类中所有成员变量
     static var memberVariables: [String] {
         var varNames = [String]()
         var count: UInt32 = 0
-        let ivarList = class_copyIvarList(Self.self, &count)
+        let ivarList = class_copyIvarList(Base.self, &count)
 
         for i in 0 ..< count {
             let ivar = ivarList![Int(i)]
@@ -43,7 +43,7 @@ public extension NSObject {
 }
 
 // MARK: - 交换方法
-@objc public extension NSObject {
+public extension SaberExt where Base: NSObject {
     /// 交换类的两个方法(方法前需要`@objc dynamic`修饰)
     /// - Parameters:
     ///   - originalSelector:原始方法
@@ -83,7 +83,7 @@ public extension NSObject {
             return false
         }
 
-        let selfClass: AnyClass = classForCoder()
+        let selfClass: AnyClass = Base.classForCoder()
 
         guard
             let originalMethod = (classMethod
@@ -93,7 +93,7 @@ public extension NSObject {
                 ? class_getClassMethod(selfClass, newSelector)
                 : class_getInstanceMethod(selfClass, newSelector))
         else {
-            Saber.info("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            Saber.info("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(Base.classForCoder())).")
             return false
         }
 
@@ -122,35 +122,37 @@ public extension NSObject {
     }
 }
 
-@objc public extension NSObject {
+public extension SaberExt where Base: NSObject {
     /// 由于在`swift`中`initialize()`这个方法已经被废弃了,所以需要在`Appdelegate`中调用此方法
     class func initializeMethod() {
         if self != NSObject.self {
             return
         }
         // 设值方法交换
-        hook_setValues()
+        Base.hook_setValues()
     }
+}
 
+@objc public extension NSObject {
     /// 交换设值方法
-    private class func hook_setValues() {
+    fileprivate class func hook_setValues() {
         let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.sb.once(token: onceToken) {
             let oriSel = #selector(self.setValue(_:forUndefinedKey:))
             let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
-            _ = hookInstanceMethod(of: oriSel, with: repSel)
+            _ = self.sb.hookInstanceMethod(of: oriSel, with: repSel)
 
             let oriSel0 = #selector(self.value(forUndefinedKey:))
             let repSel0 = #selector(self.hook_value(forUndefinedKey:))
-            _ = hookInstanceMethod(of: oriSel0, with: repSel0)
+            _ = self.sb.hookInstanceMethod(of: oriSel0, with: repSel0)
 
             let oriSel1 = #selector(self.setNilValueForKey(_:))
             let repSel1 = #selector(self.hook_setNilValueForKey(_:))
-            _ = hookInstanceMethod(of: oriSel1, with: repSel1)
+            _ = self.sb.hookInstanceMethod(of: oriSel1, with: repSel1)
 
             let oriSel2 = #selector(self.setValuesForKeys(_:))
             let repSel2 = #selector(self.hook_setValuesForKeys(_:))
-            _ = hookInstanceMethod(of: oriSel2, with: repSel2)
+            _ = self.sb.hookInstanceMethod(of: oriSel2, with: repSel2)
         }
     }
 

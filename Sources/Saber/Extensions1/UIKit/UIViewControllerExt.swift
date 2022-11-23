@@ -329,8 +329,9 @@ public extension UIViewController {
 // MARK: - Runtime
 @objc extension UIViewController {
     /// 交换方法
-    override public class func initializeMethod() {
-        super.initializeMethod()
+    public class func initializeMethod() {
+//        override public class func initializeMethod() {
+//        super.initializeMethod()
 
         if self == UIViewController.self {
             let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
@@ -338,22 +339,22 @@ public extension UIViewController {
                 // viewDidLoad
                 let oriSel = #selector(viewDidLoad)
                 let repSel = #selector(hook_viewDidLoad)
-                _ = hookInstanceMethod(of: oriSel, with: repSel)
+                _ = self.sb.hookInstanceMethod(of: oriSel, with: repSel)
 
                 // viewWillAppear
                 let oriSel1 = #selector(viewWillAppear(_:))
                 let repSel1 = #selector(hook_viewWillAppear(animated:))
-                _ = hookInstanceMethod(of: oriSel1, with: repSel1)
+                _ = self.sb.hookInstanceMethod(of: oriSel1, with: repSel1)
 
                 // viewWillDisappear
                 let oriSel2 = #selector(viewWillDisappear(_:))
                 let repSel2 = #selector(hook_viewWillDisappear(animated:))
-                _ = hookInstanceMethod(of: oriSel2, with: repSel2)
+                _ = self.sb.hookInstanceMethod(of: oriSel2, with: repSel2)
 
                 // present
                 let oriSelPresent = #selector(present(_:animated:completion:))
                 let repSelPresent = #selector(hook_present(_:animated:completion:))
-                _ = hookInstanceMethod(of: oriSelPresent, with: repSelPresent)
+                _ = self.sb.hookInstanceMethod(of: oriSelPresent, with: repSelPresent)
             }
         } else if self == UINavigationController.self {
             let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
@@ -361,7 +362,7 @@ public extension UIViewController {
                 // pushViewController
                 let oriSel = #selector(UINavigationController.pushViewController(_:animated:))
                 let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:))
-                _ = hookInstanceMethod(of: oriSel, with: repSel)
+                _ = self.sb.hookInstanceMethod(of: oriSel, with: repSel)
             }
         }
     }
