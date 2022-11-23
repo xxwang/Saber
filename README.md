@@ -3,7 +3,7 @@
 #### 简介
 ```
 Swift(日常开发工具包)
- - Exts: 扩展
+ - Exs: 扩展
  - Shared: 共享
  - Utils: 工具
  
