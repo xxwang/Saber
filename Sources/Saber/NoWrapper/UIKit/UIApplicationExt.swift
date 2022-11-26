@@ -42,20 +42,6 @@ public extension UIApplication {
             return .appStore
         #endif
     }
-
-    /// 是否是调试环境
-    static var isDebug: Bool {
-        #if DEBUG
-            return true
-        #else
-            return false
-        #endif
-    }
-
-    /// 是否是正式环境
-    static var isRelease: Bool {
-        return !isDebug
-    }
 }
 
 // MARK: - 静态属性

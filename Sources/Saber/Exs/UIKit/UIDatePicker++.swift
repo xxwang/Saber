@@ -13,13 +13,12 @@ public extension SaberEx where Base: UIDatePicker {
     }
 }
 
-extension UIDatePicker: Defaultable {}
 public extension UIDatePicker {
     /// 关联类型
     typealias Associatedtype = UIDatePicker
 
     /// 创建默认`UIDatePicker`
-    static func `default`() -> UIDatePicker {
+    override static func `default`() -> Associatedtype {
         let datePicker = UIDatePicker()
         return datePicker
     }

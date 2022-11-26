@@ -2,7 +2,7 @@ import WebKit
 
 // MARK: - 关联键
 private enum AssociateKeys {
-    static var defaultConfig = "WKWebView" + "DefaultConfig"
+    static var DefaultConfigKey = "WKWebView" + "DefaultConfigKey"
 }
 
 // MARK: 属性
@@ -18,7 +18,7 @@ public extension WKWebView {
     /// `WKWebViewConfiguration`默认配置
     static var defaultConfig: WKWebViewConfiguration {
         get {
-            if let obj = objc_getAssociatedObject(self, &AssociateKeys.defaultConfig) as? WKWebViewConfiguration {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.DefaultConfigKey) as? WKWebViewConfiguration {
                 return obj
             }
 
@@ -34,11 +34,11 @@ public extension WKWebView {
                 sender.preferences.javaScriptEnabled = true
             }
 
-            objc_setAssociatedObject(self, &AssociateKeys.defaultConfig, sender, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociateKeys.DefaultConfigKey, sender, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return sender
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.defaultConfig, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociateKeys.DefaultConfigKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

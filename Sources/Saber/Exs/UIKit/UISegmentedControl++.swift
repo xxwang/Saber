@@ -31,13 +31,12 @@ public extension SaberEx where Base: UISegmentedControl {
     }
 }
 
-extension UISegmentedControl: Defaultable {}
 public extension UISegmentedControl {
     /// 关联类型
     typealias Associatedtype = UISegmentedControl
 
     /// 创建默认`UISegmentedControl`
-    @objc class func `default`() -> Associatedtype {
+    @objc override class func `default`() -> Associatedtype {
         let segmentedControl = UISegmentedControl()
         return segmentedControl
     }

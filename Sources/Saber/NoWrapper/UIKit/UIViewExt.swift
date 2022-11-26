@@ -1236,11 +1236,11 @@ public extension UIView {
     /// - Parameter action:事件回调
     func addActionHandler(_ action: @escaping (UITapGestureRecognizer?, UIView, Int) -> Void) {
         if let sender = self as? UIButton {
-            sender.addActionHandler({ button in
+            sender.sb.addCallback({ button in
                 action(nil, button, button.tag)
             }, for: .touchUpInside)
         } else if let sender = self as? UIControl {
-            sender.addActionHandler({ control in
+            sender.sb.addCallback({ control in
                 action(nil, control, control.tag)
             }, for: .valueChanged)
         } else {
@@ -1264,7 +1264,7 @@ public extension UIView {
         obj.numberOfTouchesRequired = 1
         addCommonGestureRecognizer(obj)
 
-        obj.addActionHandler { recognizer in
+        obj.sb.addCallback { recognizer in
             action(recognizer)
         }
 
@@ -1285,7 +1285,7 @@ public extension UIView {
         obj.minimumPressDuration = minimumPressDuration
         addCommonGestureRecognizer(obj)
 
-        obj.addActionHandler { recognizer in
+        obj.sb.addCallback { recognizer in
             action(recognizer)
         }
         return obj
@@ -1301,7 +1301,7 @@ public extension UIView {
         obj.maximumNumberOfTouches = 3
         addCommonGestureRecognizer(obj)
 
-        obj.addActionHandler { recognizer in
+        obj.sb.addCallback { recognizer in
             if let sender = recognizer as? UIPanGestureRecognizer, let senderView = sender.view {
                 let translate: CGPoint = sender.translation(in: senderView.superview)
                 senderView.center = CGPoint(x: senderView.center.x + translate.x, y: senderView.center.y + translate.y)
@@ -1343,7 +1343,7 @@ public extension UIView {
         let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
         obj.edges = edgs
         addCommonGestureRecognizer(obj)
-        obj.addActionHandler { recognizer in
+        obj.sb.addCallback { recognizer in
             action(recognizer)
         }
         return obj
@@ -1379,7 +1379,7 @@ public extension UIView {
         let obj = UISwipeGestureRecognizer(target: nil, action: nil)
         obj.direction = direction
         addCommonGestureRecognizer(obj)
-        obj.addActionHandler { recognizer in
+        obj.sb.addCallback { recognizer in
             action(recognizer)
         }
         return obj
@@ -1391,7 +1391,7 @@ public extension UIView {
     func addPinchGestureRecognizer(_ action: @escaping Callbacks.GestureResult) -> UIPinchGestureRecognizer {
         let obj = UIPinchGestureRecognizer(target: nil, action: nil)
         addCommonGestureRecognizer(obj)
-        obj.addActionHandler { recognizer in
+        obj.sb.addCallback { recognizer in
             if let sender = recognizer as? UIPinchGestureRecognizer {
                 let location = recognizer.location(in: sender.view!.superview)
                 sender.view!.center = location
@@ -1410,7 +1410,7 @@ public extension UIView {
     func addRotationGestureRecognizer(action: @escaping Callbacks.GestureResult) -> UIRotationGestureRecognizer {
         let obj = UIRotationGestureRecognizer(target: nil, action: nil)
         addCommonGestureRecognizer(obj)
-        obj.addActionHandler { recognizer in
+        obj.sb.addCallback { recognizer in
             if let sender = recognizer as? UIRotationGestureRecognizer {
                 sender.view!.transform = sender.view!.transform.rotated(by: sender.rotation)
                 sender.rotation = 0.0

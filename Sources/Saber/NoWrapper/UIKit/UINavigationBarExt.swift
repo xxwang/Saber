@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - 关联键
 private enum AssociateKeys {
-    static var statusBar = "UINavigationBar" + "statusBar"
+    static var StatusBarKey = "UINavigationBar" + "StatusBarKey"
 }
 
 // MARK: - 方法
@@ -313,10 +313,10 @@ private extension UINavigationBar {
     /// 通过 Runtime 的属性关联添加自定义 View
     var statusBar: UIView? {
         get {
-            return objc_getAssociatedObject(self, &AssociateKeys.statusBar) as? UIView
+            return objc_getAssociatedObject(self, &AssociateKeys.StatusBarKey) as? UIView
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.statusBar, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociateKeys.StatusBarKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

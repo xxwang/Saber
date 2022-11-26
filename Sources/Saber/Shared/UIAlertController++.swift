@@ -7,29 +7,27 @@ public extension UIAlertController {
     /// - Parameters:
     ///   - title:标题
     ///   - message:详细的信息
-    ///   - defaultTitle:默认按钮标题
-    ///   - preferredStyle:样式
+    ///   - btnTitle:默认按钮标题
+    ///   - style:样式
     ///   - tintColor:`UIAlertController`的`tintColor`
     convenience init(
         _ title: String? = nil,
         message: String? = nil,
-        defaultTitle: String? = nil,
-        preferredStyle: UIAlertController.Style = .alert,
+        btnTitle: String? = nil,
+        style: UIAlertController.Style = .alert,
         tintColor: UIColor? = nil
     ) {
-        self.init(title: title, message: message, preferredStyle: preferredStyle)
-        if let color = tintColor {
-            view.tintColor = color
-        }
-        if let defaultTitle = defaultTitle {
-            let defaultAction = UIAlertAction(title: defaultTitle, style: .cancel, handler: nil)
+        self.init(title: title, message: message, preferredStyle: style)
+        if let color = tintColor { view.tintColor = color }
+        if let btnTitle = btnTitle {
+            let defaultAction = UIAlertAction(title: btnTitle, style: .cancel, handler: nil)
             addAction(defaultAction)
         }
     }
 }
 
 // MARK: - 方法
-public extension UIAlertController {
+public extension SaberEx where Base: UIAlertController {
     /// 弹起`UIAlertController`
     /// - Parameters:
     ///   - animated:是否动画
@@ -42,19 +40,12 @@ public extension UIAlertController {
         deadline: TimeInterval? = nil,
         completion: (() -> Void)? = nil
     ) {
-        UIWindow.sb.window?.rootViewController?.present(self, animated: animated, completion: completion)
-        if shake {
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-        }
-
-        guard let deadline = deadline else {
-            return
-        }
+        UIWindow.sb.window?.rootViewController?.present(base, animated: animated, completion: completion)
+        if shake { AudioServicesPlayAlertSound(kSystemSoundID_Vibrate) }
+        guard let deadline = deadline else { return }
         DispatchQueue.sb.after(deadline) { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.dismiss(animated: animated, completion: nil)
+            guard let self = self else { return }
+            self.base.dismiss(animated: animated, completion: nil)
         }
     }
 
@@ -73,22 +64,21 @@ public extension UIAlertController {
     ) -> UIAlertAction {
         let action = UIAlertAction(title: title, style: style, handler: action)
         action.isEnabled = isEnabled
-        addAction(action)
+        base.addAction(action)
         return action
     }
 }
 
+extension UIAlertController: Defaultable {}
+
 // MARK: - 链式语法
 public extension UIAlertController {
-    /// 快速创建`UIAlertController`(alert)
-    static var defaultAlertController: UIAlertController {
-        let alertVC = UIAlertController(nil, message: nil, preferredStyle: .alert)
-        return alertVC
-    }
+    /// 关联类型
+    typealias Associatedtype = UIAlertController
 
-    /// 快速创建`UIAlertController`(sheet)
-    static var defaultSheetController: UIAlertController {
-        let alertVC = UIAlertController(nil, message: nil, preferredStyle: .actionSheet)
+    /// 创建默认`UIAlertController``.alert`样式
+    @objc class func `default`() -> Associatedtype {
+        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         return alertVC
     }
 

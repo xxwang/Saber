@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - 关联键
 private enum AssociateKeys {
-    static var closure = "UISwitch" + "closure"
+    static var CallbackKey = "UISwitch" + "CallbackKey"
 }
 
 // MARK: - 方法
@@ -29,10 +29,10 @@ extension UISwitch: AssociatedAttributes {
     internal typealias T = Bool
     internal var swiftCallback: SwiftCallback? {
         get {
-            return AssociatedObject.object(self, &AssociateKeys.closure)
+            return AssociatedObject.object(self, &AssociateKeys.CallbackKey)
         }
         set {
-            AssociatedObject.associate(self, &AssociateKeys.closure, newValue)
+            AssociatedObject.associate(self, &AssociateKeys.CallbackKey, newValue)
         }
     }
 

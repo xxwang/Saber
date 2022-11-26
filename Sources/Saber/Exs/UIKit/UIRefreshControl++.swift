@@ -41,13 +41,12 @@ public extension SaberEx where Base: UIRefreshControl {
     }
 }
 
-extension UIRefreshControl: Defaultable {}
 public extension UIRefreshControl {
     /// 关联类型
     typealias Associatedtype = UIRefreshControl
 
     /// 创建默认`UIRefreshControl`
-    @objc class func `default`() -> Associatedtype {
+    @objc override class func `default`() -> Associatedtype {
         let refreshControl = UIRefreshControl()
         return refreshControl
     }

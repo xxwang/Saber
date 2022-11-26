@@ -2,8 +2,8 @@ import UIKit
 
 // MARK: - 关联键
 private enum AssociateKeys {
-    static var closure = "UIButton" + "closure"
-    static var expandSize = "UIButton" + "ExpandSizeKey"
+    static var CallbackKey = "UIButton" + "CallbackKey"
+    static var ExpandSizeKey = "UIButton" + "ExpandSizeKey"
 }
 
 // MARK: - 属性
@@ -263,8 +263,8 @@ public extension UIButton {
 extension UIButton: AssociatedAttributes {
     internal typealias T = UIButton
     internal var swiftCallback: SwiftCallback? {
-        get { return AssociatedObject.object(self, &AssociateKeys.closure) }
-        set { AssociatedObject.associate(self, &AssociateKeys.closure, newValue) }
+        get { return AssociatedObject.object(self, &AssociateKeys.CallbackKey) }
+        set { AssociatedObject.associate(self, &AssociateKeys.CallbackKey, newValue) }
     }
 
     @objc internal func swiftButtonAction(_ button: UIButton) {
@@ -277,11 +277,11 @@ public extension UIButton {
     /// 扩大UIButton的点击区域,向四周扩展10像素的点击范围
     /// - Parameter size:向四周扩展像素的点击范围
     func expandSize(size: CGFloat) {
-        objc_setAssociatedObject(self, &AssociateKeys.expandSize, size, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY)
+        objc_setAssociatedObject(self, &AssociateKeys.ExpandSizeKey, size, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY)
     }
 
     fileprivate func expandRect() -> CGRect {
-        let expandSize = objc_getAssociatedObject(self, &AssociateKeys.expandSize)
+        let expandSize = objc_getAssociatedObject(self, &AssociateKeys.ExpandSizeKey)
         if expandSize != nil {
             return CGRect(x: bounds.origin.x - (expandSize as! CGFloat), y: bounds.origin.y - (expandSize as! CGFloat), width: bounds.size.width + 2 * (expandSize as! CGFloat), height: bounds.size.height + 2 * (expandSize as! CGFloat))
         } else {

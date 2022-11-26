@@ -2,52 +2,45 @@ import UIKit
 
 // MARK: - 关联键
 private enum AssociateKeys {
-    static var closure = "UIControl" + "closure"
-    static var hitTimerKey = "UIControl" + "hitTimerKey"
+    static var CallbackKey = "UIControl" + "CallbackKey"
+    static var HitTimerKey = "UIControl" + "HitTimerKey"
 }
 
 // MARK: - 方法
-public extension UIControl {
+public extension SaberEx where Base: UIControl {
     /// 设置指定时长(单位:秒)内不可重复点击
     /// - Parameter hitTime:时长
-    func preventDoubleHit(_ hitTime: Double = 1) {
-        preventDoubleHit(hitTime: hitTime)
+    func doubleHit(time: Double = 1) {
+        base.doubleHit(hitTime: time)
     }
 
     /// 添加`UIControl`事件回调
     /// - Parameters:
-    ///   - action:事件回调
+    ///   - callback:事件回调
     ///   - controlEvent:事件类型
-    func addActionHandler(_ action: @escaping Callbacks.ControlResult, for controlEvent: UIControl.Event = .touchUpInside) {
-        addTarget(self, action: #selector(controlEventHandler(_:)), for: controlEvent)
-        swiftCallback = action
+    func addCallback(_ callback: @escaping Callbacks.ControlResult, for controlEvent: UIControl.Event = .touchUpInside) {
+        base.addTarget(self, action: #selector(base.controlClickEventHandler(_:)), for: controlEvent)
+        base.swiftCallback = callback
     }
 }
 
+// MARK: - 限制连续点击时间间隔
 private extension UIControl {
     /// 重复点击限制时间
     var hitTime: Double? {
-        get {
-            return AssociatedObject.object(self, &AssociateKeys.hitTimerKey)
-        }
-        set {
-            AssociatedObject.associate(self, &AssociateKeys.hitTimerKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
-        }
+        get { return AssociatedObject.object(self, &AssociateKeys.HitTimerKey) }
+        set { AssociatedObject.associate(self, &AssociateKeys.HitTimerKey, newValue, .OBJC_ASSOCIATION_ASSIGN) }
     }
 
     /// 点击回调
     var swiftCallback: Callbacks.ControlResult? {
-        get {
-            return AssociatedObject.object(self, &AssociateKeys.closure)
-        }
-        set {
-            AssociatedObject.associate(self, &AssociateKeys.closure, newValue)
-        }
+        get { return AssociatedObject.object(self, &AssociateKeys.CallbackKey) }
+        set { AssociatedObject.associate(self, &AssociateKeys.CallbackKey, newValue) }
     }
 
     /// 设置指定时长(单位:秒)内不可重复点击
     /// - Parameter hitTime:时长
-    func preventDoubleHit(hitTime: Double) {
+    func doubleHit(hitTime: Double) {
         self.hitTime = hitTime
         addTarget(self, action: #selector(c_preventDoubleHit), for: .touchUpInside)
     }
@@ -66,17 +59,22 @@ private extension UIControl {
 
     /// 事件处理方法
     /// - Parameter sender:事件发起者
-    @objc func controlEventHandler(_ sender: UIControl) {
+    @objc func controlClickEventHandler(_ sender: UIControl) {
         if let block = swiftCallback {
             block(sender)
         }
     }
 }
 
+extension UIControl: Defaultable {}
+
 // MARK: - 链式语法
 public extension UIControl {
+    /// 关联类型
+    typealias Associatedtype = UIControl
+
     /// 创建默认`UIControl`
-    static var defaultControl: UIControl {
+    @objc class func `default`() -> Associatedtype {
         let control = UIControl()
         return control
     }
@@ -126,7 +124,7 @@ public extension UIControl {
         return self
     }
 
-    /// 添加事件(默认点击事件:touchUpInside)
+    /// 添加事件(默认点击事件:`touchUpInside`)
     /// - Parameters:
     ///   - target:被监听的对象
     ///   - action:事件
@@ -155,7 +153,7 @@ public extension UIControl {
     /// - Returns:`Self`
     @discardableResult
     func disableMultiTouch(_ hitTime: Double = 1) -> Self {
-        preventDoubleHit(hitTime: hitTime)
+        doubleHit(hitTime: hitTime)
         return self
     }
 }
