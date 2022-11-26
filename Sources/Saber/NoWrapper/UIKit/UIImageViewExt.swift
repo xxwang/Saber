@@ -1,4 +1,3 @@
-// import Kingfisher
 import UIKit
 
 // MARK: - 方法

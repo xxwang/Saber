@@ -6,7 +6,7 @@ private enum AssociateKeys {
 }
 
 // MARK: - 方法
-public extension UISlider {
+public extension SaberEx where Base: UISlider {
     /// 设置`value`值
     /// - Parameters:
     ///   - value:要设置的值
@@ -16,17 +16,17 @@ public extension UISlider {
     func setValue(
         _ value: Float,
         animated: Bool = true,
-        duration: TimeInterval = 1,
+        duration: TimeInterval = 0.15,
         completion: (() -> Void)? = nil
     ) {
         if animated {
             UIView.animate(withDuration: duration, animations: {
-                self.setValue(value, animated: true)
+                self.base.setValue(value, animated: true)
             }, completion: { _ in
                 completion?()
             })
         } else {
-            setValue(value, animated: false)
+            self.base.setValue(value, animated: false)
             completion?()
         }
     }
@@ -35,10 +35,11 @@ public extension UISlider {
     /// - Parameters:
     ///   - action:响应事件的闭包
     ///   - controlEvent:事件类型
-    func addActionHandler(_ action: ((Float?) -> Void)?, for controlEvent: UIControl.Event = .valueChanged) {
-        swiftCallback = action
-        addTarget(self, action: #selector(sliderEventHandler(_:)), for: controlEvent)
+    func addCallback(_ callback: ((Float?) -> Void)?, for controlEvent: UIControl.Event = .valueChanged) {
+        base.swiftCallback = callback
+        base.addTarget(base, action: #selector(base.addCallback(_:)), for: controlEvent)
     }
+    
 }
 
 // MARK: - AssociatedAttributes
@@ -55,7 +56,19 @@ extension UISlider: AssociatedAttributes {
 
     /// 事件处理
     /// - Parameter event:事件发生者
-    @objc internal func sliderEventHandler(_ event: UISlider) {
+    @objc internal func addCallback(_ event: UISlider) {
         swiftCallback?(event.value)
+    }
+}
+
+// MARK: - 链式语法
+public extension UISlider {
+    
+    typealias Associatedtype = UISlider
+    
+        /// 创建默认`UISlider`
+    override class func `default`() -> Associatedtype {
+        let slider = UISlider()
+        return slider
     }
 }

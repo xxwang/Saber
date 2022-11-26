@@ -6,21 +6,20 @@ private enum AssociateKeys {
 }
 
 // MARK: - 方法
-public extension UISwitch {
+public extension SaberEx where Base: UISwitch {
     /// 切换开关状态
     /// - Parameter animated:是否动画
     func toggle(animated: Bool = true) {
-        setOn(!isOn, animated: animated)
+        base.setOn(!base.isOn, animated: animated)
     }
 
     /// 添加事件回调
     /// - Parameters:
-    ///   - controlEvents:事件类型
-    ///   - switchCallBack:事件闭包
-    /// - Returns:闭包函数
-    func addActionHandler(_ action: ((_ isOn: Bool?) -> Void)?, controlEvent: UIControl.Event = .touchUpInside) {
-        swiftCallback = action
-        addTarget(self, action: #selector(switchEventHandler(_:)), for: controlEvent)
+    ///   - callback: 闭包
+    ///   - controlEvent: 事件
+    func addCallback(_ callback: ((_ isOn: Bool?) -> Void)?, controlEvent: UIControl.Event = .touchUpInside) {
+        base.swiftCallback = callback
+        base.addTarget(base, action: #selector(base.addCallback(_:)), for: controlEvent)
     }
 }
 
@@ -38,7 +37,18 @@ extension UISwitch: AssociatedAttributes {
 
     /// 事件处理
     /// - Parameter event:事件发生者
-    @objc internal func switchEventHandler(_ event: UISwitch) {
+    @objc internal func addCallback(_ event: UISwitch) {
         swiftCallback?(event.isOn)
+    }
+}
+
+// MARK: - 链式语法
+public extension UISwitch {
+    typealias Associatedtype = UISwitch
+
+    /// 创建默认`UISlider`
+    override class func `default`() -> Associatedtype {
+        let switchBtn = UISwitch()
+        return switchBtn
     }
 }

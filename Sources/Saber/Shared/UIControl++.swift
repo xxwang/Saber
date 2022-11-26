@@ -19,7 +19,7 @@ public extension SaberEx where Base: UIControl {
     ///   - callback:事件回调
     ///   - controlEvent:事件类型
     func addCallback(_ callback: @escaping Callbacks.ControlResult, for controlEvent: UIControl.Event = .touchUpInside) {
-        base.addTarget(self, action: #selector(base.controlClickEventHandler(_:)), for: controlEvent)
+        base.addTarget(base, action: #selector(base.controlClickEventHandler(_:)), for: controlEvent)
         base.swiftCallback = callback
     }
 }
