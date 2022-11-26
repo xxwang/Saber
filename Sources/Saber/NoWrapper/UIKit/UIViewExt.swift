@@ -44,21 +44,24 @@ public extension UIView {
 }
 
 // MARK: - 属性
-public extension UIView {
+public extension SaberEx where Base: UIView {
     /// 将 View 转换成图片(截图)
-    @objc var screenshot: UIImage? {
+    var screenshot: UIImage? {
         let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+        UIGraphicsBeginImageContextWithOptions(base.frame.size, false, scale)
         guard let context = UIGraphicsGetCurrentContext() else {
             UIGraphicsEndImageContext()
             return nil
         }
-        layer.render(in: context)
+        base.layer.render(in: context)
         let viewImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return viewImage
     }
+}
 
+// MARK: - 属性
+public extension UIView {
     /// 查找一个视图的所有子视图
     var allSubViews: [UIView] {
         var views = [UIView]()

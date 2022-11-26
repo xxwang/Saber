@@ -6,10 +6,19 @@ private enum AssociateKeys {
 }
 
 // MARK: 属性
-public extension WKWebView {
+public extension SaberEx where Base: WKWebView {
     /// 截取整个滚动视图的快照(截图)
-    override var screenshot: UIImage? {
-        return scrollView.screenshot
+    var screenshot: UIImage? {
+        return base.scrollView.sb.screenshot
+    }
+}
+
+// MARK: - 方法
+public extension SaberEx where Base: WKWebView {
+    /// 获取网页快照
+    /// - Parameter completion:完成回调
+    func screenshot(_ completion: @escaping (_ image: UIImage?) -> Void) {
+        base.scrollView.sb.screenshot(completion)
     }
 }
 
@@ -40,15 +49,6 @@ public extension WKWebView {
         set {
             objc_setAssociatedObject(self, &AssociateKeys.DefaultConfigKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
-    }
-}
-
-// MARK: - 方法
-public extension WKWebView {
-    /// 获取网页快照
-    /// - Parameter completion:完成回调
-    func makemakeScreenshot(_ completion: @escaping (_ image: UIImage?) -> Void) {
-        scrollView.makeScreenshot(completion)
     }
 }
 

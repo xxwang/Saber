@@ -1,67 +1,79 @@
 import UIKit
 
 // MARK: - 属性
-public extension UIScrollView {
+public extension SaberEx where Base: UIScrollView {
     /// 截取整个滚动视图的快照(截图)
-    override var screenshot: UIImage? {
-        UIGraphicsBeginImageContextWithOptions(contentSize, false, 0)
+    var screenshot: UIImage? {
+        UIGraphicsBeginImageContextWithOptions(base.contentSize, false, 0)
         defer {
             UIGraphicsEndImageContext()
         }
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        let previousFrame = frame
-        frame = CGRect(origin: frame.origin, size: contentSize)
-        layer.render(in: context)
-        frame = previousFrame
-        return UIGraphicsGetImageFromCurrentImageContext()
+        let previousFrame = base.frame
+        base.frame = CGRect(origin: base.frame.origin, size: base.contentSize)
+        base.layer.render(in: context)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        base.frame = previousFrame
+
+        return image
     }
 
     /// 滚动视图的当前可见区域
     var visibleRect: CGRect {
-        let contentWidth = contentSize.width - contentOffset.x
-        let contentHeight = contentSize.height - contentOffset.y
-        return CGRect(origin: contentOffset,
-                      size: CGSize(width: min(min(bounds.size.width, contentSize.width), contentWidth),
-                                   height: min(min(bounds.size.height, contentSize.height), contentHeight)))
+        let contentWidth = base.contentSize.width - base.contentOffset.x
+        let contentHeight = base.contentSize.height - base.contentOffset.y
+        return CGRect(
+            origin: base.contentOffset,
+            size: CGSize(width: Swift.min(Swift.min(base.bounds.size.width, base.contentSize.width), contentWidth),
+                         height: Swift.min(Swift.min(base.bounds.size.height, base.contentSize.height), contentHeight))
+        )
     }
 }
 
 // MARK: - 方法
-public extension UIScrollView {
+public extension SaberEx where Base: UIScrollView {
     /// 适配`UIScrollView`
-    func adaptationScrollView() {
+    func adaption() {
         if #available(iOS 11.0, *) {
             // 取消滚动视图自动缩进
-            self.contentInsetAdjustmentBehavior = .never
+            self.base.contentInsetAdjustmentBehavior = .never
         }
     }
 
     /// 滚动至最顶部
     /// - Parameter animated:`true`以恒定速度过渡到新偏移的动画,`false`立即进行过渡
-    func scrollToTop(_ animated: Bool = true) {
-        setContentOffset(CGPoint(x: contentOffset.x, y: -contentInset.top), animated: animated)
+    func toTop(_ animated: Bool = true) {
+        base.setContentOffset(CGPoint(x: base.contentOffset.x, y: -base.contentInset.top), animated: animated)
     }
 
     /// 滚动至最底部
     /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
-    func scrollToBottom(_ animated: Bool = true) {
-        setContentOffset(
-            CGPoint(x: contentOffset.x, y: max(0, contentSize.height - bounds.height) + contentInset.bottom),
+    func toBottom(_ animated: Bool = true) {
+        base.setContentOffset(
+            CGPoint(
+                x: base.contentOffset.x,
+                y: Swift.max(0, base.contentSize.height - base.bounds.height) + base.contentInset.bottom
+            ),
             animated: animated
         )
     }
 
     /// 滚动至最左侧
     /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
-    func scrollToLeft(_ animated: Bool = true) {
-        setContentOffset(CGPoint(x: -contentInset.left, y: contentOffset.y), animated: animated)
+    func toLeft(_ animated: Bool = true) {
+        base.setContentOffset(CGPoint(x: -base.contentInset.left, y: base.contentOffset.y), animated: animated)
     }
 
     /// 滚动至最右侧
     /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
-    func scrollToRight(_ animated: Bool = true) {
-        setContentOffset(
-            CGPoint(x: max(0, contentSize.width - bounds.width) + contentInset.right, y: contentOffset.y),
+    func toRight(_ animated: Bool = true) {
+        base.setContentOffset(
+            CGPoint(
+                x: Swift.max(0, base.contentSize.width - base.bounds.width) + base.contentInset.right,
+                y: base.contentOffset.y
+            ),
             animated: animated
         )
     }
@@ -70,91 +82,83 @@ public extension UIScrollView {
     /// 如果`isPaginEnabled`为`true`,则使用上一页位置
     /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollUp(_ animated: Bool = true) {
-        let minY = -contentInset.top
-        var y = max(minY, contentOffset.y - bounds.height)
+        let minY = -base.contentInset.top
+        var y = Swift.max(minY, base.contentOffset.y - base.bounds.height)
         #if !os(tvOS)
-            if isPagingEnabled,
-               bounds.height != 0
-            {
-                let page = max(0, ((y + contentInset.top) / bounds.height).rounded(.down))
-                y = max(minY, page * bounds.height - contentInset.top)
+            if base.isPagingEnabled, base.bounds.height != 0 {
+                let page = Swift.max(0, ((y + base.contentInset.top) / base.bounds.height).rounded(.down))
+                y = Swift.max(minY, page * base.bounds.height - base.contentInset.top)
             }
         #endif
-        setContentOffset(CGPoint(x: contentOffset.x, y: y), animated: animated)
-    }
-
-    /// 在滚动视图中向左滚动一页
-    /// 如果`isPaginEnabled`为`true`,则使用上一页位置
-    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
-    func scrollLeft(_ animated: Bool = true) {
-        let minX = -contentInset.left
-        var x = max(minX, contentOffset.x - bounds.width)
-        #if !os(tvOS)
-            if isPagingEnabled,
-               bounds.width != 0
-            {
-                let page = ((x + contentInset.left) / bounds.width).rounded(.down)
-                x = max(minX, page * bounds.width - contentInset.left)
-            }
-        #endif
-        setContentOffset(CGPoint(x: x, y: contentOffset.y), animated: animated)
+        base.setContentOffset(CGPoint(x: base.contentOffset.x, y: y), animated: animated)
     }
 
     /// 在滚动视图中向下滚动一页
     /// 如果`isPaginEnabled`为`true`,则使用下一页位置
     /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollDown(_ animated: Bool = true) {
-        let maxY = max(0, contentSize.height - bounds.height) + contentInset.bottom
-        var y = min(maxY, contentOffset.y + bounds.height)
+        let maxY = Swift.max(0, base.contentSize.height - base.bounds.height) + base.contentInset.bottom
+        var y = Swift.min(maxY, base.contentOffset.y + base.bounds.height)
         #if !os(tvOS)
-            if isPagingEnabled,
-               bounds.height != 0
-            {
-                let page = ((y + contentInset.top) / bounds.height).rounded(.down)
-                y = min(maxY, page * bounds.height - contentInset.top)
+            if base.isPagingEnabled, base.bounds.height != 0 {
+                let page = ((y + base.contentInset.top) / base.bounds.height).rounded(.down)
+                y = Swift.min(maxY, page * base.bounds.height - base.contentInset.top)
             }
         #endif
-        setContentOffset(CGPoint(x: contentOffset.x, y: y), animated: animated)
+        base.setContentOffset(CGPoint(x: base.contentOffset.x, y: y), animated: animated)
+    }
+
+    /// 在滚动视图中向左滚动一页
+    /// 如果`isPaginEnabled`为`true`,则使用上一页位置
+    /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
+    func scrollLeft(_ animated: Bool = true) {
+        let minX = -base.contentInset.left
+        var x = Swift.max(minX, base.contentOffset.x - base.bounds.width)
+        #if !os(tvOS)
+            if base.isPagingEnabled, base.bounds.width != 0 {
+                let page = ((x + base.contentInset.left) / base.bounds.width).rounded(.down)
+                x = Swift.max(minX, page * base.bounds.width - base.contentInset.left)
+            }
+        #endif
+        base.setContentOffset(CGPoint(x: x, y: base.contentOffset.y), animated: animated)
     }
 
     /// 在滚动视图中向右滚动一页
     /// 如果`isPaginEnabled`为`true`,则使用下一页位置
     /// - Parameter animated:`true`以恒定速度设置过渡到新偏移的动画,`false`立即进行过渡
     func scrollRight(_ animated: Bool = true) {
-        let maxX = max(0, contentSize.width - bounds.width) + contentInset.right
-        var x = min(maxX, contentOffset.x + bounds.width)
+        let maxX = Swift.max(0, base.contentSize.width - base.bounds.width) + base.contentInset.right
+        var x = Swift.min(maxX, base.contentOffset.x + base.bounds.width)
         #if !os(tvOS)
-            if isPagingEnabled,
-               bounds.width != 0
-            {
-                let page = ((x + contentInset.left) / bounds.width).rounded(.down)
-                x = min(maxX, page * bounds.width - contentInset.left)
+            if base.isPagingEnabled, base.bounds.width != 0 {
+                let page = ((x + base.contentInset.left) / base.bounds.width).rounded(.down)
+                x = Swift.min(maxX, page * base.bounds.width - base.contentInset.left)
             }
         #endif
-        setContentOffset(CGPoint(x: x, y: contentOffset.y), animated: animated)
+        base.setContentOffset(CGPoint(x: x, y: base.contentOffset.y), animated: animated)
     }
 
     /// 获取`ScrollView`快照`截图`
     /// - Parameter completion:完成回调
-    @objc func makeScreenshot(_ completion: @escaping (_ image: UIImage?) -> Void) {
+    func screenshot(_ completion: @escaping (_ image: UIImage?) -> Void) {
         // 放一个假的封面
-        let snapshotView = self.snapshotView(afterScreenUpdates: true)
-        snapshotView?.frame = CGRect(x: frame.minX, y: frame.minY, width: (snapshotView?.frame.width)!, height: (snapshotView?.frame.height)!)
-        superview?.addSubview(snapshotView!)
+        let snapshotView = base.snapshotView(afterScreenUpdates: true)
+        snapshotView?.frame = CGRect(x: base.frame.minX, y: base.frame.minY, width: (snapshotView?.frame.width)!, height: (snapshotView?.frame.height)!)
+        base.superview?.addSubview(snapshotView!)
 
         // 基的原点偏移
-        let originOffset = contentOffset
+        let originOffset = base.contentOffset
         // 计算页数
-        let page = floorf(Float(contentSize.height / bounds.height))
+        let page = floorf(Float(base.contentSize.height / base.bounds.height))
         // 打开位图上下文大小为截图的大小
-        UIGraphicsBeginImageContextWithOptions(contentSize, false, UIScreen.main.scale)
+        UIGraphicsBeginImageContextWithOptions(base.contentSize, false, UIScreen.main.scale)
 
         // 这个方法是一个绘图,里面可能有递归调用
-        makeScreenshot(index: 0, maxIndex: page.sb.toInt()) {
+        screenshot(index: 0, maxIndex: page.sb.toInt()) {
             let screenShotImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             // 设置原点偏移
-            self.setContentOffset(originOffset, animated: false)
+            self.base.setContentOffset(originOffset, animated: false)
             // 移除封面
             snapshotView?.removeFromSuperview()
             // 获取 snapShotContentScroll 时的回调图像
@@ -164,31 +168,31 @@ public extension UIScrollView {
 }
 
 // MARK: - 私有方法
-private extension UIScrollView {
+private extension SaberEx where Base: UIScrollView {
     /// 根据偏移量和页数绘制
     /// - Parameters:
     ///   - index:当前要绘制的页码索引
     ///   - maxIndex:最大页码索引
     ///   - callback:完成回调
-    func makeScreenshot(index: Int, maxIndex: Int, callback: @escaping () -> Void) {
-        setContentOffset(
+    func screenshot(index: Int, maxIndex: Int, callback: @escaping () -> Void) {
+        base.setContentOffset(
             CGPoint(
                 x: 0,
-                y: index.sb.toCGFloat() * frame.size.height
+                y: index.sb.toCGFloat() * base.frame.size.height
             ),
             animated: false
         )
         let splitFrame = CGRect(
             x: 0,
-            y: index.sb.toCGFloat() * frame.size.height,
-            width: bounds.width,
-            height: bounds.height
+            y: index.sb.toCGFloat() * base.frame.size.height,
+            width: base.bounds.width,
+            height: base.bounds.height
         )
 
         DispatchQueue.sb.delay_main_task(0.3) {
-            self.drawHierarchy(in: splitFrame, afterScreenUpdates: true)
+            self.base.drawHierarchy(in: splitFrame, afterScreenUpdates: true)
             if index < maxIndex {
-                self.makeScreenshot(index: index + 1, maxIndex: maxIndex, callback: callback)
+                self.screenshot(index: index + 1, maxIndex: maxIndex, callback: callback)
             } else {
                 callback()
             }

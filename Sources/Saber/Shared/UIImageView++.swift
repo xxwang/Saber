@@ -1,7 +1,7 @@
 import UIKit
 
 // MARK: - 方法
-public extension UIImageView {
+public extension SaberEx where Base: UIImageView {
     /// 添加模糊效果
     /// - Parameter style:模糊效果的样式
     func blur(with style: UIBlurEffect.Style = .light) {
@@ -10,20 +10,11 @@ public extension UIImageView {
         // 效果View
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         // 设置效果view的尺寸
-        blurEffectView.frame = bounds
+        blurEffectView.frame = base.bounds
         // 支持设备旋转
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         // 添加效果到图片
-        addSubview(blurEffectView)
-    }
-
-    /// 添加模糊效果并返回`UIImageView`
-    /// - Parameter style:模糊效果的样式 (默认 .light)
-    /// - Returns:添加了模糊效果的UIImageView
-    func blurred(with style: UIBlurEffect.Style = .light) -> UIImageView {
-        let imgView = self
-        imgView.blur(with: style)
-        return imgView
+        base.addSubview(blurEffectView)
     }
 
     /// 修改图像的颜色
@@ -34,13 +25,13 @@ public extension UIImageView {
          .alwaysOriginal = 1 // 始终绘制图片原始状态,不使用Tint Color.
          .alwaysTemplate = 2 // 始终根据Tint Color绘制图片,忽略图片的颜色信息.
          */
-        image = image?.withRenderingMode(.alwaysTemplate)
-        tintColor = color
+        base.image = base.image?.withRenderingMode(.alwaysTemplate)
+        base.tintColor = color
     }
 }
 
 // MARK: - 加载图片
-public extension UIImageView {
+public extension SaberEx where Base: UIImageView {
     /// 从`URL`下载网络图片并设置到`UIImageView`
     /// - Parameters:
     ///   - url:图片URL地址
@@ -53,8 +44,8 @@ public extension UIImageView {
         placeholder: UIImage? = nil,
         completionHandler: ((UIImage?) -> Void)? = nil
     ) {
-        image = placeholder
-        self.contentMode = contentMode
+        base.image = placeholder
+        base.contentMode = contentMode
 
         URLSession.shared.dataTask(with: url) { data, response, _ in
             guard
@@ -68,92 +59,19 @@ public extension UIImageView {
             }
 
             DispatchQueue.sb.mainAsync {
-                self.image = image
+                self.base.image = image
                 completionHandler?(image)
             }
         }.resume()
     }
 
-    /// 加载网络图片(`Kingfisher`框架)
-    /// - Parameters:
-    ///   - url:图片`URL`地址(URL/字符串都可以)
-    ///   - placeholder:占位图片
-    ///   - fail:失败图片
-//    func loadImage(
-//        _ source:Any?,
-//        placeholder:UIImage? = nil,
-//        fail:UIImage? = nil
-//    ) {
-//        // 设置占位图片
-//        if let placeholder = placeholder {
-//            image = placeholder
-//        }
-//
-//        // 检查资源是否为空
-//        guard let source = source else {
-//            image = fail ?? placeholder
-//            return
-//        }
-//
-//        // 图片
-//        if let image = source as? UIImage {
-//            self.image = image
-//            return
-//        }
-//
-//        var imageURL:URL?
-//        if let string = source as? String { // 字符串
-//            if !string.hasPrefix("http://"), !string.hasPrefix("https://") {
-//                image = string.image ?? (fail ?? placeholder)
-//                return
-//            } else {
-//                imageURL = URL(string:string)
-//            }
-//        } else if let sourceURL = source as? URL { // URL
-//            imageURL = sourceURL
-//        } else { // 非法资源
-//            image = fail ?? placeholder
-//            return
-//        }
-//
-//        guard let imageURL = imageURL, imageURL.isValid else {
-//            image = fail ?? placeholder
-//            return
-//        }
-//
-//        // 加载指示器
-//        kf.indicatorType = .activity
-//        let options:KingfisherOptionsInfo = [
-//            .scaleFactor(UIScreen.screenScale),
-//            .transition(.fade(1)),
-//            .cacheOriginalImage,
-//        ]
-//        kf.setImage(
-//            with:imageURL,
-//            placeholder:placeholder,
-//            options:options
-//        ) { result in
-//            switch result {
-//            //                  case let .success:(value):
-//            case .success:
-//                //                  Saber.info("图片加载成功!\(value)")
-//                break
-//            case let .failure(error):
-//                Saber.error("图片加载失败!\n地址:\(imageURL.absoluteString)\n错误:\(error.localizedDescription)")
-//            }
-//        }
-//    }
-}
-
-// MARK: - Gif
-public extension UIImageView {
     /// 加载本地`Gif`图片的名称
     /// - Parameter name:图片名称
     func loadGif(imageNamed: String) {
         DispatchQueue.sb.globalAsync {
             let image = UIImage.gif(name: imageNamed)
             DispatchQueue.sb.mainAsync {
-                self.image = image
+                self.base.image = image
             }
         }
     }
@@ -164,7 +82,7 @@ public extension UIImageView {
         DispatchQueue.sb.globalAsync {
             let image = UIImage.gif(asset: asset)
             DispatchQueue.sb.mainAsync {
-                self.image = image
+                self.base.image = image
             }
         }
     }
@@ -176,16 +94,20 @@ public extension UIImageView {
         DispatchQueue.sb.globalAsync {
             let image = UIImage.gif(url: url)
             DispatchQueue.sb.mainAsync {
-                self.image = image
+                self.base.image = image
             }
         }
     }
 }
 
+extension UIImageView: Defaultable {}
+
 // MARK: - 链式语法
 public extension UIImageView {
+    typealias Associatedtype = UIImageView
+
     /// 创建默认`UIImageView`
-    static var defaultImageView: UIImageView {
+    class func `default`() -> Associatedtype {
         let imageView = UIImageView()
         return imageView
     }
@@ -213,7 +135,7 @@ public extension UIImageView {
     /// - Returns:`Self`
     @discardableResult
     func blur(_ style: UIBlurEffect.Style = .light) -> Self {
-        blur(with: style)
+        sb.blur(with: style)
         return self
     }
 }

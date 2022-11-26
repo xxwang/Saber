@@ -26,7 +26,7 @@ public extension SaberEx where Base: UISlider {
                 completion?()
             })
         } else {
-            self.base.setValue(value, animated: false)
+            base.setValue(value, animated: false)
             completion?()
         }
     }
@@ -39,7 +39,6 @@ public extension SaberEx where Base: UISlider {
         base.swiftCallback = callback
         base.addTarget(base, action: #selector(base.addCallback(_:)), for: controlEvent)
     }
-    
 }
 
 // MARK: - AssociatedAttributes
@@ -63,10 +62,9 @@ extension UISlider: AssociatedAttributes {
 
 // MARK: - 链式语法
 public extension UISlider {
-    
     typealias Associatedtype = UISlider
-    
-        /// 创建默认`UISlider`
+
+    /// 创建默认`UISlider`
     override class func `default`() -> Associatedtype {
         let slider = UISlider()
         return slider
