@@ -150,3 +150,31 @@ public extension SaberEx where Base: WKWebView {
         }
     }
 }
+
+extension WKWebView: Defaultable {}
+// MARK: - 链式语法
+public extension WKWebView {
+    typealias Associatedtype = WKWebView
+
+    /// 创建默认`WKWebView`
+    static func `default`() -> Associatedtype {
+        let webView = WKWebView(frame: .zero, configuration: WKWebView.sb.defaultConfig)
+        return webView
+    }
+
+    /// 设置导航代理
+    /// - Parameter delegate: 代理
+    /// - Returns: `Self`
+    func navigationDelegate(_ delegate: WKNavigationDelegate?) -> Self {
+        navigationDelegate = delegate
+        return self
+    }
+
+    /// 设置UI代理
+    /// - Parameter delegate: 代理
+    /// - Returns: `Self`
+    func uiDelegate(_ delegate: WKUIDelegate?) -> Self {
+        uiDelegate = delegate
+        return self
+    }
+}
