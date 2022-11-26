@@ -200,10 +200,14 @@ private extension SaberEx where Base: UIScrollView {
     }
 }
 
+extension UIScrollView: Defaultable {}
+
 // MARK: - 链式语法
 public extension UIScrollView {
+    typealias Associatedtype = UIScrollView
+
     /// 创建默认`UIScrollView`
-    static var defaultScrollView: UIScrollView {
+    static func `default`() -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
