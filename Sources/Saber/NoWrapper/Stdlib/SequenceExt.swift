@@ -212,43 +212,6 @@ public extension Sequence {
     func first<T: Equatable>(where keyPath: KeyPath<Element, T>, equals value: T) -> Element? {
         return first { $0[keyPath: keyPath] == value }
     }
-
-    /// 返回一个数组,其中包含将给定KeyPath映射到序列元素的结果
-    /// - Parameters keyPath:要映射的KeyPath
-    /// - Returns:包含映射结果的数组
-    @available(*, deprecated, message: "Please use map() with a key path instead.")
-    func map<T>(by keyPath: KeyPath<Element, T>) -> [T] {
-        return map { $0[keyPath: keyPath] }
-    }
-
-    /// 返回一个数组,其中包含将给定keyPath映射到序列元素上的非nil结果
-    /// - Parameters keyPath:要映射的KeyPath
-    /// - Returns:包含映射的非nil结果的数组
-    @available(*, deprecated, message: "Please use compactMap() with a key path instead.")
-    func compactMap<T>(by keyPath: KeyPath<Element, T?>) -> [T] {
-        return compactMap { $0[keyPath: keyPath] }
-    }
-
-    /// 返回一个数组,其中包含按布尔keyPath筛选序列元素的结果
-    /// - Parameters keyPath:布尔KeyPath.如果它的值为`true`,则元素将被添加到结果中
-    /// - Returns:包含筛选元素的数组
-    @available(*, deprecated, message: "Please use filter() with a key path instead.")
-    func filter(by keyPath: KeyPath<Element, Bool>) -> [Element] {
-        return filter { $0[keyPath: keyPath] }
-    }
-
-    /// 获取满足条件的最后一个元素
-    ///
-    ///     [2, 2, 4, 7].last(where:{$0 % 2 == 0}) -> 4
-    /// - Parameters condition:评估每个元素的条件
-    /// - Returns:数组中与指定条件匹配的最后一个元素(没有返回nil)
-    @available(*, deprecated, message: "For an unordered sequence using `last` instead of `first` is equal.")
-    func last(where condition: (Element) throws -> Bool) rethrows -> Element? {
-        for element in reversed() {
-            if try condition(element) { return element }
-        }
-        return nil
-    }
 }
 
 // MARK: - Element:Equatable
