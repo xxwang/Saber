@@ -290,7 +290,7 @@ public extension UIApplication {
     /// - Parameters:
     ///   - app:系统App枚举
     ///   - completion:完成回调
-    static func openSystemApp(_ app: CMSystemApp, completion: @escaping Callbacks.BoolResult) {
+    static func openSystemApp(_ app: CMSystemApp, completion: @escaping sb1.Callbacks.BoolResult) {
         openURL(app.url, completion: completion)
     }
 
@@ -298,7 +298,7 @@ public extension UIApplication {
     /// - Parameters:
     ///   - app:第三方app枚举
     ///   - completion:完成回调
-    static func openOtherApp(_ app: CMOtherApp, completion: @escaping Callbacks.BoolResult) {
+    static func openOtherApp(_ app: CMOtherApp, completion: @escaping sb1.Callbacks.BoolResult) {
         openURL(app.url, completion: completion)
     }
 
@@ -306,7 +306,7 @@ public extension UIApplication {
     /// - Parameters:
     ///   - phoneNumber:要拨打的电话号码
     ///   - completion:完成回调
-    static func call(with phoneNumber: String, completion: @escaping Callbacks.BoolResult) {
+    static func call(with phoneNumber: String, completion: @escaping sb1.Callbacks.BoolResult) {
         // 判断是否有效
         guard let phoneNumberEncoding = ("tel://" + phoneNumber)
             .addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed),
@@ -323,7 +323,7 @@ public extension UIApplication {
     /// - Parameters:
     ///   - url:要打开的URL地址
     ///   - complete:完成回调
-    static func openURL(_ url: URL, completion: @escaping Callbacks.BoolResult) {
+    static func openURL(_ url: URL, completion: @escaping sb1.Callbacks.BoolResult) {
         // iOS 10.0 以前
         guard #available(iOS 10.0, *) else {
             let success = UIApplication.shared.openURL(url)

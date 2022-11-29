@@ -341,3 +341,17 @@ public extension sb1 {
         return sceneDelegate
     }
 }
+
+// MARK: - 回调别名
+public extension sb1 {
+    // MARK: - Callbacks(回调闭包别名)
+    enum Callbacks {
+        public typealias Task = () -> Void
+        public typealias Completion = () -> Void
+        public typealias BoolResult = (_ isOk: Bool) -> Void
+        public typealias GestureResult = (_ gesture: UIGestureRecognizer) -> Void
+        public typealias ControlResult = (_ control: UIControl) -> Void
+        public typealias ButtonResult = (_ button: UIButton) -> Void
+        public typealias Result = (_ isOK: Bool, _ message: String?) -> Void
+    }
+}

@@ -33,7 +33,7 @@ public extension SaberEx where Base: UIGestureRecognizer {
 
     /// 添加手势响应回调
     /// - Parameter callback:响应回调
-    func addCallback(_ callback: @escaping Callbacks.GestureResult) {
+    func addCallback(_ callback: @escaping sb1.Callbacks.GestureResult) {
         base.addTarget(base, action: #selector(base.p_invoke))
         objc_setAssociatedObject(base, &AssociateKeys.CallbackKey, callback, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
@@ -43,7 +43,7 @@ public extension SaberEx where Base: UIGestureRecognizer {
 private extension UIGestureRecognizer {
     /// 手势响应方法
     @objc func p_invoke() {
-        if let callback = objc_getAssociatedObject(self, &AssociateKeys.CallbackKey) as? Callbacks.GestureResult {
+        if let callback = objc_getAssociatedObject(self, &AssociateKeys.CallbackKey) as? sb1.Callbacks.GestureResult {
             callback(self)
         }
     }

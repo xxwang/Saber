@@ -127,7 +127,7 @@ public extension SaberEx where Base: UIWindow {
         animated: Bool = true,
         duration: TimeInterval = 0.25,
         options: UIView.AnimationOptions = .transitionFlipFromRight,
-        competion: Callbacks.Task?
+        competion: sb1.Callbacks.Task?
     ) {
         guard animated else {
             base.rootViewController = viewController

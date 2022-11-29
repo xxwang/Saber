@@ -48,7 +48,7 @@ public extension AudioSoundManager {
     ///   - soundName: 音效文件名称
     ///   - isShake: 是否震动
     ///   - completion: 完成回调
-    static func playSound(with soundName: String?, isShake: Bool = false, completion: Callbacks.Completion? = nil) {
+    static func playSound(with soundName: String?, isShake: Bool = false, completion: sb1.Callbacks.Completion? = nil) {
         guard let soundName,
               let soundURL = Bundle.main.url(forResource: soundName, withExtension: nil)
         else {
@@ -62,7 +62,7 @@ public extension AudioSoundManager {
     ///   - soundPath: 音效文件路径
     ///   - isShake: 是否震动
     ///   - completion: 完成回调
-    static func playSound(from soundURL: URL?, isShake: Bool = false, completion: Callbacks.Completion? = nil) {
+    static func playSound(from soundURL: URL?, isShake: Bool = false, completion: sb1.Callbacks.Completion? = nil) {
         guard let soundURL else {
             return
         }
@@ -77,7 +77,7 @@ public extension AudioSoundManager {
     ///   - soundID: 音效ID
     ///   - isShake: 是否震动
     ///   - completion: 完成回调
-    static func playSound(with soundID: SystemSoundID, isShake: Bool = false, completion: Callbacks.Completion? = nil) {
+    static func playSound(with soundID: SystemSoundID, isShake: Bool = false, completion: sb1.Callbacks.Completion? = nil) {
         if isShake {
             AudioServicesPlayAlertSoundWithCompletion(soundID) {
                 AudioServicesDisposeSystemSoundID(soundID)
@@ -126,7 +126,7 @@ public extension AudioSoundManager {
     /// - Parameters:
     ///   - level: 震动级别`类型`
     ///   - completion: 完成回调, 如果`level == .always`回调不执行
-    static func shake(_ level: ShakeLevel, completion: Callbacks.Completion? = nil) {
+    static func shake(_ level: ShakeLevel, completion: sb1.Callbacks.Completion? = nil) {
         if level == .always { // 持续震动
             AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, nil, nil, { _, _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

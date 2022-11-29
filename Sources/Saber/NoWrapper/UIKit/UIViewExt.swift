@@ -1259,7 +1259,7 @@ public extension UIView {
     /// - Parameter action:事件处理
     /// - Returns:`UITapGestureRecognizer`
     @discardableResult
-    func addTapGestureRecognizer(_ action: @escaping Callbacks.GestureResult) -> UITapGestureRecognizer {
+    func addTapGestureRecognizer(_ action: @escaping sb1.Callbacks.GestureResult) -> UITapGestureRecognizer {
         let obj = UITapGestureRecognizer(target: nil, action: nil)
         // 轻点次数
         obj.numberOfTapsRequired = 1
@@ -1281,7 +1281,7 @@ public extension UIView {
     /// - Returns:`UILongPressGestureRecognizer`
     @discardableResult
     func addLongPressGestureRecognizer(
-        _ action: @escaping Callbacks.GestureResult,
+        _ action: @escaping sb1.Callbacks.GestureResult,
         for minimumPressDuration: TimeInterval
     ) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: nil, action: nil)
@@ -1298,7 +1298,7 @@ public extension UIView {
     /// - Parameter action:事件处理
     /// - Returns:`UIPanGestureRecognizer`
     @discardableResult
-    func addPanGestureRecognizer(_ action: @escaping Callbacks.GestureResult) -> UIPanGestureRecognizer {
+    func addPanGestureRecognizer(_ action: @escaping sb1.Callbacks.GestureResult) -> UIPanGestureRecognizer {
         let obj = UIPanGestureRecognizer(target: nil, action: nil)
         obj.minimumNumberOfTouches = 1
         obj.maximumNumberOfTouches = 3
@@ -1340,7 +1340,7 @@ public extension UIView {
     /// - Returns:`UIScreenEdgePanGestureRecognizer`
     @discardableResult
     func addScreenEdgePanGestureRecognizer(
-        action: @escaping Callbacks.GestureResult,
+        action: @escaping sb1.Callbacks.GestureResult,
         for edgs: UIRectEdge
     ) -> UIScreenEdgePanGestureRecognizer {
         let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
@@ -1376,7 +1376,7 @@ public extension UIView {
     ///   - direction:轻扫方向
     /// - Returns:`UISwipeGestureRecognizer`
     func addSwipeGestureRecognizer(
-        _ action: @escaping Callbacks.GestureResult,
+        _ action: @escaping sb1.Callbacks.GestureResult,
         for direction: UISwipeGestureRecognizer.Direction
     ) -> UISwipeGestureRecognizer {
         let obj = UISwipeGestureRecognizer(target: nil, action: nil)
@@ -1391,7 +1391,7 @@ public extension UIView {
     /// 添加`UIPinchGestureRecognizer`(捏合)
     /// - Parameter action:事件处理
     /// - Returns:`UIPinchGestureRecognizer`
-    func addPinchGestureRecognizer(_ action: @escaping Callbacks.GestureResult) -> UIPinchGestureRecognizer {
+    func addPinchGestureRecognizer(_ action: @escaping sb1.Callbacks.GestureResult) -> UIPinchGestureRecognizer {
         let obj = UIPinchGestureRecognizer(target: nil, action: nil)
         addCommonGestureRecognizer(obj)
         obj.sb.addCallback { recognizer in
@@ -1410,7 +1410,7 @@ public extension UIView {
     /// - Parameter action:事件处理
     /// - Returns:`UIRotationGestureRecognizer`
     @discardableResult
-    func addRotationGestureRecognizer(action: @escaping Callbacks.GestureResult) -> UIRotationGestureRecognizer {
+    func addRotationGestureRecognizer(action: @escaping sb1.Callbacks.GestureResult) -> UIRotationGestureRecognizer {
         let obj = UIRotationGestureRecognizer(target: nil, action: nil)
         addCommonGestureRecognizer(obj)
         obj.sb.addCallback { recognizer in
