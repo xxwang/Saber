@@ -26,7 +26,7 @@ public extension sb1 {
         }
 
         public static var title: CGFloat { return 44 }
-        public static var all: CGFloat { return status + status }
+        public static var all: CGFloat { return status + title }
     }
 
     /// 标签栏
