@@ -154,7 +154,7 @@ public extension SaberEx where Base: BinaryInteger {
 
     /// 生成`(width, height)`相同的`CGSize`
     /// - Returns: `CGSize`
-    func toSize() -> CGSize {
+    func toCGSize() -> CGSize {
         guard let n = base as? Int else {
             return .zero
         }
@@ -163,7 +163,7 @@ public extension SaberEx where Base: BinaryInteger {
 
     /// 生成`(x,y)`相同的`CGPoint`
     /// - Returns: `CGPoint`
-    func toPoint() -> CGPoint {
+    func toCGPoint() -> CGPoint {
         guard let n = base as? Int else {
             return .zero
         }

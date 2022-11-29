@@ -77,13 +77,13 @@ public extension SaberEx where Base: BinaryFloatingPoint {
 
     /// 生成宽高相同的`CGSize`
     /// - Returns: `CGSize`
-    func toSize() -> CGSize {
+    func toCGSize() -> CGSize {
         return CGSize(width: toCGFloat(), height: toCGFloat())
     }
 
     /// 生成`(x,y)`相同的`CGPoint`
     /// - Returns: `CGPoint`
-    func toPoint() -> CGPoint {
+    func toCGPoint() -> CGPoint {
         return CGPoint(x: toCGFloat(), y: toCGFloat())
     }
 }
