@@ -12,7 +12,7 @@ Swift(日常开发工具包)
 #### SPM方式安装
 ```
 dependencies: [
-    .package(url: "github.com/xxwang/Saber.git", branch: "master")
+    .package(url: "github.com/xxwang/sb1.git", branch: "master")
 ]
 ```
 

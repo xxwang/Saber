@@ -96,14 +96,14 @@ public extension UILabel {
     /// 获取`UILabel`中`字符串`的大小
     /// - Parameter maxWidth:最大宽度
     /// - Returns:`CGSize`
-    func textSize(_ maxWidth: CGFloat = kScreenWidth) -> CGSize {
+    func textSize(_ maxWidth: CGFloat = sb1.sc.width) -> CGSize {
         return text?.sb.strSize(maxWidth, font: font) ?? .zero
     }
 
     /// 获取`UILabel`中`属性字符串`的大小
     /// - Parameter maxWidth:最大宽度
     /// - Returns:`CGSize`
-    func attributedSize(_ maxWidth: CGFloat = kScreenWidth) -> CGSize {
+    func attributedSize(_ maxWidth: CGFloat = sb1.sc.width) -> CGSize {
         return attributedText?.sb.strSize(maxWidth) ?? .zero
     }
 }

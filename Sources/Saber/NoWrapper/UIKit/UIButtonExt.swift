@@ -144,7 +144,7 @@ public extension UIButton {
 // MARK: - 纯文字按钮尺寸
 public extension UIButton {
     /// 获取指定宽度下字符串的Size
-    func textSize(_ maxWidth: CGFloat = kScreenWidth) -> CGSize {
+    func textSize(_ maxWidth: CGFloat = sb1.sc.width) -> CGSize {
         if let label = titleLabel {
             return label.textSize(maxWidth)
         }
@@ -152,7 +152,7 @@ public extension UIButton {
     }
 
     /// 获取指定宽度下属性字符串的Size
-    func attributedSize(_ maxWidth: CGFloat = kScreenWidth) -> CGSize {
+    func attributedSize(_ maxWidth: CGFloat = sb1.sc.width) -> CGSize {
         if let attText = currentAttributedTitle {
             return attText.sb.strSize(maxWidth)
         }

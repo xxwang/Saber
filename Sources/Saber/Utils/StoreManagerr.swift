@@ -59,11 +59,11 @@ extension StoreManager: SKProductsRequestDelegate {
     }
 
     func requestDidFinish(_ request: SKRequest) {
-        Saber.info("商品请求成功!")
+        sb1.info("商品请求成功!")
     }
 
     func request(_ request: SKRequest, didFailWithError error: Error) {
-        Saber.error("商品请求失败:\(error.localizedDescription)")
+        sb1.error("商品请求失败:\(error.localizedDescription)")
         goodsListResult?(nil)
     }
 }

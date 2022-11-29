@@ -7,6 +7,6 @@ public struct Saber {
 public extension Saber {
     /// `Hello, Saber!`
     static func sayHello() {
-        info(Saber().text)
+        sb1.info(Saber().text)
     }
 }

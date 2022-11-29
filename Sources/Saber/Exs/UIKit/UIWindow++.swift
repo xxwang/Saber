@@ -7,7 +7,7 @@ public extension UIWindow {
 
     /// 创建默认`UIWindow`
     @objc class func `default`() -> Associatedtype {
-        let window = UIWindow(frame: kScreenBounds)
+        let window = UIWindow(frame: sb1.sc.bounds)
         return window
     }
 }
@@ -163,7 +163,7 @@ public extension SaberEx where Base: UIWindow {
     /// - Parameter isLandscape:是否是横屏
     static func changeOrientation(isLandscape: Bool) {
         if isLandscape { // 横屏
-            if Saber.isLandscape {
+            if sb1.isLandscape {
                 return
             }
             let resetOrientationTargert = NSNumber(integerLiteral: UIInterfaceOrientation.unknown.rawValue)
@@ -173,7 +173,7 @@ public extension SaberEx where Base: UIWindow {
             UIDevice.current.setValue(orientationTarget, forKey: "orientation")
 
         } else { // 竖屏
-            if !Saber.isLandscape {
+            if !sb1.isLandscape {
                 return
             }
             let resetOrientationTargert = NSNumber(integerLiteral: UIInterfaceOrientation.unknown.rawValue)

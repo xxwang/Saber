@@ -71,7 +71,7 @@ public enum AuthorizedManager {
     /// 定位
     static func authorizeLocationWith(completion: @escaping (Bool) -> Void) {
         if CLLocationManager.locationServicesEnabled() == false {
-            Saber.info("请打开定位功能!")
+            sb1.info("请打开定位功能!")
             completion(false)
             return
         }

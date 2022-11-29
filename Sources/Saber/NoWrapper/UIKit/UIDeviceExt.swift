@@ -46,7 +46,7 @@ public extension UIDevice {
 public extension UIDevice {
     /// 当前设备是否越狱
     static var isBreak: Bool {
-        if Saber.isSimulator {
+        if sb1.isSimulator {
             return false
         }
         let paths = ["/Applications/Cydia.app", "/private/var/lib/apt/",
@@ -87,7 +87,7 @@ public extension UIDevice {
     /// 闪光灯是否打开
     static var flashIsOn: Bool {
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
-            Saber.info("camera invalid, please check")
+            sb1.info("camera invalid, please check")
             return false
         }
         return device.torchMode == .on ? true : false
@@ -98,7 +98,7 @@ public extension UIDevice {
     static func flash(on: Bool) {
         // 获取摄像设备
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
-            Saber.info("camera invalid, please check")
+            sb1.info("camera invalid, please check")
             return
         }
 
@@ -113,7 +113,7 @@ public extension UIDevice {
                 }
                 device.unlockForConfiguration()
             } catch {
-                Saber.info(error.localizedDescription)
+                sb1.info(error.localizedDescription)
             }
         }
     }
@@ -129,7 +129,7 @@ public extension UIDevice {
     /// 数据业务对应的通信技术
     /// - Returns:通信技术
     static func currentRadioAccessTechnologys() -> [String]? {
-        guard !Saber.isSimulator else {
+        guard !sb1.isSimulator else {
             return nil
         }
         // 获取并输出运营商信息
@@ -210,7 +210,7 @@ public extension UIDevice {
     /// 获取并输出运营商信息
     /// - Returns:运营商信息
     private static func getCarriers() -> [CTCarrier]? {
-        guard !Saber.isSimulator else {
+        guard !sb1.isSimulator else {
             return nil
         }
         // 获取并输出运营商信息

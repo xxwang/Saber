@@ -55,7 +55,7 @@ public extension SaberEx where Base: NSAttributedString {
     /// 计算`NSAttributedString`的`CGSize`
     /// - Parameter maxWidth:最大宽度
     /// - Returns:`CGSize`
-    func strSize(_ maxWidth: CGFloat = kScreenWidth) -> CGSize {
+    func strSize(_ maxWidth: CGFloat = sb1.sc.width) -> CGSize {
         let result = base.boundingRect(
             with: CGSize(
                 width: maxWidth,

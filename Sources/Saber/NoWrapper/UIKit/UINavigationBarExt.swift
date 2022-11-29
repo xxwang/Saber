@@ -38,9 +38,9 @@ public extension UINavigationBar {
         if self.statusBar == nil {
             let statusBar = UIView(frame: CGRect(
                 x: 0,
-                y: -kStatusBarHeight,
-                width: kScreenWidth,
-                height: kScreenHeight
+                y: -sb1.nav.status,
+                width: sb1.sc.width,
+                height: sb1.sc.height
             ))
             statusBar.backgroundColor = .clear
             addSubview(statusBar)

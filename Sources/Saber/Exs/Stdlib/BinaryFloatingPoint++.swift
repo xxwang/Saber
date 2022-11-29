@@ -177,17 +177,17 @@ public extension SaberEx where Base: BinaryFloatingPoint {
 // MARK: - 屏幕适配
 public extension SaberEx where Base: BinaryFloatingPoint {
     /// 适配宽度
-    var w: CGFloat { return SizeAdapter.shared.adaptingWidth(value: self) }
+    var w: CGFloat { return sb1.adaptingWidth(value: self) }
 
     /// 适配高度
-    var h: CGFloat { return SizeAdapter.shared.adaptingHeight(value: self) }
+    var h: CGFloat { return sb1.adaptingHeight(value: self) }
 
     /// 最大适配(特殊情况)
-    var max: CGFloat { return SizeAdapter.shared.adaptingMax(value: self) }
+    var max: CGFloat { return sb1.adaptingMax(value: self) }
 
     /// 最小适配(特殊情况)
-    var min: CGFloat { return SizeAdapter.shared.adaptingMin(value: self) }
+    var min: CGFloat { return sb1.adaptingMin(value: self) }
 
     /// 字体大小配置
-    var font: CGFloat { return SizeAdapter.shared.adaptingFont(value: self) }
+    var font: CGFloat { return sb1.adaptingFont(value: self) }
 }
