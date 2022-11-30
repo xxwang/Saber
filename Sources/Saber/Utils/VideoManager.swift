@@ -5,6 +5,21 @@ import UIKit
 
 public class VideoManager: NSObject {}
 
+public extension VideoManager {
+        /// 获取视频的总时长
+        /// - Parameter path: 路径
+        /// - Returns: 时长长度(秒)
+    func timeLen(path: String?) -> Double {
+        guard let path = path,
+              let url = path.sb.toURL()
+        else {
+            return 0
+        }
+        let asset = AVURLAsset(url: url)
+        let time = asset.duration
+        return Double(time.value / Int64(time.timescale))
+    }
+}
 // MARK: - 播放
 public extension VideoManager {
     /// 播放视频(`AVPlayerViewController`)
