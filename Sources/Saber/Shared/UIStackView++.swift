@@ -1,5 +1,88 @@
 import UIKit
 
+// MARK: - 方法
+public extension SaberEx where Base: UIStackView {
+    /// 添加自定义间距
+    /// - Parameters:
+    ///   - spacing:间距
+    ///   - arrangedSubview:要添加到谁的后面
+    func addSpacing(_ spacing: CGFloat, after arrangedSubview: UIView) {
+        if #available(iOS 11.0, *) {
+            self.base.setCustomSpacing(spacing, after: arrangedSubview)
+        } else {
+            let separatorView = UIView(frame: .zero)
+            separatorView.translatesAutoresizingMaskIntoConstraints = false
+            switch base.axis {
+            case .horizontal:
+                separatorView.widthAnchor.constraint(equalToConstant: spacing).isActive = true
+            case .vertical:
+                separatorView.heightAnchor.constraint(equalToConstant: spacing).isActive = true
+            default:
+                print("为未知")
+            }
+            if let index = base.arrangedSubviews.firstIndex(of: arrangedSubview) {
+                base.insertArrangedSubview(separatorView, at: index + 1)
+            }
+        }
+    }
+
+    /// 将视图数组添加到`arrangedSubviews`数组的末尾
+    /// - Parameter views:`UIView`数组
+    func addArrangedSubviews(_ views: [UIView]) {
+        for view in views {
+            base.addArrangedSubview(view)
+        }
+    }
+
+    /// 删除堆栈排列子视图数组中的所有视图
+    func removeArrangedSubviews() {
+        for view in base.arrangedSubviews {
+            base.removeArrangedSubview(view)
+        }
+    }
+
+    /// 交换排列子视图中的两个视图(无动画)
+    /// - Parameters:
+    ///   - view1: 要交换的第一个视图
+    ///   - view2: 要交换的第二个视图
+    func `switch`(_ view1: UIView, _ view2: UIView) {
+        guard let view1Index = base.arrangedSubviews.firstIndex(of: view1),
+              let view2Index = base.arrangedSubviews.firstIndex(of: view2)
+        else { return }
+        base.removeArrangedSubview(view1)
+        base.insertArrangedSubview(view1, at: view2Index)
+
+        base.removeArrangedSubview(view2)
+        base.insertArrangedSubview(view2, at: view1Index)
+    }
+
+    /// 交换排列子视图中的两个视图(可设置动画)
+    /// - Parameters:
+    ///   - view1:要交换的第一个视图
+    ///   - view2:要交换的第二个视图
+    ///   - animated:设置为`true`以设置交换动画(默认值为`true`)
+    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
+    ///   - delay:以秒为单位的动画延迟(默认值为1秒)
+    ///   - options:动画选项(默认为`AnimationOptions.curveLinear`)
+    ///   - completion:可选的完成回调,用于在动画完成时运行(默认为`nil`)
+    func swap(_ view1: UIView, _ view2: UIView,
+              animated: Bool = false,
+              duration: TimeInterval = 0.25,
+              delay: TimeInterval = 0,
+              options: UIView.AnimationOptions = .curveLinear,
+              completion: ((Bool) -> Void)? = nil)
+    {
+        if animated {
+            UIView.animate(withDuration: duration, delay: delay, options: options, animations: {
+                self.switch(view1, view2)
+                self.base.layoutIfNeeded()
+            }, completion: completion)
+        } else {
+            self.switch(view1, view2)
+        }
+    }
+}
+
 // MARK: - 构造方法
 public extension UIStackView {
     /// 使用`UIView`数组和参数初始化`UIStackView`
@@ -27,88 +110,13 @@ public extension UIStackView {
     }
 }
 
-// MARK: - 方法
-public extension UIStackView {
-    /// 添加自定义间距
-    /// - Parameters:
-    ///   - spacing:间距
-    ///   - arrangedSubview:要添加到谁的后面
-    func addCustomSpacing(_ spacing: CGFloat, after arrangedSubview: UIView) {
-        if #available(iOS 11.0, *) {
-            self.setCustomSpacing(spacing, after: arrangedSubview)
-        } else {
-            let separatorView = UIView(frame: .zero)
-            separatorView.translatesAutoresizingMaskIntoConstraints = false
-            switch axis {
-            case .horizontal:
-                separatorView.widthAnchor.constraint(equalToConstant: spacing).isActive = true
-            case .vertical:
-                separatorView.heightAnchor.constraint(equalToConstant: spacing).isActive = true
-            default:
-                print("为未知")
-            }
-            if let index = arrangedSubviews.firstIndex(of: arrangedSubview) {
-                insertArrangedSubview(separatorView, at: index + 1)
-            }
-        }
-    }
-
-    /// 将视图数组添加到`arrangedSubviews`数组的末尾
-    /// - Parameter views:`UIView`数组
-    func addArrangedSubviews(_ views: [UIView]) {
-        for view in views {
-            addArrangedSubview(view)
-        }
-    }
-
-    /// 删除堆栈排列子视图数组中的所有视图
-    func removeArrangedSubviews() {
-        for view in arrangedSubviews {
-            removeArrangedSubview(view)
-        }
-    }
-
-    /// 交换排列子视图中的两个视图
-    /// - Parameters:
-    ///   - view1:要交换的第一个视图
-    ///   - view2:要交换的第二个视图
-    ///   - animated:设置为`true`以设置交换动画(默认值为`true`)
-    ///   - duration:以秒为单位的动画持续时间(默认值为1秒)
-    ///   - delay:以秒为单位的动画延迟(默认值为1秒)
-    ///   - options:动画选项(默认为`AnimationOptions.curveLinear`)
-    ///   - completion:可选的完成回调,用于在动画完成时运行(默认为`nil`)
-    func swap(_ view1: UIView, _ view2: UIView,
-              animated: Bool = false,
-              duration: TimeInterval = 0.25,
-              delay: TimeInterval = 0,
-              options: UIView.AnimationOptions = .curveLinear,
-              completion: ((Bool) -> Void)? = nil)
-    {
-        func swapViews(_ view1: UIView, _ view2: UIView) {
-            guard let view1Index = arrangedSubviews.firstIndex(of: view1),
-                  let view2Index = arrangedSubviews.firstIndex(of: view2)
-            else { return }
-            removeArrangedSubview(view1)
-            insertArrangedSubview(view1, at: view2Index)
-
-            removeArrangedSubview(view2)
-            insertArrangedSubview(view2, at: view1Index)
-        }
-        if animated {
-            UIView.animate(withDuration: duration, delay: delay, options: options, animations: {
-                swapViews(view1, view2)
-                self.layoutIfNeeded()
-            }, completion: completion)
-        } else {
-            swapViews(view1, view2)
-        }
-    }
-}
-
+extension UIStackView: Defaultable {}
 // MARK: - 链式语法
 public extension UIStackView {
+    typealias Associatedtype = UIStackView
+
     /// 创建默认`UIStackView`
-    static var defaultStackView: UIStackView {
+    static func `default`() -> UIStackView {
         let stackView = UIStackView()
         return stackView
     }
@@ -117,7 +125,7 @@ public extension UIStackView {
     /// - Parameter arrangement:是否参照基线
     /// - Returns:`Self`
     @discardableResult
-    func set(baselineRelative arrangement: Bool) -> Self {
+    func isBaselineRelativeArrangement(_ arrangement: Bool) -> Self {
         isBaselineRelativeArrangement = arrangement
         return self
     }
@@ -126,7 +134,7 @@ public extension UIStackView {
     /// - Parameter arrangement:是否以控件的`LayoutMargins`为标准
     /// - Returns:`Self`
     @discardableResult
-    func set(layoutMarginsRelative arrangement: Bool) -> Self {
+    func isLayoutMarginsRelativeArrangement(_ arrangement: Bool) -> Self {
         isLayoutMarginsRelativeArrangement = arrangement
         return self
     }
@@ -135,7 +143,7 @@ public extension UIStackView {
     /// - Parameter axis:轴方向
     /// - Returns:`Self`
     @discardableResult
-    func set(axis: NSLayoutConstraint.Axis) -> Self {
+    func axis(_ axis: NSLayoutConstraint.Axis) -> Self {
         self.axis = axis
         return self
     }
@@ -144,7 +152,7 @@ public extension UIStackView {
     /// - Parameter distribution:分布方式
     /// - Returns:`Self`
     @discardableResult
-    func set(distribution: UIStackView.Distribution) -> Self {
+    func distribution(_ distribution: UIStackView.Distribution) -> Self {
         self.distribution = distribution
         return self
     }
@@ -153,7 +161,7 @@ public extension UIStackView {
     /// - Parameter alignment:对齐模式
     /// - Returns:`Self`
     @discardableResult
-    func set(alignment: UIStackView.Alignment) -> Self {
+    func alignment(_ alignment: UIStackView.Alignment) -> Self {
         self.alignment = alignment
         return self
     }
@@ -162,7 +170,7 @@ public extension UIStackView {
     /// - Parameter spacing:子控件间距
     /// - Returns:`Self`
     @discardableResult
-    func set(spacing: CGFloat) -> Self {
+    func spacing(_ spacing: CGFloat) -> Self {
         self.spacing = spacing
         return self
     }
