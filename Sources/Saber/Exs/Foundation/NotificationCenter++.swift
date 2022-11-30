@@ -41,6 +41,23 @@ public extension SaberEx where Base: NotificationCenter {
         )
     }
 
+    /// 添加通知监听(方法)
+    /// - Parameters:
+    ///   - name: 通知名称
+    ///   - callback: 回调方法
+    static func add(
+        name: Notification.Name,
+        callback: ((Notification) -> Void)?
+    ) {
+        Base.callback = callback
+        NotificationCenter.default.addObserver(
+            Base.self,
+            selector: #selector(Base.addCallback(_:)),
+            name: name,
+            object: nil
+        )
+    }
+
     /// 移除监听者
     /// - Parameters:
     ///   - observer:要移除的监听者
@@ -53,6 +70,7 @@ public extension SaberEx where Base: NotificationCenter {
     ) {
         guard let name = name else { // 移除全部
             NotificationCenter.default.removeObserver(observer)
+            NotificationCenter.default.removeObserver(Base.self)
             return
         }
         // 移除指定通知监听者
@@ -61,5 +79,18 @@ public extension SaberEx where Base: NotificationCenter {
             name: name,
             object: object
         )
+        
+        NotificationCenter.default.removeObserver(
+            Base.self,
+            name: name,
+            object: object
+        )
+    }
+}
+
+extension NotificationCenter {
+    static var callback: ((Notification) -> Void)?
+    @objc static func addCallback(_ n: Notification) {
+        callback?(n)
     }
 }
