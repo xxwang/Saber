@@ -1,7 +1,7 @@
 import UIKit
 
 // MARK: - 静态属性
-public extension SaberEx where Base: UIScene {
+public extension SaberEx where Base: UIScreen {
     /// 获取`bounds`
     static var bounds: CGRect {
         return UIScreen.main.bounds
@@ -26,10 +26,11 @@ public extension SaberEx where Base: UIScene {
     static var scale: CGFloat {
         return UIScreen.main.scale
     }
+    
 }
 
 // MARK: - 静态方法
-public extension SaberEx where Base: UIScene {
+public extension SaberEx where Base: UIScreen {
     /// 检查截屏或者录屏并发送通知
     /// - Parameter action:回调
     static func detectScreenShot(_ action: @escaping (String) -> Void) {
