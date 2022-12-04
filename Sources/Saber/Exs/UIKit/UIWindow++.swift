@@ -70,13 +70,19 @@ public extension SaberEx where Base: UIWindow {
         if #available(iOS 13.0, *) {
             UIApplication.shared.connectedScenes
                 .forEach { connectedScene in
-                    if let windowScene = connectedScene as? UIWindowScene,
-                       let windowSceneDelegate = windowScene.delegate as? UIWindowSceneDelegate,
-                       let sceneWindow = windowSceneDelegate.window,
-                       let uiWindow = sceneWindow
-                    {
-                    windows.append(uiWindow)
-                    }
+//                    if let windowScene = connectedScene as? UIWindowScene,
+//                       let windowSceneDelegate = windowScene.delegate as? UIWindowSceneDelegate,
+//                       let sceneWindow = windowSceneDelegate.window,
+//                       let uiWindow = sceneWindow
+//                    {
+//                    windows.append(uiWindow)
+//                    }
+                    
+                    if let sceneDelegate = connectedScene.delegate as? UIWindowSceneDelegate,
+                        let window = sceneDelegate.window  {
+//                        windows.append(window)
+                        sb1.debug(window)
+                        }
                 }
         } else {
             windows = UIApplication.shared.windows
