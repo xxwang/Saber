@@ -17,15 +17,16 @@ public extension SaberEx where Base: UIWindow {
     /// 获取一个可用的`UIWindow`
     static var window: UIWindow? {
         var usableWindow: UIWindow?
-        if let window = windows.last {
+
+        if let window = delegateWindow {
             usableWindow = window
         }
-
+        
         if let window = keyWindow {
             usableWindow = window
         }
 
-        if let window = delegateWindow {
+        if let window = windows.last {
             usableWindow = window
         }
 
@@ -65,7 +66,7 @@ public extension SaberEx where Base: UIWindow {
 
     /// 所有`connectedScenes`的`UIWindow`
     static var windows: [UIWindow] {
-        var windows = [UIWindow]()
+        var windows: [UIWindow] = []
         if #available(iOS 13.0, *) {
             UIApplication.shared.connectedScenes
                 .forEach { connectedScene in
