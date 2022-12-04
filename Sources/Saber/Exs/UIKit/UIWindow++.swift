@@ -73,9 +73,9 @@ public extension SaberEx where Base: UIWindow {
                     if let windowScene = connectedScene as? UIWindowScene,
                        let windowSceneDelegate = windowScene.delegate as? UIWindowSceneDelegate,
                        let sceneWindow = windowSceneDelegate.window,
-                       let sceneWindow
+                       let uiWindow = sceneWindow
                     {
-                        windows.append(sceneWindow)
+                    windows.append(uiWindow)
                     }
                 }
         } else {
