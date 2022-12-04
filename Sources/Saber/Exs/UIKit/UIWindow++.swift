@@ -21,7 +21,7 @@ public extension SaberEx where Base: UIWindow {
         if let window = delegateWindow {
             usableWindow = window
         }
-        
+
         if let window = keyWindow {
             usableWindow = window
         }
@@ -72,7 +72,8 @@ public extension SaberEx where Base: UIWindow {
                 .forEach { connectedScene in
                     if let windowScene = connectedScene as? UIWindowScene,
                        let windowSceneDelegate = windowScene.delegate as? UIWindowSceneDelegate,
-                       let sceneWindow = windowSceneDelegate.window as? UIWindow
+                       let sceneWindow = windowSceneDelegate.window,
+                       let sceneWindow
                     {
                         windows.append(sceneWindow)
                     }
