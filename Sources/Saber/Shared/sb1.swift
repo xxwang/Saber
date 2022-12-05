@@ -36,6 +36,7 @@ public extension sb1 {
         public static var all: CGFloat { return tabbar + indent }
     }
 
+    /// 安全区
     static var safeArea: UIEdgeInsets {
         if #available(iOS 11.0, *) { return UIWindow.sb.window?.safeAreaInsets ?? .zero }
         return .zero
@@ -99,11 +100,18 @@ public extension sb1 {
 
     /// 是否是横屏
     static var isLandscape: Bool {
+        
+        var isLand = false
         if #available(iOS 13, *) {
-            return [.landscapeLeft, .landscapeRight].contains(UIDevice.current.orientation)
+            isLand = [.landscapeLeft, .landscapeRight].contains(UIDevice.current.orientation)
         } else {
-            return UIApplication.shared.statusBarOrientation.isLandscape
+            isLand = UIApplication.shared.statusBarOrientation.isLandscape
         }
+        
+        if let window = UIWindow.sb.window, isLand == false {
+            isLand = window.width > window.height
+        }
+        return isLand
     }
 }
 
