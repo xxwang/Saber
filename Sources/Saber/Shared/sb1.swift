@@ -270,7 +270,7 @@ public extension sb1 {
 
     /// 计算`最小宽高`
     static func autoMin(from value: Any) -> CGFloat {
-        return Swift.min(autoHeight(from: value), autoHeight(from: value))
+        return Swift.min(autoWidth(from: value), autoHeight(from: value))
     }
 
     /// 适配`字体大小`
@@ -283,12 +283,6 @@ public extension sb1 {
 private extension sb1 {
     /// 宽度比例
     static var ratio_width: CGFloat {
-//        var scale: CGFloat = sb1.sc.width / sketchSize.width
-//        if sb1.isLandscape {
-//            scale = sb1.sc.width / sketchSize.height
-//        }
-//        return scale
-
         var sketchW: CGFloat = min(sketchSize.width, sketchSize.height)
         var screenW: CGFloat = min(sb1.sc.width, sb1.sc.height)
         if sb1.isLandscape {
@@ -300,12 +294,6 @@ private extension sb1 {
 
     /// 高度比例
     static var ratio_height: CGFloat {
-//        var scale: CGFloat = sb1.sc.height / sketchSize.height
-//        if sb1.isLandscape {
-//            scale = sb1.sc.height / sketchSize.width
-//        }
-//        return scale
-
         var sketchH: CGFloat = max(sketchSize.width, sketchSize.height)
         var screenH: CGFloat = max(sb1.sc.width, sb1.sc.height)
         if sb1.isLandscape {
