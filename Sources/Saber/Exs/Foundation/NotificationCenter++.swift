@@ -61,7 +61,6 @@ public extension SaberEx where Base: NotificationCenter {
             name: name,
             object: object
         )
-        
     }
 }
 

@@ -100,14 +100,13 @@ public extension sb1 {
 
     /// 是否是横屏
     static var isLandscape: Bool {
-        
         var isLand = false
         if #available(iOS 13, *) {
             isLand = [.landscapeLeft, .landscapeRight].contains(UIDevice.current.orientation)
         } else {
             isLand = UIApplication.shared.statusBarOrientation.isLandscape
         }
-        
+
         if let window = UIWindow.sb.window, isLand == false {
             isLand = window.width > window.height
         }
@@ -254,60 +253,72 @@ public extension sb1 {
         sketchSize = size
     }
 
-    /// 适配`宽度`
-    static func adaptingWidth(value: Any) -> CGFloat {
-        return ratioToSketchWidth() * sizeValueToCGFloat(value: value)
+    /// 计算`宽度`
+    static func autoWidth(from value: Any) -> CGFloat {
+        return ratio_width * CGFloat(from: value)
     }
 
-    /// 适配`高度`
-    static func adaptingHeight(value: Any) -> CGFloat {
-        return ratioToSketchHeight() * sizeValueToCGFloat(value: value)
+    /// 计算`高度`
+    static func autoHeight(from value: Any) -> CGFloat {
+        return ratio_height * CGFloat(from: value)
     }
 
-    /// 适配(获取`最大宽高`)
-    static func adaptingMax(value: Any) -> CGFloat {
-        return Swift.max(adaptingWidth(value: value), adaptingHeight(value: value))
+    /// 计算`最大宽高`
+    static func autoMax(from value: Any) -> CGFloat {
+        return Swift.max(autoWidth(from: value), autoHeight(from: value))
     }
 
-    /// 适配(获取`最小宽高`)
-    static func adaptingMin(value: Any) -> CGFloat {
-        return Swift.min(adaptingWidth(value: value), adaptingHeight(value: value))
+    /// 计算`最小宽高`
+    static func autoMin(from value: Any) -> CGFloat {
+        return Swift.min(autoHeight(from: value), autoHeight(from: value))
     }
 
     /// 适配`字体大小`
-    static func adaptingFont(value: Any) -> CGFloat {
-        return UIDevice.isPad
-            ? sizeValueToCGFloat(value: value) * 1.5
-            : sizeValueToCGFloat(value: value)
+    static func autoFont(from value: Any) -> CGFloat {
+        return UIDevice.isPad ? CGFloat(from: value) * 1.5 : CGFloat(from: value)
     }
 }
 
 // MARK: - 私有方法
 private extension sb1 {
-    /// 设备屏幕尺寸与设计图屏幕尺寸的`宽度比`
-    /// - Returns: `CGFloat`
-    static func ratioToSketchWidth() -> CGFloat {
-        var scale: CGFloat = sb1.sc.width / sketchSize.width
+    /// 宽度比例
+    static var ratio_width: CGFloat {
+//        var scale: CGFloat = sb1.sc.width / sketchSize.width
+//        if sb1.isLandscape {
+//            scale = sb1.sc.width / sketchSize.height
+//        }
+//        return scale
+
+        var sketchW: CGFloat = min(sketchSize.width, sketchSize.height)
+        var screenW: CGFloat = min(sb1.sc.width, sb1.sc.height)
         if sb1.isLandscape {
-            scale = sb1.sc.width / sketchSize.height
+            sketchW = max(sketchSize.width, sketchSize.height)
+            screenW = max(sb1.sc.width, sb1.sc.height)
         }
-        return scale
+        return screenW / sketchW
     }
 
-    /// 设备屏幕尺寸与设计图屏幕尺寸的`高度比`
-    /// - Returns: `CGFloat`
-    static func ratioToSketchHeight() -> CGFloat {
-        var scale: CGFloat = sb1.sc.height / sketchSize.height
+    /// 高度比例
+    static var ratio_height: CGFloat {
+//        var scale: CGFloat = sb1.sc.height / sketchSize.height
+//        if sb1.isLandscape {
+//            scale = sb1.sc.height / sketchSize.width
+//        }
+//        return scale
+
+        var sketchH: CGFloat = max(sketchSize.width, sketchSize.height)
+        var screenH: CGFloat = max(sb1.sc.width, sb1.sc.height)
         if sb1.isLandscape {
-            scale = sb1.sc.height / sketchSize.width
+            sketchH = min(sketchSize.width, sketchSize.height)
+            screenH = min(sb1.sc.width, sb1.sc.height)
         }
-        return scale
+        return screenH / sketchH
     }
 
     /// 把尺寸数据转换成`CGFloat`格式
     /// - Parameter value: 要转换的数据
     /// - Returns: `CGFloat`格式
-    static func sizeValueToCGFloat(value: Any) -> CGFloat {
+    static func CGFloat(from value: Any) -> CGFloat {
         if let value = value as? CGFloat {
             return value
         }

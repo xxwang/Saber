@@ -26,7 +26,6 @@ public extension SaberEx where Base: UIScreen {
     static var scale: CGFloat {
         return UIScreen.main.scale
     }
-    
 }
 
 // MARK: - 静态方法
