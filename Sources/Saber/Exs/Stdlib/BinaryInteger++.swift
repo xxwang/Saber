@@ -304,17 +304,17 @@ public extension SaberEx where Base: BinaryInteger {
 // MARK: - 屏幕适配
 public extension SaberEx where Base: BinaryInteger {
     /// 适配宽度
-    var w: CGFloat { return sb1.adaptingWidth(value: self) }
+    var w: CGFloat { return sb1.adaptingWidth(value: self.base) }
 
     /// 适配高度
-    var h: CGFloat { return sb1.adaptingHeight(value: self) }
+    var h: CGFloat { return sb1.adaptingHeight(value: self.base) }
 
     /// 最大适配(特殊情况)
-    var max: CGFloat { return sb1.adaptingMax(value: self) }
+    var max: CGFloat { return sb1.adaptingMax(value: self.base) }
 
     /// 最小适配(特殊情况)
-    var min: CGFloat { return sb1.adaptingMin(value: self) }
+    var min: CGFloat { return sb1.adaptingMin(value: self.base) }
 
     /// 字体大小配置
-    var font: CGFloat { return sb1.adaptingFont(value: self) }
+    var font: CGFloat { return sb1.adaptingFont(value: self.base) }
 }
