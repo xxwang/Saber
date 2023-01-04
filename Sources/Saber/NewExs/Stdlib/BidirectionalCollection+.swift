@@ -1,4 +1,3 @@
-import Foundation
 
 // MARK: - 下标
 public extension BidirectionalCollection {
